@@ -1,9 +1,7 @@
-<<<<<<< HEAD
+
 <?php
 include "inc/helpers/helpers.php";
 include "inc/class/checkout.php";
-=======
-<?php 
 
 
 /**
@@ -88,4 +86,3 @@ include "inc/class/checkout.php";
 
 
  ?>
->>>>>>> 7dc1d2bd1b70a5467d9e62aa4aaf5f6a0d69c148
