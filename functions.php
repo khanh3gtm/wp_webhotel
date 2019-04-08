@@ -78,8 +78,77 @@
 	add_action('wp_enqueue_scripts','webhotel_style');
 
 
+	function customsb_post_type()
+	{
+		$labels=array(
+			'name'=>'Hotel',
+			'singular_name'=>'Hotel',
+			'add_new_item'=>'Add Item',
+			'add_new'=>'Add Item',
+			'edit_item'=>'Edit Item',
+			'new_item'=>'New Item',
+			'view_item'=>' View Item',
+			'searchs_item'=> 'Search Item',
+			'not_found'=>'Not found Item',
+			'not_found_in_trash'=>' Not found Item in trash'
+		);
+		$args=array(
+			'labels'=>$labels,
+			'public'=>true,
+			'has_archive'=>true,
+			'publicly_queryable'=>true,
+			'query_var'=>true,
+			'rewrite'=>true,
+			'capability_type'=>'post',
+			'hierarchical'=>false,
+			'supports'=>array(
+				'title',
+				'editor',
+				'excerpt',
+				'thumbnail',
+				'revisions',
+				'page-attributes'
+			),
+			'taxonomies'=>array(
+				'category',
+				'post_tag',
+
+			),
+			'menu_position'=>5,
+			'exclude_from_search'=>false
 
 
 
+
+		);
+		register_post_type('hotel_th',$args);
+	}
+	add_action( 'init', 'customsb_post_type');
+	function custom_taxonomies()
+	{
+		$labels= array(
+			'name'=>'Location',
+			'singular_name'=>'Location',
+			'search_item'=>'Search Location',
+			'all_items'=>'All Locations',
+			'parent_item'=>'Parent Locations',
+			'parent_item_colon'=>'Parent Locations:',
+			'edit_item'=>'Edit Location',
+			'update_item'=>'Update Location',
+			'add_new_item'=>'Add New Location',
+			'new_item_name'=>'New Location Name',
+			'menu_name'=>'Location'
+		);
+		$args=array(
+			'hierarchical'=>true,
+			'labels'=> $labels,
+			'show_ui'=> true,
+			'show_admin_column'=>true,
+			'query_var'=>true,
+			'rewrite'=>array('slug'=>'location')
+		);
+		register_taxonomy('location',array('hotel_th'),$args);
+	}
+	add_action('init','custom_taxonomies');
 
  ?>
