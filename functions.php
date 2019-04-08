@@ -1,7 +1,4 @@
-
-<?php
-include "inc/helpers/helpers.php";
-include "inc/class/checkout.php";
+<?php 
 
 
 /**
@@ -80,22 +77,6 @@ include "inc/class/checkout.php";
 	}
 	add_action('wp_enqueue_scripts','webhotel_style');
 
-	$arr_admin_files = array(
-		'hotel',
-		'room'
-	);
-
-	foreach ($arr_admin_files as $k=> $v) {
-		$file = get_template_directory(). '/inc/controller/admin/' . $v. '.php';
-		if(file_exists($file)){
-			include $file;
-		}
-	}
-
 
 	
-
-
-
-
  ?>
