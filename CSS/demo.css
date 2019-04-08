@@ -1,0 +1,51 @@
+.dropdown-factilities
+{
+	position: relative;
+}
+.dropdown-menu-facilities
+{
+	
+	z-index: 1;
+		/* padding: 20px 20px; */
+		border: none;
+		border-radius: 0px;
+		box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.15);
+		font-size: 1.3em;
+		color: gray;
+		min-width: 195px;
+		min-height: 151px;
+		position: absolute;
+		background: #fff;
+		display: none;
+		width: 600px;
+		float: left;
+		left: -300px;
+}
+.dropdown-factilities:hover .dropdown-menu-facilities
+{
+	display: block;
+}
+.input-advantice
+{
+	float: left;
+	text-align: left;
+}
+.text-advantice
+{
+	text-align: left;
+	padding-left: 5px;
+}
+.advantice
+{
+	width: 30%;
+	float: left;
+}
+.seach-homepage
+{		
+	width: 60%;
+    height: 40px;
+	margin-top: 10px;
+    margin-left: 10%;
+    background: #5191fa;
+    border-radius: 5px;
+}
