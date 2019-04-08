@@ -152,3 +152,4 @@
 	add_action('init','custom_taxonomies');
 
  ?>
+ 
