@@ -1,5 +1,18 @@
 <?php
 class bookcart extends Controller {
+	public function __construct(){
+		parent::__construct();
+
+		add_action('init', array($this, '__stCheckoutHandler'));
+
+	}
+
+	public function __stCheckoutHandler(){
+		if(isset($_POST['add_to_cart'])){
+			
+		}
+	}
+
 	public function view($err=false){
 		if(isset($_POST['room_add_to_cart'])){
 			$post_data = $_POST;
@@ -152,3 +165,5 @@ class bookcart extends Controller {
 		}
 	}
 }
+
+new bookcart();

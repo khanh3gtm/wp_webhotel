@@ -11,3 +11,392 @@ Tags: black, brown, orange, tan, white, yellow, light, one-column, two-columns, 
 Text Domain: shinetheme
 Languages Folder:/languages
 */
+/* Khánh Viết CSS*/
+.st-checkout-page .cart-info .info-section ul li span.label {
+	color: #1A2B48;
+	font-size: 100%;
+	width: 35%;
+	display: inline-block;
+	text-align: left;
+	padding: 0;
+	white-space: normal;
+	line-height: 18px;
+	font-weight: 400;
+}
+.st-checkout-page .cart-info .info-section ul li.ad-info ul li span.label 
+{
+	color: #1A2B48;
+	font-size: 100%;
+	padding: 0;
+	width: 60%;
+	font-weight: 400;
+}
+
+.st-checkout-page .cart-info .info-section ul li.ad-info ul li span.label {
+	color: #1A2B48;
+	font-size: 100%;
+	padding: 0;
+	width: 60%;
+	font-weight: 400;
+}
+span.lable_section
+{
+	color: #1A2B48;
+	display: inline;
+	padding: .2em .6em .3em;
+	font-size: 100%;
+	font-weight: 700;
+	line-height: 1;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: baseline;
+	border-radius: .25em;
+
+}
+.service-section {
+	padding: 30px;
+	border-bottom: 1px solid #EAEEF3;
+	display: flex;
+	-webkit-box-pack: justify;
+	justify-content: space-between;
+}
+div#cart-info {
+	border: 1px solid #D7DCE3;
+	-webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+	border-radius: 3px;
+	margin-top: 20px;
+}
+.info-section {
+	line-height: 20px;
+	padding: 30px;
+	border-bottom: 1px solid #EAEEF3;
+}
+.total-section {
+	line-height: 25px;
+	padding: 30px;
+}
+.label_section {
+	display: inline;
+	padding: .2em .6em .3em;
+	font-size: 100%;
+	font-weight: 700;
+	line-height: 1;
+	color: #1A2B48;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: baseline;
+	border-radius: .25em;
+}
+.btn.btn-primary {
+	background: #FA5636;
+	font-size: 14px;
+	color: #FFF;
+	font-weight: 500;
+}
+.st-checkout-page .btn-checkout {
+	padding-left: 50px;
+	padding-right: 50px;
+	font-size: 14px;
+	color: #FFFFFF;
+	margin-top: 30px;
+}
+/*booking_succes*/
+#st-content-wrapper {
+	padding-bottom: 100px;
+}
+#st-content-wrapper .st-breadcrumb {
+	padding: 20px 0;
+	border-bottom: 1px solid #EAEEF3;
+	border-top:1px solid #EAEEF3;
+}
+#st-content-wrapper .st-breadcrumb ul {
+	list-style: none;
+	display: block;
+	width: 100%;
+	margin-bottom: 0;
+	padding-left: 0;
+	background: #FFF;
+}
+
+#st-content-wrapper .st-breadcrumb ul li:first-child {
+	padding-left: 0;
+}
+#st-content-wrapper .st-breadcrumb ul li {
+	position: relative;
+	display: inline-block;
+	padding-left: 20px;
+	padding-right: 20px;
+	z-index: 0;
+}
+
+#st-content-wrapper .st-breadcrumb ul li a {
+	display: block;
+	font-weight: 500;
+	color: #1A2B48;
+	text-decoration: none;
+	line-height: 21px;}
+
+	.st-checkout-page {
+		margin-top: 60px;
+		margin-bottom: 60px;
+	}
+	.st-checkout-page .booking-success-notice {
+		margin-bottom: 100px;
+	}
+	.st-checkout-page .booking-success-notice .col-left {
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-box-align: center;
+		-ms-flex-align: center;
+		align-items: center;
+	}
+	.col-left {
+		-webkit-transition: ease-in-out 0.2s;
+		transition: ease-in-out 0.2s;
+	}
+	.st-checkout-page .booking-success-notice .col-left .notice-success {
+		margin-left: 20px;
+	}
+	.st-checkout-page .booking-success-notice .col-left .notice-success .line1 {
+		margin-bottom: 0px;
+		font-size: 24px;
+		color: #00001E;
+		line-height: 35px;
+	}
+	.st-checkout-page .booking-success-notice .col-left .notice-success .line1 span {
+		color: #1A2B48;
+		font-weight: 600;
+	}
+	.st-checkout-page .booking-success-notice .col-left .notice-success .line2 {
+		font-size: 16px;
+		color: #5E6D77;
+		margin-bottom: 0px;
+	}
+	.st-checkout-page .booking-success-notice .booking-info-detail {
+		padding: 0;
+		margin: 0;
+		border-left: 3px solid #5191FA;
+		padding-left: 30px;
+	}
+	.st-checkout-page .booking-success-notice .booking-info-detail li {
+		list-style: none;
+		font-size: 16px;
+		color: #818181;
+		padding: 5px 0;
+	}
+	.st-checkout-page .booking-success-notice .booking-info-detail li span {
+		font-weight: 500;
+		color: #000000;
+	}
+	.st-checkout-page h3.title {
+		margin: 0;
+		color: #1A2B48;
+		font-size: 24px;
+		font-weight: 500;
+	}
+	.st-checkout-page .cart-info {
+		border: 1px solid #D7DCE3;
+		-webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+		box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+		border-radius: 3px;
+		margin-top: 20px;
+	}
+	.st-checkout-page .cart-info .service-section {
+		padding: 30px;
+		border-bottom: 1px solid #EAEEF3;
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-box-pack: justify;
+		-ms-flex-pack: justify;
+		justify-content: space-between;
+	}
+	.st-checkout-page .cart-info .service-section .service-left h4.title {
+		font-size: 16px;
+		line-height: 25px;
+		font-weight: 500;
+	}
+	.st-checkout-page .cart-info .service-section .service-left .address {
+		color: #5E6D77;
+		margin-bottom: 0px;
+	}
+	.st-checkout-page .cart-info .info-section {
+		padding: 30px;
+		border-bottom: 1px solid #EAEEF3;
+	}
+	.st-checkout-page .cart-info .info-section ul li {
+		list-style: none;
+		font-size: 14px;
+		margin-bottom: 13px;
+		overflow: hidden;
+	}
+	.st-checkout-page .cart-info .info-section ul li span.label {
+		color: #1A2B48;
+		font-size: 100%;
+		width: 35%;
+		display: inline-block;
+		text-align: left;
+		padding: 0;
+		white-space: normal;
+		line-height: 18px;
+		font-weight: 400;
+	}
+	.st-checkout-page .cart-info .info-section ul li span.value {
+		justify-items: right;
+		font-size: 100%;
+		color: #5E6D77;
+		font-weight: 400;
+		float: right;
+		width: 65%;
+	}
+	.st-checkout-page .cart-info .total-section {
+		padding: 30px;
+	}
+	.st-checkout-page .cart-info .total-section ul li {
+		list-style: none;
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: flex;
+		font-size: 14px;
+		margin-bottom: 13px;
+		-webkit-box-pack: justify;
+		-ms-flex-pack: justify;
+		justify-content: space-between;
+	}
+	.st-checkout-page h3.title {
+		margin: 0;
+		color: #1A2B48;
+		font-size: 24px;
+		font-weight: 500;
+	}
+	.st-checkout-page .info-form {
+		border: 1px solid #D7DCE3;
+		border-radius: 3px;
+		padding: 30px;
+		margin-top: 20px;
+	}
+	.st-checkout-page .info-form ul li {
+		list-style: none;
+		padding-bottom: 20px;
+		margin-bottom: 20px;
+		border-bottom: 1px solid #DAE1E7;
+	}
+	.st-checkout-page .info-form ul li span.label {
+		font-size: 14px;
+		color: #1A2B48;
+		width: 40%;
+		display: inline-block;
+		text-align: left;
+		font-weight: 400;
+	}
+	.st-checkout-page .info-form ul li span.value {
+		font-size: 14px;
+		color: #5E6D77;
+		width: 60%;
+		display: inline-block;
+	}
+	.mt30 {
+		margin-top: 30px;
+	}
+	.total-section ul li span.label
+	{
+		font-size: 14px;
+		color: #1A2B48;
+		width: 40%;
+		display: inline-block;
+		text-align: left;
+		font-weight: 400;
+	}
+	.total-section ul li span.value {
+		font-size: 14px;
+		color: #5E6D77;
+		width: 60%;
+		display: inline-block;
+	}
+	.cond-form .st-icheck-item p{
+		color: red;
+		font-size: 16px;
+		margin-top: 5px;
+	}
+	.header1right .mini-cart .cart-caret
+	{
+		position: absolute;
+		top: -11px;
+		left: 109%;
+		margin-left: -10px;
+		width: 20px;
+		height: 20px;
+		border-radius: 50%;
+		background: #FA5636;
+		color: #FFF;
+		text-align: center;
+		line-height: 21px;
+	}
+	.header1right .dropdown-menu
+	{   
+		margin-left: auto;
+		width: 270px;
+	}
+	.header1right .dropdown-menu li:not(:last-child){
+		border-bottom: 1px solid #EAEEF3;
+
+	}
+	.header1right li.heading {
+		padding: 20px;
+		display: block;
+	}
+
+	.header1right h4.st-heading-section {
+		margin-bottom: 0px;
+		margin-top: 0px;
+	}
+
+	.header1right li.cart-item {
+		padding: 20px;
+	}
+
+	.header1right .media-left {
+		width: 70px;
+		display: inline-block;
+	}
+
+	.header1right .media-body {
+		display: inline-block;
+		width: calc(100% - 75px);
+	}
+
+	.header1right a.cart-delete-item {
+		display: inline-block;
+		padding: 0;
+		position: absolute;
+		right: 20px;
+		bottom: 126px;
+		font-size: 18px;
+		color: #D7D7D7;
+		-webkit-transition: color .2s;
+		transition: color .2s;
+	}
+
+	.header1right li.cart-total {
+		padding: 20px;
+	}
+
+	.header1right span.price {
+		font-size: 16px;
+		color: #1A2B48;
+	}
+
+	.header1right a.btn.btn-green.btn-full.upper {
+		margin-top: 20px;
+		padding-top: 8px;
+		padding-bottom: 8px;
+		font-weight: 500;
+		background-color: #4977FA;
+	}
+	.clearfix .form-group-icon-left .err{
+		color: red;
+		font-weight: 500;
+	}
+/*Hết Phần Khánh*/

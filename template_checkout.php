@@ -2,6 +2,7 @@
 /**
 * Template Name: Checkout
 */
+get_header();
 ?>
 
 <div class="container">
@@ -341,3 +342,5 @@
     </div>
 </div>
 </div>
+<?php
+get_footer();
