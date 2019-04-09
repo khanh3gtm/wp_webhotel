@@ -5,10 +5,24 @@ class ST_Room_Admin{
 	public function __construct(){
 		add_action('init', array($this,'room_custom_post_type'));	
 		add_action('init', array($this, 'room_custom_taxonomy'));
-		add_action('add_meta_boxes', array($this, 'room_meta_box'));
-		add_action( 'save_post', array($this, 'save_your_fields_meta' ));
-	}
+		add_action('add_meta_boxes',array($this, 'room_meta_box'));
 
+		add_action('save_post',array($this, 'save_your_fields_meta'));
+		add_action('amenities_add_form_fields', array ( $this, 'add_category_image' ) );
+
+	}
+	 public function add_category_image () { ?>
+   <div class="form-field term-group">
+     <label for="category-image-id"><?php _e('Image', 'shinetheme'); ?></label>
+     <input type="hidden" id="category-image-id" name="category-image-id" class="custom_media_url" value="">
+     <div id="category-image-wrapper"></div>
+     <p>
+       <input type="button" class="button button-secondary ct_tax_media_button" id="ct_tax_media_button" name="ct_tax_media_button" value="<?php _e( 'Add Image', 'shinetheme' ); ?>" />
+       <input type="button" class="button button-secondary ct_tax_media_remove" id="ct_tax_media_remove" name="ct_tax_media_remove" value="<?php _e( 'Remove Image', 'shinetheme' ); ?>" />
+    </p>
+   </div>
+ <?php
+ }
 	public function room_custom_post_type(){
 		$labels = array(
 			'name' => 'Room',
@@ -68,29 +82,30 @@ class ST_Room_Admin{
 			'hierarchical' => true,
 			'show_admin_column' => true,
 			'query_var' => true,
+
 			'rewrite' => array('slug', 'amenities'),
 
 		);
 		register_taxonomy('amenities', array('room'), $args);
 	}
-	
-	public function room_meta_box(){
-		add_meta_box('room-info', 'Thông tin về phòng', 'show_your_fields_meta_box', 'room');
+	function room_meta_box(){
+		add_meta_box('room-info', 'Thông tin về phòng', [$this,'show_your_fields_meta_box'], 'room');
 	}
-
-	public function show_your_fields_meta_box(){
+	function show_your_fields_meta_box($post){
 		global $post;
 		$meta = get_post_meta($post->ID, 'your_fields', true);?>
 		<input type="hidden" name="your_meta_box_nonce" value="<?php echo wp_create_nonce(basename(__FILE__));?>">
 		<p>
 	    	<label for="superficies">Superficies</label>
 	    	<br>
-	    	<?php echo ('<input type="text" id="your_fields[text_s]" name="your_fields[text_s]" value="'.$meta.'"/>'); ?>
+	    	<?php $current_text = isset($meta['text']) ? $meta[text] : ''; ?>
+	    	<input type="text" name="your_fields[text_s]" id="your_fields[text_s]" class="regular-text" value="<?php echo $current_text; ?>">
+	    	<!-- <?php echo ('<input type="text" id="your_fields[text_s]" name="your_fields[text_s]" value="'.$meta.'"/>'); ?> -->
 	    	</p>
     	<p>
     		<label for="">Prices</label>
     		<br>
-    		<?php echo ('<input type="text" id="your_fields[text_p]" name="your_fields[text_p]" value="'.$meta.'"/>'); ?>
+    		<input type="text" name="your_fields[text_p]" id="your_fields[text_p]" class="regular-text" value="<?php echo $current_text; ?>">
 	    	</p>
     	</p>
     	<!-- <p>
@@ -112,31 +127,53 @@ class ST_Room_Admin{
 		<p>
 	    	<label for="bed">Beds</label>
 	    	<br>
-	    	<select name="your_fields[select]" id="your_fields[select]">
-	    		<option value="option-one" ><?php selected( $current_option, 'option-one' ); ?>Option One</option>
-	    		<option value="option-two" ><?php selected( $current_option, 'option-two' ); ?>Option Two</option>
+	    	<select name="your_fields[bed]" id="your_fields[bed]">
+	    		<option value="option-one" ><?php selected( $current_option, 'option-one' ); ?>1</option>
+	    		<option value="option-two" ><?php selected( $current_option, 'option-two' ); ?>2</option>
+	    		<option value="option-three" ><?php selected( $current_option, 'option-three' ); ?>3</option>
+	    		<option value="option-four" ><?php selected( $current_option, 'option-four' ); ?>4</option>
+	    		<option value="option-five" ><?php selected( $current_option, 'option-five' ); ?>5</option>
+	    		<option value="option-six" ><?php selected( $current_option, 'option-six' ); ?>6</option>
+	    		<option value="option-seven" ><?php selected( $current_option, 'option-seven' ); ?>7</option>
+	    		<option value="option-eight" ><?php selected( $current_option, 'option-eight' ); ?>8</option>
+
 	    	</select>
     	</p>
 
     	<p>
 	    	<label for="children">Children</label>
 	    	<br>
-	    	<select name="your_fields[select]" id="your_fields[select]">
-	    		<option value="option-one" <?php selected( $meta['select'], 'option-one' ); ?>>Option One</option>
-	    		<option value="option-two" <?php selected( $meta['select'], 'option-two' ); ?>>Option Two</option>
+	    	<select name="your_fields[children]" id="your_fields[children]">
+	    		<option value="option-one" ><?php selected( $current_option, 'option-one' ); ?>1</option>
+	    		<option value="option-two" ><?php selected( $current_option, 'option-two' ); ?>2</option>
+	    		<option value="option-three" ><?php selected( $current_option, 'option-three' ); ?>3</option>
+	    		<option value="option-four" ><?php selected( $current_option, 'option-four' ); ?>4</option>
+	    		<option value="option-five" ><?php selected( $current_option, 'option-five' ); ?>5</option>
+	    		<option value="option-six" ><?php selected( $current_option, 'option-six' ); ?>6</option>
+	    		<option value="option-seven" ><?php selected( $current_option, 'option-seven' ); ?>7</option>
+	    		<option value="option-eight" ><?php selected( $current_option, 'option-eight' ); ?>8</option>
+
 	    	</select>
     	</p>
 
     	<p>
 	    	<label for="adult">Adults</label>
 	    	<br>
-	    	<select name="your_fields[select]" id="your_fields[select]">
-	    		<option value="option-one" <?php selected( $meta['select'], 'option-one' ); ?>>Option One</option>
-	    		<option value="option-two" <?php selected( $meta['select'], 'option-two' ); ?>>Option Two</option>
+	    	<select name="your_fields[adult]" id="your_fields[adult]">
+	    		<option value="option-one" ><?php selected( $current_option, 'option-one' ); ?>1</option>
+	    		<option value="option-two" ><?php selected( $current_option, 'option-two' ); ?>2</option>
+	    		<option value="option-three" ><?php selected( $current_option, 'option-three' ); ?>3</option>
+	    		<option value="option-four" ><?php selected( $current_option, 'option-four' ); ?>4</option>
+	    		<option value="option-five" ><?php selected( $current_option, 'option-five' ); ?>5</option>
+	    		<option value="option-six" ><?php selected( $current_option, 'option-six' ); ?>6</option>
+	    		<option value="option-seven" ><?php selected( $current_option, 'option-seven' ); ?>7</option>
+	    		<option value="option-eight" ><?php selected( $current_option, 'option-eight' ); ?>8</option>
+
 	    	</select>
     	</p>
 	<?php }
-	public function save_your_fields_meta( $post_id ) {
+
+	function save_your_fields_meta( $post_id ) {
     	// verify nonce
     	if ( !wp_verify_nonce( $_POST['your_meta_box_nonce'], basename(__FILE__) ) ) {
     		return $post_id;
@@ -163,6 +200,11 @@ class ST_Room_Admin{
     		delete_post_meta( $post_id, 'your_fields', $old );
     	}
     }
+  
+
+
+
+
 	public static function inst(){
 		if(empty(self::$_inst)){
 			self::$_inst = new self();
