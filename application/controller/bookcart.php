@@ -4,12 +4,81 @@ class bookcart extends Controller {
 		parent::__construct();
 
 		add_action('init', array($this, '__stCheckoutHandler'));
+		add_action('init', array($this, '__stBookingSucces'));
 
 	}
-
 	public function __stCheckoutHandler(){
-		dd(123);
+		bookcart_model::inst()->taobang();
 	}
+	public function __stBookingSucces()
+	{
+			if(isset($_POST['checkout_submit'])){
+	 		$data = $_POST;
+	 		$user_login = $data['st_email'];
+	 		$user_email = $data['st_email'];
+			$user_id = register_new_user($user_login, $user_email);
+			if (is_wp_error($errors) ) {
+				echo "Email already exists !!!";
+				exit();
+			}
+			update_user_meta( $user_id,'st_first_name', $data['st_first_name']);
+			update_user_meta( $user_id,'st_last_name', $data['st_last_name']);
+			update_user_meta( $user_id,'st_phone', $data['st_phone']);
+			update_user_meta( $user_id,'st_address', $data['st_address']);
+			update_user_meta( $user_id,'st_address2', $data['st_address2']);
+			update_user_meta( $user_id,'st_province', $data['st_province']);
+			update_user_meta( $user_id,'st_zip_code', $data['st_zip_code']);
+			update_user_meta( $user_id,'st_country', $data['st_country']);
+			update_user_meta( $user_id,'st_note', $data['st_note']);
+			dd(get_user_meta($user_id));
+			global $wpdb;
+			$table = $wpdb->prefix.'wp_bill';
+			$data = array('column1' => '$user_id');
+			$format = array('%s','%d');
+			$wpdb->insert($table,$data,$format);
+			$my_id = $wpdb->insert_id;
+			dd($my_id);
+			dd($user_id);
+	 		dd($data);die;
+	 		}
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	// public function view($err=false){
 	// 	if(isset($_POST['room_add_to_cart'])){

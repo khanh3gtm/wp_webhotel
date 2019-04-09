@@ -2,13 +2,16 @@
   /**
   * 
   */
-  class Model extends mysqli
+  class Model
   {
+    public function __construct() {
+    }
   	
-  	function __construct()
+  	function query($sql)
   	{
-  		parent::__construct('localhost','root','','webtravel',3306,'');
-      dd(111);
+      global $wpdb;
+      //$wpdb->query($sql);
+      //$wpdb->get_results($sql);
     }
   }
  ?>

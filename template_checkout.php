@@ -83,7 +83,7 @@ get_header();
             if(isset($_SESSION['currUser'])) {
                     $info=array_shift($infouser);
                 ?>
-            <form class="" method="post" action="?c=bookcart&a=checkout">
+            <form class="" method="post" action="bookingsucces?bill_id=$user_id">
                 <div class="check-out-form">
 
                     <div class="entry-content"></div>
@@ -209,7 +209,7 @@ get_header();
             </form>
         <?php } 
         else {?>
-            <form class="" method="post" action="?c=bookcart&a=checkout">
+            <form class="" method="post" action="bookingsucces?bill_id=<?php $user_id ?>">
                 <div class="check-out-form">
                     <div class="entry-content"></div>
                     <div class="clearfix">

@@ -24,7 +24,7 @@ get_header();
 						<p class="line1">
 							<span>
 								<?php 
-								echo $list['st_first_name'].' '.$list['st_last_name']; ?>, 
+								echo get_user_meta($user_id,'st_first_name').' '.get_user_meta($user_id,'st_last_name'); ?>, 
 							</span>
 							Your order was submitted successfully
 						</p>
