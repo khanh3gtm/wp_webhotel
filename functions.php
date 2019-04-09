@@ -1,5 +1,5 @@
 <?php
-include "inc/helpers/helpers.php";
+include "application/helpers/helpers.php";
 /**
 @khai bao hang gia tri
 	@THEME_URL = lay duong dan thu muc theme
@@ -82,7 +82,7 @@ include "inc/helpers/helpers.php";
 		'Controller'
 	);
 	foreach ($arr_libfiles as $k=> $v) {
-		$file = get_template_directory(). '/inc/libs/' . $v. '.php';
+		$file = get_template_directory(). '/core/' . $v. '.php';
 		if(file_exists($file)){
 			include $file;
 		}
@@ -92,7 +92,7 @@ include "inc/helpers/helpers.php";
 		'bookcart'
 	);
 	foreach ($arr_model as $k=> $v) {
-		$files = get_template_directory(). '/inc/model/' . $v. '.php';
+		$files = get_template_directory(). '/application/model/' . $v. '.php';
 		if(file_exists($files)){
 			include $files;
 		}
@@ -113,7 +113,7 @@ include "inc/helpers/helpers.php";
 			$file_path = 'admin/';
 		}
 		foreach ($v as $key => $value) {
-			$file = get_template_directory(). '/inc/controller/'. $file_path . $value. '.php';
+			$file = get_template_directory(). '/application/controller/'. $file_path . $value. '.php';
 			if(file_exists($file)){
 				include $file;
 			}

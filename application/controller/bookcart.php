@@ -9,8 +9,6 @@ class bookcart extends Controller {
 
 	public function __stCheckoutHandler(){
 		dd(123);
-		$this->load_model('bookcart');
-		$a = $this->bookcart->taobang();
 	}
 
 	// public function view($err=false){
