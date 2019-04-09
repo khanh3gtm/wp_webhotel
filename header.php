@@ -62,7 +62,7 @@
 					<i class="fa fa-bars menu1" ></i>
 				</div>
 				<div class="header1left">
-					<img src="wp-content/themes/web/Images/logo_homap-4.svg">
+					<img src="<?php echo get_template_directory_uri(); ?>/inc/libs/Images/logo_homap-4.svg">
 					<div class="menu">
 
 						<nav id="st-main-menu" >
@@ -110,7 +110,7 @@
 						<input type="text" class="form-control" name="s" value="">
 						<i class="fa fa-search"></i>
 					</form>
-					<img class="ico_card" src="wp-content/themes/web/Images/ico_card.svg">
+					<img class="ico_card" src="<?php echo get_template_directory_uri(); ?>/inc/libs/Images/ico_card.svg">
 				</div>
 			</div>
 		</div>
