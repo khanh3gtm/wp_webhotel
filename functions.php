@@ -76,21 +76,6 @@ include "inc/helpers/helpers.php";
 	}
 	add_action('wp_enqueue_scripts','webhotel_style');
 
-<<<<<<< HEAD
-	$arr_admin_files = array(
-		'hotel',
-		'room'
-	);
-
-	foreach ($arr_admin_files as $k=> $v) {
-		$file = get_template_directory(). '/inc/controller/admin/' . $v. '.php';
-		if(file_exists($file)){
-			include $file;
-		}
-	}
-	
- ?>
-=======
 	$arr_libfiles = array(
 		'View',
 		'Model',
@@ -135,4 +120,4 @@ include "inc/helpers/helpers.php";
 	echo '</pre>';
 	}
  ?>
->>>>>>> 6e38595e5d6c52e6eca147d142a56ce5d91609c2
+
