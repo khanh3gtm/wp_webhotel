@@ -6,6 +6,7 @@
  	{
  		//Khởi tạo đối tượng trong controll base
  		session_start();
+ 		//dd('testController');
  		$this->view = new View($this->getCartData());
  	}
  	//Phương thức load Model trong controller

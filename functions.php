@@ -79,13 +79,22 @@ include "inc/helpers/helpers.php";
 	$arr_libfiles = array(
 		'View',
 		'Model',
-		'Route',
 		'Controller'
 	);
 	foreach ($arr_libfiles as $k=> $v) {
 		$file = get_template_directory(). '/inc/libs/' . $v. '.php';
 		if(file_exists($file)){
 			include $file;
+		}
+	}
+	//load model
+	$arr_model = array(
+		'bookcart'
+	);
+	foreach ($arr_model as $k=> $v) {
+		$files = get_template_directory(). '/inc/model/' . $v. '.php';
+		if(file_exists($files)){
+			include $files;
 		}
 	}
 

@@ -8,6 +8,7 @@
   	function __construct()
   	{
   		parent::__construct('localhost','root','','webtravel',3306,'');
+      dd(111);
     }
   }
  ?>
