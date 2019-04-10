@@ -10,6 +10,8 @@ class ST_Hotel_Admin{
 		add_action('save_post',array($this,'hotel_info_save'));
 		add_action('manage_hotel_posts_columns',array($this,'hotel_set_columns'));
 		add_action('manage_hotel_posts_custom_column',array($this,'hotel_custom_columns'), 10,2);
+		add_action('manage_edit-location_columns',array($this,'location_set_columns'));
+		// add_action('manage_location_columns',array($this,'location_custom_columns'), 10,2);
 	}
 
 	public function customsb_post_type(){
@@ -140,6 +142,26 @@ class ST_Hotel_Admin{
 				break;
 		}
 	}
+	//create custom columns 
+	function location_set_columns($columns){
+		$newColumns = array();
+		$newColumns['images'] = 'Images';
+		$columns = array_merge($columns, $newColumns);
+		return $columns;
+	}
+	function location_custom_columns($column,$post_id){
+		switch ($column){
+			case 'description':
+				echo get_the_excerpt();
+				break;
+			case 'images':
+				echo "123";
+				break;	
+			default:
+				# code...
+				break;
+		}
+	}
 	//create metabox of hotel
 	 function hotel_meta_box(){
 		add_meta_box('hotel-info','Hotel Information',[$this,'hotel_info_output'],'hotel');
@@ -185,37 +207,30 @@ class ST_Hotel_Admin{
                     button: {
                         text: 'Use this media'
                     },
-                    multiple: multi  // Set to true to allow multiple files to be selected
+                    multiple: true  // Set to true to allow multiple files to be selected
                 });
 
                 frame.on('select', function () {
 
                     // Get media attachment details from the frame state
                     var attachment = frame.state().get('selection').toJSON();
+                    //console.log(attachment);
                     var ids = [];
-                    if(multi === true) {
+                    
                         galleryBox.find('.del').each(function () {
                             ids.push($(this).data('id'));
                         });
                         if (attachment.length > 0) {
                             for (var i = 0; i < attachment.length; i++) {
+                            	console.log('ID: ' + attachment[i].id);
+                            	console.log('URL: ' + attachment[i].url);
                                 if (!ids.includes(attachment[i].id)) {
                                     galleryBox.append('<div class="item" style="background-image: url(' + attachment[i].url + ')"><div class="del" data-id="' + attachment[i].id + '"></div></div>');
                                     ids.push(attachment[i].id);
                                 }
                             }
                         }
-                    }else{
-                        galleryBox.find('.item').remove();
-                        if (attachment.length > 0) {
-                            for (var i = 0; i < attachment.length; i++) {
-                                if (!ids.includes(attachment[i].id)) {
-                                    galleryBox.append('<div class="item" style="background-image: url(' + attachment[i].url + ')"><div class="del" data-id="' + attachment[i].id + '"></div></div>');
-                                    ids.push(attachment[i].id);
-                                }
-                            }
-                        }
-                    }
+                    
                     t.find('input').val(ids.toString());
                 });
 
