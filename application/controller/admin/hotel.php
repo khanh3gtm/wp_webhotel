@@ -185,37 +185,30 @@ class ST_Hotel_Admin{
                     button: {
                         text: 'Use this media'
                     },
-                    multiple: multi  // Set to true to allow multiple files to be selected
+                    multiple: true  // Set to true to allow multiple files to be selected
                 });
 
                 frame.on('select', function () {
 
                     // Get media attachment details from the frame state
                     var attachment = frame.state().get('selection').toJSON();
+                    //console.log(attachment);
                     var ids = [];
-                    if(multi === true) {
+                    
                         galleryBox.find('.del').each(function () {
                             ids.push($(this).data('id'));
                         });
                         if (attachment.length > 0) {
                             for (var i = 0; i < attachment.length; i++) {
+                            	console.log('ID: ' + attachment[i].id);
+                            	console.log('URL: ' + attachment[i].url);
                                 if (!ids.includes(attachment[i].id)) {
                                     galleryBox.append('<div class="item" style="background-image: url(' + attachment[i].url + ')"><div class="del" data-id="' + attachment[i].id + '"></div></div>');
                                     ids.push(attachment[i].id);
                                 }
                             }
                         }
-                    }else{
-                        galleryBox.find('.item').remove();
-                        if (attachment.length > 0) {
-                            for (var i = 0; i < attachment.length; i++) {
-                                if (!ids.includes(attachment[i].id)) {
-                                    galleryBox.append('<div class="item" style="background-image: url(' + attachment[i].url + ')"><div class="del" data-id="' + attachment[i].id + '"></div></div>');
-                                    ids.push(attachment[i].id);
-                                }
-                            }
-                        }
-                    }
+                    
                     t.find('input').val(ids.toString());
                 });
 
