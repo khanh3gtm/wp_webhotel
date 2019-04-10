@@ -16,7 +16,7 @@ class ST_Hotel_Admin{
 		$labels = array(
 			'name' => 'Hotel',
 			'singular_name'=> 'Hotel',
-			'add_new' => 'Add Hotels',
+			'add_new' => 'Add Hotel',
 			'all_items' => 'All Hotels',
 			'add_new_item' => 'Add Hotel',
 			'edit_item' => 'Edit Item',
@@ -105,23 +105,36 @@ class ST_Hotel_Admin{
 	}
 	//create custome column
 	function hotel_set_columns($columns){
+		unset($columns['categories']);
+		unset($columns['tags']);
 		$newColumns = array();
 		$newColumns['title'] = 'Hotel Name';
 		$newColumns['description'] = 'Description';
-		$newColumns['city_name'] = 'City Name';
+		$newColumns['owner'] = 'Owner';
 		$newColumns['address'] = 'Address';
-		$newColumns['facilities'] ='Facilities';
 		$newColumns['date'] = 'Date';
-		$newColumns['tags'] = 'Tags';
-		$newColumns['location'] ='Location'; 
-		return $newColumns;
+		
+		//$newColumns['location'] ='Location'; 
+		$columns = array_merge($columns, $newColumns);
+		return $columns;
 	}
 	function hotel_custom_columns($column,$post_id){
 		switch ($column){
 			case 'description':
 				echo get_the_excerpt();
 				break;
-			
+			case 'owner':
+				$owner = get_post_meta($post_id,'_owner',true);		
+				echo $owner;
+				break;	
+			case 'address':
+				$add = get_post_meta($post_id,'_add',true);
+				echo $add;
+					break;	
+			case 'location':
+				$location = get_the_terms($post_id,'location');
+				dd($location);
+					break;	
 			default:
 				# code...
 				break;
@@ -133,19 +146,87 @@ class ST_Hotel_Admin{
 	}
 	 function hotel_info_output($post){
 	 	wp_nonce_field('hotel_info_save','hotel_meta_box_nonce');
-	 	$city_name = get_post_meta($post->ID,'_city_name',true);
+	 	$owner = get_post_meta($post->ID,'_owner',true);
+	 
 	 	$add = get_post_meta($post->ID,'_add',true);
+	 	$image = get_post_meta($post->ID,'_image',true);
 	 	?>
 	 	<p>
-	 		<label for="city_name">City Name:</label><br />
-	 		<input type="text" name="city_name" id="city_name" size="30" value="<?php echo $city_name; ?>" />
+	 		<label for="owner">Owner:</label><br />
+	 		<input type="text" name="owner" id="owner" size="30" value="<?php echo $owner; ?>" />
 	 	</p>
 	 	<p>
 	 		<label for="address">Address:</label><br />
 	 		<input type="text" name="address" id="address" size="30" value="<?php echo $add; ?>" />
 	 	</p>
+	 	<p>
+	 		<label>Images</label><br/>
+	 		<input type="hidden" name="hotel_images" class="hotel_images" value="<?php echo $image ?>">
+	 		<input type="button" class="st-upload"  value="Add Image">
+	 		<input type="button" name="" class="" value="Delete Image">
+	 	</p>
+	 	<script type="text/javascript">
+	 		$('.st-upload').each(function (e) {
+            var t = $(this);
+            var multi = t.data('multi');
+            var frame;
+            t.click(function (e) {
+                e.preventDefault();
+
+                var galleryBox = t.parent().find('.st-selection');
+
+                if (frame) {
+                    frame.open();
+                    return;
+                }
+                // Create a new media frame
+                frame = wp.media({
+                    title: 'Select image',
+                    button: {
+                        text: 'Use this media'
+                    },
+                    multiple: multi  // Set to true to allow multiple files to be selected
+                });
+
+                frame.on('select', function () {
+
+                    // Get media attachment details from the frame state
+                    var attachment = frame.state().get('selection').toJSON();
+                    var ids = [];
+                    if(multi === true) {
+                        galleryBox.find('.del').each(function () {
+                            ids.push($(this).data('id'));
+                        });
+                        if (attachment.length > 0) {
+                            for (var i = 0; i < attachment.length; i++) {
+                                if (!ids.includes(attachment[i].id)) {
+                                    galleryBox.append('<div class="item" style="background-image: url(' + attachment[i].url + ')"><div class="del" data-id="' + attachment[i].id + '"></div></div>');
+                                    ids.push(attachment[i].id);
+                                }
+                            }
+                        }
+                    }else{
+                        galleryBox.find('.item').remove();
+                        if (attachment.length > 0) {
+                            for (var i = 0; i < attachment.length; i++) {
+                                if (!ids.includes(attachment[i].id)) {
+                                    galleryBox.append('<div class="item" style="background-image: url(' + attachment[i].url + ')"><div class="del" data-id="' + attachment[i].id + '"></div></div>');
+                                    ids.push(attachment[i].id);
+                                }
+                            }
+                        }
+                    }
+                    t.find('input').val(ids.toString());
+                });
+
+                frame.open();
+
+            });
+        })
+	 	</script>
 
 	 	<?php }
+
 	 	function hotel_info_save($post_id){
 	 		if(!isset($_POST['hotel_meta_box_nonce'])){
 	 			return;
@@ -157,10 +238,12 @@ class ST_Hotel_Admin{
 	 			return;
 	 		}
 
-	 		$city_name = sanitize_text_field($_POST['city_name']);	
-	 		update_post_meta($post_id,'_city_name',$city_name);
+	 		$owner = sanitize_text_field($_POST['owner']);	
+	 		update_post_meta($post_id,'_owner',$owner);
 	 		$add = sanitize_text_field($_POST['address']);	
 	 		update_post_meta($post_id,'_add',$add);
+	 		$image = sanitize_text_field($_POST['hotel_images']);
+	 		update_post_meta($post_id,'_image',$image);
 
 
 	 	}
