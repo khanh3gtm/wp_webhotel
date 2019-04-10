@@ -20,11 +20,23 @@ if(!class_exists('ST_Room_Admin')){
 			add_action('edited_amenities', array ( $this, 'updated_category_image' ), 10, 2 );
 			add_action('admin_enqueue_scripts', array( $this, 'load_media' ) );
 			add_action( 'admin_footer', array ( $this, 'add_script' ) );
+			add_filter('manage_edit-amenities_columns',array($this, 'my_custom_taxonomy_columns'));
 
 		}
 		public function load_media(){
 			wp_enqueue_media();
 		}
+
+		function my_custom_taxonomy_columns($columns){
+			$columns = array();
+			$columns['name'] = __('Name');
+			$columns['image'] = __('Image');
+			$columns['description'] = __('Description');
+			$columns['slug'] = __('Slug');
+
+			return $columns;
+		}
+
 		public function add_category_image () { ?>
 			<div class="form-field term-group">
 				<label for="category-image-id"><?php _e('Image', 'shinetheme'); ?></label>
@@ -37,67 +49,7 @@ if(!class_exists('ST_Room_Admin')){
 			</div>
 			<?php
 		}
-		public function add_image_script(){?>
-			<script>
-				$('.button').each(function (e) {
-					var t = $(this);
-					var multi = t.data('multi');
-					var frame;
-					t.click(function (e) {
-						e.preventDefault();
-
-						var galleryBox = t.parent().find('.st-selection');
-
-						if (frame) {
-							frame.open();
-							return;
-						}
-                // Create a new media frame
-                frame = wp.media({
-                	title: 'Select image',
-                	button: {
-                		text: 'Use this media'
-                	},
-                    multiple: multi  // Set to true to allow multiple files to be selected
-                });
-
-                frame.on('select', function () {
-
-                    // Get media attachment details from the frame state
-                    var attachment = frame.state().get('selection').toJSON();
-                    var ids = [];
-                    if(multi === true) {
-                    	galleryBox.find('.del').each(function () {
-                    		ids.push($(this).data('id'));
-                    	});
-                    	if (attachment.length > 0) {
-                    		for (var i = 0; i < attachment.length; i++) {
-                    			if (!ids.includes(attachment[i].id)) {
-                    				galleryBox.append('<div class="item" style="background-image: url(' + attachment[i].url + ')"><div class="del" data-id="' + attachment[i].id + '"></div></div>');
-                    				ids.push(attachment[i].id);
-                    			}
-                    		}
-                    	}
-                    }else{
-                    	galleryBox.find('.item').remove();
-                    	if (attachment.length > 0) {
-                    		for (var i = 0; i < attachment.length; i++) {
-                    			if (!ids.includes(attachment[i].id)) {
-                    				galleryBox.append('<div class="item" style="background-image: url(' + attachment[i].url + ')"><div class="del" data-id="' + attachment[i].id + '"></div></div>');
-                    				ids.push(attachment[i].id);
-                    			}
-                    		}
-                    	}
-                    }
-                    t.find('input').val(ids.toString());
-                });
-
-                frame.open();
-
-            });
-				})
-			</script>
-			<?php}
+		
 		public function add_script() { ?>
 			<script>
 				jQuery(document).ready( function($) {
