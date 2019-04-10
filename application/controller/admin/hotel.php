@@ -10,6 +10,8 @@ class ST_Hotel_Admin{
 		add_action('save_post',array($this,'hotel_info_save'));
 		add_action('manage_hotel_posts_columns',array($this,'hotel_set_columns'));
 		add_action('manage_hotel_posts_custom_column',array($this,'hotel_custom_columns'), 10,2);
+		add_action('manage_edit-location_columns',array($this,'location_set_columns'));
+		// add_action('manage_location_columns',array($this,'location_custom_columns'), 10,2);
 	}
 
 	public function customsb_post_type(){
@@ -135,6 +137,26 @@ class ST_Hotel_Admin{
 				$location = get_the_terms($post_id,'location');
 				dd($location);
 					break;	
+			default:
+				# code...
+				break;
+		}
+	}
+	//create custom columns 
+	function location_set_columns($columns){
+		$newColumns = array();
+		$newColumns['images'] = 'Images';
+		$columns = array_merge($columns, $newColumns);
+		return $columns;
+	}
+	function location_custom_columns($column,$post_id){
+		switch ($column){
+			case 'description':
+				echo get_the_excerpt();
+				break;
+			case 'images':
+				echo "123";
+				break;	
 			default:
 				# code...
 				break;
