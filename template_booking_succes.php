@@ -19,7 +19,7 @@ get_header();
 		<div class="st-checkout-page">
 			<div class="row booking-success-notice">
 				<div class="col-lg-8 col-md-8 col-left">
-					<img src="libs/Images/ico_success.svg" alt="Thanh toán thành công">
+					<img src="<?php echo get_template_directory_uri(); ?>/application/libs/Images/ico_success.svg" alt="Thanh toán thành công">
 					<div class="notice-success">
 						<p class="line1">
 							<span>
