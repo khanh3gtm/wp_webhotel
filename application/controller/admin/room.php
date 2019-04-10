@@ -3,6 +3,7 @@ if(!class_exists('ST_Room_Admin')){
 class ST_Room_Admin{
 	public static $_inst;
 	public function __construct(){
+		
 		add_action('init', array($this,'room_custom_post_type'));	
 		add_action('init', array($this, 'room_custom_taxonomy'));
 		// add_action('add_meta_boxes',array($this, 'room_meta_box'));
