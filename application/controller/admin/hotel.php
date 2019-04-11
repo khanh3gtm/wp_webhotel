@@ -297,7 +297,7 @@ public function updated_location_image ( $term_id, $tt_id ) {
 		 		if(!empty($url)){
 			 		foreach ($url as $key => $value) {
 			 			$url_image = wp_get_attachment_image_url($value, 'thumbnail');
-			 			echo '<img src="'. $url_image .'" style = "margin-left: 10px;" data-id="'. $value .'"/>';
+			 			echo '<img class="st-thumb" src="'. $url_image .'" style = "margin-left: 10px;" data-id="'. $value .'"/><i class="fa fa-times time " ></i>';
 			 		}
 			 	}
 			 	?>
@@ -355,7 +355,7 @@ public function updated_location_image ( $term_id, $tt_id ) {
                         for (var i = 0; i < attachment.length; i++) {
                         	if(!ids.includes(attachment[i].id)){
 	                   			ids.push(attachment[i].id);
-	                   			parent.find('.st-include-image').append('<img src="'+ attachment[i].url +'" width="150px" height="150px" style = "margin-left: 10px;"  />');
+	                   			parent.find('.st-include-image').append('<img  src="'+ attachment[i].url +'" width="150px" height="150px" style = "margin-left: 10px;"  />');
                    			}
                         }
                     }
@@ -367,6 +367,7 @@ public function updated_location_image ( $term_id, $tt_id ) {
 
             });
         })
+
 	 	</script>
 
 	 	<?php }
