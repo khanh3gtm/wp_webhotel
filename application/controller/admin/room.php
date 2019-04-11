@@ -361,17 +361,20 @@ function sunset_contact_email_callback($post){
 			}
 	echo '</select>';
 	?>
+		<label for="category-image-id"><?php _e('Image', 'shinetheme'); ?></label>
 		<div class="form-field">
-			<?php if(!empty($url)){
+			<input type="hidden" id="metabox-image-id" name="metabox-image-id" class="custom_media_url" value="">
+			<div class="st-include-image">
+			<?php if(!empty($url))
+			{
 				foreach ($url as $value) {
-					$url_image = wp_get_attachment_image($value, 'thumbnail');
+					$url_image = wp_get_attachment_image_url($value, 'thumbnail');
 					echo '<img src="'.$url_image.'" alt="">';
 				}
 			}
-
-			 ?>
-				<label for="category-image-id"><?php _e('Image', 'shinetheme'); ?></label>
-				<input type="hidden" id="metabox-image-id" name="metabox-image-id" class="custom_media_url" value="">
+			?>
+			</div>
+				
 				<input type="button" class="st-upload"  value="<?php _e( 'Add Image', 'shinetheme' ); ?>" />
 				<input type="button" class="button"  value="<?php _e( 'Remove Image', 'shinetheme' ); ?>" />
 		</div>
