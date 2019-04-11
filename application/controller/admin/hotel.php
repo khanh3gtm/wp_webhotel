@@ -171,7 +171,8 @@ class ST_Hotel_Admin{
 	 	$owner = get_post_meta($post->ID,'_owner',true);
 	 
 	 	$add = get_post_meta($post->ID,'_add',true);
-	 	$image = get_post_meta($post->ID,'_image',true);
+	 	$image = get_post_meta($post->ID,'_hotel_image',true);
+	 	$url = explode(",", $image);
 	 	?>
 	 	<p>
 	 		<label for="owner">Owner:</label><br />
@@ -183,13 +184,26 @@ class ST_Hotel_Admin{
 	 	</p>
 	 	<p>
 	 		<label>Images</label><br/>
-	 		<input type="hidden" name="hotel_images" class="hotel_images" value="<?php echo $image ?>">
-	 		<input type="button" class="st-upload"  value="Add Image">
-	 		<input type="button" name="" class="" value="Delete Image">
+	 		<div class="st-upload-gallery" style="min-height: 100px;">
+		 		<input type="hidden" name="hotel_images" class="hotel_images" value="<?php echo $image; ?>">
+		 		<?php
+		 		if(!empty($url)){
+			 		foreach ($url as $key => $value) {
+			 			$url_image = wp_get_attachment_image_url($value, 'thumbnail');
+			 			echo '<img src="'. $url_image .'" style = "margin-left: 10px;" />';
+			 		}
+			 	}
+			 	?>
+			 	<br>
+		 		<input type="button" class="st-upload"  value="Add Image">
+		 		<input type="button" name="" class="" value="Delete Image">
+
+	 		</div>
 	 	</p>
 	 	<script type="text/javascript">
 	 		$('.st-upload').each(function (e) {
             var t = $(this);
+            var parent = t.closest('.st-upload-gallery');
             var multi = t.data('multi');
             var frame;
             t.click(function (e) {
@@ -214,24 +228,17 @@ class ST_Hotel_Admin{
 
                     // Get media attachment details from the frame state
                     var attachment = frame.state().get('selection').toJSON();
-                    //console.log(attachment);
-                    var ids = [];
-                    
-                        galleryBox.find('.del').each(function () {
-                            ids.push($(this).data('id'));
-                        });
-                        if (attachment.length > 0) {
-                            for (var i = 0; i < attachment.length; i++) {
-                            	console.log('ID: ' + attachment[i].id);
-                            	console.log('URL: ' + attachment[i].url);
-                                if (!ids.includes(attachment[i].id)) {
-                                    galleryBox.append('<div class="item" style="background-image: url(' + attachment[i].url + ')"><div class="del" data-id="' + attachment[i].id + '"></div></div>');
-                                    ids.push(attachment[i].id);
-                                }
-                            }
+
+                    var ids = [];                    
+                   
+                    if (attachment.length > 0) {
+                        for (var i = 0; i < attachment.length; i++) {
+                   			ids.push(attachment[i].id);
+                   			parent.append('<img src="'+ attachment[i].url +'" with="100px" height="100px" />');
                         }
+                    }
                     
-                    t.find('input').val(ids.toString());
+                    parent.find('.hotel_images').val(ids.toString());
                 });
 
                 frame.open();
@@ -258,7 +265,7 @@ class ST_Hotel_Admin{
 	 		$add = sanitize_text_field($_POST['address']);	
 	 		update_post_meta($post_id,'_add',$add);
 	 		$image = sanitize_text_field($_POST['hotel_images']);
-	 		update_post_meta($post_id,'_image',$image);
+	 		update_post_meta($post_id,'_hotel_image',$image);
 
 
 	 	}
