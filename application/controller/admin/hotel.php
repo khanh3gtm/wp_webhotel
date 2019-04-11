@@ -292,14 +292,16 @@ public function updated_location_image ( $term_id, $tt_id ) {
 	 		<label>Images</label><br/>
 	 		<div class="st-upload-gallery" style="min-height: 100px;">
 		 		<input type="hidden" name="hotel_images" class="hotel_images" value="<?php echo $image; ?>">
+		 		<div class="st-include-image">
 		 		<?php
 		 		if(!empty($url)){
 			 		foreach ($url as $key => $value) {
 			 			$url_image = wp_get_attachment_image_url($value, 'thumbnail');
-			 			echo '<img src="'. $url_image .'" style = "margin-left: 10px;" />';
+			 			echo '<img src="'. $url_image .'" style = "margin-left: 10px;" data-id="'. $value .'"/>';
 			 		}
 			 	}
 			 	?>
+			 	</div>
 			 	<br>
 		 		<input type="button" class="st-upload"  value="Add Image">
 		 		<input type="button" name="" class="" value="Delete Image">
@@ -336,11 +338,25 @@ public function updated_location_image ( $term_id, $tt_id ) {
                     var attachment = frame.state().get('selection').toJSON();
 
                     var ids = [];                    
+
+                    //Get id ảnh đã có để đưa vào ids;
+                    $('img', parent).each(function(){
+                    	var currentID = $(this).data('id');
+                    	if(!ids.includes(currentID)){
+                    		ids.push(currentID);
+                    	}
+                    });
+
+                    console.log(ids);
+
+                 
                    
                     if (attachment.length > 0) {
                         for (var i = 0; i < attachment.length; i++) {
-                   			ids.push(attachment[i].id);
-                   			parent.append('<img src="'+ attachment[i].url +'" with="100px" height="100px" />');
+                        	if(!ids.includes(attachment[i].id)){
+	                   			ids.push(attachment[i].id);
+	                   			parent.find('.st-include-image').append('<img src="'+ attachment[i].url +'" width="150px" height="150px" style = "margin-left: 10px;"  />');
+                   			}
                         }
                     }
                     
