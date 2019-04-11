@@ -5,6 +5,8 @@ class bookcart extends Controller {
 
 		add_action('init', array($this, '__stCheckoutHandler'));
 		add_action('init', array($this, '__stBookingSucces'));
+		add_action('init', array($this, '__stBkSucces'));
+		add_action('init', array($this, '__stInfoSucces'));
 
 	}
 	public function __stCheckoutHandler(){
@@ -21,29 +23,59 @@ class bookcart extends Controller {
 				echo "Email already exists !!!";
 				exit();
 			}
-			update_user_meta( $user_id,'st_first_name', $data['st_first_name']);
-			update_user_meta( $user_id,'st_last_name', $data['st_last_name']);
+			update_user_meta( $user_id,'first_name', $data['st_first_name']);
+			update_user_meta( $user_id,'last_name', $data['st_last_name']);
 			update_user_meta( $user_id,'st_phone', $data['st_phone']);
 			update_user_meta( $user_id,'st_address', $data['st_address']);
 			update_user_meta( $user_id,'st_address2', $data['st_address2']);
+			update_user_meta( $user_id,'st_city', $data['st_city']);
 			update_user_meta( $user_id,'st_province', $data['st_province']);
 			update_user_meta( $user_id,'st_zip_code', $data['st_zip_code']);
 			update_user_meta( $user_id,'st_country', $data['st_country']);
 			update_user_meta( $user_id,'st_note', $data['st_note']);
-			dd(get_user_meta($user_id));
 			global $wpdb;
-			$table = $wpdb->prefix.'wp_bill';
-			$data = array('column1' => '$user_id');
+			$table ='wp_bill';
+			$data = array(
+				'bill_id' => '',
+				'user_id' => $user_id);
 			$format = array('%s','%d');
 			$wpdb->insert($table,$data,$format);
 			$my_id = $wpdb->insert_id;
-			dd($my_id);
-			dd($user_id);
-	 		dd($data);die;
+			// dd($my_id);
+			// dd($user_id);
+	 	// 	dd($data);die;
+	 		$page_id = '1801';
+	 		$page_link = get_the_permalink($page_id);// lấy đường dẫn theo page id
+	 		$page_link = add_query_arg('bill_id', $my_id, $page_link); //thêm query string vào sau đường dẫn.
+	 		dd($page_link);
+	 		if(isset($_POST['checkout_submit'])){
+	 			dd($page_link);
+	 			wp_redirect($page_link);//chuyển trang
+	 			exit();
 	 		}
+	 		
+	 		}
+	 		
 	}
-
-
+	public function __stBkSucces()
+	 		{
+	 			$key = bookcart_model::inst()->getUserid();
+	 			$data = bookcart_model::inst()->getDataUser($key);
+	 			return $data;
+	 		}
+	public function __stInfoSucces()
+	{
+		$key = bookcart_model::inst()->getUserid();
+		$data = get_user_meta($key);
+	 	return $data;
+	}
+	public static function inst(){
+        static $instane;
+        if(is_null($instane)){
+            $instane = new self();
+        }
+        return $instane;
+    }
 
 
 

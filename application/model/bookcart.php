@@ -6,6 +6,7 @@
  * Time: 1:52 PM
  */
 class bookcart_model extends Model {
+    
     public function __construct() {
         parent::__construct();
     }
@@ -31,6 +32,22 @@ class bookcart_model extends Model {
             )";   
             $this->query($sql);
         }
+    }
+    public function getUserid()
+    {
+        global $wpdb;
+       $key = $_GET['bill_id'];
+       $sql = "SELECT user_id from wp_bill where bill_id = '$key'";
+       $key1= $wpdb ->get_var($sql);
+       return $key1;
+    }
+    public function getDataUser($key)
+    {
+        global $wpdb;
+        $data = "SELECT * from wp_users where ID = '$key'";
+        //$res = $wpdb->get_results($data);
+       $res = array_shift($wpdb->get_results($data));
+       return $res;
     }
 
     public static function inst(){

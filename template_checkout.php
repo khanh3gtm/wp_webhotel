@@ -209,7 +209,7 @@ get_header();
             </form>
         <?php } 
         else {?>
-            <form class="" method="post" action="bookingsucces?bill_id=<?php $user_id ?>">
+            <form class="" method="post" action="">
                 <div class="check-out-form">
                     <div class="entry-content"></div>
                     <div class="clearfix">

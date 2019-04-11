@@ -3,6 +3,8 @@
 * Template Name: Booking Success
 */
 get_header();
+$dt = bookcart::inst()->__stBkSucces();
+$st =bookcart::inst()->__stInfoSucces();
 ?>
 <div id="st-content-wrapper">
 	<div class="st-breadcrumb">
@@ -24,14 +26,14 @@ get_header();
 						<p class="line1">
 							<span>
 								<?php 
-								echo get_user_meta($user_id,'st_first_name').' '.get_user_meta($user_id,'st_last_name'); ?>, 
+								echo $st['first_name'][0]." ".$st['last_name'][0]; ?>, 
 							</span>
 							Your order was submitted successfully
 						</p>
 						<p class="line2">
 							Booking details has been sent to:
 							<span>
-								<?php  echo $list['st_email'] ?>
+								<?php  echo $dt->user_email; ?>
 							</span>
 						</p>
 					</div>
@@ -39,18 +41,18 @@ get_header();
 				<div class="col-lg-4 col-md-4">
 					<ul class="booking-info-detail">
 						<li><span>
-							Booking Number	
+							Booking Number	:
 						</span>
-						8444
+						<?php echo $_GET['bill_id']; ?>
 					</li>
 					<li>
 						<span>
-							Booking Date
+							Booking Date :
 						</span>
 						<?php echo $datenow= date('d-m-Y') ?>
 					</li>
 					<li>
-						<span>Payment Method</span>
+						<span>Payment Method : </span>
 						Submit Form
 					</li>
 				</ul>
@@ -114,20 +116,20 @@ get_header();
 				</div>
 				<div class="col-lg-8 col-md-8 col-lg-pull-4 col-md-pull-4">
 					<h3 class="title">Your Informatio</h3>
-					<form class="" method="post" action="?c=bookcart&a=listBill">
+					<form class="" method="post" action="">
 					<div class="info-form">
-						<input type="hidden"  value="<?php echo $list['st_email'] ?>" name = "st_username" >
+						<input type="hidden"  value="" name = "st_username" >
 				<ul>
-					<li><span class="label">First Name</span><span class="value" name="first_name"><?php echo $list['st_first_name'] ?></span></li>
-					<li><span class="label">Last name</span><span class="value" name="last_name"><?php echo $list['st_last_name'] ?></span></li>
-					<li><span class="label">Email</span><span class="value" name = "email"><?php echo $list['st_email'] ?></span></li>
-					<li><span class="label">Address Line 1 </span><span class="value" name="add1"><?php echo $list['st_address'] ?></span></li>
-					<li><span class="label">Address Line 2 </span><span class="value" name="add2"><?php echo $list['st_address2'] ?></span></li>
-					<li><span class="label">City</span><span class="value" name="city"><?php echo $list['st_city'] ?></span></li>
-					<li><span class="label">State/Province/Region</span><span class="value" name="province"><?php echo $list['st_province'] ?></span></li>
-					<li><span class="label">ZIP code/Postal code</span><span class="value" name="zipcode"><?php echo $list['st_zip_code'] ?></span></li>
-					<li><span class="label">Country</span><span class="value" name="country"><?php echo $list['st_country'] ?></span></li>
-					<li><span class="label">Special Requirements</span><span class="value" name="note"><?php echo $list['st_note'] ?></span></li>
+					<li><span class="label">First Name</span><span class="value" name="first_name"><?php echo $st['first_name'][0]; ?></span></li>
+					<li><span class="label">Last name</span><span class="value" name="last_name"><?php echo $st['last_name'][0]; ?></span></li>
+					<li><span class="label">Email</span><span class="value" name = "email"><?php echo $dt->user_email; ?></span></li>
+					<li><span class="label">Address Line 1 </span><span class="value" name="add1"><?php echo $st['st_address'][0]; ?></span></li>
+					<li><span class="label">Address Line 2 </span><span class="value" name="add2"><?php echo $st['st_address2'][0]; ?></span></li>
+					<li><span class="label">City</span><span class="value" name="city"><?php echo $st['st_city'][0]; ?></span></li>
+					<li><span class="label">State/Province/Region</span><span class="value" name="province"><?php echo $st['st_province'][0]; ?></span></li>
+					<li><span class="label">ZIP code/Postal code</span><span class="value" name="zipcode"><?php echo $st['st_zip_code'][0]; ?></span></li>
+					<li><span class="label">Country</span><span class="value" name="country"><?php echo $st['st_country'][0]; ?></span></li>
+					<li><span class="label">Special Requirements</span><span class="value" name="note"><?php echo $st['st_note'][0]; ?></span></li>
 				</ul>	
 					</div>
 					<div class="text-center mg20 mt30">
