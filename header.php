@@ -16,103 +16,199 @@
 </head>
 <body <?php body_class(); ?>>
    <!-- header -->
-	<header>
-		<div class="topbar">
-			<div class="container-fluid">
-				<div class="topbar-left">
-					<ul class="st-list socials">
-						<li>
-							<a href="#"><i class="fa fa-facebook"></i></a>
-							<a href="#"><i class="fa fa-twitter"></i></a>
-							<a href="#"><i class="fa fa-instagram"></i></a>
-						</li>
-					</ul>
-					<ul class="st-list topbar-items">
-						<li class="hidden-xs hidden-sm">
-							<a href="#" target="">contact@shinetheme.com</a>
-						</li>
-					</ul>
-				</div>
-				<div class="topbar-right">
-					<ul class="st-list topbar-items">
-						<li style="border-right: 1px solid rgba(255, 255, 255, 0.2);"><a href="#">Login</a></li>
-						<li style="border-right: 1px solid rgba(255, 255, 255, 0.2);"><a href="#">Sign up</a></li>
-						<li class="dropdown dropdown-currency hidden-sm hidden-xs">
-							<a href="#">EUR<i class="fa fa-angle-down"></i></a>
-							<ul class="dropmenu">
-								<li><a href="#">USD</a></li>
-								<li><a href="#">AUD</a></li>
-							</ul>
-						</li>
-						<li class="dropdown dropdown-language hidden-sm hidden-xs">
-							<a href="#">English<i class="fa fa-angle-down"></i></a>
-							<ul class="dropmenu">
-								<li><a href="#">Français</a></li>
-								<li><a href="#">Español</a></li>
-							</ul>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-		<div class="clearfix"></div>
-		<div class="head1">
-			<div class="container">
-				<div class="toggle">
-					<i class="fa fa-bars menu1" ></i>
-				</div>
-				<div class="header1left">
-					<img src="<?php echo get_template_directory_uri(); ?>/application/libs/Images/logo_homap-4.svg">
-					<div class="menu">
-
-						<nav id="st-main-menu" >
-							<a href="#" class="back-menu"><i class="fa fa-angle-left"></i></a>
-							<ul id="main-menu">
-								<li><a href="../HTML/HomePage.html"  >HOME</a></li>
-								<li><a href="#">LISTING<i class="fa fa-angle-down"></i></a>
-									<ul class="sub-menu">
-										<li><a href="#">Full Map Layout</a></li>
-										<li><a href="#">Half Map Layout</a></li>
-										<li><a href="../HTML/slidebar.html">Sidebar layout</a></li>
-										
-									</ul>
-								</li>
-								<li><a href="#">HOTEL<i class="fa fa-angle-down"></i></a>
-									<ul class="sub-menu">
-										<li><a href="../HTML/detailhotel1.html">Hotel Detail 1</a></li>
-										<li><a href="#">Hotel Detail 2</a></li>
-										<li><a href="#">Hotel Detail 3</a></li>
-										<li><a href="../HTML/roomdetail1.html">Room Detail 1</a></li>
-									</ul>
-								</li>
-								<li><a href="#">HOUSE<i class="fa fa-angle-down"></i></a>
-									<ul class="sub-menu">
-										<li><a href="#">House Detail 1</a></li>
-										<li><a href="#">House Detail 2</a></li>
-										
-									</ul>
-								</li>
-								<li><a href="#">PAGES<i class="fa fa-angle-down"></i></a>
-									<ul class="sub-menu">
-										<li><a href="../HTML/aboutus.html">About Us</a></li>
-										<li><a href="../HTML/blog1.html">Blog</a></li>
-										<li><a href="#">404 Page</a></li>
-										
-									</ul>
-								</li>
-								<li><a href="../HTML/Contact.html">CONTACT</a></li>
-							</ul>
-						</nav>
-					</div>
+<header>
+        <div class="topbar">
+            <div class="container-fluid">
+                <div class="topbar-left">
+                    <ul class="st-list socials">
+                        <li>
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                        </li>
+                    </ul>
+                    <ul class="st-list topbar-items">
+                        <li class="hidden-xs hidden-sm">
+                            <a href="#" target="">contact@shinetheme.com</a>
+                        </li>
+                    </ul>
                 </div>
-				<div class="header1right">
-					<form action="" method="get" class="header-search hidden-sm">
-						<input type="text" class="form-control" name="s" value="">
-						<i class="fa fa-search"></i>
-					</form>
-					<img class="ico_card" src="<?php echo get_template_directory_uri(); ?>/application/libs/Images/ico_card.svg">
-				</div>
-			</div>
-		</div>
-	
-</header>
+                <?php $us = wp_get_current_user();
+                    $check = is_user_logged_in(); 
+                ?>
+                <div class="topbar-right">
+                    <ul class="st-list topbar-items">
+                        <?php if($check==1){ ?>
+                        <li ><a href="<?php get_template_directory_uri() ?>/wordpress/wp-login.php">Hi, <?php echo $us->data->user_login . '<br />'; ?></a></li>
+                        <li><a href="<?php get_template_directory_uri() ?>/wordpress/wp-login.php?action=logout">Logout</a></li>
+                        <?php }else{
+                            ?>
+                        <li><a href="<?php get_template_directory_uri() ?>/wordpress/wp-login.php">Login</a></li>
+                        <li ><a href="../../register">Sign up</a></li>
+                            <?php
+                        } ?>
+                        
+                        <li class="dropdown dropdown-currency hidden-sm hidden-xs">
+                            <a href="#">EUR<i class="fa fa-angle-down"></i></a>
+                            <ul class="dropmenu">
+                                <li><a href="#">USD</a></li>
+                                <li><a href="#">AUD</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown dropdown-language hidden-sm hidden-xs">
+                            <a href="#">English<i class="fa fa-angle-down"></i></a>
+                            <ul class="dropmenu">
+                                <li><a href="#">Français</a></li>
+                                <li><a href="#">Español</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="head1">
+            <div class="container">
+                <div class="toggle">
+                    <i class="fa fa-bars menu1" ></i>
+                </div>
+                <div class="header1left">
+                    <a href="index.php">
+                        <img src="<?php echo get_template_directory_uri(); ?>/application/libs/Images/logo_homap-4.svg">
+                    </a>
+                    <div class="menu">
+
+                        <nav id="st-main-menu" >
+                            <a href="#" class="back-menu"><i class="fa fa-angle-left"></i></a>
+                            <ul id="main-menu">
+                                <li><a href="index.php">HOME</a></li>
+                                <li><a href="#">LISTING<i class="fa fa-angle-down"></i></a>
+                                    <ul class="sub-menu">
+                                        <li><a href="#">Full Map Layout</a></li>
+                                        <li><a href="#">Half Map Layout</a></li>
+                                        <li><a href="index.php?c=slidebar&a=view">Sidebar layout</a></li>
+
+                                    </ul>
+                                </li>
+                                <li><a href="#">HOTEL<i class="fa fa-angle-down"></i></a>
+                                    <ul class="sub-menu">
+                                        <li><a href="?c=detailhotel&a=view">Hotel Detail 1</a></li>
+                                        <li><a href="#">Hotel Detail 2</a></li>
+                                        <li><a href="#">Hotel Detail 3</a></li>
+                                        <li><a href="?c=room&a=view">Room Detail 1</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">HOUSE<i class="fa fa-angle-down"></i></a>
+                                    <ul class="sub-menu">
+                                        <li><a href="#">House Detail 1</a></li>
+                                        <li><a href="#">House Detail 2</a></li>
+
+                                    </ul>
+                                </li>
+                                <li><a href="#">PAGES<i class="fa fa-angle-down"></i></a>
+                                    <ul class="sub-menu">
+                                        <li><a href="../../view/site/aboutus.php">About Us</a></li>
+                                        <li><a href="../../view/site/blog1.php">Blog</a></li>
+                                        <li><a href="#">404 Page</a></li>
+
+                                    </ul>
+                                </li>
+                                <li><a href="../../view/site/Contact.php">CONTACT</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <?php  
+                    
+                if (isset($_SESSION['st_cart'])) {
+                ?>
+                <!-- Icon Bookcart -->
+                <div class="header1right">
+                    <form action="" method="get" class="header-search hidden-sm">
+                        <input type="text" class="form-control" name="s" value="">
+                        <i class="fa fa-search"></i>
+                    </form>
+                    <div id="d-minicart" class="mini-cart" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <div class="cart-caret">1</div>
+                        <i class="input-icon field-icon fa">
+                            <img class="ico_card" src="<?php echo get_template_directory_uri(); ?>/application/libs/Images/ico_card.svg">
+                        </i>
+                    </div>
+                    <ul class="dropdown-menu" aria-labelledby="d-minicart">
+                        <li class="heading">
+                            <h4 class="st-heading-section">Your Cart</h4>
+                        </li>
+                        <li class="cart-item">
+                            <div class="media">
+                                <div class="media-left">
+                                    <img src="<?php echo $cart_data[0]['room_images'] ?>" style="width: 50px;height: 50px;" alt="">
+                                </div>
+                                <?php $ss = $_SESSION['st_cart']; 
+                            // dd($ss);
+                                ?>
+                                <div class="media-body">
+                                    <h4 class="media-heading"><a class="st-link c-main" href="?c=room&a=view&room_id=<?php echo $cart_data[0]['room_id'] ?>"><?php echo $cart_data[0]['room_name'] ?></a>
+                                    </h4>
+                                    <div class="price-wrapper">Price:
+                                        <span class="price">€ 
+                                            <?php 
+                                                $start = convert_date_format($ss['start']);
+                                                $startday= strtotime($start);
+                                                $end = convert_date_format($ss['end']);
+                                                $endday= strtotime($end);
+                                                $night = abs($endday-$startday);
+                                                $sl_night = floor($night/(60*60*24));
+                                                if ($sl_night>1) {
+                                                    $price = $sl_night * $cart_data[0]['price'];
+                                                }
+                                                else {
+                                                    $price = $cart_data[0]['price'];
+                                                }
+                                                $money = $price + $price*0.1;
+                                                echo $money;
+                                            ?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="?c=bookcart&a=dtCart" class="cart-delete-item"><i class="fa">
+                                <img src="<?php echo get_template_directory_uri(); ?>/application/libs/Images/delete.svg" style="height: 16px;width: 16px;">
+                            </i></a>
+                        </li>
+                        <li class="cart-total">
+                            <div class="sub-total">Subtotal: <span class="price"> €
+                                <?php
+                                    echo $money;
+                                ?>
+                            </span>
+                            </div>
+                            <a href="?c=bookcart&a=view" class="btn btn-green btn-full upper">Check Out</a>
+                        </li>
+                    </ul>
+                </div>
+            <?php }
+            else{ ?>
+                <div class="header1right">
+                    <form action="" method="get" class="header-search hidden-sm">
+                        <input type="text" class="form-control" name="s" value="">
+                        <i class="fa fa-search"></i>
+                    </form>
+                    <div id="d-minicart" class="mini-cart" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <i class="input-icon field-icon fa">
+                            <img class="ico_card" src="<?php echo get_template_directory_uri(); ?>/application/libs/Images/ico_card.svg">
+                        </i>
+                    </div>
+                    <ul class="dropdown-menu" aria-labelledby="d-minicart">
+                        <li class="heading">
+                            <h4 class="st-heading-section">Your Cart</h4>
+                        </li>
+                        
+                        <li class="cart-total">
+                            <p>Your cart is empty !!!</p>
+                        </li>
+                    </ul> 
+                </div>
+            <?php } ?>
+            </div>
+        </div>
+    </header>
