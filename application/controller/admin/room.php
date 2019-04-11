@@ -11,22 +11,78 @@ if(!class_exists('ST_Room_Admin')){
 			add_action('manage_room_posts_custom_column', array($this,'sunset_contact_custom_column'), 10, 2);
 			add_action('add_meta_boxes', array($this, 'sunset_contact_add_meta_box'));
 			add_action('save_post', array($this, 'sunset_save_contact_email_data'), 10, 2);
+			
 
 
 
 			add_action('amenities_add_form_fields', array ( $this, 'add_category_image' ));
 			add_action('created_amenities', array($this, 'save_category_image'), 10, 2);
 			add_action('amenities_edit_form_fields', array ( $this, 'update_category_image' ), 10, 2 );
-			add_action('edited_amenities', array ( $this, 'updated_category_image' ), 10, 2 );
+			add_action('edited_amenities', array ($this, 'updated_category_image' ), 10, 2 );
 			add_action('admin_enqueue_scripts', array( $this, 'load_media' ) );
-			add_action( 'admin_footer', array ( $this, 'add_script' ) );
+			add_action('admin_footer', array ( $this, 'add_script' ) );
+			add_action('admin_footer', array ( $this, 'upload_image_meta_box' ) );
 			add_filter('manage_edit-amenities_columns',array($this, 'my_custom_taxonomy_columns'));
+
+
+			// add_action('manage_amenities_custom_column',array($this, 'st_image_custom_column'),10,2);
 
 		}
 		public function load_media(){
 			wp_enqueue_media();
 		}
 
+		function upload_image_meta_box(){
+			?>
+				
+				<script type="text/javascript">
+	 		$('.st-upload').each(function (e) {
+            var t = $(this);
+            var parent = t.closest('.form-field');
+            var multi = t.data('multi');
+            var frame;
+            t.click(function (e) {
+                e.preventDefault();
+
+                var galleryBox = t.parent().find('.st-selection');
+
+                if (frame) {
+                    frame.open();
+                    return;
+                }
+                // Create a new media frame
+                frame = wp.media({
+                    title: 'Select image',
+                    button: {
+                        text: 'Use this media'
+                    },
+                    multiple: true  // Set to true to allow multiple files to be selected
+                });
+
+                frame.on('select', function () {
+
+                    // Get media attachment details from the frame state
+                    var attachment = frame.state().get('selection').toJSON();
+
+                    var ids = [];                    
+                   
+                    if (attachment.length > 0) {
+                        for (var i = 0; i < attachment.length; i++) {
+                   			ids.push(attachment[i].id);
+                   			parent.append('<img src="'+ attachment[i].url +'" with="100px" height="100px" />');
+                        }
+                    }
+                    
+                    parent.find('.custom_media_url').val(ids.toString());
+                });
+
+                frame.open();
+
+            });
+        })
+	 	</script>
+			<?php
+		}
 		function my_custom_taxonomy_columns($columns){
 			$columns = array();
 			$columns['name'] = __('Name');
@@ -36,7 +92,14 @@ if(!class_exists('ST_Room_Admin')){
 
 			return $columns;
 		}
-
+		// function st_image_custom_column($column, $term){
+		// 	switch ($column) {
+		// 		case 'image':
+		// 		$image_id = get_term_meta ( $term -> term_id, 'category-image-id', true );
+		// 		echo $image_id;
+		// 		break;
+		// 	}
+		// }
 		public function add_category_image () { ?>
 			<div class="form-field term-group">
 				<label for="category-image-id"><?php _e('Image', 'shinetheme'); ?></label>
@@ -101,6 +164,13 @@ public function save_category_image(){
 		add_term_meta($term_id, 'category-image-id', $image, true);
 	}
 }
+
+// public function save_metabox_image(){
+// 	if(isset($_POST['metabox-image-id']) && '' !== $_POST['metabox-image-id'] ){
+// 		$image_meta = $_POST['metabox-image-id'];
+// 		add_metadata('post', $post_id, 'metabox-image-id', $image_meta, true);
+// 	}
+// }
 public function update_category_image ( $term, $amenities ) { ?>
 	<tr class="form-field term-group-wrap">
 		<th scope="row">
@@ -108,6 +178,7 @@ public function update_category_image ( $term, $amenities ) { ?>
 		</th>
 		<td>
 			<?php $image_id = get_term_meta ( $term -> term_id, 'category-image-id', true ); ?>
+			<!--Lay gia tri hien tai</!-->
 			<input type="hidden" id="category-image-id" name="category-image-id" value="<?php echo $image_id; ?>">
 			<div id="category-image-wrapper">
 				<?php if ( $image_id ) { ?>
@@ -212,6 +283,7 @@ function sunset_set_contact_columns($columns)
 	unset($columns['categories']);
 	return $columns;
 }
+
 function sunset_contact_custom_column($column,$post_id)
 {
 	switch ($column) {
@@ -253,9 +325,12 @@ function sunset_contact_email_callback($post){
 	wp_nonce_field('sunset_save_contact_email_data', 'sunset_contact_email_meta_box_nonce');
 	$superficies = get_post_meta($post->ID, 'st_contact_superficies_field', true);
 	$prices = get_post_meta($post->ID, 'st_contact_price_field', true);
-	$beds = get_post_meta($post_id, 'st_contact_bed_field', true);
-	$children = get_post_meta($post_id, 'st_contact_children_field', true);
-	$adult = get_post_meta($post_id, 'st_contact_adult_field', true);
+	$beds = get_post_meta($post->ID, 'st_contact_bed_field', true);
+	$children = get_post_meta($post->ID, 'st_contact_children_field', true);
+	$adult = get_post_meta($post->ID, 'st_contact_adult_field', true);
+	$image = get_post_meta($post->ID, 'metabox-image-id', true);
+	$url = explode(',', $image);
+	
 
 	echo '<label for="st_contact_superficies_field">Superficies</label>';
 	echo '<input type="text" id="st_contact_superficies_field" name="st_contact_superficies_field" value="' . esc_attr($superficies) . '">';
@@ -265,54 +340,52 @@ function sunset_contact_email_callback($post){
 	echo '<br>';
 	echo '<label for="st_contact_bed_field">Beds</label>';
 
-	$current_option = isset($beds['select']) ? $beds['select'] : '';
 
-	echo '<select name="st_contact_bed_field" id="st_contact_bed_field">
-	<option value="1"><?php selected($current_option, 1) ?>1</option>
-	<option value="2"><?php selected($current_option, 2) ?>2</option>
-	<option value="3"><?php selected($current_option, 3) ?>3</option>
-	<option value="4"><?php selected($current_option, 4) ?>4</option>
-	<option value="5"><?php selected($current_option, 5) ?>5</option>
-	<option value="6"><?php selected($current_option, 6) ?>6</option>
-	<option value="7"><?php selected($current_option, 7) ?>7</option>
-	<option value="8"><?php selected($current_option, 8) ?>8</option>
-	</select>';
-	$children_option = isset($children['select']) ? $children['select'] : '';
+	echo '<select name="st_contact_bed_field" id="st_contact_bed_field">';
+		for($i=1; $i<=10;$i++){
+			echo '<option value="'. $i .'" '. selected($beds, $i) .'>'.$i.'</option>';
+		}
+	echo '</select>';
+	
 	echo '<label for="st_contact_children_field">Children</label>';
-	echo '<select name="st_contact_children_field" id="st_contact_children_field">
-	<option value="option-one"><?php selected($children_option, option-one) ?>1</option>
-	<option value="option-two"><?php selected($children_option, option-two) ?>2</option>
-	<option value="option-three"><?php selected($children_option, option-three) ?>3</option>
-	<option value="option-four"><?php selected($children_option, option-four) ?>4</option>
-	<option value="option-five"><?php selected($children_option, option-five) ?>5</option>
-	<option value="option-six"><?php selected($children_option, option-six) ?>6</option>
-	<option value="option-seven"><?php selected($children_option, option-seven) ?>7</option>
-	<option value="option-eight"><?php selected($children_option, option-eight) ?>8</option>
-	</select>';
+	echo '<select name="st_contact_children_field" id="st_contact_children_field">';
+			for($i=1; $i<=10;$i++){
+				echo '<option value="'. $i .'" '. selected($children, $i) .'>'.$i.'</option>';
+			}
+	echo '</select>';
 	$adult_option = isset($adult['select']) ? $adult['select'] : '';
 	echo '<label for="st_contact_adult_field">Adult</label>';
-	echo '<select name="st_contact_adult_field" id="st_contact_adult_field">
-	<option value="option-one"><?php selected($adult_option, option-one) ?>1</option>
-	<option value="option-two"><?php selected($adult_option, option-two) ?>2</option>
-	<option value="option-three"><?php selected($adult_option, option-three) ?>3</option>
-	<option value="option-four"><?php selected($adult_option, option-four) ?>4</option>
-	<option value="option-five"><?php selected($adult_option, option-five) ?>5</option>
-	<option value="option-six"><?php selected($adult_option, option-six) ?>6</option>
-	<option value="option-seven"><?php selected($adult_option, option-seven) ?>7</option>
-	<option value="option-eight"><?php selected($adult_option, option-eight) ?>8</option>
-	</select>';
+	echo '<select name="st_contact_adult_field" id="st_contact_adult_field">';
+			for($i=1; $i<=10;$i++){
+				echo '<option value="'. $i .'" '. selected($children, $i) .'>'.$i.'</option>';
+			}
+	echo '</select>';
 	?>
-		<div class="form-field term-group">
+		<div class="form-field">
+			<?php if(!empty($url)){
+				foreach ($url as $value) {
+					$url_image = wp_get_attachment_image($value, 'thumbnail');
+					echo '<img src="'.$url_image.'" alt="">';
+				}
+			}
+
+			 ?>
 				<label for="category-image-id"><?php _e('Image', 'shinetheme'); ?></label>
-				<input type="hidden" id="category-image-id" name="category-image-id" class="custom_media_url" value="">
-				<div id="category-image-wrapper"></div>
-				<p>
-					<input type="button" class="button" id="ct_tax_media_button" name="ct_tax_media_button" value="<?php _e( 'Add Image', 'shinetheme' ); ?>" />
-					<input type="button" class="button" id="ct_tax_media_remove" name="ct_tax_media_remove" value="<?php _e( 'Remove Image', 'shinetheme' ); ?>" />
-				</p>
-			</div>
+				<input type="hidden" id="metabox-image-id" name="metabox-image-id" class="custom_media_url" value="">
+				<input type="button" class="st-upload"  value="<?php _e( 'Add Image', 'shinetheme' ); ?>" />
+				<input type="button" class="button"  value="<?php _e( 'Remove Image', 'shinetheme' ); ?>" />
+		</div>
+
 	<?php
 }
+
+// function st_save_image_data($post_id){
+// 	if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE){
+// 	return;
+// 	}
+// 	$image_id = sanitize_text_field($_POST['metabox-image-id']);
+// 	upload_post_meta($post_id, 'metabox-image-id', $image_id);
+// }
 function sunset_save_contact_email_data($post_id){
 	if( ! isset($_POST['sunset_contact_email_meta_box_nonce']) ){
 		return;
@@ -320,14 +393,29 @@ function sunset_save_contact_email_data($post_id){
 	if( ! wp_verify_nonce($_POST['sunset_contact_email_meta_box_nonce'],
 		'sunset_save_contact_email_data') ){
 		return;
+
 }
 if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE){
 	return;
 }
+
+
 if( ! current_user_can('edit_post', $post_id)){
 	return;
 }
 if( ! isset($_POST['st_contact_superficies_field']) ){
+	return;
+}
+if( ! isset($_POST['st_contact_price_field']) ){
+	return;
+}
+if( ! isset($_POST['st_contact_bed_field']) ){
+	return;
+}
+if( ! isset($_POST['st_contact_children_field']) ){
+	return;
+}
+if( ! isset($_POST['st_contact_adult_field']) ){
 	return;
 }
 $superficies = sanitize_text_field($_POST['st_contact_superficies_field']);
@@ -340,6 +428,8 @@ $children = sanitize_text_field($_POST['st_contact_children_field']);
 update_post_meta($post_id, 'st_contact_children_field', $children);
 $adult = sanitize_text_field($_POST['st_contact_adult_field']);
 update_post_meta($post_id, 'st_contact_adult_field', $adult);
+$image = $_POST['metabox-image-id'];
+update_post_meta($post_id, 'metabox-image-id', $image);
 }
 
 

@@ -3,13 +3,26 @@
 * Template Name: Booking History
 */
 get_header();
+$us = wp_get_current_user();
+$key= $us->data->ID;
+$ds = bookcart::inst()->__stList($key);
+$id = $_GET['user_id'];
+$check = is_user_logged_in();
 ?>
 <div class="container">
-	<?php if(isset($_SESSION['currUser']))
-	{ ?>
-	<div class="list_bill">
+	<?php if ($check==1) {
+		?>
+		<div class="list_bill">
 		<h3>Booking History</h3>
-		<form class="" method="post" action="?c=bookcart&a=listBill">
+		<?php
+			if (empty($ds)) {
+			?>
+			<div class="record">
+				<p style="text-align: center;font-size: 20px;">Has No Record</p>
+			</div>
+			<?php
+			}else{?>
+				<form class="" method="post" action="?c=bookcart&a=listBill">
 			<table class="table table-bordered table-inverse">
 				<thead>
 					<tr>	
@@ -18,37 +31,26 @@ get_header();
 						<th>Order Date</th>
 						<th>Execution Time</th>
 						<th>Cost</th>
-						<th>Status</th>
 						<th>Action</th>
+						<th>Option</th>
 					</tr>
 				</thead>
 				<tbody>
-					<?php
-					// dd($list);
-					if (empty($list)) {
-						echo "Has no record";
-					} else {
-						foreach ($list as $value) {
-							?>
-							<tr>
-								<td><?php echo $value['bill_id'] ?></td>
-								<td><?php echo $value['room_name'] ?></td>
-								<td><?php echo $value['date_order'] ?></td>
-								<td><?php echo $value['checkin'].'->'.$value['checkout'] ?></td>
-								<td><?php echo $value['totalmoney'] ?></td>
-								<td><?php echo $value['status'] ?></td>
-								<td>
-									<a  
-									href="#"
-									title="review">Write Review</a><br/>
-									<a onclick="return confirm('Do you want to delete record?')" 
-									href="#"
-									title="Delete">Delete</a>
-								</td>
-								<?php
-								echo "<td>"; ?><input type="checkbox" name="checkbox[]"
-									value ="<?php echo $value['bill_id']; ?>"/><?php echo "</td>"; ?>
-								</tr>
+					<?php 
+						foreach ($ds as $dt){ ?>
+						<tr>
+							<td><?php echo $dt->bill_id; ?></td>
+							<td><?php echo $dt->room_id; ?></td>
+							<td><?php echo $dt->date_order; ?></td>
+							<td><?php echo $dt->checkin.' => '.$dt->checkout ?></td>
+							<td><?php echo $dt->totalmoney ?></td>
+							<td>
+								<a href="#"title="review">Write Review</a><br/>
+							</td>
+							<?php
+							echo "<td>"; ?><input type="checkbox" name="checkbox[]"
+								value ="<?php echo $dt->bill_id; ?>"/><?php echo "</td>"; ?>
+						</tr>
 							<?php } 
 						} ?>
 					</tbody>
@@ -56,15 +58,18 @@ get_header();
 			</div>
 		</form>
 	</div>
-<?php }
-else{
-	echo "Please login now !!!";
-					echo "<br>";
-					echo '<a href="../../login">' . 'Login' .'</a>';
-					echo "&nbsp;&nbsp;&nbsp;&nbsp;";
-					exit();
+	<?php
+	}else{
+	?>
+	<div class="col-md-12 col-sm-12 col-xs-12">
+		<br></br>
+			<p style="text-align: center;font-size: 30px;">Please Login Now !!! <a href="<?php get_template_directory_uri() ?>/wordpress/wp-login.php" style="text-align: center;font-size: 30px;">Login</a></p>
+			<br>
+	</div>
 
-				}
+	<?php
+					echo "&nbsp;&nbsp;&nbsp;&nbsp;";
+					}				
 ?>
 </div>
 <?php get_footer(); ?>

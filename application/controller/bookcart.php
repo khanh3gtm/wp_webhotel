@@ -7,6 +7,8 @@ class bookcart extends Controller {
 		add_action('init', array($this, '__stBookingSucces'));
 		add_action('init', array($this, '__stBkSucces'));
 		add_action('init', array($this, '__stInfoSucces'));
+		add_action('init', array($this, '__stHistory'));
+		add_action('init', array($this, '__stList'),10,1);
 
 	}
 	public function __stCheckoutHandler(){
@@ -69,6 +71,28 @@ class bookcart extends Controller {
 		$data = get_user_meta($key);
 	 	return $data;
 	}
+	public function __stHistory()
+	{
+		//$my_id = bookcart_model::inst()->getUserid();
+		$page_id = '1813';
+ 		$page_link = get_the_permalink($page_id);
+ 		//$page_link = add_query_arg('user_id', $my_id, $page_link); //thêm query string vào sau đường dẫn.
+ 		if(isset($_POST['check_list'])){
+ 			//dd($page_link);
+ 			wp_redirect($page_link);//chuyển trang
+ 			exit();
+ 		}
+	}
+	public function __stList($key)
+	 		{
+	 			$data = bookcart_model::inst()->getListBill($key);
+	 			return $data;
+	 		}
+
+
+
+
+
 	public static function inst(){
         static $instane;
         if(is_null($instane)){
