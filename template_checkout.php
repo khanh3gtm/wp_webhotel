@@ -3,6 +3,8 @@
 * Template Name: Checkout
 */
 get_header();
+$st = bookcart::inst()->__stGetInfoRoom();
+dd($st);die;
 ?>
 
 <div class="container">
