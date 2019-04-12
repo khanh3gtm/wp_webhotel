@@ -7,7 +7,7 @@
                         <div class="col-xs-12  col-md-7 col-lg-6">
                             <div class="media ">
                                 <div class="media-left pr30 hidden-xs">
-                                    <img class="media-object" src="wp-content/themes/web/Images/ico_email_subscribe.svg" alt="">
+                                    <img class="media-object" src="<?php echo get_template_directory_uri(); ?>/application/libs/Images/ico_email_subscribe.svg" alt="">
                                 </div>
                                 <div class="media-body">
                                     <h4 class="media-heading  f24">Get Updates &amp; More</h4>
@@ -52,7 +52,7 @@
 
                     <div class="footer_content_element">
                         <p class="footer_content_element1" >Follow Us</p>
-                        <p ><span ><img src="wp-content/themes/web/Images/ico_facebook_footer.svg"  ></span><span ><img src="wp-content/themes/web/Images/ico_instagram_footer.svg"  ></span><span><img src="wp-content/themes/web/Images/ico_twitter_footer.svg"  ></span></p>
+                        <p ><span ><img src="<?php echo get_template_directory_uri(); ?>/application/libs/Images/ico_facebook_footer.svg"  ></span><span ><img src="<?php echo get_template_directory_uri(); ?>/application/libs/Images/ico_instagram_footer.svg"  ></span><span><img src="<?php echo get_template_directory_uri(); ?>/application/libs/Images/ico_twitter_footer.svg"  ></span></p>
                     </div>
                     <br />
 
@@ -158,7 +158,7 @@
             <div class="col-lg-5"></div>
             <div class="col-lg-3">
                 <div class="footer_sub_R">
-                    <p><span ><img src="wp-content/themes/web/Images/ico_paymethod.svg"></span></p>
+                    <p><span ><img src="<?php echo get_template_directory_uri(); ?>/application/libs/Images/ico_paymethod.svg"></span></p>
                 </div>
             </div>
         </div>
