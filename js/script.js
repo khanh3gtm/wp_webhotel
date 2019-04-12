@@ -110,24 +110,24 @@ $(function() {
 
 $(window).scroll(function () {
     if ($(window).scrollTop() >= 611) {
-        $('.widget').addClass('fixed');
+        $('.widget').addClass('hotel_fixed');
     } 
     if ($(window).scrollTop() >= 2500) {
-        $('.widget').removeClass('fixed');
+        $('.widget').removeClass('hotel_fixed');
     }
      if ($(window).scrollTop() < 611) {
-        $('.widget').removeClass('fixed');
+        $('.widget').removeClass('hotel_fixed');
     }
 });
 $(window).scroll(function () {
     if ($(window).scrollTop() >= 611) {
-        $('.widgetroom').addClass('fixed');
+        $('.widgetroom').addClass('hotel_fixed');
     } 
     if ($(window).scrollTop() >= 2500) {
-        $('.widgetroom').removeClass('fixed');
+        $('.widgetroom').removeClass('hotel_fixed');
     }
      if ($(window).scrollTop() < 611) {
-        $('.widgetroom').removeClass('fixed');
+        $('.widgetroom').removeClass('hotel_fixed');
     }
 });
 // guests
