@@ -43,9 +43,7 @@ if(!class_exists('ST_Room_Admin')){
             var frame;
             t.click(function (e) {
                 e.preventDefault();
-
                 var galleryBox = t.parent().find('.st-selection');
-
                 if (frame) {
                     frame.open();
                     return;
@@ -65,11 +63,22 @@ if(!class_exists('ST_Room_Admin')){
                     var attachment = frame.state().get('selection').toJSON();
 
                     var ids = [];                    
-                   
+                   	
+                   	$('img', parent).each(function(){
+                    	var currentID = $(this).data('id');
+                    	if(!ids.includes(currentID)){
+                    		ids.push(currentID);
+                    	}
+                    });
+
+                    console.log(ids);
+
                     if (attachment.length > 0) {
                         for (var i = 0; i < attachment.length; i++) {
-                   			ids.push(attachment[i].id);
-                   			parent.append('<img src="'+ attachment[i].url +'" with="100px" height="100px" />');
+                        	if(!ids.includes(attachment[i].id)){
+	                   			ids.push(attachment[i].id);
+	                   			parent.find('.st-include-image').append('<img  src="'+ attachment[i].url +'" width="150px" height="150px" style = "margin-left: 10px;"  />');
+                   			}
                         }
                     }
                     
@@ -369,7 +378,7 @@ function sunset_contact_email_callback($post){
 			{
 				foreach ($url as $value) {
 					$url_image = wp_get_attachment_image_url($value, 'thumbnail');
-					echo '<img src="'.$url_image.'" alt="">';
+					echo '<img src="'.$url_image.'" alt="" data-id="'. $value .'">';
 				}
 			}
 			?>
