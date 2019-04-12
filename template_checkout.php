@@ -4,7 +4,6 @@
 */
 get_header();
 $st = bookcart::inst()->__stGetInfoRoom();
-dd($st);die;
 ?>
 
 <div class="container">
@@ -14,26 +13,27 @@ dd($st);die;
             <div class="cart-info" id="cart-info">
                  <div class="service-section">
                     <div class="service-left">
-                        <h4 class="title"><a href="#">hotel name</a></h4>
+                        <h4 class="title"><a href="#"><?php echo $st[0]->post_title ?></a></h4>
                         <p class="address"><i class="input-icon field-icon fa"><svg height="15px" width="15px">
                             <title>Ico_maps</title>
                             <desc>Created with Sketch.</desc>
                             <defs></defs>
-                            <img src="libs/Images/gps.svg">
-                        </svg></i> city name , country </p>
+                            <img src="<?php echo get_template_directory_uri(); ?>/application/libs/Images/gps.svg">
+                        </svg></i>&ensp;<?php echo $st[4][1]->name ?>, <?php echo $st[4][0]->name ?> </p>
                     </div>
                     <div class="service-right">
-                        <img class="img-responsive" src=""style =" width: 150px; height: auto ">
+                        <img class="img-responsive" src=""style =" width: 150px; height: auto "><?php 
+                        echo get_avatar($st[2]->ID); ?>
                     </div>
                 </div>
                 <div class="info-section">
                     <ul>
-                        <li><span class="lable_section">Room : </span><span class="value">room</span></li>
+                        <li><span class="lable_section">Room : </span><span class="value"><?php echo $st[2]->post_title ?></span></li>
                     <li>
                      <span class="lable_section">Date : </span>
                      <span class="value">
                         ngày đến -đi &nbsp;    
-                        <a class="st-link" style="font-size: 12px;" href="?c=room&a=view&room_id=<?php echo $data[0]['room_id']?>">Edit</a>
+                        <a class="st-link" style="font-size: 12px;" href="#">Edit</a>
                     </span>
                 </li>
 
@@ -54,10 +54,10 @@ dd($st);die;
                         <li><span class="label_section">Subtotal : </span><span class="value">€ <?php 
                              
                             if ($sl_night>1) {
-                                $price = $sl_night * $data[0]['price'];
+                                $price = $sl_night * $st[3]['st_contact_price_field'][0];
                              }
                             else {
-                                $price = $data[0]['price'];
+                                $price = $st[3]['st_contact_price_field'][0];
                              }
                              echo $price;
                             ?>
@@ -81,16 +81,17 @@ dd($st);die;
         </div>
         <div class="col-lg-8 col-md-8 col-lg-pull-4 col-md-pull-4">
             <h3 class="title">Booking Submission</h3>
-            <?php  
-            if(isset($_SESSION['currUser'])) {
-                    $info=array_shift($infouser);
-                ?>
+            <?php  $check = is_user_logged_in();
+            if($check==1) {
+                    $key= wp_get_current_user()->ID;
+                    $data = bookcart::inst()->__stInfoBook($key);
+                    ?>
             <form class="" method="post" action="bookingsucces?bill_id=$user_id">
                 <div class="check-out-form">
 
                     <div class="entry-content"></div>
 
-                    <input type="hidden"  value="<?php echo $info['username'] ?>" name = "st_username" >
+                    <input type="hidden"  value="<?php echo wp_get_current_user()->ID ?>" name = "st_username" >
                     <div class="clearfix">
 
                         <div class="row">
@@ -98,14 +99,14 @@ dd($st);die;
                                 <div class="form-group form-group-icon-left">                
                                     <label for="field-st_first_name">First Name <span class="require">*</span> </label>
                                     <i class="fa fa-user input-icon"></i>
-                                    <input class="form-control required" id="field-st_first_name" value="<?php echo $info['first_name'] ?>" name="st_first_name" placeholder="First Name" type="text" required>
+                                    <input class="form-control required" id="field-st_first_name" value="<?php echo $data['first_name'][0] ?>" name="st_first_name" placeholder="First Name" type="text" required>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group form-group-icon-left">                
                                     <label for="field-st_last_name">Last Name <span class="require">*</span> </label>
                                     <i class="fa fa-user input-icon"></i>
-                                    <input class="form-control required" id="field-st_last_name" value="<?php echo $info['last_name'] ?>" name="st_last_name" placeholder="Last Name" type="text" required>
+                                    <input class="form-control required" id="field-st_last_name" value="<?php echo $data['last_name'][0] ?>" name="st_last_name" placeholder="Last Name" type="text" required>
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -113,7 +114,7 @@ dd($st);die;
                                     <label for="field-st_email">Email <span class="require">*</span> </label>
                                     <i class="fa fa-envelope input-icon"></i>&nbsp;&nbsp;
                                     
-                                    <input class="form-control required" id="field-st_email" value="<?php echo $info['email'] ?>" name="st_email" placeholder="email@domain.com" type="text" required>
+                                    <input class="form-control required" id="field-st_email" value="<?php echo wp_get_current_user()->user_email ?>" name="st_email" placeholder="email@domain.com" type="text" required>
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -121,53 +122,53 @@ dd($st);die;
                                 <div class="form-group form-group-icon-left">                
                                     <label for="field-st_phone">Phone <span class="require">*</span> </label>
                                     <i class="fa fa-phone input-icon"></i>
-                                    <input class="form-control required" id="field-st_phone" value="0<?php echo $info['phone_number'] ?>" name="st_phone" placeholder="Your Phone" type="text" required>
+                                    <input class="form-control required" id="field-st_phone" value="0<?php echo $data['st_phone'][0] ?>" name="st_phone" placeholder="Your Phone" type="text" required>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group form-group-icon-left">                
                                     <label for="field-st_address">Address Line 1  </label>
                                     <i class="fa fa-map-marker input-icon"></i>
-                                    <input class="form-control" id="field-st_address" value="<?php echo $info['address1'] ?>" name="st_address" placeholder="Your Address Line 1" type="text">
+                                    <input class="form-control" id="field-st_address" value="<?php echo $data['st_address'][0] ?>" name="st_address" placeholder="Your Address Line 1" type="text">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group form-group-icon-left">                
                                     <label for="field-st_address2">Address Line 2  </label>
                                     <i class="fa fa-map-marker input-icon"></i>
-                                    <input class="form-control" id="field-st_address2" value="<?php echo $info['address2'] ?>" name="st_address2" placeholder="Your Address Line 2" type="text">
+                                    <input class="form-control" id="field-st_address2" value="<?php echo $data['st_address2'][0] ?>" name="st_address2" placeholder="Your Address Line 2" type="text">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group form-group-icon-left">                
                                     <label for="field-st_city">City  </label>
                                     <i class="fa fa-map-marker input-icon"></i>
-                                    <input class="form-control" id="field-st_city" value="<?php echo $info['city'] ?>" name="st_city" placeholder="Your City" type="text">
+                                    <input class="form-control" id="field-st_city" value="<?php echo $data['st_city'][0] ?>" name="st_city" placeholder="Your City" type="text">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group form-group-icon-left">                
                                     <label for="field-st_province">State/Province/Region  </label>
-                                    <i class="fa fa-map-marker input-icon"></i>                <input class="form-control" id="field-st_province" value="<?php echo $info['state_province_region'] ?>" name="st_province" placeholder="State/Province/Region" type="text">
+                                    <i class="fa fa-map-marker input-icon"></i>                <input class="form-control" id="field-st_province" value="<?php echo $data['st_province'][0] ?>" name="st_province" placeholder="State/Province/Region" type="text">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group form-group-icon-left">                
                                     <label for="field-st_zip_code">ZIP code/Postal code  </label>
-                                    <i class="fa fa-map-marker input-icon"></i>                <input class="form-control" id="field-st_zip_code" value="<?php echo $info['zipcode_or_postal_code'] ?>" name="st_zip_code" placeholder="ZIP code/Postal code" type="text">
+                                    <i class="fa fa-map-marker input-icon"></i>                <input class="form-control" id="field-st_zip_code" value="<?php echo $data['st_zip_code'][0] ?>" name="st_zip_code" placeholder="ZIP code/Postal code" type="text">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group form-group-icon-left">                
                                     <label for="field-st_country">Country  </label>
                                     <i class="fa fa-globe input-icon"></i>                
-                                    <input class="form-control" id="field-st_country" value="<?php echo $info['country'] ?>" name="st_country" placeholder="Country" type="text">
+                                    <input class="form-control" id="field-st_country" value="<?php $data['st_country'][0] ?>" name="st_country" placeholder="Country" type="text">
                                 </div>
                             </div>
                             <div class="col-sm-12">
                                 <div class="form-group ">
                                     <label for="field-st_note">Special Requirements  </label>
-                                    <textarea rows="6" class="form-control" id="field-st_note" name="st_note" placeholder="Special Requirements"><?php echo $info['special'] ?></textarea>
+                                    <textarea rows="6" class="form-control" id="field-st_note" name="st_note" placeholder="Special Requirements"><?php echo $data['st_note'][0] ?></textarea>
                                 </div>
                             </div>
                         </div>

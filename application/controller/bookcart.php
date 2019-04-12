@@ -6,6 +6,7 @@ class bookcart extends Controller {
 		add_action('init', array($this, '__stCheckoutHandler'));
 		add_action('init', array($this, '__stBookingSucces'));
 		add_action('init', array($this, '__stBkSucces'));
+		add_action('init', array($this, '__stInfoBook'),10,1);
 		add_action('init', array($this, '__stInfoSucces'));
 		add_action('init', array($this, '__stHistory'));
 		add_action('init', array($this, '__stList'),10,1);
@@ -21,11 +22,20 @@ class bookcart extends Controller {
 	 		$data = $_POST;
 	 		$user_login = $data['st_email'];
 	 		$user_email = $data['st_email'];
-			$user_id = register_new_user($user_login, $user_email);
-			if (is_wp_error($errors) ) {
+	 		$check = is_user_logged_in();
+	 		if($check==1)
+	 		{
+	 			$user_id = wp_get_current_user()->ID;
+	 		}
+	 		else
+	 		{
+	 			$user_id = register_new_user($user_login, $user_email);
+	 			if (is_wp_error($errors) ) {
 				echo "Email already exists !!!";
 				exit();
-			}
+				}
+	 		}
+			dd($user_id);
 			update_user_meta( $user_id,'first_name', $data['st_first_name']);
 			update_user_meta( $user_id,'last_name', $data['st_last_name']);
 			update_user_meta( $user_id,'st_phone', $data['st_phone']);
@@ -44,14 +54,7 @@ class bookcart extends Controller {
 			$format = array('%s','%d');
 			$wpdb->insert($table,$data,$format);
 			$my_id = $wpdb->insert_id;
-			// dd($my_id);
-			// dd($user_id);
-	 	// 	dd($data);die;
-
-
 			
-
-
 
 	 		$page_id = '1801';
 	 		$page_link = get_the_permalink($page_id);// lấy đường dẫn theo page id
@@ -68,13 +71,18 @@ class bookcart extends Controller {
 	}
 	public function __stBkSucces()
 	 		{
-	 			$key = bookcart_model::inst()->getUserid();
+	 			$key = bookcart_model::inst()->getUserId();
 	 			$data = bookcart_model::inst()->getDataUser($key);
 	 			return $data;
 	 		}
 	public function __stInfoSucces()
 	{
-		$key = bookcart_model::inst()->getUserid();
+		$key = bookcart_model::inst()->getUserId();
+		$data = get_user_meta($key);
+	 	return $data;
+	}
+	public function __stInfoBook($key)
+	{
 		$data = get_user_meta($key);
 	 	return $data;
 	}
@@ -97,11 +105,15 @@ class bookcart extends Controller {
 	 		}
 	public function __stGetInfoRoom()
 	{
-		$room_id = '2000';
-		$hotel_id = '2001';
-		$inforoom = get_post_meta($room_id);
-		$infohotel = get_post_meta($hotel_id);
-		$data = array($inforoom,$infohotel);
+		$room_id = '1815';
+		$hotel_id = '1816';
+		$location = get_the_terms($hotel_id,'location');
+		$inforoom = get_post($room_id);
+		$infohotel = get_post($hotel_id);
+		$inforoommeta = get_post_meta($room_id);
+		$infohotelmeta = get_post_meta($hotel_id);
+
+		$data = array($inforoom,$infohotelmeta,$inforoom,$inforoommeta,$location);
 		return $data;
 	}
 
