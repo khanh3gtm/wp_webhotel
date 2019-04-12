@@ -1,0 +1,14 @@
+.st-upload-gallery .st-thumb{
+ margin-right: 10px;
+ position: relative;
+ z-index: 999;
+}
+.st-upload-gallery .time{
+ position: absolute;
+ margin-left:-21px ;
+ z-index: 999;
+ cursor: pointer;
+ background-color: #ce0122;
+ color: white;
+ font-size: 15px;
+}

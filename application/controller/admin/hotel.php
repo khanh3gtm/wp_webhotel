@@ -354,8 +354,11 @@ class ST_Hotel_Admin{
                     	var currentID = $(this).data('id');
                     	if(!ids.includes(currentID)){
                     		ids.push(currentID);
+
                     	}
                     });
+
+
 
                     console.log(ids);
 
@@ -372,11 +375,16 @@ class ST_Hotel_Admin{
                     
                     parent.find('.hotel_images').val(ids.toString());
                 });
+                
 
                 frame.open();
 
             });
         })
+	 		$(document).on('click',".time" ,function() {
+	 			
+                    	$(this).parent().remove();
+                    });
 
 	 	</script>
 
