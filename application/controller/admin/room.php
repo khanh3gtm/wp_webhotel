@@ -107,7 +107,9 @@ if(!class_exists('ST_Room_Admin')){
 				case 'image':
 				$image = get_term_meta($term_id, 'category-image-id', true);
 				// $data = maybe_unserialize($image->description);
+				
 				$data = wp_get_attachment_image_src($image, 'thumbnail');
+
            		echo '<img src="'. $data[0] .'" alt="">';
 				break;
 				

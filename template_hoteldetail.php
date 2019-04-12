@@ -1,3 +1,5 @@
+<?php  
 /**
 * Template Name: Hotel
 */
+?>
