@@ -16,7 +16,7 @@ class ST_Hotel_Admin{
 		add_action('location_edit_form_fields', array ( $this, 'location_info_output' ));
 		add_action('created_location', array($this, 'location_info_save'));
 		add_action( 'edited_location', array($this,'location_info_save'));
-		
+		add_action('admin_enqueue_scripts',array($this,'webhotel_style'));
 	}
 
 	public function customsb_post_type(){
@@ -408,6 +408,15 @@ class ST_Hotel_Admin{
 			self::$_inst = new self();
 		}
 		return self::$_inst;
+	}
+	function webhotel_style(){
+	wp_register_style('backend-style',get_stylesheet_directory_uri() . '/backend.css','all');
+	wp_enqueue_style('backend-style');
+	wp_register_style('fontawesome','https://use.fontawesome.com/releases/v5.6.3/css/all.css','all');
+	wp_enqueue_style('fontawesome');
+
+
+	
 	}
 
 
