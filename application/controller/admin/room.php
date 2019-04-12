@@ -11,7 +11,7 @@ if(!class_exists('ST_Room_Admin')){
 			add_action('manage_room_posts_custom_column', array($this,'sunset_contact_custom_column'), 10, 2);
 			add_action('add_meta_boxes', array($this, 'sunset_contact_add_meta_box'));
 			add_action('save_post', array($this, 'sunset_save_contact_email_data'), 10, 2);
-			
+			add_action('manage_amenities_custom_column', array($this, 'st_taxonomy_custom_column'),10,3);
 
 
 
@@ -101,14 +101,18 @@ if(!class_exists('ST_Room_Admin')){
 
 			return $columns;
 		}
-		// function st_image_custom_column($column, $term){
-		// 	switch ($column) {
-		// 		case 'image':
-		// 		$image_id = get_term_meta ( $term -> term_id, 'category-image-id', true );
-		// 		echo $image_id;
-		// 		break;
-		// 	}
-		// }
+		function st_taxonomy_custom_column($out, $column,$term_id)
+		{
+			switch ($column) {
+				case 'image':
+				$image = get_term_meta($term_id, 'category-image-id', true);
+				// $data = maybe_unserialize($image->description);
+				$data = wp_get_attachment_image_src($image, 'thumbnail');
+           		echo '<img src="'. $data[0] .'" alt="">';
+				break;
+				
+			}
+		}
 		public function add_category_image () { ?>
 			<div class="form-field term-group">
 				<label for="category-image-id"><?php _e('Image', 'shinetheme'); ?></label>
@@ -166,20 +170,12 @@ if(!class_exists('ST_Room_Admin')){
  });
 </script>
 <?php }
-
 public function save_category_image(){
 	if(isset($_POST['category-image-id']) && '' !== $_POST['category-image-id']){
 		$image = $_POST['category-image-id'];
 		add_term_meta($term_id, 'category-image-id', $image, true);
 	}
 }
-
-// public function save_metabox_image(){
-// 	if(isset($_POST['metabox-image-id']) && '' !== $_POST['metabox-image-id'] ){
-// 		$image_meta = $_POST['metabox-image-id'];
-// 		add_metadata('post', $post_id, 'metabox-image-id', $image_meta, true);
-// 	}
-// }
 public function update_category_image ( $term, $amenities ) { ?>
 	<tr class="form-field term-group-wrap">
 		<th scope="row">
@@ -327,8 +323,6 @@ function sunset_contact_custom_column($column,$post_id)
 function sunset_contact_add_meta_box()
 {
 	add_meta_box('contact_email','Thông tin phòng',[$this,'sunset_contact_email_callback'],'room');
-
-
 }
 function sunset_contact_email_callback($post){
 	wp_nonce_field('sunset_save_contact_email_data', 'sunset_contact_email_meta_box_nonce');
@@ -391,13 +385,6 @@ function sunset_contact_email_callback($post){
 	<?php
 }
 
-// function st_save_image_data($post_id){
-// 	if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE){
-// 	return;
-// 	}
-// 	$image_id = sanitize_text_field($_POST['metabox-image-id']);
-// 	upload_post_meta($post_id, 'metabox-image-id', $image_id);
-// }
 function sunset_save_contact_email_data($post_id){
 	if( ! isset($_POST['sunset_contact_email_meta_box_nonce']) ){
 		return;
