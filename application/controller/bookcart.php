@@ -47,10 +47,16 @@ class bookcart extends Controller {
 			update_user_meta( $user_id,'st_country', $data['st_country']);
 			update_user_meta( $user_id,'st_note', $data['st_note']);
 			global $wpdb;
-			$table ='wp_bill';
+			$table = 'wp_bill';
 			$data = array(
 				'bill_id' => '',
-				'user_id' => $user_id);
+				'user_id' => $user_id,
+				'room_id' => '',
+				'checkin' => '',
+				'checkout' => '',
+				'totalmoney' => '',
+				'date_order'=> date('d-m-Y')
+			);
 			$format = array('%s','%d');
 			$wpdb->insert($table,$data,$format);
 			$my_id = $wpdb->insert_id;
@@ -113,7 +119,7 @@ class bookcart extends Controller {
 		$inforoommeta = get_post_meta($room_id);
 		$infohotelmeta = get_post_meta($hotel_id);
 
-		$data = array($inforoom,$infohotelmeta,$inforoom,$inforoommeta,$location);
+		$data = array($infohotel,$infohotelmeta,$inforoom,$inforoommeta,$location);
 		return $data;
 	}
 

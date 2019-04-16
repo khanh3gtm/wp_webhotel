@@ -1,7 +1,5 @@
 <?php  
-/**
-* Template Name: Hotel
-*/
+
 get_header();
 ?>
 <div class="clear"></div>

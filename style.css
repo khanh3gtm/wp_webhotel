@@ -532,12 +532,12 @@ body{
     /* visibility: hidden; */
     cursor: pointer;
 }
-.dropdown-toggle span 
+.search-form-section .dropdown-toggle span 
 {
 	color: #5191FA;
 	
 }
-.dropdow-list2
+.search-form-section .dropdow-list2
 {
 	width: 100%;
     height: 30px;
@@ -546,24 +546,24 @@ body{
     margin-top: 50px;
     cursor: pointer;
 }
-span .adult_values
+.seach-form span .adult_values
 {
 	color: #5191FA;
 	font-size: 17px;
 	font-weight: 100;
 }
-span .child_values
+.seach-form span .child_values
 {
 	color: #5191FA;
 	font-size: 17px;
 	font-weight: 100;
 }
-.homepage_value .fa-angle-up
+.seach-form .homepage_value .fa-angle-up
 {
 	color: #5191FA;
 	font-size: 20px;
 }
-.formdebook .people-dropdown
+.seach-form .formdebook .people-dropdown
 {
 	display: block;
 }
@@ -1609,9 +1609,13 @@ span .child_values
 {
 	margin-left: 48px;
 }
-}
-/*end Hompage*/
+
+
 
 /*End Home page*/
+/*Start Hotel detail*/
 
-/****End Mạnh****/
+
+/*End Hotel detail*/
+
+/****End Mạnh***
