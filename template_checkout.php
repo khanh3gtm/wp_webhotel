@@ -4,8 +4,8 @@
 */
 get_header();
 $st = bookcart::inst()->__stGetInfoRoom();
+$err = bookcart::inst()->__stCheckErr();
 ?>
-
 <div class="container">
     <div class="row">
         <div class="col-lg-4 col-md-4 col-lg-push-8 col-md-push-8 info-booking">
@@ -185,6 +185,16 @@ $st = bookcart::inst()->__stGetInfoRoom();
                                 </span>
                                 
                                 <span class="checkmark fcheckbox"></span>
+                                <br>
+                                <p>
+                                   <?php
+                                   if(!empty($err)){
+                                    foreach ($err as $key => $value) {
+                                        echo $value . '<br />';
+                                       }
+                                    }
+                                   ?>
+                                </p>
                             </label>
                         </div>
                     </div>
