@@ -317,7 +317,7 @@ class ST_Hotel_Admin{
 			 		foreach ($url as $key => $value) {
 			 			if(!empty($value)){
 			 			$url_image = wp_get_attachment_image_url($value, 'thumbnail');
-			 			echo '<img class="st-thumb" src="'. $url_image .'" width="120px" height="120px"  style = "margin-left: 10px;" data-id="'. $value .'"/><i class="fa fa-times time " ></i>';
+			 			echo '<div class="item" style="display: inline-block;"><img class="st-thumb" src="'. $url_image .'" width="150px" height="150px"  style = "margin-left: 10px;" data-id="'. $value .'"/><i class="fa fa-times time " ></i></div>';
 			 			}
 			 		}
 			 	}
@@ -381,7 +381,7 @@ class ST_Hotel_Admin{
                         for (var i = 0; i < attachment.length; i++) {
                         	if(!ids.includes(attachment[i].id)){
 	                   			ids.push(attachment[i].id);
-	                   			parent.find('.st-include-image').append('<img  src="'+ attachment[i].url +'" width="120px" height="120px" style = "margin-left: 10px;"  />');
+	                   			parent.find('.st-include-image').append('<div class="item" style="display: inline-block;"><img  src="'+ attachment[i].url +'" width="150px" height="150px" style = "margin-left: 10px;"   /><i class="fa fa-times time " ></i></div>');
                    			}
                         }
                     }
@@ -395,9 +395,17 @@ class ST_Hotel_Admin{
             });
         })
 	 		$(document).on('click',".time" ,function() {
-	 			
-                    	$(this).parent().remove();
-                    });
+	 			$(this).parent().remove();
+	 			var ids = [];
+	 			$('.st-upload-gallery .st-include-image .item').each(function(){
+	 				var id = $(this).find('img').data('id');
+	 				if(!ids.includes(id)){
+	 					ids.push(id);
+	 				}
+	 			});
+	 			$('.st-upload-gallery .hotel_images').val(ids.toString());
+                   	
+            });
 
 	 	</script>
 
