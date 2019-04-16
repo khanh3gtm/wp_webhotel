@@ -26,6 +26,9 @@ if(!class_exists('ST_Room_Admin')){
 		}
 		function upload_image_meta_box(){
 			?>
+<<<<<<< HEAD
+			
+=======
 			<script type="text/javascript">
 				$('.st-upload').each(function (e) {
 					var t = $(this);
@@ -93,6 +96,7 @@ if(!class_exists('ST_Room_Admin')){
 
 
 			</script>
+>>>>>>> b08042c3be2c7d9ce34b18d05d70b8d7dd010c54
 			<?php
 		}
 		function my_custom_taxonomy_columns($columns){

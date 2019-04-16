@@ -82,7 +82,7 @@
                     <i class="fa fa-bars menu1" ></i>
                 </div>
                 <div class="header1left">
-                    <a href="index.php">
+                    <a href="<?php echo home_url() ?>">
                         <img src="<?php echo get_template_directory_uri(); ?>/application/libs/Images/logo_homap-4.svg">
                     </a>
                     <div class="menu">
@@ -90,10 +90,10 @@
                         <nav id="st-main-menu" >
                             <a href="#" class="back-menu"><i class="fa fa-angle-left"></i></a>
                             <ul id="main-menu">
-                                <li><a href="index.php">HOME</a></li>
+                                <li><a href="<?php echo home_url() ?>">HOME</a></li>
                                 <li><a href="#">LISTING<i class="fa fa-angle-down"></i></a>
                                     <ul class="sub-menu">
-                                        <li><a href="#">Full Map Layout</a></li>
+                                        <li><a href="<?php echo site_url( '/checkout/'); ?>">Full Map Layout</a></li>
                                         <li><a href="#">Half Map Layout</a></li>
                                         <li><a href="index.php?c=slidebar&a=view">Sidebar layout</a></li>
 

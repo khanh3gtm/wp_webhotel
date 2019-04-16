@@ -11,6 +11,7 @@ class bookcart extends Controller {
 		add_action('init', array($this, '__stHistory'));
 		add_action('init', array($this, '__stList'),10,1);
 		add_action('init', array($this, '__stGetInfoRoom'));
+		add_action('init', array($this, '__stCheckErr'));
 
 	}
 	public function __stCheckoutHandler(){
@@ -122,7 +123,32 @@ class bookcart extends Controller {
 		$data = array($infohotel,$infohotelmeta,$inforoom,$inforoommeta,$location);
 		return $data;
 	}
+	public function __stCheckErr()
+	{
+		if(isset($_POST['checkout_submit'])){
+			$data = $_POST;
+			if(!isset($data['term_condition']) || $data['term_condition'] != '1'){
+				$err_checkout = array();
+				array_push($err_checkout, 'Please tick a checkbox.');
+			    
+				$this->view($err_checkout);	
+				return;		
+			}
+			$err_checkout = array();
 
+			if (empty($_POST['st_email'])) {
+			    array_push($err_checkout, '  Email is required.');
+		        $this->view($err_checkout);
+		        return;
+		    }
+			if (!preg_match('/^[_a-z0-9-]*@[a-z0-9-]+(\.[a-z0-9-]+)$/', $_POST['st_email']))
+		    {
+		    	array_push($err_checkout, '  This email is not valid. Please re-enter. ');
+				$this->view($err_checkout);	
+				return;
+		    }
+		}
+	}
 
 
 
