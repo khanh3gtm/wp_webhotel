@@ -1,14 +1,6 @@
-*{
-	padding: 0;
-	margin: 0;
-	font-size: 14px;
-	letter-spacing: 0;
-	font-family: 'Poppins', sans-serif;
-}
-body
+.clickme
 {
-	font-family: 'Poppins', sans-serif ;
-
+	display: none;
 }
 /*login*/
 .modal .modal-dialog .modal-content .modal-header .close
@@ -101,6 +93,9 @@ body
 {
 	margin-bottom: 10px;
 }
+.st-hotel-header .left .sub-heading i {
+	color:#A0A9B2;font-size: 18px;margin-right: 5px
+}
 #write-review
 {
 	color: #5E6D77;
@@ -148,25 +143,40 @@ body
 {
 	font-size: 20px;
 }
+
+.facilities .room-facility{
+	overflow: hidden;
+	height: 125px;
+
+}
+.facilities .room-facility.more{
+	
+	height: auto;
+
+
+}
 .broom i
 {
-	border: 1px solid #EAEEF3;
-	border-radius: 5px;
+	
+	
 	font-size: 20px;
 	padding: 6px 8px;
 }
+
+
 .sroom i
 {
-	border: 1px solid #EAEEF3;
-	border-radius: 5px;
+	
 	font-size: 20px;
 	padding: 6px 8px;
 }
+
 /*room*/
 a.morelink 
 {
 	text-decoration:none;
 	outline: none;
+	color: #5191FA 
 }
 .morecontent span {
 	display: none;
@@ -191,10 +201,12 @@ a.morelink
 {
 	transform: rotate(180deg);
 }
-.fixed
+.hotel_fixed
 {
 	position: fixed;
 	top: 0;
+	width: 262px;
+	
 }
 /*widget*/
 .widgets
@@ -215,6 +227,13 @@ a.morelink
 	width: 100%;
 	border-bottom: 1px solid #f1f1f1;
 	background: #fff;
+	color: #5E6D77;
+    font-size: 14px;
+}
+.money-price{
+	color: #1A2B48;
+	font-size: 18px;
+	font-weight: 500;
 }
 .widgets #check
 {
@@ -223,6 +242,22 @@ a.morelink
 	width: 100%;
 	border-bottom: 1px solid #f1f1f1;
 	background: #fff;
+}
+.widgets #check #reportrange{
+	   color: #5191FA;
+}
+.widgets #check #date{
+	position: absolute;
+    top: 0;
+    left: 0;
+    background: transparent;
+    color: transparent;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+ 
+    /* visibility: hidden; */
+    cursor: pointer;
 }
 .widgets #check input
 {
@@ -321,7 +356,7 @@ a.morelink
 }
 
 .field_people_room .people-dropdown {
-	display: none;
+	display: block;
 	z-index: 1;
 	padding: 20px 20px;
 	border: none;
@@ -433,6 +468,13 @@ span.control.minus.children {
 	position: relative;
 	top:20px;
 	right: -20px;
+	width: 50px;
+	height: auto;
+}
+.widget-box .owner_name
+{
+	position: relative;
+	top: 20px;
 }
 .people-group .label
 {
@@ -587,7 +629,7 @@ font-size: 14px;
 .st-hotel-header .left
 {
 	font-size: small;
-	width: auto;
+	width: 75%;
 	float:left;
 }
 .st-hotel-header .left .st-stars  {
@@ -599,6 +641,8 @@ font-size: 14px;
 {		
 	float: right;
 }
+
+
 .st-hotel-header .review-score 
 {
 	line-height: 50px;
@@ -631,6 +675,7 @@ font-size: 14px;
 	line-height: 13px;
 	margin-top: 11px;
 	margin-bottom: 5px;
+	font-size: 24px;
 }
 .st-hotel-header .review-score .head span.text-rating {
 	color: #5191FA;
@@ -698,6 +743,13 @@ font-size: 14px;
 	font-weight: 400;
 	position: relative;
 }
+.st-description .more-content{
+	height: 80px;
+	overflow: hidden;
+}
+.st-description .more-content.more{
+	height: auto;
+}
 [data-show-all] {
 	position: relative;
 	overflow: hidden;
@@ -706,18 +758,33 @@ font-size: 14px;
 {
 	margin: 0 0 10px;
 }
-.cut-gradient {
+.st-description .cut-gradient {
 	position: absolute;
-	bottom: 27px;
+	bottom: 20px;
 	left: 0;
 	height: 65px;
 	width: 100%;
 	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(1%, rgba(255, 255, 255, 0)), color-stop(80%, white));
 	background-image: linear-gradient(rgba(255, 255, 255, 0) 1%, white 80%);
 }
+.cut_gradient_rule{
+	position: absolute;
+	bottom: 20px;
+	left: 0;
+	height: 65px;
+	width: 100%;
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(1%, rgba(255, 255, 255, 0)), color-stop(80%, white));
+	background-image: linear-gradient(rgba(255, 255, 255, 0) 1%, white 80%);
+
+}
 .st-link:hover {
 	color: #5191FA !important;
 	text-decoration: underline;
+}
+.showmore_des{
+	color:#5191FA;
+	cursor: pointer;
+}
 }
 /*end descripton*/
 /*Faciliti*/
@@ -744,7 +811,23 @@ font-size: 14px;
 	color:#5191FA;
 	cursor: pointer;
 }
+
+
 /*end Faciliti*/
+/*Rules*/
+.showmore_rule{
+	color:#5191FA;
+	cursor: pointer;
+}
+
+.rules .more_content_rule{
+	overflow: hidden;
+	height: 111px;
+}
+.rules .more_content_rule.more{
+	height: auto;
+}
+/*End Rules*/
 /*rooms*/
 .st-heading-section .down-icon2
 {
@@ -755,6 +838,10 @@ font-size: 14px;
 {
 	display: none;
 }
+.sroom a{
+	color: #1A2B48;
+	font-size: 18px;
+}
 .broom
 {
 	display: block;
@@ -762,6 +849,12 @@ font-size: 14px;
 .broom a
 {
 	color: #1A2B48;
+	font-size: 18px;
+}
+.broom a:hover
+{
+	color: #337ab7;
+	
 }
 .broom .sheration 
 {
@@ -778,7 +871,7 @@ font-size: 14px;
 {
 	padding: 0;
 }
-.broom .btn button
+.broom .btn 
 {
 	background: #FA5636;
 	color: #FFF;
@@ -787,6 +880,12 @@ font-size: 14px;
 	padding: 10px 10px;
 	border-radius: 5px;
 	border: none;
+}
+.broom .btn:hover{
+	color: #FFF;
+}
+.broom .price-room{
+	margin-bottom: 5px;
 }
 
 /*rooms*/
@@ -797,6 +896,7 @@ font-size: 14px;
 }
 .reviews .square
 {
+	height: 346px;
 	border:1px solid #eeeeee;
 	border-radius: 5px;
 	padding: 20px 20px;
@@ -832,6 +932,9 @@ font-size: 14px;
 	margin-top: 10px;
 	color: #768090;
 	font-size: 14px;
+}
+.reviews .review-box-score .review-score-base span {
+	color: #5191FA;
 }
 .reviews .square .heading {
     font-size: 18px;
@@ -871,6 +974,24 @@ font-size: 14px;
 	height: 8px;
 	background: #5191FA;
 	border-radius: 10px;
+}
+.reviews .item .progress  .darkgreen{
+	width: 100%;
+}
+.reviews .item .progress .location{
+	width: 94%;
+}
+.reviews .item .progress .service{
+	width: 86%;
+}
+.reviews .item .progress .clearness{
+	width: 100%;
+}
+.reviews .item .progress .room{
+	width: 100%;
+}
+.reviews .item .progress .sleep{
+	width: 94%;
 }
 .reviews .item .label {
 	position: relative;
@@ -928,6 +1049,10 @@ font-size: 14px;
 	margin-left: 5px;
 	font-size: 20px;
 }
+.review-list .avatar{
+	width: 50px;
+	height: auto;
+}
 .review-list .comment-item .comment-item-body 
 {
 	margin-top: 30px;
@@ -950,6 +1075,11 @@ font-size: 14px;
 .review-list .media-body
 {
 	padding-left: 10px;
+}
+.reviews .summarys
+{
+	text-align: center;
+	margin-top: 5%;
 }
 /*end review*/
 
@@ -1112,130 +1242,11 @@ font-size: 14px;
 
 /*end content*/
 /**/
-/*start footer*/
-.mailchimp {
-	padding-top: 65px;
-	padding-bottom: 40px;
-	background: #F5F5F5;
-}
-.mailchimp .media {
-	overflow: visible;
-}
 
-.mailchimp .media .media-object {
-	position: relative;
-	top: -10px; 
-}
-
-.main-footer-sub {
-	padding-top: 10px;
-	padding-bottom: 30px; 
-}
-
-.subcribe-form 
-{
-	position: relative; 
-}
-.subcribe-form .form-control {
-	height: 55px;
-	line-height: 53px;
-	font-size: 14px;
-	-webkit-box-shadow: none;
-	box-shadow: none;
-	border-color: #D7DCE3;
-}
-.subcribe-form input[type="submit"] 
-{
-	border: none;
-	border-radius: 0 5px 5px 0;
-	position: absolute;
-	top: 0;
-	right: 0;
-	height: 55px;
-	line-height: 55px;
-	color: #FFF;
-	background: #5191FA;
-	padding-left: 25px;
-	padding-right: 25px;
-	font-weight: 600;
-	text-transform: uppercase; 
-}
-
-#description-tab img
-{
-	max-width: 100%; 
-}
-
-.fs-28 h2 {
-	font-size: 28px; 
-}
-.f24 
-{
-	font-size: 24px !important;
-}
-.f16 
-{
-	font-size: 16px !important;
-}
-.c-grey 
-{
-	color: #5E6D77 !important;
-}
-#footer_content
-{
-	padding-top: 61.3px;
-	padding-left: 40px;
-	min-height: 450px;
-}
-#footer_content .footer_content_header
-{
-
-	font-size: 14px;
-	color: #1A2B48;
-	font-weight: 500;
-}
-#footer_content .footer_content_element 
-{
-	border-left: 3px solid #5191FA ;
-	margin-top: 20px;
-}
-#footer_content .footer_content_element .footer_content_element1
-{
-	font-family:Poppins-Regular;
-	font-size: 14px;
-	color: #5E6D77;
-	padding-left: 15px;
-}
-#footer_content .footer_content1_element 
-{
-	margin-top: 20px;
-}
-#footer_content .footer_content1_element .footer_content1_element1
-{
-	
-	font-size: 14px;
-	color: #1A2B48 ;
-}
-.footer_sub
-{
-	border-top: 1px solid #DDDDDD;
-}
-.footer_sub .footer_sub_L 
-{
-	padding-top: 30px;
-	font-size: 15px; 
-	color: #768092;
-	padding-left: 25px;
-}
-.footer_sub .footer_sub_R 
-{
-	padding-top: 20px;
-}
-/*end footer*/
 
 @media screen and (max-width:1199px)
 {
-	.fixed{
+	.hotel_fixed{
 		position: fixed;
 		top: 0px;
 		width: 15.2em !important;
@@ -1332,7 +1343,7 @@ font-size: 14px;
 	.st-hotel-header .left
 	{
 		font-size: small;
-		width: auto;
+		width: 75%;
 		float:left;
 	}
 	.st-hotel-header .left .st-stars  {
@@ -1444,15 +1455,7 @@ font-size: 14px;
 {
 	margin: 0 0 10px;
 }
-.st-description .cut-gradient {
-	position: absolute;
-	bottom: 30px;
-	left: 0;
-	height: 50px;
-	width: 100%;
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(1%, rgba(255, 255, 255, 0)), color-stop(80%, white));
-	background-image: linear-gradient(rgba(255, 255, 255, 0) 1%, white 80%);
-}
+
 .st-link:hover {
 	color: #5191FA !important;
 	text-decoration: underline;
@@ -1481,6 +1484,7 @@ font-size: 14px;
 {
 	display: block;
 }
+
 .broom a
 {
 	color: #1A2B48;
@@ -1496,11 +1500,12 @@ font-size: 14px;
 	overflow: hidden;
 	margin-left: -15px;
 }
+
 .broom .btn
 {
 	padding: 0;
 }
-.broom .btn button
+.broom  .btn
 {
 	background: #FA5636;
 	color: #FFF;
@@ -1510,6 +1515,7 @@ font-size: 14px;
 	border-radius: 5px;
 	border: none;
 }
+ 
 /*rooms*/
 /*review*/
 .reviews
@@ -1684,6 +1690,7 @@ font-size: 14px;
 	border-bottom: 1px solid #f1f1f1;
 	background: #fff;
 }
+
 .widgets #check
 {
 	height: 84px;
@@ -1906,6 +1913,7 @@ font-size: 14px;
 	border:1px solid #D7DCE3; 
 	font-size: 12px;
 }
+
 .widget-box #avt 
 {
 	position: relative;
@@ -2262,15 +2270,7 @@ font-size: 14px;
 	{
 		margin: 0 0 10px;
 	}
-	.st-description .cut-gradient {
-		position: absolute;
-		bottom: 25px;
-		left: 0;
-		height: 75px;
-		width: 100%;
-		background-image: -webkit-gradient(linear, left top, left bottom, color-stop(1%, rgba(255, 255, 255, 0)), color-stop(80%, white));
-		background-image: linear-gradient(rgba(255, 255, 255, 0) 1%, white 80%);
-	}
+	
 	.st-link:hover {
 		color: #5191FA !important;
 		text-decoration: underline;
@@ -2327,7 +2327,7 @@ font-size: 14px;
 	{
 		padding: 0;
 	}
-	.sroom .btn button
+	.sroom  .btn
 	{
 		background: #FA5636;
 		color: #FFF;
@@ -2336,7 +2336,13 @@ font-size: 14px;
 		padding: 10px 10px;
 		border-radius: 5px;
 		border: none;
-		margin:4% 78% 4% 0%;
+		margin:1% 0% 4% 0%;
+	}
+	.sroom .price-room{
+		padding-top: 10px;
+	}
+	.sroom .btn{
+		color: #FFF;
 	}
 	/*end room*/
 	/*review*/
@@ -2694,9 +2700,7 @@ font-size: 14px;
 	{
 		margin: 0 0 10px;
 	}
-	.st-description .cut-gradient {
-	display: none;
-	}
+	
 	.st-link:hover {
 		color: #5191FA !important;
 		text-decoration: underline;
@@ -2725,12 +2729,16 @@ font-size: 14px;
 	{
 		display: block;
 	}
+
 	.sroom .sheration
 	{
 		border: 1px solid #f1f1f1;
 		border-radius: 5px;
 		margin-bottom: 10%;
 	}
+	.sroom .price-room {
+	padding-top: 10px;
+}
 	.sheration .images
 	{
 		padding-left: 0;
@@ -2753,7 +2761,7 @@ font-size: 14px;
 	{
 		padding: 26px;
 	}
-	.sroom .btn button
+	.sroom .btn 
 	{
 		background: #FA5636;
 		color: #FFF;
@@ -2762,7 +2770,10 @@ font-size: 14px;
 		padding: 10px 10px;
 		border-radius: 5px;
 		border: none;
-		margin:4% 78% 4% 0%;
+		margin:1% 0% 4% 0%;
+	}
+	.sroom .btn:hover{
+		color: #FFF;
 	}
 	/*end room*/
 	/*review*/
