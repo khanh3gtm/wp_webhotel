@@ -9,27 +9,24 @@ if(!class_exists('ST_Room_Admin')){
 			add_filter('manage_room_posts_columns',array($this, 'sunset_set_contact_columns'));
 			add_action('manage_room_posts_custom_column', array($this,'sunset_contact_custom_column'), 10, 2);
 			add_action('add_meta_boxes', array($this, 'sunset_contact_add_meta_box'));
-			add_action('save_post', array($this, 'sunset_save_contact_email_data'), 10, 2);
+			add_action('save_post', array($this, 'sunset_contact_email_callback'), 10, 1);
 			add_action('manage_amenities_custom_column', array($this, 'st_taxonomy_custom_column'),10,3);
 			add_action('amenities_add_form_fields', array ( $this, 'add_category_image' ));
-			add_action('created_amenities', array($this, 'save_category_image'), 10, 2);
+			add_action('created_amenities', array($this, 'save_category_image'), 10, 1);
 			add_action('amenities_edit_form_fields', array ( $this, 'update_category_image' ), 10, 2 );
-			add_action('edited_amenities', array ($this, 'updated_category_image' ), 10, 2 );
+			add_action('edited_amenities', array ($this, 'updated_category_image' ), 10, 1 );
 			add_action('admin_enqueue_scripts', array( $this, 'load_media' ) );
 			add_action('admin_footer', array ( $this, 'add_script' ) );
 			add_action('admin_footer', array ( $this, 'upload_image_meta_box' ) );
 			add_filter('manage_edit-amenities_columns',array($this, 'my_custom_taxonomy_columns'));
-			add_action( 'pre_get_posts',array($this, 'get_hotel' ) ); 
+			// add_action( 'pre_get_posts',array($this, 'get_hotel' ) ); 
 		}
 		public function load_media(){
 			wp_enqueue_media();
 		}
 		function upload_image_meta_box(){
 			?>
-<<<<<<< HEAD
-			
-=======
-			<script type="text/javascript">
+	<script type="text/javascript">
 				$('.st-upload').each(function (e) {
 					var t = $(this);
 					var parent = t.closest('.form-field');
@@ -96,7 +93,7 @@ if(!class_exists('ST_Room_Admin')){
 
 
 			</script>
->>>>>>> b08042c3be2c7d9ce34b18d05d70b8d7dd010c54
+
 			<?php
 		}
 		function my_custom_taxonomy_columns($columns){
