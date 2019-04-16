@@ -79,9 +79,7 @@ include "application/helpers/helpers.php";
 		if(is_page_template('template_homepage.php')){
 			wp_register_script('homepage-script',THEME_URL . '/js/khanh.js','all');
 		wp_enqueue_script('homepage-script');
-<<<<<<< HEAD
-		
-=======
+
 		}
 		if(is_singular('hotel')){
 			wp_register_style('hoteldetail-style',THEME_URL . '/CSS/roomhotel.css','all');
@@ -89,7 +87,7 @@ include "application/helpers/helpers.php";
 			wp_register_script('hotel-script',THEME_URL . '/js/script.js','all');
 			wp_enqueue_script('hotel-script');
 		}
->>>>>>> f69ed71bc0cbccd7c302886589c86685dbb58d34
+
 	}
 	add_action('wp_enqueue_scripts','webhotel_style');
 
