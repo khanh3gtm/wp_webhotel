@@ -3,7 +3,6 @@ if(!class_exists('ST_Room_Admin')){
 	class ST_Room_Admin{
 		public static $_inst;
 		public function __construct(){
-
 			add_action('init', array($this,'room_custom_post_type'));	
 			add_action('init', array($this, 'room_custom_taxonomy'));
 		// add_action('add_meta_boxes',array($this, 'room_meta_box'));
@@ -371,9 +370,6 @@ function sunset_contact_email_callback($post){
 				foreach ($url as $value) {
 					$url_image = wp_get_attachment_image_url($value, 'thumbnail');
 					echo '<img src="'.$url_image.'" alt="" data-id="'. $value .'">';
-					?>
-						<i class="fas fa-backspace"></i>
-					<?php
 				}
 			}
 			?>

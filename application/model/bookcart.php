@@ -33,13 +33,20 @@ class bookcart_model extends Model {
             $this->query($sql);
         }
     }
-    public function getUserid()
+    public function getUserId()
     {
         global $wpdb;
        $key = $_GET['bill_id'];
        $sql = "SELECT user_id from {$wpdb->prefix}bill where bill_id = $key";
        $key1= $wpdb ->get_var($sql);
        return $key1;
+    }
+    public function getRoomId()
+    {
+        global $wpdb;
+       $key = $_GET['bill_id'];
+       $sql = "SELECT room_id from {$wpdb->prefix}bill where bill_id = $key";
+       return $wpdb ->get_var($sql);
     }
     public function getDataUser($key)
     {

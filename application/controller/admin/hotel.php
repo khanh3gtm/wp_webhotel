@@ -119,7 +119,7 @@ class ST_Hotel_Admin{
 		$newColumns['description'] = 'Description';
 		$newColumns['owner'] = 'Owner';
 		$newColumns['address'] = 'Address';
-		$newColumns['date'] = 'Date';
+		$newColumns['image'] = 'Image';
 		
 		//$newColumns['location'] ='Location'; 
 		$columns = array_merge($columns, $newColumns);
@@ -141,7 +141,15 @@ class ST_Hotel_Admin{
 			case 'location':
 				$location = get_the_terms($post_id,'location');
 				dd($location);
-					break;	
+					break;
+			case 'image':
+				$image = get_post_meta($post_id,'_hotel_image',true);
+				
+				$data = wp_get_attachment_image_src($image, 'thumbnail');
+
+           		echo '<img src="'. $data[0] .'" alt="">';
+				
+				break;	
 			default:
 				# code...
 				break;
@@ -304,10 +312,13 @@ class ST_Hotel_Admin{
 		 		<input type="hidden" name="hotel_images" class="hotel_images" value="<?php echo $image; ?>">
 		 		<div class="st-include-image">
 		 		<?php
+		 		
 		 		if(!empty($url)){
 			 		foreach ($url as $key => $value) {
+			 			if(!empty($value)){
 			 			$url_image = wp_get_attachment_image_url($value, 'thumbnail');
 			 			echo '<img class="st-thumb" src="'. $url_image .'" style = "margin-left: 10px;" data-id="'. $value .'"/><i class="fa fa-times time " ></i>';
+			 			}
 			 		}
 			 	}
 			 	?>
@@ -352,9 +363,11 @@ class ST_Hotel_Admin{
                     //Get id ảnh đã có để đưa vào ids;
                     $('img', parent).each(function(){
                     	var currentID = $(this).data('id');
-                    	if(!ids.includes(currentID)){
-                    		ids.push(currentID);
+                    	if(currentID !== ''){
+	                    	if(!ids.includes(currentID)){
+	                    		ids.push(currentID);
 
+	                    	}
                     	}
                     });
 
