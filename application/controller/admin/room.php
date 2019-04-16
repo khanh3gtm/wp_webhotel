@@ -25,7 +25,77 @@ if(!class_exists('ST_Room_Admin')){
 		}
 		function upload_image_meta_box(){
 			?>
+<<<<<<< HEAD
 			
+=======
+			<script type="text/javascript">
+				$('.st-upload').each(function (e) {
+					var t = $(this);
+					var parent = t.closest('.form-field');
+					var multi = t.data('multi');
+					var frame;
+					t.click(function (e) {
+						e.preventDefault();
+						var galleryBox = t.parent().find('.st-selection');
+						if (frame) {
+							frame.open();
+							return;
+						}
+                // Create a new media frame
+                frame = wp.media({
+                	title: 'Select image',
+                	button: {
+                		text: 'Use this media'
+                	},
+                    multiple: true  // Set to true to allow multiple files to be selected
+                });
+
+                frame.on('select', function () {
+
+                    // Get media attachment details from the frame state
+                    var attachment = frame.state().get('selection').toJSON();
+                    var ids = [];                    
+                    $('img', parent).each(function(){
+                    	var currentID = $(this).data('id');
+                    	if(!ids.includes(currentID)){
+                    		ids.push(currentID);
+                    	}
+                    });
+
+                    console.log(ids);
+
+                    if (attachment.length > 0) {
+                    	for (var i = 0; i < attachment.length; i++) {
+                    		if(!ids.includes(attachment[i].id)){
+                    			ids.push(attachment[i].id);
+                    			parent.find('.st-include-image').append('<div class="item"><img  src="'+ attachment[i].url +'" width="150px" height="150px" style = "margin-left: 10px;"  /><i class="fa fa-times" ></i></div>');
+                    		}
+                    		
+                    	}
+                    }
+                    
+                    parent.find('.custom_media_url').val(ids.toString());
+                });
+
+                frame.open();
+            });
+				})
+				$(document).on('click',"i.fas.fa-times" ,function() {
+	 			$(this).parent().remove();
+	 			var ids = [];
+	 			$('.form-field .st-include-image .item').each(function(){
+	 				var id = $(this).find('img').data('id');
+	 				if(!ids.includes(id)){
+	 					ids.push(id);
+	 				}
+	 			});
+	 			$('.form-field .metabox-image-id').val(ids.toString());
+                   	
+            });
+
+
+			</script>
+>>>>>>> b08042c3be2c7d9ce34b18d05d70b8d7dd010c54
 			<?php
 		}
 		function my_custom_taxonomy_columns($columns){
@@ -108,8 +178,10 @@ if(!class_exists('ST_Room_Admin')){
 <?php }
 public function save_category_image(){
 	if(isset($_POST['category-image-id']) && '' !== $_POST['category-image-id']){
-		$image = $_POST['category-image-id'];
-		add_term_meta($term_id, 'category-image-id', $image, true);
+		$image_id = get_term_meta($term -> term_id, 'category-image-id', true);
+		$image_val = wp_get_attachment_image_url($image_id, 'thumbnail');
+		// $image = $_POST['category-image-id'];
+		add_term_meta($term_id, 'category-image-id', $image_val, true);
 	}
 }
 public function update_category_image ( $term, $amenities ) { ?>
@@ -309,15 +381,17 @@ function sunset_contact_email_callback($post){
 	echo '<br>';
 
 	?>
-	<label for="category-image-id"><?php _e('Image', 'shinetheme'); ?></label>
+	<label for="metabox-image-id"><?php _e('Image', 'shinetheme'); ?></label>
 	<div class="form-field">
 		<input type="hidden" id="metabox-image-id" name="metabox-image-id" class="custom_media_url" value="">
 		<div class="st-include-image">
 			<?php if(!empty($url))
 			{
 				foreach ($url as $value) {
+					if(!empty($value)){
 					$url_image = wp_get_attachment_image_url($value, 'thumbnail');
-					echo '<img src="'.$url_image.'" alt="" data-id="'. $value .'">';
+					echo '<div class="item"><img src="'.$url_image.'" alt="" data-id="'. $value .'"><i class="fas fa-times"></i></div>';
+					}
 				}
 			}
 			?>

@@ -11,6 +11,7 @@ class bookcart extends Controller {
 		add_action('init', array($this, '__stHistory'));
 		add_action('init', array($this, '__stList'),10,1);
 		add_action('init', array($this, '__stGetInfoRoom'));
+		add_action('init', array($this, '__stCheckErr'));
 
 	}
 	public function __stCheckoutHandler(){
@@ -47,10 +48,16 @@ class bookcart extends Controller {
 			update_user_meta( $user_id,'st_country', $data['st_country']);
 			update_user_meta( $user_id,'st_note', $data['st_note']);
 			global $wpdb;
-			$table ='wp_bill';
+			$table = 'wp_bill';
 			$data = array(
 				'bill_id' => '',
-				'user_id' => $user_id);
+				'user_id' => $user_id,
+				'room_id' => '',
+				'checkin' => '',
+				'checkout' => '',
+				'totalmoney' => '',
+				'date_order'=> date('d-m-Y')
+			);
 			$format = array('%s','%d');
 			$wpdb->insert($table,$data,$format);
 			$my_id = $wpdb->insert_id;
@@ -113,10 +120,35 @@ class bookcart extends Controller {
 		$inforoommeta = get_post_meta($room_id);
 		$infohotelmeta = get_post_meta($hotel_id);
 
-		$data = array($inforoom,$infohotelmeta,$inforoom,$inforoommeta,$location);
+		$data = array($infohotel,$infohotelmeta,$inforoom,$inforoommeta,$location);
 		return $data;
 	}
+	public function __stCheckErr()
+	{
+		if(isset($_POST['checkout_submit'])){
+			$data = $_POST;
+			if(!isset($data['term_condition']) || $data['term_condition'] != '1'){
+				$err_checkout = array();
+				array_push($err_checkout, 'Please tick a checkbox.');
+			    
+				$this->view($err_checkout);	
+				return;		
+			}
+			$err_checkout = array();
 
+			if (empty($_POST['st_email'])) {
+			    array_push($err_checkout, '  Email is required.');
+		        $this->view($err_checkout);
+		        return;
+		    }
+			if (!preg_match('/^[_a-z0-9-]*@[a-z0-9-]+(\.[a-z0-9-]+)$/', $_POST['st_email']))
+		    {
+		    	array_push($err_checkout, '  This email is not valid. Please re-enter. ');
+				$this->view($err_checkout);	
+				return;
+		    }
+		}
+	}
 
 
 

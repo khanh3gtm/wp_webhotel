@@ -51,7 +51,7 @@ class bookcart_model extends Model {
     public function getDataUser($key)
     {
         global $wpdb;
-        $data = "SELECT * from wp_users where ID = $key";
+        $data = "SELECT * from {$wpdb->prefix}users where ID = $key";
         //$res = $wpdb->get_results($data);
        $res = array_shift($wpdb->get_results($data));
        return $res;

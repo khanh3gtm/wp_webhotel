@@ -122,7 +122,7 @@ $st = bookcart::inst()->__stGetInfoRoom();
                                 <div class="form-group form-group-icon-left">                
                                     <label for="field-st_phone">Phone <span class="require">*</span> </label>
                                     <i class="fa fa-phone input-icon"></i>
-                                    <input class="form-control required" id="field-st_phone" value="0<?php echo $data['st_phone'][0] ?>" name="st_phone" placeholder="Your Phone" type="text" required>
+                                    <input class="form-control required" id="field-st_phone" value="<?php echo $data['st_phone'][0] ?>" name="st_phone" placeholder="Your Phone" type="text" required>
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -162,7 +162,7 @@ $st = bookcart::inst()->__stGetInfoRoom();
                                 <div class="form-group form-group-icon-left">                
                                     <label for="field-st_country">Country  </label>
                                     <i class="fa fa-globe input-icon"></i>                
-                                    <input class="form-control" id="field-st_country" value="<?php $data['st_country'][0] ?>" name="st_country" placeholder="Country" type="text">
+                                    <input class="form-control" id="field-st_country" value="<?php echo $data['st_country'][0] ?>" name="st_country" placeholder="Country" type="text">
                                 </div>
                             </div>
                             <div class="col-sm-12">
