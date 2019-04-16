@@ -3,7 +3,6 @@ if(!class_exists('ST_Room_Admin')){
 	class ST_Room_Admin{
 		public static $_inst;
 		public function __construct(){
-
 			add_action('init', array($this,'room_custom_post_type'));	
 			add_action('init', array($this, 'room_custom_taxonomy'));
 		// add_action('add_meta_boxes',array($this, 'room_meta_box'));
@@ -12,9 +11,6 @@ if(!class_exists('ST_Room_Admin')){
 			add_action('add_meta_boxes', array($this, 'sunset_contact_add_meta_box'));
 			add_action('save_post', array($this, 'sunset_save_contact_email_data'), 10, 2);
 			add_action('manage_amenities_custom_column', array($this, 'st_taxonomy_custom_column'),10,3);
-
-
-
 			add_action('amenities_add_form_fields', array ( $this, 'add_category_image' ));
 			add_action('created_amenities', array($this, 'save_category_image'), 10, 2);
 			add_action('amenities_edit_form_fields', array ( $this, 'update_category_image' ), 10, 2 );
@@ -23,37 +19,31 @@ if(!class_exists('ST_Room_Admin')){
 			add_action('admin_footer', array ( $this, 'add_script' ) );
 			add_action('admin_footer', array ( $this, 'upload_image_meta_box' ) );
 			add_filter('manage_edit-amenities_columns',array($this, 'my_custom_taxonomy_columns'));
-
-
-			// add_action('manage_amenities_custom_column',array($this, 'st_image_custom_column'),10,2);
-
 		}
 		public function load_media(){
 			wp_enqueue_media();
 		}
-
 		function upload_image_meta_box(){
 			?>
-				
-				<script type="text/javascript">
-	 		$('.st-upload').each(function (e) {
-            var t = $(this);
-            var parent = t.closest('.form-field');
-            var multi = t.data('multi');
-            var frame;
-            t.click(function (e) {
-                e.preventDefault();
-                var galleryBox = t.parent().find('.st-selection');
-                if (frame) {
-                    frame.open();
-                    return;
-                }
+			<script type="text/javascript">
+				$('.st-upload').each(function (e) {
+					var t = $(this);
+					var parent = t.closest('.form-field');
+					var multi = t.data('multi');
+					var frame;
+					t.click(function (e) {
+						e.preventDefault();
+						var galleryBox = t.parent().find('.st-selection');
+						if (frame) {
+							frame.open();
+							return;
+						}
                 // Create a new media frame
                 frame = wp.media({
-                    title: 'Select image',
-                    button: {
-                        text: 'Use this media'
-                    },
+                	title: 'Select image',
+                	button: {
+                		text: 'Use this media'
+                	},
                     multiple: true  // Set to true to allow multiple files to be selected
                 });
 
@@ -61,10 +51,8 @@ if(!class_exists('ST_Room_Admin')){
 
                     // Get media attachment details from the frame state
                     var attachment = frame.state().get('selection').toJSON();
-
                     var ids = [];                    
-                   	
-                   	$('img', parent).each(function(){
+                    $('img', parent).each(function(){
                     	var currentID = $(this).data('id');
                     	if(!ids.includes(currentID)){
                     		ids.push(currentID);
@@ -74,12 +62,12 @@ if(!class_exists('ST_Room_Admin')){
                     console.log(ids);
 
                     if (attachment.length > 0) {
-                        for (var i = 0; i < attachment.length; i++) {
-                        	if(!ids.includes(attachment[i].id)){
-	                   			ids.push(attachment[i].id);
-	                   			parent.find('.st-include-image').append('<img  src="'+ attachment[i].url +'" width="150px" height="150px" style = "margin-left: 10px;"  />');
-                   			}
-                        }
+                    	for (var i = 0; i < attachment.length; i++) {
+                    		if(!ids.includes(attachment[i].id)){
+                    			ids.push(attachment[i].id);
+                    			parent.find('.st-include-image').append('<img  src="'+ attachment[i].url +'" width="150px" height="150px" style = "margin-left: 10px;"  />');
+                    		}
+                    	}
                     }
                     
                     parent.find('.custom_media_url').val(ids.toString());
@@ -88,8 +76,8 @@ if(!class_exists('ST_Room_Admin')){
                 frame.open();
 
             });
-        })
-	 	</script>
+				})
+			</script>
 			<?php
 		}
 		function my_custom_taxonomy_columns($columns){
@@ -107,10 +95,8 @@ if(!class_exists('ST_Room_Admin')){
 				case 'image':
 				$image = get_term_meta($term_id, 'category-image-id', true);
 				// $data = maybe_unserialize($image->description);
-				
 				$data = wp_get_attachment_image_src($image, 'thumbnail');
-
-           		echo '<img src="'. $data[0] .'" alt="">';
+				echo '<img src="'. $data[0] .'" alt="">';
 				break;
 				
 			}
@@ -283,6 +269,7 @@ function sunset_set_contact_columns($columns)
 	$newColumns['beds'] = 'Beds';
 	$newColumns['children'] = 'Children';
 	$newColumns['adult'] = 'Adult';
+	$newColumns['image'] = 'Image';
 	$columns=	array_merge($newColumns,$columns );
 	$newColumns['tags'] = 'Tags';
 	$newColumns['date'] = 'Date';
@@ -317,6 +304,11 @@ function sunset_contact_custom_column($column,$post_id)
 		$adult = get_post_meta($post_id, 'st_contact_adult_field', true);
 		echo $adult;
 		break;
+		case 'image':
+		$image = get_post_meta($post_id, 'metabox-image-id', true);
+		$data_img = wp_get_attachment_image_url($image, 'thumbnail');
+		echo '<img src="'.$data_img .'" alt="">';
+		break;
 	}
 }
 
@@ -338,38 +330,41 @@ function sunset_contact_email_callback($post){
 	
 
 	echo '<label for="st_contact_superficies_field">Superficies</label>';
+	echo '<br>';
 	echo '<input type="text" id="st_contact_superficies_field" name="st_contact_superficies_field" value="' . esc_attr($superficies) . '">';
 	echo '<br>';
 	echo '<label for="st_contact_price_field">Prices</label>';
+	echo '<br>';
 	echo '<input type="text" id="st_contact_price_field" name="st_contact_price_field" value="' . esc_attr($prices) . '">';
 	echo '<br>';
 	echo '<label for="st_contact_bed_field">Beds</label>';
 
-
 	echo '<select name="st_contact_bed_field" id="st_contact_bed_field">';
-		for($i=1; $i<=10;$i++){
-			echo '<option value="'. $i .'" '. selected($beds, $i) .'>'.$i.'</option>';
-		}
+	for($i=1; $i<=10;$i++){
+		echo '<option value="'. $i .'" '. selected($beds, $i) .'>'.$i.'</option>';
+	}
 	echo '</select>';
 	
 	echo '<label for="st_contact_children_field">Children</label>';
 	echo '<select name="st_contact_children_field" id="st_contact_children_field">';
-			for($i=1; $i<=10;$i++){
-				echo '<option value="'. $i .'" '. selected($children, $i) .'>'.$i.'</option>';
-			}
+	for($i=1; $i<=10;$i++){
+		echo '<option value="'. $i .'" '. selected($children, $i) .'>'.$i.'</option>';
+	}
 	echo '</select>';
 	$adult_option = isset($adult['select']) ? $adult['select'] : '';
 	echo '<label for="st_contact_adult_field">Adult</label>';
 	echo '<select name="st_contact_adult_field" id="st_contact_adult_field">';
-			for($i=1; $i<=10;$i++){
-				echo '<option value="'. $i .'" '. selected($children, $i) .'>'.$i.'</option>';
-			}
+	for($i=1; $i<=10;$i++){
+		echo '<option value="'. $i .'" '. selected($children, $i) .'>'.$i.'</option>';
+	}
 	echo '</select>';
+	echo '<br>';
+
 	?>
-		<label for="category-image-id"><?php _e('Image', 'shinetheme'); ?></label>
-		<div class="form-field">
-			<input type="hidden" id="metabox-image-id" name="metabox-image-id" class="custom_media_url" value="">
-			<div class="st-include-image">
+	<label for="category-image-id"><?php _e('Image', 'shinetheme'); ?></label>
+	<div class="form-field">
+		<input type="hidden" id="metabox-image-id" name="metabox-image-id" class="custom_media_url" value="">
+		<div class="st-include-image">
 			<?php if(!empty($url))
 			{
 				foreach ($url as $value) {
@@ -378,11 +373,11 @@ function sunset_contact_email_callback($post){
 				}
 			}
 			?>
-			</div>
-				
-				<input type="button" class="st-upload"  value="<?php _e( 'Add Image', 'shinetheme' ); ?>" />
-				<input type="button" class="button"  value="<?php _e( 'Remove Image', 'shinetheme' ); ?>" />
 		</div>
+
+		<input type="button" class="st-upload"  value="<?php _e( 'Add Image', 'shinetheme' ); ?>" />
+		<input type="button" class="button"  value="<?php _e( 'Remove Image', 'shinetheme' ); ?>" />
+	</div>
 
 	<?php
 }
