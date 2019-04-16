@@ -25,59 +25,7 @@ if(!class_exists('ST_Room_Admin')){
 		}
 		function upload_image_meta_box(){
 			?>
-			<script type="text/javascript">
-				$('.st-upload').each(function (e) {
-					var t = $(this);
-					var parent = t.closest('.form-field');
-					var multi = t.data('multi');
-					var frame;
-					t.click(function (e) {
-						e.preventDefault();
-						var galleryBox = t.parent().find('.st-selection');
-						if (frame) {
-							frame.open();
-							return;
-						}
-                // Create a new media frame
-                frame = wp.media({
-                	title: 'Select image',
-                	button: {
-                		text: 'Use this media'
-                	},
-                    multiple: true  // Set to true to allow multiple files to be selected
-                });
-
-                frame.on('select', function () {
-
-                    // Get media attachment details from the frame state
-                    var attachment = frame.state().get('selection').toJSON();
-                    var ids = [];                    
-                    $('img', parent).each(function(){
-                    	var currentID = $(this).data('id');
-                    	if(!ids.includes(currentID)){
-                    		ids.push(currentID);
-                    	}
-                    });
-
-                    console.log(ids);
-
-                    if (attachment.length > 0) {
-                    	for (var i = 0; i < attachment.length; i++) {
-                    		if(!ids.includes(attachment[i].id)){
-                    			ids.push(attachment[i].id);
-                    			parent.find('.st-include-image').append('<img  src="'+ attachment[i].url +'" width="150px" height="150px" style = "margin-left: 10px;"  />');
-                    		}
-                    	}
-                    }
-                    
-                    parent.find('.custom_media_url').val(ids.toString());
-                });
-
-                frame.open();
-
-            });
-				})
-			</script>
+			
 			<?php
 		}
 		function my_custom_taxonomy_columns($columns){

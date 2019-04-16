@@ -79,12 +79,12 @@ get_header();
 					<div class="slidehotel">
 						<div class="fotorama "
 						data-nav="thumbs" data-thumbwidth="135px" data-thumbheight="135px" data-fit="none" data-width="870px" data-height="500px" data-allowfullscreen="native" data-thumbfit="cover" data-thumbmargin="8" >
-						<a href="libs/Images/khanh1.jpg"><img src="libs/Images/khanh1.jpg"  width="135px" height="135px"></a>
-						<a href="libs/Images/khanh2.jpg"><img src="libs/Images/khanh2.jpg"  width="135px" height="135px"></a>
-						<a href="libs/Images/khanh3.jpg"><img src="libs/Images/khanh3.jpg"  width="135px" height="135px"></a>
-						<a href="libs/Images/khanh4.jpg"><img src="libs/Images/khanh4.jpg"  width="135px" height="135px"></a>
-						<a href="libs/Images/khanh5.jpg"><img src="libs/Images/khanh5.jpg"  width="135px" height="135px"></a>
-						<a href="libs/Images/khanh6.jpg"><img src="libs/Images/khanh6.jpg"  width="135px" height="135px"></a>
+						<a href="libs/Images/khanh1.jpg"><img src="<?php echo get_template_directory_uri() ?>/application/libs/Images/khanh1.jpg"  width="135px" height="135px"></a>
+						<a href="libs/Images/khanh2.jpg"><img src="<?php echo get_template_directory_uri() ?>/application/libs/Images/khanh2.jpg"  width="135px" height="135px"></a>
+						<a href="libs/Images/khanh3.jpg"><img src="<?php echo get_template_directory_uri() ?>/application/libs/Images/khanh3.jpg"  width="135px" height="135px"></a>
+						<a href="libs/Images/khanh4.jpg"><img src="<?php echo get_template_directory_uri() ?>/application/libs/Images/khanh4.jpg"  width="135px" height="135px"></a>
+						<a href="libs/Images/khanh5.jpg"><img src="<?php echo get_template_directory_uri() ?>/application/libs/Images/khanh5.jpg"  width="135px" height="135px"></a>
+						<a href="libs/Images/khanh6.jpg"><img src="<?php echo get_template_directory_uri() ?>/application/libs/Images/khanh6.jpg"  width="135px" height="135px"></a>
 					</div>
 					</div>
 					<!-- end slide -->
