@@ -12,3 +12,20 @@
  color: white;
  font-size: 15px;
 }
+.st-include-image i.fas.fa-times {
+    position: absolute;
+    /* right: 70px; */
+    /* left: 450px; */
+    /* z-index: 999; */
+    margin-left: -13px;
+    font-size: 18px;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+}
+.st-include-image img {
+	position: relative;
+}
+.st-include-image .item{
+    display: inline-block;
+}

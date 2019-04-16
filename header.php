@@ -48,11 +48,11 @@
                 <div class="topbar-right">
                     <ul class="st-list topbar-items">
                         <?php if($check==1){ ?>
-                        <li ><a href="<?php get_template_directory_uri() ?>/wordpress/wp-login.php">Hi, <?php echo $us->data->user_login . '<br />'; ?></a></li>
-                        <li><a href="<?php get_template_directory_uri() ?>/wordpress/wp-login.php?action=logout">Logout</a></li>
+                        <li ><a href="<?php get_template_directory_uri() ?>/thachpham/wp-login.php">Hi, <?php echo $us->data->user_login . '<br />'; ?></a></li>
+                        <li><a href="<?php get_template_directory_uri() ?>/thachpham/wp-login.php?action=logout">Logout</a></li>
                         <?php }else{
                             ?>
-                        <li><a href="<?php get_template_directory_uri() ?>/wordpress/wp-login.php">Login</a></li>
+                        <li><a href="<?php get_template_directory_uri() ?>/thachpham/wp-login.php">Login</a></li>
                         <li ><a href="../../register">Sign up</a></li>
                             <?php
                         } ?>
