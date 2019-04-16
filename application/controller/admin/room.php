@@ -19,12 +19,16 @@ if(!class_exists('ST_Room_Admin')){
 			add_action('admin_footer', array ( $this, 'add_script' ) );
 			add_action('admin_footer', array ( $this, 'upload_image_meta_box' ) );
 			add_filter('manage_edit-amenities_columns',array($this, 'my_custom_taxonomy_columns'));
+			add_action( 'pre_get_posts',array($this, 'get_hotel' ) ); 
 		}
 		public function load_media(){
 			wp_enqueue_media();
 		}
 		function upload_image_meta_box(){
 			?>
+<<<<<<< HEAD
+			
+=======
 			<script type="text/javascript">
 				$('.st-upload').each(function (e) {
 					var t = $(this);
@@ -92,6 +96,7 @@ if(!class_exists('ST_Room_Admin')){
 
 
 			</script>
+>>>>>>> b08042c3be2c7d9ce34b18d05d70b8d7dd010c54
 			<?php
 		}
 		function my_custom_taxonomy_columns($columns){
@@ -172,12 +177,12 @@ if(!class_exists('ST_Room_Admin')){
  });
 </script>
 <?php }
-public function save_category_image(){
-	if(isset($_POST['category-image-id']) && '' !== $_POST['category-image-id']){
-		$image_id = get_term_meta($term -> term_id, 'category-image-id', true);
-		$image_val = wp_get_attachment_image_url($image_id, 'thumbnail');
-		// $image = $_POST['category-image-id'];
-		add_term_meta($term_id, 'category-image-id', $image_val, true);
+public function save_category_image($term_id){
+	if( isset( $_POST['category-image-id'] ) && '' !== $_POST['category-image-id'] ){
+		$image = $_POST['category-image-id'];
+		add_term_meta ( $term_id, 'category-image-id', $image );
+	} else {
+		add_term_meta ( $term_id, 'category-image-id', '' );
 	}
 }
 public function update_category_image ( $term, $amenities ) { ?>
@@ -202,7 +207,7 @@ public function update_category_image ( $term, $amenities ) { ?>
 	</tr>
 	<?php
 }
-public function updated_category_image ( $term_id, $tt_id ) {
+public function updated_category_image ( $term_id) {
 	if( isset( $_POST['category-image-id'] ) && '' !== $_POST['category-image-id'] ){
 		$image = $_POST['category-image-id'];
 		update_term_meta ( $term_id, 'category-image-id', $image );
@@ -445,7 +450,13 @@ update_post_meta($post_id, 'st_contact_adult_field', $adult);
 $image = $_POST['metabox-image-id'];
 update_post_meta($post_id, 'metabox-image-id', $image);
 }
-
+// public function get_hotel(){
+// 	$query = new WP_Query( array( 'post_type' => 'hotel' ) );
+// 	if($query->have_posts()){
+// 		$query->the_post();
+// 		echo '<li>'. get_the_title() .'</li>';
+// 	}
+// }
 
 
 public static function inst(){

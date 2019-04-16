@@ -87,7 +87,9 @@ include "application/helpers/helpers.php";
 			wp_register_script('hotel-script',THEME_URL . '/js/script.js','all');
 			wp_enqueue_script('hotel-script');
 		}
-
+		if(is_singular('room')){
+			wp_enqueue_style('room', THEME_URL . '/CSS/room.css', 'all');
+		}
 	}
 	add_action('wp_enqueue_scripts','webhotel_style');
 

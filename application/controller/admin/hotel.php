@@ -16,6 +16,15 @@ class ST_Hotel_Admin{
 		add_action('location_edit_form_fields', array ( $this, 'location_info_output' ));
 		add_action('created_location', array($this, 'location_info_save'));
 		add_action( 'edited_location', array($this,'location_info_save'));
+		add_filter('manage_edit-facilities_columns',array($this,'facilities_set_columns'));
+		add_filter('manage_facilities_custom_column', array($this, 'facilities_custom_columns'),10,3);
+		add_action('facilities_add_form_fields', array ( $this, 'facilities_info_add_output' ));
+		add_action('facilities_edit_form_fields', array ( $this, 'facilities_info_edit_output' ));
+		add_action('edited_facilities', array ( $this, 'facilities_info_save' ));
+
+
+
+
 		add_action('admin_enqueue_scripts',array($this,'webhotel_style'));
 	}
 
@@ -110,7 +119,7 @@ class ST_Hotel_Admin{
 		);
 		register_taxonomy('facilities', array('hotel'), $args);
 	}
-	//create custome column
+	//create custome column hotel
 	function hotel_set_columns($columns){
 		unset($columns['categories']);
 		unset($columns['tags']);
@@ -155,7 +164,10 @@ class ST_Hotel_Admin{
 				break;
 		}
 	}
-	//create custom columns 
+	
+
+
+	//create custom columns location
 	function location_set_columns($columns){
 		$newColumns = array();
 		$newColumns['images'] = 'Images';
@@ -204,66 +216,6 @@ class ST_Hotel_Admin{
 	 		</div>
 	 	</p>
 
-			<script type="text/javascript">
-	 		$('.st-upload').each(function (e) {
-            var t = $(this);
-            var parent = t.closest('.st-upload-gallery');
-            var multi = t.data('multi');
-            var frame;
-            t.click(function (e) {
-                e.preventDefault();
-
-                var galleryBox = t.parent().find('.st-selection');
-
-                if (frame) {
-                    frame.open();
-                    return;
-                }
-                // Create a new media frame
-                frame = wp.media({
-                    title: 'Select image',
-                    button: {
-                        text: 'Use this media'
-                    },
-                    multiple: true  // Set to true to allow multiple files to be selected
-                });
-
-                frame.on('select', function () {
-
-                    // Get media attachment details from the frame state
-                    var attachment = frame.state().get('selection').toJSON();
-
-                    var ids = [];                    
-
-                    //Get id ảnh đã có để đưa vào ids;
-                    $('img', parent).each(function(){
-                    	var currentID = $(this).data('id');
-                    	if(!ids.includes(currentID)){
-                    		ids.push(currentID);
-                    	}
-                    });
-
-                    console.log(ids);
-
-                 
-                   
-                    if (attachment.length > 0) {
-                        for (var i = 0; i < attachment.length; i++) {
-                        	if(!ids.includes(attachment[i].id)){
-	                   			ids.push(attachment[i].id);
-	                   			parent.find('.st-include-image').append('<img src="'+ attachment[i].url +'" width="120px" height="120px"   />');
-                   			}
-                        }
-                    }
-                    
-                    parent.find('.hotel_images').val(ids.toString());
-                });
-
-                frame.open();
-
-            });
-        })
-	 	</script>
 
 
 		<?php
@@ -329,85 +281,7 @@ class ST_Hotel_Admin{
 
 	 		</div>
 	 	</p>
-	 	<script type="text/javascript">
-	 		$('.st-upload').each(function (e) {
-            var t = $(this);
-            var parent = t.closest('.st-upload-gallery');
-            var multi = t.data('multi');
-            var frame;
-            t.click(function (e) {
-                e.preventDefault();
-
-                var galleryBox = t.parent().find('.st-selection');
-
-                if (frame) {
-                    frame.open();
-                    return;
-                }
-                // Create a new media frame
-                frame = wp.media({
-                    title: 'Select image',
-                    button: {
-                        text: 'Use this media'
-                    },
-                    multiple: true  // Set to true to allow multiple files to be selected
-                });
-
-                frame.on('select', function () {
-
-                    // Get media attachment details from the frame state
-                    var attachment = frame.state().get('selection').toJSON();
-
-                    var ids = [];                    
-
-                    //Get id ảnh đã có để đưa vào ids;
-                    $('img', parent).each(function(){
-                    	var currentID = $(this).data('id');
-                    	if(currentID !== ''){
-	                    	if(!ids.includes(currentID)){
-	                    		ids.push(currentID);
-
-	                    	}
-                    	}
-                    });
-
-
-
-                    console.log(ids);
-
-                 
-                   
-                    if (attachment.length > 0) {
-                        for (var i = 0; i < attachment.length; i++) {
-                        	if(!ids.includes(attachment[i].id)){
-	                   			ids.push(attachment[i].id);
-	                   			parent.find('.st-include-image').append('<div class="item" style="display: inline-block;"><img  src="'+ attachment[i].url +'" width="150px" height="150px" style = "margin-left: 10px;"   /><i class="fa fa-times time " ></i></div>');
-                   			}
-                        }
-                    }
-                    
-                    parent.find('.hotel_images').val(ids.toString());
-                });
-                
-
-                frame.open();
-
-            });
-        })
-	 		$(document).on('click',".time" ,function() {
-	 			$(this).parent().remove();
-	 			var ids = [];
-	 			$('.st-upload-gallery .st-include-image .item').each(function(){
-	 				var id = $(this).find('img').data('id');
-	 				if(!ids.includes(id)){
-	 					ids.push(id);
-	 				}
-	 			});
-	 			$('.st-upload-gallery .hotel_images').val(ids.toString());
-                   	
-            });
-
-	 	</script>
+	 
 
 	 	<?php }
 
@@ -431,6 +305,60 @@ class ST_Hotel_Admin{
 
 
 	 	}
+	 	// Create custom colums Facinities
+	function facilities_set_columns($columns){
+		unset($columns['slug']);
+		$newColumns = array();
+		$newColumns['description'] = 'Description';
+		$newColumns['icon'] = 'Icon';
+		
+		//$newColumns['location'] ='Location'; 
+		$columns = array_merge($columns, $newColumns);
+		return $columns;
+	}
+	function facilities_custom_columns( $content, $column_name, $term_id ){
+
+		switch ($column_name){
+			case 'description':
+				$content = get_the_excerpt();
+				break;
+			case 'icon':
+				$content = get_term_meta($term_id,'_facilities_icon',true);
+				
+				break;	
+			default:
+				# code...
+				break;
+		}
+		return $content;
+	}
+	function facilities_info_add_output($term_id){
+		$icon = get_term_meta($term_id-> term_id,'_facilities_icon',true);
+		?>
+		<p>
+	 		<label>Icon</label><br/>
+	 		<input type="text" name="icon" id="icon" size="30" value="<?php echo $icon; ?>" />
+	 	</p>
+	<?php  }
+	function facilities_info_edit_output($term_id){
+		$icon = get_term_meta($term_id-> term_id,'_facilities_icon',true);
+		?>
+		
+		<tr class="form-field term-group-wrap">
+			<th scope="row">
+				<label for="category-image-id">Icon</label>
+			</th>
+			<td>
+				<input type="text" name="icon" id="icon" size="30" value="<?php echo $icon; ?>" />
+			</td>
+		</tr>
+	<?php  }
+	function facilities_info_save($term_id){
+		$icon = sanitize_text_field($_POST['icon']);
+	 	update_term_meta($term_id,'_facilities_icon',$icon);
+	}
+
+
 
 	public static function inst(){
 		if(empty(self::$_inst)){
@@ -443,6 +371,7 @@ class ST_Hotel_Admin{
 	wp_enqueue_style('backend-style');
 	wp_register_style('fontawesome','https://use.fontawesome.com/releases/v5.6.3/css/all.css','all');
 	wp_enqueue_style('fontawesome');
+	wp_enqueue_script('st-admin-custom', get_stylesheet_directory_uri() . '/js/admin/custom.js', array('jquery'), null, true);
 
 
 	
