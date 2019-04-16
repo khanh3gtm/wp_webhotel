@@ -147,7 +147,7 @@ class ST_Hotel_Admin{
 				
 				$data = wp_get_attachment_image_src($image, 'thumbnail');
 
-           		echo '<img src="'. $data[0] .'" alt="">';
+           		echo '<img src="'. $data[0] .'" width="120px" height="120px"  ';
 				
 				break;	
 			default:
@@ -251,7 +251,7 @@ class ST_Hotel_Admin{
                         for (var i = 0; i < attachment.length; i++) {
                         	if(!ids.includes(attachment[i].id)){
 	                   			ids.push(attachment[i].id);
-	                   			parent.find('.st-include-image').append('<img src="'+ attachment[i].url +'" width="150px" height="150px" style = "margin-left: 10px;"  />');
+	                   			parent.find('.st-include-image').append('<img src="'+ attachment[i].url +'" width="120px" height="120px"   />');
                    			}
                         }
                     }
@@ -317,7 +317,7 @@ class ST_Hotel_Admin{
 			 		foreach ($url as $key => $value) {
 			 			if(!empty($value)){
 			 			$url_image = wp_get_attachment_image_url($value, 'thumbnail');
-			 			echo '<img class="st-thumb" src="'. $url_image .'" style = "margin-left: 10px;" data-id="'. $value .'"/><i class="fa fa-times time " ></i>';
+			 			echo '<img class="st-thumb" src="'. $url_image .'" width="120px" height="120px"  style = "margin-left: 10px;" data-id="'. $value .'"/><i class="fa fa-times time " ></i>';
 			 			}
 			 		}
 			 	}
@@ -381,7 +381,7 @@ class ST_Hotel_Admin{
                         for (var i = 0; i < attachment.length; i++) {
                         	if(!ids.includes(attachment[i].id)){
 	                   			ids.push(attachment[i].id);
-	                   			parent.find('.st-include-image').append('<img  src="'+ attachment[i].url +'" width="150px" height="150px" style = "margin-left: 10px;"  />');
+	                   			parent.find('.st-include-image').append('<img  src="'+ attachment[i].url +'" width="120px" height="120px" style = "margin-left: 10px;"  />');
                    			}
                         }
                     }

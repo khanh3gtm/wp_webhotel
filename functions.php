@@ -73,10 +73,19 @@ include "application/helpers/helpers.php";
 		wp_enqueue_style('footer-style');
 		wp_register_style('body-style',THEME_URL . '/style.css','all');
 		wp_enqueue_style('body-style');
-		wp_register_script('hotel-script',THEME_URL . '/js/script.js','all');
-		wp_enqueue_script('hotel-script');
-		wp_register_script('homepage-script',THEME_URL . '/js/khanh.js','all');
+		
+		wp_register_script('match-height-script',THEME_URL . '/js/jquery.matchHeight.js','all');
+		wp_enqueue_script('match-height-script');
+		if(is_page_template('template_homepage.php')){
+			wp_register_script('homepage-script',THEME_URL . '/js/khanh.js','all');
 		wp_enqueue_script('homepage-script');
+		}
+		if(is_singular('hotel')){
+			wp_register_style('hoteldetail-style',THEME_URL . '/CSS/roomhotel.css','all');
+			wp_enqueue_style('hoteldetail-style');
+			wp_register_script('hotel-script',THEME_URL . '/js/script.js','all');
+			wp_enqueue_script('hotel-script');
+		}
 	}
 	add_action('wp_enqueue_scripts','webhotel_style');
 
