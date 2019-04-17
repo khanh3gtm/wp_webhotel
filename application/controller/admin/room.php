@@ -161,19 +161,14 @@ if(!class_exists('ST_Room_Admin')){
  });
 </script>
 <?php }
-<<<<<<< HEAD
-public function save_category_image(){
-	if(isset($_POST['category-image-id']) && '' !== $_POST['category-image-id']){
-		$image = $_POST['category-image-id'];
-		add_term_meta($term_id, 'category-image-id', $image, true);
-=======
+
 public function save_category_image($term_id){
 	if( isset( $_POST['category-image-id'] ) && '' !== $_POST['category-image-id'] ){
 		$image = $_POST['category-image-id'];
 		add_term_meta ( $term_id, 'category-image-id', $image );
 	} else {
 		add_term_meta ( $term_id, 'category-image-id', '' );
->>>>>>> 29dab37b884695fd92a873f89f1625547e4a2470
+
 	}
 }
 public function update_category_image ( $term, $amenities ) { ?>
