@@ -9,17 +9,17 @@ if(!class_exists('ST_Room_Admin')){
 			add_filter('manage_room_posts_columns',array($this, 'sunset_set_contact_columns'));
 			add_action('manage_room_posts_custom_column', array($this,'sunset_contact_custom_column'), 10, 2);
 			add_action('add_meta_boxes', array($this, 'sunset_contact_add_meta_box'));
-			add_action('save_post', array($this, 'sunset_contact_email_callback'), 10, 1);
+			add_action('save_post', array($this, 'sunset_save_contact_email_data'), 10, 2);
 			add_action('manage_amenities_custom_column', array($this, 'st_taxonomy_custom_column'),10,3);
 			add_action('amenities_add_form_fields', array ( $this, 'add_category_image' ));
-			add_action('created_amenities', array($this, 'save_category_image'), 10, 1);
+			add_action('created_amenities', array($this, 'save_category_image'), 10, 2);
 			add_action('amenities_edit_form_fields', array ( $this, 'update_category_image' ), 10, 2 );
-			add_action('edited_amenities', array ($this, 'updated_category_image' ), 10, 1 );
+			add_action('edited_amenities', array ($this, 'updated_category_image' ), 10, 2 );
 			add_action('admin_enqueue_scripts', array( $this, 'load_media' ) );
 			add_action('admin_footer', array ( $this, 'add_script' ) );
 			add_action('admin_footer', array ( $this, 'upload_image_meta_box' ) );
 			add_filter('manage_edit-amenities_columns',array($this, 'my_custom_taxonomy_columns'));
-			// add_action( 'pre_get_posts',array($this, 'get_hotel' ) ); 
+			add_action( 'pre_get_posts',array($this, 'get_hotel' ) ); 
 		}
 		public function load_media(){
 			wp_enqueue_media();
@@ -28,7 +28,6 @@ if(!class_exists('ST_Room_Admin')){
 			?>
 
 			<script type="text/javascript">
-
 				$('.st-upload').each(function (e) {
 					var t = $(this);
 					var parent = t.closest('.form-field');
@@ -68,8 +67,9 @@ if(!class_exists('ST_Room_Admin')){
                     	for (var i = 0; i < attachment.length; i++) {
                     		if(!ids.includes(attachment[i].id)){
                     			ids.push(attachment[i].id);
-                    			parent.find('.st-include-image').append('<img  src="'+ attachment[i].url +'" width="150px" height="150px" style = "margin-left: 10px;"  />');
+                    			parent.find('.st-include-image').append('<div class="item"><img  src="'+ attachment[i].url +'" width="150px" height="150px" style = "margin-left: 10px;"  /><i class="fa fa-times" ></i></div>');
                     		}
+                    		
                     	}
                     }
                     
@@ -77,9 +77,22 @@ if(!class_exists('ST_Room_Admin')){
                 });
 
                 frame.open();
-
             });
 				})
+				$(document).on('click',"i.fas.fa-times" ,function() {
+	 			$(this).parent().remove();
+	 			var ids = [];
+	 			$('.form-field .st-include-image .item').each(function(){
+	 				var id = $(this).find('img').data('id');
+	 				if(!ids.includes(id)){
+	 					ids.push(id);
+	 				}
+	 			});
+	 			$('.form-field .metabox-image-id').val(ids.toString());
+                   	
+            });
+
+
 			</script>
 
 			<?php
@@ -162,14 +175,12 @@ if(!class_exists('ST_Room_Admin')){
  });
 </script>
 <?php }
-
 public function save_category_image($term_id){
 	if( isset( $_POST['category-image-id'] ) && '' !== $_POST['category-image-id'] ){
 		$image = $_POST['category-image-id'];
 		add_term_meta ( $term_id, 'category-image-id', $image );
 	} else {
 		add_term_meta ( $term_id, 'category-image-id', '' );
-
 	}
 }
 public function update_category_image ( $term, $amenities ) { ?>
@@ -404,15 +415,17 @@ function sunset_contact_email_callback($post){
 	echo '<br>';
 
 	?>
-	<label for="category-image-id"><?php _e('Image', 'shinetheme'); ?></label>
+	<label for="metabox-image-id"><?php _e('Image', 'shinetheme'); ?></label>
 	<div class="form-field">
 		<input type="hidden" id="metabox-image-id" name="metabox-image-id" class="custom_media_url" value="">
 		<div class="st-include-image">
 			<?php if(!empty($url))
 			{
 				foreach ($url as $value) {
+					if(!empty($value)){
 					$url_image = wp_get_attachment_image_url($value, 'thumbnail');
-					echo '<img src="'.$url_image.'" alt="" data-id="'. $value .'">';
+					echo '<div class="item"><img src="'.$url_image.'" alt="" data-id="'. $value .'"><i class="fas fa-times"></i></div>';
+					}
 				}
 			}
 			?>
