@@ -5,6 +5,16 @@
 get_header();
 $st = bookcart::inst()->__stGetInfoRoom();
 $err = bookcart::inst()->__stCheckErr();
+$args = array(
+  
+  'post_type'   => 'hotel'
+);
+$hotel = get_posts( $args );
+
+$hotel_detail = get_post_meta('50');
+dd($hotel_detail);die;
+
+
 ?>
 <div class="container">
     <div class="row">
