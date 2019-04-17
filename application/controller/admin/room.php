@@ -19,7 +19,7 @@ if(!class_exists('ST_Room_Admin')){
 			add_action('admin_footer', array ( $this, 'add_script' ) );
 			add_action('admin_footer', array ( $this, 'upload_image_meta_box' ) );
 			add_filter('manage_edit-amenities_columns',array($this, 'my_custom_taxonomy_columns'));
-			add_action( 'pre_get_posts',array($this, 'get_hotel' ) ); 
+			
 		}
 		public function load_media(){
 			wp_enqueue_media();
