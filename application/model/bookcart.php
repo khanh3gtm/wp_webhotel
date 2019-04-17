@@ -63,6 +63,7 @@ class bookcart_model extends Model {
        $res = $wpdb->get_results($sql);
        return $res;
     }
+
     public static function inst(){
         static $instane;
         if(is_null($instane)){
