@@ -26,11 +26,8 @@ if(!class_exists('ST_Room_Admin')){
 		}
 		function upload_image_meta_box(){
 			?>
-<<<<<<< HEAD
-			<script type="text/javascript">
-=======
+
 	<script type="text/javascript">
->>>>>>> 29dab37b884695fd92a873f89f1625547e4a2470
 				$('.st-upload').each(function (e) {
 					var t = $(this);
 					var parent = t.closest('.form-field');
@@ -83,10 +80,7 @@ if(!class_exists('ST_Room_Admin')){
             });
 				})
 			</script>
-<<<<<<< HEAD
-=======
 
->>>>>>> 29dab37b884695fd92a873f89f1625547e4a2470
 			<?php
 		}
 		function my_custom_taxonomy_columns($columns){
