@@ -1,10 +1,13 @@
 <?php
+
 /**
 * Template Name: Checkout
 */
 get_header();
+dd($_SESSION['st_cart']);
 $st = bookcart::inst()->__stGetInfoRoom();
 $err = bookcart::inst()->__stCheckErr();
+
 ?>
 <div class="container">
     <div class="row">

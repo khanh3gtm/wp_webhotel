@@ -101,7 +101,7 @@
                                 </li>
                                 <li><a href="#">HOTEL<i class="fa fa-angle-down"></i></a>
                                     <ul class="sub-menu">
-                                        <li><a href="?c=detailhotel&a=view">Hotel Detail 1</a></li>
+                                        <li><a href="<?php site_url( '/hotel/' ); ?>">Hotel Detail 1</a></li>
                                         <li><a href="#">Hotel Detail 2</a></li>
                                         <li><a href="#">Hotel Detail 3</a></li>
                                         <li><a href="?c=room&a=view">Room Detail 1</a></li>

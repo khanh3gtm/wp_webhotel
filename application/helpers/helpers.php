@@ -5,7 +5,8 @@ if(!function_exists('convert_date_format')){
  		$format = 'd/m/Y';
 
  		$date_format = DateTime::createFromFormat($format, $date);
-		return $date_format->format('Y-m-d');
+		//return $date_format->format('Y-m-d');
+		return '';
  	}
 }
 if(!function_exists('getSiteURL')){
