@@ -151,17 +151,10 @@ class ST_Hotel_Admin{
 				$add = get_post_meta($post_id,'_add',true);
 				echo $add;
 					break;	
-			case 'location':
-				$location = get_the_terms($post_id,'location');
-				dd($location);
-					break;
 			case 'image':
-				$image = get_post_meta($post_id,'_hotel_image',true);
-				
+				$image = get_post_meta($post_id,'_hotel_image',true);		
 				$data = wp_get_attachment_image_src($image, 'thumbnail');
-
-           		echo '<img src="'. $data[0] .'" width="120px" height="120px"  ';
-				
+           		echo '<img src="'. $data[0] .'" width="120px" height="120px"';
 				break;	
 			default:
 				# code...
