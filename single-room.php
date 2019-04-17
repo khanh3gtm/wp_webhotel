@@ -424,8 +424,8 @@
               </div></div>
               <div class="col-md-3 abc"  >
                 <!-- widget -->
-                <form action="?c=bookcart&a=view" method="post">
-                  <input type="hidden" name="room_id" value="<?php echo $data_room[0]['room_id']; ?>" />
+                <form action="" method="post">
+                  <input type="hidden" name="room_id" value="<?php echo '1815'; ?>" />
                   <div class="container-fluid widgetroom">
                     <div class="widgets"  >
                       <div class="form-head">

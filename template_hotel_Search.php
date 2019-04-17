@@ -118,7 +118,12 @@ get_header();
 
 											 		foreach ($term as $terms) {
 											 			?>
-											 			<li><?php echo $terms->name; ?></li>
+
+											 			<li>
+											 				<i class="fas fa-map-marker-alt"></i>
+											 				<span><?php echo $terms->name; ?></span>
+											 			</li>
+											 			
 											 			<?php
 											 		}
 
@@ -170,9 +175,7 @@ get_header();
 									<i class="far fa-calendar-plus search-checkiconright"></i>
 									<label for="radio-choice-1" class="search-title-language"> Check
 									In-Out</label>
-									<div id="reportrange">
-									<?php echo $start . ' - ' . $end ?>
-								</div>
+								
 
 								<input type="hidden" name="start" id="start" value="<?php echo $start; ?>">
 								<input type="hidden" name="end" id="end" value="<?php echo $end; ?>">
@@ -577,17 +580,27 @@ get_header();
 
 									<div class=" modern-search-result">
 										<?php 
-
-										if(!empty($data_hotel))
-
+										$args= array('post_type'=>'hotel','posts_per_page'=>'-1');
+										$query= new WP_Query($args);
+										if($query->have_posts())
 										{
-											foreach ($data_hotel as $value)
+											while ($query->have_posts())
 											{
-												?>
+												$query->the_post();
+											
+											
+										?>
+
 												<div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 has-matchHeight ">
 													<div class="item">
 														<div class="thumb">
-														<a href="?c=detailhotel&a=view&hotel_id=<?php echo $value['hotel_id'] ?>">	<img class="im1 " src="<?php echo $value['images']?>"  class="rounded"/></a><br/>
+															
+															<?php
+																echo get_the_post_thumbnail(get_the_ID(),'thumbnail');
+																
+
+															?>
+														<br/>
 														</div>
 														<div class="icon-position">
 															<i class="fas fa-heart img heart"></i>
@@ -605,7 +618,7 @@ get_header();
 														<div class="text-position">
 															<button class=" btn btn-primary text">Featured</button>
 														</div>
-														<div class="info">
+														<!-- <div class="info">
 
 															<a href="?c=detailhotel&a=view&hotel_id=<?php echo $value['hotel_id'] ?>"><?= $value['hotel_name'] ?> </a><br/>
 
@@ -668,18 +681,18 @@ get_header();
 
 															
 
-														</div>
+														</div> -->
 													</div>
 												</div>
 
 												<?php
-											}
-
-										}
-
+										
+										}	
+									}
 										?>
-
+										
 									</div>
+
 									<div class="clearfix"></div>
 									<!-- Phan trang -->
 									<!-- PHAN TRANG -->
@@ -741,11 +754,9 @@ get_header();
 		</div>
 
 
-
+<div class="clear" style="clear: both;"></div>
 
 		<!-- footer -->
 		<!-- end footer -->
 
-	
-	<?php 
-get_footer(  ); ?>
+	<?php get_footer(  ); ?>
