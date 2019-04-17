@@ -2,7 +2,6 @@
 class bookcart extends Controller {
 	public function __construct(){
 		parent::__construct();
-	
 
 		add_action('init', array($this, '__stCheckoutHandler'));
 		add_action('init', array($this, '__stBookingSucces'));
@@ -13,9 +12,8 @@ class bookcart extends Controller {
 		add_action('init', array($this, '__stHistory'));
 		add_action('init', array($this, '__stGetInfoRoom'));
 		add_action('init', array($this, '__stCheckErr'),10,1);
-		add_action('init', array($this, '__stAddSesson'));
-	}
 
+	}
 	public function __stCheckoutHandler(){
 		bookcart_model::inst()->taobang();
 	}
@@ -152,21 +150,13 @@ class bookcart extends Controller {
 	}
 public function __stAddSesson()
 {
-
 	if(isset($_POST['room_add_to_cart'])){
-		$post_data = $_POST;
-		unset($post_data['room_add_to_cart']);
-		unset($_SESSION['st_cart']);	
-
-	
-		$_SESSION['st_cart'] = $post_data;	
-
-
-		$page_id = '1798';
- 		$page_link = get_the_permalink($page_id);
- 			wp_redirect($page_link);
- 			exit();
-	}
+			$post_data = $_POST;
+			unset($post_data['room_add_to_cart']);
+			dd($post_data);
+			unset($_SESSION['st_cart']);			
+			$_SESSION['st_cart'] = $post_data;
+		}
 }
 
 

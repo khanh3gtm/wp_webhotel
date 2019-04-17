@@ -4,21 +4,10 @@
  	public $view;
  	public function __construct()
  	{
+ 		session_start();
  		//Khởi tạo đối tượng trong controll base
-
-		add_action('init', array($this, 'register_my_session'));
  		$this->view = new View($this->getCartData());
  	}
-
- 	function register_my_session()
-	{
-	  if( !session_id() )
-	  {
-	    session_start();
-	  }
-	}
-
-
  	//Phương thức load Model trong controller
  	public function loadModel($name, $return = false)
  	{
@@ -37,8 +26,8 @@
  	public function getCartData(){
  		if(isset($_SESSION['st_cart'])){
  			$ss = $_SESSION['st_cart'];
- 			//$cModel = $this->loadModel('bookcart', true);
- 			//$dt_cart = $cModel->getRoomDetal($ss['room_id']);
+ 			$cModel = $this->loadModel('bookcart', true);
+ 			$dt_cart = $cModel->getRoomDetal($ss['room_id']);
  			//dd($dt_cart);
  			return $dt_cart;
  		}
