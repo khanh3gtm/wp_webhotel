@@ -1,10 +1,13 @@
 <?php
+
 /**
 * Template Name: Checkout
 */
 get_header();
+dd($_SESSION['st_cart']);
 $st = bookcart::inst()->__stGetInfoRoom();
 $err = bookcart::inst()->__stCheckErr();
+<<<<<<< HEAD
 $args = array(
   
   'post_type'   => 'hotel'
@@ -14,6 +17,8 @@ $hotel = get_posts( $args );
 $hotel_detail = get_post_meta('50');
 dd($hotel_detail);die;
 
+=======
+>>>>>>> 2fdd0bbb0076d0dcac60228babebb80c939ca94d
 
 ?>
 <div class="container">

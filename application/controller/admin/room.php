@@ -27,7 +27,8 @@ if(!class_exists('ST_Room_Admin')){
 		function upload_image_meta_box(){
 			?>
 
-	<script type="text/javascript">
+			<script type="text/javascript">
+
 				$('.st-upload').each(function (e) {
 					var t = $(this);
 					var parent = t.closest('.form-field');
@@ -277,6 +278,7 @@ function sunset_set_contact_columns($columns)
 	$newColumns['children'] = 'Children';
 	$newColumns['adult'] = 'Adult';
 	$newColumns['image'] = 'Image';
+	$newColumns['hotel'] = 'Hotel';
 	$columns=	array_merge($newColumns,$columns );
 	$newColumns['tags'] = 'Tags';
 	$newColumns['date'] = 'Date';
@@ -293,6 +295,11 @@ function sunset_contact_custom_column($column,$post_id)
 		echo $superficies;
 		break;
 		
+		case 'hotel':
+		$hotelData = get_post_meta($post_id, 'st_contact_hotel_field', true);
+		echo $hotelData;
+		break;
+
 		case 'prices':
 		$prices = get_post_meta($post_id,'st_contact_price_field',true);
 		echo $prices;
@@ -325,6 +332,23 @@ function sunset_contact_add_meta_box()
 {
 	add_meta_box('contact_email','Thông tin phòng',[$this,'sunset_contact_email_callback'],'room');
 }
+
+private function getHotelData(){
+	$query = new WP_Query(array(
+		'post_type' => 'hotel',
+		'posts_per_page' => -1
+	));
+
+	$arr = array();
+	if($query->have_posts()){
+		while ($query->have_posts()) {
+		    $query->the_post();
+		    $arr[get_the_ID()] = get_the_title();
+		}
+	}
+	wp_reset_postdata();
+	return $arr;
+}
 function sunset_contact_email_callback($post){
 	wp_nonce_field('sunset_save_contact_email_data', 'sunset_contact_email_meta_box_nonce');
 	$superficies = get_post_meta($post->ID, 'st_contact_superficies_field', true);
@@ -334,7 +358,8 @@ function sunset_contact_email_callback($post){
 	$adult = get_post_meta($post->ID, 'st_contact_adult_field', true);
 	$image = get_post_meta($post->ID, 'metabox-image-id', true);
 	$url = explode(',', $image);
-	
+
+	$hotelData = $this->getHotelData();
 
 	echo '<label for="st_contact_superficies_field">Superficies</label>';
 	echo '<br>';
@@ -351,6 +376,17 @@ function sunset_contact_email_callback($post){
 		echo '<option value="'. $i .'" '. selected($beds, $i) .'>'.$i.'</option>';
 	}
 	echo '</select>';
+	echo '<br>';
+	echo '<label for="st_contact_hotel_field">Hotel</label>';
+	echo '<select name="st_contact_hotel_field" id="st_contact_hotel_field">';
+	if(!empty($hotelData)){
+		foreach ($hotelData as $key => $value) {
+			echo '<option value="'. $key .'" '. selected($hotelData, $value) .'>'. $value .'</option>';
+		}
+
+	}
+
+	echo '</select>';
 	
 	echo '<label for="st_contact_children_field">Children</label>';
 	echo '<select name="st_contact_children_field" id="st_contact_children_field">';
@@ -362,7 +398,7 @@ function sunset_contact_email_callback($post){
 	echo '<label for="st_contact_adult_field">Adult</label>';
 	echo '<select name="st_contact_adult_field" id="st_contact_adult_field">';
 	for($i=1; $i<=10;$i++){
-		echo '<option value="'. $i .'" '. selected($children, $i) .'>'.$i.'</option>';
+		echo '<option value="'. $i .'" '. selected($adult, $i) .'>'.$i.'</option>';
 	}
 	echo '</select>';
 	echo '<br>';
@@ -433,12 +469,16 @@ $adult = sanitize_text_field($_POST['st_contact_adult_field']);
 update_post_meta($post_id, 'st_contact_adult_field', $adult);
 $image = $_POST['metabox-image-id'];
 update_post_meta($post_id, 'metabox-image-id', $image);
+$hotelData = sanitize_text_field($_POST['st_contact_hotel_field']);	
+update_post_meta($post_id, 'st_contact_hotel_field', $hotelData);
 }
 // public function get_hotel(){
 // 	$query = new WP_Query( array( 'post_type' => 'hotel' ) );
-// 	if($query->have_posts()){
+// 	if ( $query->have_posts() ) {
+// 	// The Loop
+// 	while ( $query->have_posts() ) {
 // 		$query->the_post();
-// 		echo '<li>'. get_the_title() .'</li>';
+// 		echo '<li>' . get_the_title() . '</li>';
 // 	}
 // }
 

@@ -53,7 +53,7 @@
                         <?php }else{
                             ?>
                         <li><a href="<?php get_template_directory_uri() ?>/thachpham/wp-login.php">Login</a></li>
-                        <li ><a href="../../register">Sign up</a></li>
+                        <li ><a href="<?php get_template_directory_uri() ?>/thachpham/dang-ky">Sign up</a></li>
                             <?php
                         } ?>
                         
