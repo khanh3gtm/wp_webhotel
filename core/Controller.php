@@ -22,7 +22,7 @@
  	//Phương thức load Model trong controller
  	public function loadModel($name, $return = false)
  	{
- 		$file_model = 'model/'. $name . '.php';
+ 		$file_model = 'model'. $name . '.php';
  		if(file_exists($file_model)){
  			require_once $file_model;
  			$name_model = $name .'_model';
@@ -38,7 +38,7 @@
  		if(isset($_SESSION['st_cart'])){
  			$ss = $_SESSION['st_cart'];
  			//$cModel = $this->loadModel('bookcart', true);
- 			//$dt_cart = $cModel->getRoomDetal($ss['room_id']);
+ 			//$dt_cart = bookcart::inst()->__stGetInfoRoom($key);
  			//dd($dt_cart);
  			return $dt_cart;
  		}
