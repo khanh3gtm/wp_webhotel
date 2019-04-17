@@ -27,11 +27,8 @@ if(!class_exists('ST_Room_Admin')){
 		function upload_image_meta_box(){
 			?>
 
-<<<<<<< HEAD
 			<script type="text/javascript">
-=======
-	<script type="text/javascript">
->>>>>>> 76930cf60d1aebd779ec28d2fc43820f3db6ced5
+
 				$('.st-upload').each(function (e) {
 					var t = $(this);
 					var parent = t.closest('.form-field');
