@@ -8,8 +8,8 @@ class bookcart extends Controller {
 		add_action('init', array($this, '__stBkSucces'));
 		add_action('init', array($this, '__stInfoBook'),10,1);
 		add_action('init', array($this, '__stInfoSucces'));
-		add_action('init', array($this, '__stHistory'));
 		add_action('init', array($this, '__stList'),10,1);
+		add_action('init', array($this, '__stHistory'));
 		add_action('init', array($this, '__stGetInfoRoom'));
 		add_action('init', array($this, '__stCheckErr'),10,1);
 
