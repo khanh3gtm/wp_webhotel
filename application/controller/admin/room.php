@@ -9,23 +9,28 @@ if(!class_exists('ST_Room_Admin')){
 			add_filter('manage_room_posts_columns',array($this, 'sunset_set_contact_columns'));
 			add_action('manage_room_posts_custom_column', array($this,'sunset_contact_custom_column'), 10, 2);
 			add_action('add_meta_boxes', array($this, 'sunset_contact_add_meta_box'));
-			add_action('save_post', array($this, 'sunset_save_contact_email_data'), 10, 2);
+			add_action('save_post', array($this, 'sunset_contact_email_callback'), 10, 1);
 			add_action('manage_amenities_custom_column', array($this, 'st_taxonomy_custom_column'),10,3);
 			add_action('amenities_add_form_fields', array ( $this, 'add_category_image' ));
-			add_action('created_amenities', array($this, 'save_category_image'), 10, 2);
+			add_action('created_amenities', array($this, 'save_category_image'), 10, 1);
 			add_action('amenities_edit_form_fields', array ( $this, 'update_category_image' ), 10, 2 );
-			add_action('edited_amenities', array ($this, 'updated_category_image' ), 10, 2 );
+			add_action('edited_amenities', array ($this, 'updated_category_image' ), 10, 1 );
 			add_action('admin_enqueue_scripts', array( $this, 'load_media' ) );
 			add_action('admin_footer', array ( $this, 'add_script' ) );
 			add_action('admin_footer', array ( $this, 'upload_image_meta_box' ) );
 			add_filter('manage_edit-amenities_columns',array($this, 'my_custom_taxonomy_columns'));
+			// add_action( 'pre_get_posts',array($this, 'get_hotel' ) ); 
 		}
 		public function load_media(){
 			wp_enqueue_media();
 		}
 		function upload_image_meta_box(){
 			?>
+<<<<<<< HEAD
 			<script type="text/javascript">
+=======
+	<script type="text/javascript">
+>>>>>>> 29dab37b884695fd92a873f89f1625547e4a2470
 				$('.st-upload').each(function (e) {
 					var t = $(this);
 					var parent = t.closest('.form-field');
@@ -78,6 +83,10 @@ if(!class_exists('ST_Room_Admin')){
             });
 				})
 			</script>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 29dab37b884695fd92a873f89f1625547e4a2470
 			<?php
 		}
 		function my_custom_taxonomy_columns($columns){
@@ -158,10 +167,19 @@ if(!class_exists('ST_Room_Admin')){
  });
 </script>
 <?php }
+<<<<<<< HEAD
 public function save_category_image(){
 	if(isset($_POST['category-image-id']) && '' !== $_POST['category-image-id']){
 		$image = $_POST['category-image-id'];
 		add_term_meta($term_id, 'category-image-id', $image, true);
+=======
+public function save_category_image($term_id){
+	if( isset( $_POST['category-image-id'] ) && '' !== $_POST['category-image-id'] ){
+		$image = $_POST['category-image-id'];
+		add_term_meta ( $term_id, 'category-image-id', $image );
+	} else {
+		add_term_meta ( $term_id, 'category-image-id', '' );
+>>>>>>> 29dab37b884695fd92a873f89f1625547e4a2470
 	}
 }
 public function update_category_image ( $term, $amenities ) { ?>
@@ -186,7 +204,7 @@ public function update_category_image ( $term, $amenities ) { ?>
 	</tr>
 	<?php
 }
-public function updated_category_image ( $term_id, $tt_id ) {
+public function updated_category_image ( $term_id) {
 	if( isset( $_POST['category-image-id'] ) && '' !== $_POST['category-image-id'] ){
 		$image = $_POST['category-image-id'];
 		update_term_meta ( $term_id, 'category-image-id', $image );
@@ -427,7 +445,13 @@ update_post_meta($post_id, 'st_contact_adult_field', $adult);
 $image = $_POST['metabox-image-id'];
 update_post_meta($post_id, 'metabox-image-id', $image);
 }
-
+// public function get_hotel(){
+// 	$query = new WP_Query( array( 'post_type' => 'hotel' ) );
+// 	if($query->have_posts()){
+// 		$query->the_post();
+// 		echo '<li>'. get_the_title() .'</li>';
+// 	}
+// }
 
 
 public static function inst(){

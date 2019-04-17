@@ -11,7 +11,7 @@ class bookcart extends Controller {
 		add_action('init', array($this, '__stList'),10,1);
 		add_action('init', array($this, '__stHistory'));
 		add_action('init', array($this, '__stGetInfoRoom'));
-		add_action('init', array($this, '__stCheckErr'));
+		add_action('init', array($this, '__stCheckErr'),10,1);
 
 	}
 	public function __stCheckoutHandler(){
@@ -123,16 +123,14 @@ class bookcart extends Controller {
 		$data = array($infohotel,$infohotelmeta,$inforoom,$inforoommeta,$location);
 		return $data;
 	}
-	public function __stCheckErr()
+	public function __stCheckErr($err = false)
 	{
 		if(isset($_POST['checkout_submit'])){
 			$data = $_POST;
+			$error = array();
 			if(!isset($data['term_condition']) || $data['term_condition'] != '1'){
 				$err_checkout = array();
-				array_push($err_checkout, 'Please tick a checkbox.');
-			    
-				$this->view($err_checkout);	
-				return;		
+				array_push($err_checkout, 'Please tick a checkbox.');		
 			}
 			$err_checkout = array();
 
@@ -146,10 +144,20 @@ class bookcart extends Controller {
 		    	array_push($err_checkout, '  This email is not valid. Please re-enter. ');
 				$this->view($err_checkout);	
 				return;
-		    }
+		    }   
 		}
+		return $error;
 	}
-
+public function __stAddSesson()
+{
+	if(isset($_POST['room_add_to_cart'])){
+			$post_data = $_POST;
+			unset($post_data['room_add_to_cart']);
+			dd($post_data);
+			unset($_SESSION['st_cart']);			
+			$_SESSION['st_cart'] = $post_data;
+		}
+}
 
 
 	public static function inst(){

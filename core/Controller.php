@@ -4,6 +4,7 @@
  	public $view;
  	public function __construct()
  	{
+ 		session_start();
  		//Khởi tạo đối tượng trong controll base
  		$this->view = new View($this->getCartData());
  	}

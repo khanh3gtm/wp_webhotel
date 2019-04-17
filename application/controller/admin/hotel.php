@@ -10,17 +10,21 @@ class ST_Hotel_Admin{
 		add_action('save_post',array($this,'hotel_info_save'));
 		add_action('manage_hotel_posts_columns',array($this,'hotel_set_columns'));
 		add_action('manage_hotel_posts_custom_column',array($this,'hotel_custom_columns'), 10,2);
-		add_action('manage_edit-location_columns',array($this,'location_set_columns'));
-		// add_action('manage_location_columns',array($this,'location_custom_columns'), 10,2);
-		add_action('location_add_form_fields', array ( $this, 'location_info_output' ));
-		add_action('location_edit_form_fields', array ( $this, 'location_info_output' ));
-		add_action('created_location', array($this, 'location_info_save'));
-		add_action( 'edited_location', array($this,'location_info_save'));
 		add_filter('manage_edit-facilities_columns',array($this,'facilities_set_columns'));
 		add_filter('manage_facilities_custom_column', array($this, 'facilities_custom_columns'),10,3);
 		add_action('facilities_add_form_fields', array ( $this, 'facilities_info_add_output' ));
 		add_action('facilities_edit_form_fields', array ( $this, 'facilities_info_edit_output' ));
 		add_action('edited_facilities', array ( $this, 'facilities_info_save' ));
+
+			add_action('manage_location_custom_column', array($this, 'st_taxonomy_custom_column'),10,3);
+			add_action('location_add_form_fields', array ( $this, 'add_category_image' ));
+			add_action('created_location', array($this, 'save_category_image'), 10, 1);
+			add_action('location_edit_form_fields', array ( $this, 'update_category_image' ), 10, 2 );
+			add_action('edited_location', array ($this, 'updated_category_image' ), 10, 1 );
+			add_action('admin_enqueue_scripts', array( $this, 'load_media' ) );
+			add_action('admin_footer', array ( $this, 'add_script' ) );
+			add_action('admin_footer', array ( $this, 'upload_image_meta_box' ) );
+			add_filter('manage_edit-location_columns',array($this, 'my_custom_taxonomy_columns'));
 
 
 
@@ -165,77 +169,201 @@ class ST_Hotel_Admin{
 		}
 	}
 	
+function my_custom_taxonomy_columns($columns){
+			$columns = array();
+			$columns['name'] = __('Name');
+			$columns['image'] = __('Image');
+			$columns['description'] = __('Description');
+			$columns['slug'] = __('Slug');
 
+			return $columns;
+		}
+		function st_taxonomy_custom_column($out, $column,$term_id)
+		{
+			switch ($column) {
+				case 'image':
+				$image = get_term_meta($term_id, 'category-image-id', true);
+				// $data = maybe_unserialize($image->description);
+				$data = wp_get_attachment_image_src($image, 'thumbnail');
+				echo '<img src="'. $data[0] .'" alt="">';
+				break;
+				
+			}
+		}
 
 	//create custom columns location
-	function location_set_columns($columns){
-		$newColumns = array();
-		$newColumns['images'] = 'Images';
-		$columns = array_merge($columns, $newColumns);
-		return $columns;
-	}
-	function location_custom_columns($column,$post_id){
-		switch ($column){
-			case 'description':
-				echo get_the_excerpt();
-				break;
-			case 'images':
-				echo "123";
-				break;	
-			default:
-				# code...
-				break;
+	public function load_media(){
+			wp_enqueue_media();
 		}
+		function upload_image_meta_box(){
+			?>
+	<script type="text/javascript">
+				$('.st-upload').each(function (e) {
+					var t = $(this);
+					var parent = t.closest('.form-field');
+					var multi = t.data('multi');
+					var frame;
+					t.click(function (e) {
+						e.preventDefault();
+						var galleryBox = t.parent().find('.st-selection');
+						if (frame) {
+							frame.open();
+							return;
+						}
+                // Create a new media frame
+                frame = wp.media({
+                	title: 'Select image',
+                	button: {
+                		text: 'Use this media'
+                	},
+                    multiple: true  // Set to true to allow multiple files to be selected
+                });
+
+                frame.on('select', function () {
+
+                    // Get media attachment details from the frame state
+                    var attachment = frame.state().get('selection').toJSON();
+                    var ids = [];                    
+                    $('img', parent).each(function(){
+                    	var currentID = $(this).data('id');
+                    	if(!ids.includes(currentID)){
+                    		ids.push(currentID);
+                    	}
+                    });
+
+                    console.log(ids);
+
+                    if (attachment.length > 0) {
+                    	for (var i = 0; i < attachment.length; i++) {
+                    		if(!ids.includes(attachment[i].id)){
+                    			ids.push(attachment[i].id);
+                    			parent.find('.st-include-image').append('<div class="item"><img  src="'+ attachment[i].url +'" width="150px" height="150px" style = "margin-left: 10px;"  /><i class="fa fa-times" ></i></div>');
+                    		}
+                    		
+                    	}
+                    }
+                    
+                    parent.find('.custom_media_url').val(ids.toString());
+                });
+
+                frame.open();
+            });
+				})
+				$(document).on('click',"i.fas.fa-times" ,function() {
+	 			$(this).parent().remove();
+	 			var ids = [];
+	 			$('.form-field .st-include-image .item').each(function(){
+	 				var id = $(this).find('img').data('id');
+	 				if(!ids.includes(id)){
+	 					ids.push(id);
+	 				}
+	 			});
+	 			$('.form-field .metabox-image-id').val(ids.toString());
+                   	
+            });
+
+
+			</script>
+
+			<?php
+		}
+		
+		public function add_category_image () { ?>
+			<div class="form-field term-group">
+				<label for="category-image-id"><?php _e('Image', 'shinetheme'); ?></label>
+				<input type="hidden" id="category-image-id" name="category-image-id" class="custom_media_url" value="">
+				<div id="category-image-wrapper"></div>
+				<p>
+					<input type="button" class="button button-secondary ct_tax_media_button" id="ct_tax_media_button" name="ct_tax_media_button" value="<?php _e( 'Add Image', 'shinetheme' ); ?>" />
+					<input type="button" class="button button-secondary ct_tax_media_remove" id="ct_tax_media_remove" name="ct_tax_media_remove" value="<?php _e( 'Remove Image', 'shinetheme' ); ?>" />
+				</p>
+			</div>
+			<?php
+		}
+		
+		public function add_script() { ?>
+			<script>
+				jQuery(document).ready( function($) {
+					function ct_media_upload(button_class) {
+						var _custom_media = true,
+						_orig_send_attachment = wp.media.editor.send.attachment;
+						$('body').on('click', button_class, function(e) {
+							var button_id = '#'+$(this).attr('id');
+							var send_attachment_bkp = wp.media.editor.send.attachment;
+							var button = $(button_id);
+							_custom_media = true;
+							wp.media.editor.send.attachment = function(props, attachment){
+								if ( _custom_media ) {
+									$('#category-image-id').val(attachment.id);
+									$('#category-image-wrapper').html('<img class="custom_media_image" src="" style="margin:0;padding:0;max-height:100px;float:none;" />');
+									$('#category-image-wrapper .custom_media_image').attr('src',attachment.url).css('display','block');
+								} else {
+									return _orig_send_attachment.apply( button_id, [props, attachment] );
+								}
+							}
+							wp.media.editor.open(button);
+							return false;
+						});
+					}
+					ct_media_upload('.ct_tax_media_button.button'); 
+					$('body').on('click','.ct_tax_media_remove',function(){
+						$('#category-image-id').val('');
+						$('#category-image-wrapper').html('<img class="custom_media_image" src="" style="margin:0;padding:0;max-height:100px;float:none;" />');
+					});
+     // Thanks: http://stackoverflow.com/questions/15281995/wordpress-create-category-ajax-response
+     $(document).ajaxComplete(function(event, xhr, settings) {
+     	var queryStringArr = settings.data.split('&');
+     	if( $.inArray('action=add-tag', queryStringArr) !== -1 ){
+     		var xml = xhr.responseXML;
+     		$response = $(xml).find('term_id').text();
+     		if($response!=""){
+           // Clear the thumb image
+           $('#category-image-wrapper').html('');
+       }
+   }
+});
+ });
+</script>
+<?php }
+public function save_category_image($term_id){
+	if( isset( $_POST['category-image-id'] ) && '' !== $_POST['category-image-id'] ){
+		$image = $_POST['category-image-id'];
+		add_term_meta ( $term_id, 'category-image-id', $image );
+	} else {
+		add_term_meta ( $term_id, 'category-image-id', '' );
 	}
-
-	function location_info_output($post)
-	{
-		wp_nonce_field('location_info_save','location_meta_box_nonce');
-		$image = get_post_meta($post->ID,'_location_image',true);
-		$url = explode(",", $image);
-		?>
-
+}
+public function update_category_image ( $term, $amenities ) { ?>
+	<tr class="form-field term-group-wrap">
+		<th scope="row">
+			<label for="category-image-id"><?php _e( 'Image', 'shinetheme' ); ?></label>
+		</th>
+		<td>
+			<?php $image_id = get_term_meta ( $term -> term_id, 'category-image-id', true ); ?>
+			<!--Lay gia tri hien tai</!-->
+			<input type="hidden" id="category-image-id" name="category-image-id" value="<?php echo $image_id; ?>">
+			<div id="category-image-wrapper">
+				<?php if ( $image_id ) { ?>
+					<?php echo wp_get_attachment_image ( $image_id, 'thumbnail' ); ?>
+				<?php } ?>
+			</div>
 			<p>
-	 		<label>Images</label><br/>
-	 		<div class="st-upload-gallery" style="min-height: 100px;">
-		 		<input type="hidden" name="location_images" class="hotel_images" value="<?php echo $image; ?>">
-		 		<div class="st-include-image">
-		 		<?php
-		 		if(!empty($url)){
-			 		foreach ($url as $key => $value) {
-			 			$url_image = wp_get_attachment_image_url($value, 'thumbnail');
-			 			echo '<img src="'. $url_image .'" style = "margin-left: 10px;" data-id="'. $value .'"/>';
-			 		}
-			 	}
-			 	?>
-			 	</div>
-			 	<br>
-		 		<input type="button" class="st-upload"  value="Add Image">
-		 		<input type="button" name="" class="" value="Delete Image">
-
-	 		</div>
-	 	</p>
-
-
-
-		<?php
+				<input type="button" class="button button-secondary ct_tax_media_button" id="ct_tax_media_button" name="ct_tax_media_button" value="<?php _e( 'Add Image', 'shinetheme' ); ?>" />
+				<input type="button" class="button button-secondary ct_tax_media_remove" id="ct_tax_media_remove" name="ct_tax_media_remove" value="<?php _e( 'Remove Image', 'shinetheme' ); ?>" />
+			</p>
+		</td>
+	</tr>
+	<?php
+}
+public function updated_category_image ( $term_id) {
+	if( isset( $_POST['category-image-id'] ) && '' !== $_POST['category-image-id'] ){
+		$image = $_POST['category-image-id'];
+		update_term_meta ( $term_id, 'category-image-id', $image );
+	} else {
+		update_term_meta ( $term_id, 'category-image-id', '' );
 	}
-	function location_info_save($post_id){
-		if(!isset($_POST['location_meta_box_nonce'])){
-			return;
-		}
-		if(!wp_verify_nonce($_POST['location_meta_box_nonce'],'location_info_save')){
-			return;
-		}
-		if(define('DOING_AUTOSAVE') && DOING_AUTOSAVE){
-			return;
-		}
+}
 
-		$image = sanitize_text_field($_POST['location_images']);
-		update_post_meta($post_id,'_location_image',$image);
-
-
-	}
 
 
 	//create metabox of hotel
