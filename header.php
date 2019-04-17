@@ -53,7 +53,7 @@
                         <?php }else{
                             ?>
                         <li><a href="<?php get_template_directory_uri() ?>/thachpham/wp-login.php">Login</a></li>
-                        <li ><a href="../../register">Sign up</a></li>
+                        <li ><a href="<?php get_template_directory_uri() ?>/thachpham/dang-ky">Sign up</a></li>
                             <?php
                         } ?>
                         
@@ -101,7 +101,7 @@
                                 </li>
                                 <li><a href="#">HOTEL<i class="fa fa-angle-down"></i></a>
                                     <ul class="sub-menu">
-                                        <li><a href="?c=detailhotel&a=view">Hotel Detail 1</a></li>
+                                        <li><a href="<?php site_url( '/hotel/' ); ?>">Hotel Detail 1</a></li>
                                         <li><a href="#">Hotel Detail 2</a></li>
                                         <li><a href="#">Hotel Detail 3</a></li>
                                         <li><a href="?c=room&a=view">Room Detail 1</a></li>

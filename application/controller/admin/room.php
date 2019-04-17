@@ -9,27 +9,26 @@ if(!class_exists('ST_Room_Admin')){
 			add_filter('manage_room_posts_columns',array($this, 'sunset_set_contact_columns'));
 			add_action('manage_room_posts_custom_column', array($this,'sunset_contact_custom_column'), 10, 2);
 			add_action('add_meta_boxes', array($this, 'sunset_contact_add_meta_box'));
-			add_action('save_post', array($this, 'sunset_save_contact_email_data'), 10, 2);
+			add_action('save_post', array($this, 'sunset_contact_email_callback'), 10, 1);
 			add_action('manage_amenities_custom_column', array($this, 'st_taxonomy_custom_column'),10,3);
 			add_action('amenities_add_form_fields', array ( $this, 'add_category_image' ));
-			add_action('created_amenities', array($this, 'save_category_image'), 10, 2);
+			add_action('created_amenities', array($this, 'save_category_image'), 10, 1);
 			add_action('amenities_edit_form_fields', array ( $this, 'update_category_image' ), 10, 2 );
-			add_action('edited_amenities', array ($this, 'updated_category_image' ), 10, 2 );
+			add_action('edited_amenities', array ($this, 'updated_category_image' ), 10, 1 );
 			add_action('admin_enqueue_scripts', array( $this, 'load_media' ) );
 			add_action('admin_footer', array ( $this, 'add_script' ) );
 			add_action('admin_footer', array ( $this, 'upload_image_meta_box' ) );
 			add_filter('manage_edit-amenities_columns',array($this, 'my_custom_taxonomy_columns'));
-			add_action( 'pre_get_posts',array($this, 'get_hotel' ) ); 
+			// add_action( 'pre_get_posts',array($this, 'get_hotel' ) ); 
 		}
 		public function load_media(){
 			wp_enqueue_media();
 		}
 		function upload_image_meta_box(){
 			?>
-<<<<<<< HEAD
-			
-=======
+
 			<script type="text/javascript">
+
 				$('.st-upload').each(function (e) {
 					var t = $(this);
 					var parent = t.closest('.form-field');
@@ -69,9 +68,8 @@ if(!class_exists('ST_Room_Admin')){
                     	for (var i = 0; i < attachment.length; i++) {
                     		if(!ids.includes(attachment[i].id)){
                     			ids.push(attachment[i].id);
-                    			parent.find('.st-include-image').append('<div class="item"><img  src="'+ attachment[i].url +'" width="150px" height="150px" style = "margin-left: 10px;"  /><i class="fa fa-times" ></i></div>');
+                    			parent.find('.st-include-image').append('<img  src="'+ attachment[i].url +'" width="150px" height="150px" style = "margin-left: 10px;"  />');
                     		}
-                    		
                     	}
                     }
                     
@@ -79,24 +77,11 @@ if(!class_exists('ST_Room_Admin')){
                 });
 
                 frame.open();
+
             });
 				})
-				$(document).on('click',"i.fas.fa-times" ,function() {
-	 			$(this).parent().remove();
-	 			var ids = [];
-	 			$('.form-field .st-include-image .item').each(function(){
-	 				var id = $(this).find('img').data('id');
-	 				if(!ids.includes(id)){
-	 					ids.push(id);
-	 				}
-	 			});
-	 			$('.form-field .metabox-image-id').val(ids.toString());
-                   	
-            });
-
-
 			</script>
->>>>>>> b08042c3be2c7d9ce34b18d05d70b8d7dd010c54
+
 			<?php
 		}
 		function my_custom_taxonomy_columns($columns){
@@ -177,12 +162,14 @@ if(!class_exists('ST_Room_Admin')){
  });
 </script>
 <?php }
+
 public function save_category_image($term_id){
 	if( isset( $_POST['category-image-id'] ) && '' !== $_POST['category-image-id'] ){
 		$image = $_POST['category-image-id'];
 		add_term_meta ( $term_id, 'category-image-id', $image );
 	} else {
 		add_term_meta ( $term_id, 'category-image-id', '' );
+
 	}
 }
 public function update_category_image ( $term, $amenities ) { ?>
@@ -291,6 +278,7 @@ function sunset_set_contact_columns($columns)
 	$newColumns['children'] = 'Children';
 	$newColumns['adult'] = 'Adult';
 	$newColumns['image'] = 'Image';
+	$newColumns['hotel'] = 'Hotel';
 	$columns=	array_merge($newColumns,$columns );
 	$newColumns['tags'] = 'Tags';
 	$newColumns['date'] = 'Date';
@@ -307,6 +295,11 @@ function sunset_contact_custom_column($column,$post_id)
 		echo $superficies;
 		break;
 		
+		case 'hotel':
+		$hotelData = get_post_meta($post_id, 'st_contact_hotel_field', true);
+		echo $hotelData;
+		break;
+
 		case 'prices':
 		$prices = get_post_meta($post_id,'st_contact_price_field',true);
 		echo $prices;
@@ -339,6 +332,23 @@ function sunset_contact_add_meta_box()
 {
 	add_meta_box('contact_email','Thông tin phòng',[$this,'sunset_contact_email_callback'],'room');
 }
+
+private function getHotelData(){
+	$query = new WP_Query(array(
+		'post_type' => 'hotel',
+		'posts_per_page' => -1
+	));
+
+	$arr = array();
+	if($query->have_posts()){
+		while ($query->have_posts()) {
+		    $query->the_post();
+		    $arr[get_the_ID()] = get_the_title();
+		}
+	}
+	wp_reset_postdata();
+	return $arr;
+}
 function sunset_contact_email_callback($post){
 	wp_nonce_field('sunset_save_contact_email_data', 'sunset_contact_email_meta_box_nonce');
 	$superficies = get_post_meta($post->ID, 'st_contact_superficies_field', true);
@@ -348,7 +358,8 @@ function sunset_contact_email_callback($post){
 	$adult = get_post_meta($post->ID, 'st_contact_adult_field', true);
 	$image = get_post_meta($post->ID, 'metabox-image-id', true);
 	$url = explode(',', $image);
-	
+
+	$hotelData = $this->getHotelData();
 
 	echo '<label for="st_contact_superficies_field">Superficies</label>';
 	echo '<br>';
@@ -365,6 +376,17 @@ function sunset_contact_email_callback($post){
 		echo '<option value="'. $i .'" '. selected($beds, $i) .'>'.$i.'</option>';
 	}
 	echo '</select>';
+	echo '<br>';
+	echo '<label for="st_contact_hotel_field">Hotel</label>';
+	echo '<select name="st_contact_hotel_field" id="st_contact_hotel_field">';
+	if(!empty($hotelData)){
+		foreach ($hotelData as $key => $value) {
+			echo '<option value="'. $key .'" '. selected($hotelData, $value) .'>'. $value .'</option>';
+		}
+
+	}
+
+	echo '</select>';
 	
 	echo '<label for="st_contact_children_field">Children</label>';
 	echo '<select name="st_contact_children_field" id="st_contact_children_field">';
@@ -376,23 +398,21 @@ function sunset_contact_email_callback($post){
 	echo '<label for="st_contact_adult_field">Adult</label>';
 	echo '<select name="st_contact_adult_field" id="st_contact_adult_field">';
 	for($i=1; $i<=10;$i++){
-		echo '<option value="'. $i .'" '. selected($children, $i) .'>'.$i.'</option>';
+		echo '<option value="'. $i .'" '. selected($adult, $i) .'>'.$i.'</option>';
 	}
 	echo '</select>';
 	echo '<br>';
 
 	?>
-	<label for="metabox-image-id"><?php _e('Image', 'shinetheme'); ?></label>
+	<label for="category-image-id"><?php _e('Image', 'shinetheme'); ?></label>
 	<div class="form-field">
 		<input type="hidden" id="metabox-image-id" name="metabox-image-id" class="custom_media_url" value="">
 		<div class="st-include-image">
 			<?php if(!empty($url))
 			{
 				foreach ($url as $value) {
-					if(!empty($value)){
 					$url_image = wp_get_attachment_image_url($value, 'thumbnail');
-					echo '<div class="item"><img src="'.$url_image.'" alt="" data-id="'. $value .'"><i class="fas fa-times"></i></div>';
-					}
+					echo '<img src="'.$url_image.'" alt="" data-id="'. $value .'">';
 				}
 			}
 			?>
@@ -449,12 +469,16 @@ $adult = sanitize_text_field($_POST['st_contact_adult_field']);
 update_post_meta($post_id, 'st_contact_adult_field', $adult);
 $image = $_POST['metabox-image-id'];
 update_post_meta($post_id, 'metabox-image-id', $image);
+$hotelData = sanitize_text_field($_POST['st_contact_hotel_field']);	
+update_post_meta($post_id, 'st_contact_hotel_field', $hotelData);
 }
 // public function get_hotel(){
 // 	$query = new WP_Query( array( 'post_type' => 'hotel' ) );
-// 	if($query->have_posts()){
+// 	if ( $query->have_posts() ) {
+// 	// The Loop
+// 	while ( $query->have_posts() ) {
 // 		$query->the_post();
-// 		echo '<li>'. get_the_title() .'</li>';
+// 		echo '<li>' . get_the_title() . '</li>';
 // 	}
 // }
 
