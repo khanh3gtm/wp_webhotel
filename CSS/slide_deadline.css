@@ -350,7 +350,7 @@ body{
 }
 .slidebar-filter .search-list-option
 {
-	max-width: 268px;
+	width: 268px;
     height: 550px;
     margin-left: -159px;
     position: absolute;
@@ -420,13 +420,13 @@ body{
 	position: absolute;
     top: 0;
     left: 0;
-    background: black;
-    color: black;
+    background: transparent;
+    color: transparent;
     height: 100%;
     width: 100%;
     opacity: 0;
-    /* visibility: hidden; */
     cursor: pointer;
+}
 }	
 .slidebar-filter.search-optiontitle
 {
@@ -652,12 +652,12 @@ body{
 .modern-search-result .thumb
 {
 	overflow: hidden;
-
+	max-height: 250px;
 }
 .modern-search-result .im1
 {
 	transition: all 1s ease;
-	max-height: 250px;
+	height: auto;
 	-webkit-transition: all 1s ease;
 	-moz-transition: all 1s ease;
 	-o-transition: all 1s ease;
