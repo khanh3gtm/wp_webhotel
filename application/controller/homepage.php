@@ -5,6 +5,13 @@
  	class homepage extends Controller
  	{
  		
+<<<<<<< HEAD
+ 	public function __construct(argument)
+ 		{
+ 			parent::__construct();
+
+ 		}
+=======
  	public function __construct()
  		{
  			parent::__construct();
@@ -16,6 +23,7 @@
  		return $hotel;
 
  	}	
+>>>>>>> 512c56d3eed902e5b87d23433342015941abc6b2
  		public static function inst(){
  			static $instane;
  			if(is_null($instane)){
