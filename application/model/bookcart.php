@@ -16,11 +16,7 @@ class bookcart_model extends Model {
         $data = "SELECT table_name
                 FROM information_schema.tables
                 WHERE table_schema = 'wp_db'
-<<<<<<< HEAD
                 AND table_name = 'wp_bill'";
-=======
-                AND table_name = '{$wpdb->prefix}bill'";
->>>>>>> 191cf2643c1b4a64e93a4e1c7dca1ba29529dc63
         $res = $wpdb->query($data);
        //var_dump($wpdb->get_var($data));
         if($res==0)
@@ -67,6 +63,7 @@ class bookcart_model extends Model {
        $res = $wpdb->get_results($sql);
        return $res;
     }
+
     public static function inst(){
         static $instane;
         if(is_null($instane)){
