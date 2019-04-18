@@ -81,16 +81,9 @@
                       <div class="sub-heading">
                         <i class="fas fa-map-marker-alt"></i><span> Hotel :    
                           <?php
-                          if(!empty($data_hotel)){
-
-                            ?>
-                            <?php
-                            foreach ($data_hotel as $values){
-                              ?>
-                              <a><?php echo $values['hotel_name']; ?></a>
-                              <?php
-                            }?>
-                          <?php } ?>
+                          $hotel = get_post_meta(get_the_ID(), 'st_contact_hotel_field', true);
+                          echo $hotel;
+                           ?>
                         </span>
                       </div>
                     </div>
