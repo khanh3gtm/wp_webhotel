@@ -3,6 +3,10 @@
  Template Name: Homepage
 */
  get_header();
+ 
+ $hotel = homepage::inst()->__ShowListHotel();
+dd($hotel);die; 
+
  ?>
 
    
@@ -398,6 +402,71 @@
                         <div class="services-grid">
                         
                             <div class="row">
+<<<<<<< HEAD
+=======
+                              <?php if($hotel->have_posts()) : ?>
+                                <?php while($hotel->have_posts()) : $hotel->the_post(); ?>
+                                    <?php 
+                                        $post_id = get_the_ID();
+                                        
+                                     ?>
+>>>>>>> 512c56d3eed902e5b87d23433342015941abc6b2
+                                <div class="last-minute">
+                                            <div class="col-xs-6 col-sm6 col-md-3 has-matchHeight">
+                                                <div class="row-content">
+                                                    <div class="wpb-content-image">
+                                                        <a href="#">
+<<<<<<< HEAD
+                                                            <img src="<?php echo get_template_directory_uri(); ?>/application/libs/Images/39446446-450x417.jpg">
+=======
+                                                            <?php  get_the_post_thumbnail($post_id,'thumbnail'); ?>
+>>>>>>> 512c56d3eed902e5b87d23433342015941abc6b2
+                                                        </a>
+                                                        <div class="review-star">
+                                                            <i class="fas fa-star"></i>
+                                                            <i class="fas fa-star"></i>
+                                                            <i class="fas fa-star"></i>
+                                                            <i class="fas fa-star"></i>
+                                                            <i class="fas fa-star"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="wpb-content-text">
+                                                        <div class="wpb-room-name">
+                                                            <a href="#">
+<<<<<<< HEAD
+                                                                Crowne Plaza Hotel
+=======
+                                                                <?php the_title(); ?>
+>>>>>>> 512c56d3eed902e5b87d23433342015941abc6b2
+                                                            </a>
+                                                        </div>
+                                                        <div class="wpb-room-adress">
+                                                            <p> <i class="fas fa-map-marker-alt"></i>New York City, NY, USA</p>
+
+                                                        </div>
+                                                        <div class="review">
+                                                            <div class="rate">
+                                                                <p>4.5/5 excellent</p>
+                                                            </div>
+                                                            <div class="sumary">
+                                                                <li>5 reviews</li>
+                                                            </div>
+<<<<<<< HEAD
+
+                                                        </div>
+                                                        <div class="price-wrapper">
+                                                            <span>
+                                                                <i class="fas fa-bolt"></i>
+                                                                <span class="price-from">from</span> <span class="price-money"> €128.00 </span>
+                                                                <span class="price-from">
+                                                                    /night
+                                                                </span>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                </div>
                                 <div class="last-minute">
                                             <div class="col-xs-6 col-sm6 col-md-3 has-matchHeight">
                                                 <div class="row-content">
@@ -430,6 +499,8 @@
                                                             <div class="sumary">
                                                                 <li>5 reviews</li>
                                                             </div>
+=======
+>>>>>>> 512c56d3eed902e5b87d23433342015941abc6b2
 
                                                         </div>
                                                         <div class="price-wrapper">
@@ -443,6 +514,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
+<<<<<<< HEAD
                                             </div>
                                 </div>
                                 <div class="last-minute">
@@ -537,56 +609,18 @@
                                                         </div>
                                                     </div>
                                                 </div>
+=======
+>>>>>>> 512c56d3eed902e5b87d23433342015941abc6b2
                                             </div>
                                 </div>
-                                <div class="last-minute">
-                                            <div class="col-xs-6 col-sm6 col-md-3 has-matchHeight">
-                                                <div class="row-content">
-                                                    <div class="wpb-content-image">
-                                                        <a href="#">
-                                                            <img src="<?php echo get_template_directory_uri(); ?>/application/libs/Images/39446446-450x417.jpg">
-                                                        </a>
-                                                        <div class="review-star">
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fas fa-star"></i>
-                                                        </div>
-                                                    </div>
-                                                    <div class="wpb-content-text">
-                                                        <div class="wpb-room-name">
-                                                            <a href="#">
-                                                                Crowne Plaza Hotel
-                                                            </a>
-                                                        </div>
-                                                        <div class="wpb-room-adress">
-                                                            <p> <i class="fas fa-map-marker-alt"></i>New York City, NY, USA</p>
-
-                                                        </div>
-                                                        <div class="review">
-                                                            <div class="rate">
-                                                                <p>4.5/5 excellent</p>
-                                                            </div>
-                                                            <div class="sumary">
-                                                                <li>5 reviews</li>
-                                                            </div>
-
-                                                        </div>
-                                                        <div class="price-wrapper">
-                                                            <span>
-                                                                <i class="fas fa-bolt"></i>
-                                                                <span class="price-from">from</span> <span class="price-money"> €128.00 </span>
-                                                                <span class="price-from">
-                                                                    /night
-                                                                </span>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                </div>
+                                <?php endwhile; ?>
+                              <?php endif; ?>
                                 
+<<<<<<< HEAD
+=======
+                                
+                                
+>>>>>>> 512c56d3eed902e5b87d23433342015941abc6b2
                                
                                   
                             </div>

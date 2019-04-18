@@ -5,7 +5,10 @@
 get_header();
 $dt = bookcart::inst()->__stBkSucces();
 $st =bookcart::inst()->__stInfoSucces();
-$ss = bookcart::inst()->__stGetInfoRoom();?>
+$key = $dt[1]->room_id;
+$ss = bookcart::inst()->__stGetInfoRoom($key);
+dd($dt);
+?>
 <div id="st-content-wrapper">
 	<div class="st-breadcrumb">
 		<div class="container">
@@ -77,10 +80,10 @@ $ss = bookcart::inst()->__stGetInfoRoom();?>
 								<li><span class="label">Phone:</span><span class="value">+658099999</span></li>
 								<li><span class="label">Room:</span><span class="value"><?php echo $ss[2]->post_title ?></span></li>
 								<li><span class="label">Number of rooms</span><span class="value"><?php echo 1 ?></span></li>
-								<li><span class="label">Check In:</span><span class="value"><?php echo "ngày đến" ?></span></li>
-								<li><span class="label">Check Out:</span><span class="value"><?php echo "ngày đi" ?></span></li>
+								<li><span class="label">Check In:</span><span class="value"><?php echo $dt[1]->checkin ?></span></li>
+								<li><span class="label">Check Out:</span><span class="value"><?php echo $dt[1]->checkout ?></span></li>
 								<li><span class="label">Price:</span>
-									<span class="value">€ <?php echo $ss[3]['st_contact_price_field'][0] ?></span>
+									<span class="value">€ <?php echo $dt[1]->totalmoney ?></span>
 								</li>
 							</ul>
 						</div>
@@ -89,7 +92,7 @@ $ss = bookcart::inst()->__stGetInfoRoom();?>
 								<li>
 									<span class="label">Subtotal</span>
 										<span class="value"><?php
-										$price = $ss[3]['st_contact_price_field'][0];
+										$price = $dt[1]->totalmoney;
 										echo $price;
 										?>
 									</span>

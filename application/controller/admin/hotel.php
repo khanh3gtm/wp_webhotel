@@ -16,15 +16,15 @@ class ST_Hotel_Admin{
 		add_action('facilities_edit_form_fields', array ( $this, 'facilities_info_edit_output' ));
 		add_action('edited_facilities', array ( $this, 'facilities_info_save' ));
 
-			add_action('manage_location_custom_column', array($this, 'st_taxonomy_custom_column'),10,3);
-			add_action('location_add_form_fields', array ( $this, 'add_category_image' ));
-			add_action('created_location', array($this, 'save_category_image'), 10, 1);
-			add_action('location_edit_form_fields', array ( $this, 'update_category_image' ), 10, 2 );
-			add_action('edited_location', array ($this, 'updated_category_image' ), 10, 1 );
+			add_action('manage_location_custom_column', array($this, 'location_custom_column'),10,3);
+			add_action('location_add_form_fields', array ( $this, 'add_location_image' ));
+			add_action('created_location', array($this, 'save_location_image'), 10, 1);
+			add_action('location_edit_form_fields', array ( $this, 'update_location_image' ), 10, 2 );
+			add_action('edited_location', array ($this, 'updated_location_image' ), 10, 1 );
 			add_action('admin_enqueue_scripts', array( $this, 'load_media' ) );
 			add_action('admin_footer', array ( $this, 'add_script' ) );
 			add_action('admin_footer', array ( $this, 'upload_image_meta_box' ) );
-			add_filter('manage_edit-location_columns',array($this, 'my_custom_taxonomy_columns'));
+			add_filter('manage_edit-location_columns',array($this, 'custom_location_columns'));
 
 
 
@@ -162,7 +162,7 @@ class ST_Hotel_Admin{
 		}
 	}
 	
-function my_custom_taxonomy_columns($columns){
+function custom_location_columns($columns){
 			$columns = array();
 			$columns['name'] = __('Name');
 			$columns['image'] = __('Image');
@@ -171,7 +171,7 @@ function my_custom_taxonomy_columns($columns){
 
 			return $columns;
 		}
-		function st_taxonomy_custom_column($out, $column,$term_id)
+		function location_custom_column($out, $column,$term_id)
 		{
 			switch ($column) {
 				case 'image':
@@ -261,7 +261,7 @@ function my_custom_taxonomy_columns($columns){
 			<?php
 		}
 		
-		public function add_category_image () { ?>
+		public function add_location_image () { ?>
 			<div class="form-field term-group">
 				<label for="category-image-id"><?php _e('Image', 'shinetheme'); ?></label>
 				<input type="hidden" id="category-image-id" name="category-image-id" class="custom_media_url" value="">
@@ -318,7 +318,7 @@ function my_custom_taxonomy_columns($columns){
  });
 </script>
 <?php }
-public function save_category_image($term_id){
+public function save_location_image($term_id){
 	if( isset( $_POST['category-image-id'] ) && '' !== $_POST['category-image-id'] ){
 		$image = $_POST['category-image-id'];
 		add_term_meta ( $term_id, 'category-image-id', $image );
@@ -326,7 +326,7 @@ public function save_category_image($term_id){
 		add_term_meta ( $term_id, 'category-image-id', '' );
 	}
 }
-public function update_category_image ( $term, $amenities ) { ?>
+public function update_location_image ( $term, $amenities ) { ?>
 	<tr class="form-field term-group-wrap">
 		<th scope="row">
 			<label for="category-image-id"><?php _e( 'Image', 'shinetheme' ); ?></label>
@@ -348,7 +348,7 @@ public function update_category_image ( $term, $amenities ) { ?>
 	</tr>
 	<?php
 }
-public function updated_category_image ( $term_id) {
+public function updated_location_image ( $term_id) {
 	if( isset( $_POST['category-image-id'] ) && '' !== $_POST['category-image-id'] ){
 		$image = $_POST['category-image-id'];
 		update_term_meta ( $term_id, 'category-image-id', $image );

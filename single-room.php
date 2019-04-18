@@ -7,7 +7,7 @@
           <li><a href="">Home</a></li>
           <li><a href="">United States</a></li>
           <li>
-            <?php 
+            <!-- <?php 
             if(!empty($data_hotel)){
               ?>
               <?php 
@@ -16,21 +16,23 @@
                 <a href=""><?php echo $values['hotel_name'] ?></a>
                 <?php     
               }?>
-            <?php } ?>
-          </li>
-          <li class="active">
-            <?php
-            if(!empty($data_room)){
-              ?>
-              <?php
-              foreach ($data_room as $values){
-                ?>
-                <?php echo $values['room_name']; ?>
-                <?php
-              }?>
-            <?php } ?>
+            <?php } ?> -->
 
-          </li> 
+            <!-- <?php 
+            global $wpdb;
+              // $results = $wpdb->get_results("SELECT post_title, ID FROM wp_posts INNER JOIN wp_postmeta ON wp_posts.ID = wp_postmeta.post_id;");
+              $results = $wpdb->get_results("SELECT meta_value, post_id FROM wp_postmeta INNER JOIN wp_posts ON wp_postmeta.post_id = wp_posts.ID;");
+              if(!empty($results)){
+                foreach ($results as $value) {
+                  echo $results->meta_value;
+                }
+              }
+
+             ?> -->
+          </li>
+          <?php $query = get_post(get_the_ID());
+          $title = apply_filters('the_title', $query->post_title);
+          echo $title; ?>
         </ul>
       </div>
     </div>
@@ -112,41 +114,41 @@
                         <div class="col-md-3 col-xs-6">
                           <div class="icon">
                             <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                            
                             <?php 
-                            foreach ($data_room as $values) {
-                              ?>
-                              <p>Superficies:<?php echo $values['size']; ?></p>
-                              <?php
-                            }
+                              $superficies = get_post_meta(get_the_ID(), 'st_contact_superficies_field', true);
+                              echo $superficies; 
                             ?>
+                            
                           </div>
                         </div>
                         <div class="col-md-3 col-xs-6">
                           <div class="icon">
                             <i class="fa fa-bed" aria-hidden="true"></i>
-                            <?php
-                            foreach ($data_room as $values){
-                              ?>
-                              <p> Beds:<?php echo $values['bed']; ?></p>
-                              <?php
-                            }?>
+                            <?php 
+                              $beds = get_post_meta(get_the_ID(), 'st_contact_bed_field', true);
+                              echo $beds; 
+                            ?>
 
                           </div>
 
                         </div>
                         <div class="col-md-3 col-xs-6">
                           <div class="icon">
-                            <i class="fa fa-venus-double" aria-hidden="true"></i><p> Double</p></div>
+                            <i class="fa fa-venus-double" aria-hidden="true"></i><p> 
+                            <?php $adult = get_post_meta(get_the_ID(), 'st_contact_adult_field', true);
+                              echo $adult;
+                             ?>
+                            </p></div>
                           </div>
                           <div class="col-md-3 col-xs-6">
                             <div class="icon">
                               <i class="fa fa-child" aria-hidden="true"></i>
                               <?php
-                              foreach ($data_room as $values){
-                                ?>
-                                <p>People:<?php echo $values['people']; ?></p>
-                                <?php
-                              }?>
+
+                                $children = get_post_meta(get_the_ID(), 'st_contact_children_field', true);
+                                echo $children;
+                              ?>
                             </div>
                           </div>
                         </div>
@@ -175,19 +177,21 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <h2 class="st-heading-section">Description
                       </h2> 
+                      <?php $query = get_post(get_the_ID()); 
+                      $content = apply_filters('the_content', $query->post_content);
+                      echo $content; ?>
+                      <!-- <?php $res =  get_post_meta(get_the_ID(), 'post_content', true);
+                      echo $res; ?> -->
                       <div class="st-description" data-toggle-section="st-description" data-show-all="st-description" data-height="120" >
-                        <p><?php
-                        foreach ($data_room as $values){
-                          ?>
-                          <p><?php echo ($values['description']); ?></p>
-                          <?php
-
-                        }?></p>
+                        <p></p>
                         <div class="cut-gradient"></div>
                       </div>
                     </div>
                   </div>
-
+                     <?php $data = get_post(1852);
+                    dd($data); ?>
+                    <?php $data1 = get_post_meta(1852);
+                    dd($data1); ?>
                   <a href="#"><span class="text">View more</span></a>
                   <!-- end description -->
                   <hr >
@@ -214,7 +218,8 @@
                             //dd($data_amenities);
                             }?>
                           <?php } ?> 
-
+                          <!-- <?php $res = get_post(1852);
+                              dd($res); ?> -->
                         </div>
 
                       </div>
@@ -424,8 +429,8 @@
               </div></div>
               <div class="col-md-3 abc"  >
                 <!-- widget -->
-                <form action="?c=bookcart&a=view" method="post">
-                  <input type="hidden" name="room_id" value="<?php echo $data_room[0]['room_id']; ?>" />
+                <form action="" method="post">
+                  <input type="hidden" name="room_id" value="<?php echo '1815'; ?>" />
                   <div class="container-fluid widgetroom">
                     <div class="widgets"  >
                       <div class="form-head">

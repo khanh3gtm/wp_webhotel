@@ -41,12 +41,12 @@ class bookcart_model extends Model {
        $key1= $wpdb ->get_var($sql);
        return $key1;
     }
-    public function getRoomId()
+    public function getFullBill()
     {
         global $wpdb;
        $key = $_GET['bill_id'];
-       $sql = "SELECT room_id from {$wpdb->prefix}bill where bill_id = $key";
-       return $wpdb ->get_var($sql);
+       $sql = "SELECT * from {$wpdb->prefix}bill where bill_id = $key";
+       return array_shift($wpdb->get_results($sql));
     }
     public function getDataUser($key)
     {
