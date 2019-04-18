@@ -15,8 +15,8 @@ class bookcart_model extends Model {
         global $wpdb;
         $data = "SELECT table_name
                 FROM information_schema.tables
-                WHERE table_schema = '{$wpdb->prefix}db'
-                AND table_name = '{$wpdb->prefix}bill'";
+                WHERE table_schema = 'wp_db'
+                AND table_name = 'wp_bill'";
         $res = $wpdb->query($data);
        //var_dump($wpdb->get_var($data));
         if($res==0)
@@ -29,8 +29,8 @@ class bookcart_model extends Model {
             checkout varchar(100) not null,
             totalmoney double not null,
             date_order varchar(100)
-            )";   
-            $this->query($sql);
+            )";
+            $wpdb->query($sql);
         }
     }
     public function getUserId()
