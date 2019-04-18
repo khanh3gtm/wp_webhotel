@@ -402,13 +402,9 @@
                         <div class="services-grid">
                         
                             <div class="row">
+                                
                               <?php if($hotel->have_posts()) : ?>
                                 <?php while($hotel->have_posts()) : $hotel->the_post(); ?>
-
-                                    <?php 
-                                        $post_id = get_the_ID();
-                                        
-                                     ?>
 
                                      <div class="last-minute">
                                             <div class="col-xs-6 col-sm6 col-md-3 has-matchHeight">
@@ -449,7 +445,7 @@
                                                                     }
                                                                     else{
                                                                         foreach ( $location as $term ) {
-                                                                         echo  $term->name   ;
+                                                                         echo  $term->name ;
                                                                         
                                                                     } 
 

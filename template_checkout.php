@@ -8,20 +8,7 @@ $ss = $_SESSION['st_cart'];
 $key = $ss['room_id'];
 $st = bookcart::inst()->__stGetInfoRoom($key);
 $err = bookcart::inst()->__stCheckErr();
-<<<<<<< HEAD
-$args = array(
-  
-  'post_type'   => 'hotel'
-);
-$hotel = get_posts( $args );
-
-$hotel_detail = get_post_meta('50');
-dd($hotel_detail);die;
-
-
-=======
 if (isset($ss)) {
->>>>>>> 512c56d3eed902e5b87d23433342015941abc6b2
 ?>
 <div class="container">
     <div class="row">

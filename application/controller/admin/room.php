@@ -22,7 +22,7 @@ if(!class_exists('ST_Room_Admin')){
 			add_filter('manage_edit-amenities_columns',array($this, 'my_custom_taxonomy_columns')); 
 
 			add_filter('manage_edit-amenities_columns',array($this, 'my_custom_taxonomy_columns'));
-			
+			add_action('save_post',array($this,'__getDataToTable'));
 
 		}
 		public function load_media(){
@@ -525,6 +525,42 @@ public static function inst(){
 	}
 	return self::$_inst;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function __getDataToTable(){
+	if($_POST['post_type'] =='room'){
+		
+		$hotel_id = $_POST['st_contact_hotel_field'];
+
+		$args = array(
+			'post_type' =>'room',
+			'meta_key'=> 'st_contact_hotel_field',
+			'oderby' => 'metakey',
+
+		);
+		$query = new WP_Query( $args );
+  	dd($query);die;
+     	return $query;
+	}
+}  
 }
 
 ST_Room_Admin::inst();

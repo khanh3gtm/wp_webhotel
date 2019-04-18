@@ -14,12 +14,14 @@ class homepage_model extends Model
      	$args = array(
      		'post_type' => 'hotel',
      		'posts_per_pages' => -1,
-     		'oderby' => 'ID',
-     		'order' => 'ASC',
+     		'oderby' => 'post_date',
+     		'order' => 'DESC',
      		
      	);
      	$query = new WP_Query( $args );
+          
      	return $query;
+
  
       }
     public static function inst(){
