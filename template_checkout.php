@@ -1,10 +1,14 @@
 <?php
+
 /**
 * Template Name: Checkout
 */
 get_header();
-$st = bookcart::inst()->__stGetInfoRoom();
+$ss = $_SESSION['st_cart'];
+$key = $ss['room_id'];
+$st = bookcart::inst()->__stGetInfoRoom($key);
 $err = bookcart::inst()->__stCheckErr();
+if (isset($ss)) {
 ?>
 <div class="container">
     <div class="row">
@@ -23,7 +27,7 @@ $err = bookcart::inst()->__stCheckErr();
                     </div>
                     <div class="service-right">
                         <img class="img-responsive" src=""style =" width: 150px; height: auto "><?php 
-                        echo get_avatar($st[2]->ID); ?>
+                        echo get_the_post_thumbnail($st[2]->ID,'thumbnail'); ?>
                     </div>
                 </div>
                 <div class="info-section">
@@ -32,7 +36,7 @@ $err = bookcart::inst()->__stCheckErr();
                     <li>
                      <span class="lable_section">Date : </span>
                      <span class="value">
-                        ngày đến -đi &nbsp;    
+                        <?php echo $ss['start']." - ".$ss['end'] ?> &nbsp;    
                         <a class="st-link" style="font-size: 12px;" href="#">Edit</a>
                     </span>
                 </li>
@@ -40,10 +44,24 @@ $err = bookcart::inst()->__stCheckErr();
                 <li class="ad-info">
                     <ul>
                         <li><span class="lable_section">Number of Night : </span>
-                            <span class="value"></span></li>
+                            <span class="value">
+                                <?php
+                                    $start = convert_date_format($ss['start']);
+                                    $startday= strtotime($start);
+                                    $end = convert_date_format($ss['end']);
+                                    $endday= strtotime($end);
+                                    if($endday < $startday){
+                                        echo 'Error';
+                                    }else
+                                    {
+                                    $night = abs($endday-$startday);
+                                    $sl_night = floor($night/(60*60*24));
+                                    echo $sl_night;} 
+                                ?>        
+                            </span></li>
                             <li><span class="lable_section">Number of Room : </span>
-                                <span class="value">number room</span></li>
-                                <li><span class="lable_section">Number of Adult : </span><span class="value"> number adult</span></li>
+                                <span class="value"><?php echo $ss['number_room'] ?></span></li>
+                                <li><span class="lable_section">Number of Adult : </span><span class="value"> <?php echo $ss['number_adult'] ?></span></li>
                             </ul>
                         </li>
                     </ul>
@@ -355,5 +373,8 @@ $err = bookcart::inst()->__stCheckErr();
     </div>
 </div>
 </div>
+<?php }else{ ?>
+    <p style="text-align: center;font-size: 50px;color: red;"> Sorry !!! Your Cart is Currently Empty !!!</p>
+    <?php } ?>
 <?php
 get_footer();

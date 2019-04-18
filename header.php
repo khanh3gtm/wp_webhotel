@@ -48,12 +48,12 @@
                 <div class="topbar-right">
                     <ul class="st-list topbar-items">
                         <?php if($check==1){ ?>
-                        <li ><a href="<?php get_template_directory_uri() ?>/thachpham/wp-login.php">Hi, <?php echo $us->data->user_login . '<br />'; ?></a></li>
-                        <li><a href="<?php get_template_directory_uri() ?>/thachpham/wp-login.php?action=logout">Logout</a></li>
+                        <li ><a href="<?php get_template_directory_uri() ?>/wordpress/wp-login.php">Hi, <?php echo $us->data->user_login . '<br />'; ?></a></li>
+                        <li><a href="<?php get_template_directory_uri() ?>/wordpress/wp-login.php?action=logout">Logout</a></li>
                         <?php }else{
                             ?>
-                        <li><a href="<?php get_template_directory_uri() ?>/thachpham/wp-login.php">Login</a></li>
-                        <li ><a href="<?php get_template_directory_uri() ?>/thachpham/dang-ky">Sign up</a></li>
+                        <li><a href="<?php get_template_directory_uri() ?>/wordpress/wp-login.php">Login</a></li>
+                        <li ><a href="../../register">Sign up</a></li>
                             <?php
                         } ?>
                         
@@ -149,14 +149,16 @@
                         </li>
                         <li class="cart-item">
                             <div class="media">
-                                <div class="media-left">
-                                    <img src="<?php echo $cart_data[0]['room_images'] ?>" style="width: 50px;height: 50px;" alt="">
-                                </div>
                                 <?php $ss = $_SESSION['st_cart']; 
-                            // dd($ss);
+                                    $key = $ss['room_id'];
+                                $cart= bookcart::inst()->__stGetInfoRoom($key);
                                 ?>
+                                <div class="media-left">
+                                    <?php
+                        echo get_the_post_thumbnail($cart[2]->ID,array(70, 70)); ?>
+                                </div>
                                 <div class="media-body">
-                                    <h4 class="media-heading"><a class="st-link c-main" href="?c=room&a=view&room_id=<?php echo $cart_data[0]['room_id'] ?>"><?php echo $cart_data[0]['room_name'] ?></a>
+                                    <h4 class="media-heading"><a class="st-link c-main" href="#"><?php echo $cart[0]->post_title ?></a>
                                     </h4>
                                     <div class="price-wrapper">Price:
                                         <span class="price">€ 
@@ -168,10 +170,10 @@
                                                 $night = abs($endday-$startday);
                                                 $sl_night = floor($night/(60*60*24));
                                                 if ($sl_night>1) {
-                                                    $price = $sl_night * $cart_data[0]['price'];
+                                                    $price = $sl_night * $cart[3]['st_contact_price_field'][0];
                                                 }
                                                 else {
-                                                    $price = $cart_data[0]['price'];
+                                                    $price = $cart[3]['st_contact_price_field'][0];
                                                 }
                                                 $money = $price + $price*0.1;
                                                 echo $money;
@@ -180,7 +182,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="?c=bookcart&a=dtCart" class="cart-delete-item"><i class="fa">
+                            <a href="?remove=true" class="cart-delete-item"><i class="fa">
                                 <img src="<?php echo get_template_directory_uri(); ?>/application/libs/Images/delete.svg" style="height: 16px;width: 16px;">
                             </i></a>
                         </li>

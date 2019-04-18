@@ -3,6 +3,10 @@
  Template Name: Homepage
 */
  get_header();
+ 
+ $hotel = homepage::inst()->__ShowListHotel();
+dd($hotel);die; 
+
  ?>
 
    
@@ -398,70 +402,68 @@
                         <div class="services-grid">
                         
                             <div class="row">
+                              <?php if($hotel->have_posts()) : ?>
+                                <?php while($hotel->have_posts()) : $hotel->the_post(); ?>
+                                    <?php 
+                                        $post_id = get_the_ID();
+                                        
+                                     ?>
+                                <div class="last-minute">
+                                            <div class="col-xs-6 col-sm6 col-md-3 has-matchHeight">
+                                                <div class="row-content">
+                                                    <div class="wpb-content-image">
+                                                        <a href="#">
+                                                            <?php  get_the_post_thumbnail($post_id,'thumbnail'); ?>
+                                                        </a>
+                                                        <div class="review-star">
+                                                            <i class="fas fa-star"></i>
+                                                            <i class="fas fa-star"></i>
+                                                            <i class="fas fa-star"></i>
+                                                            <i class="fas fa-star"></i>
+                                                            <i class="fas fa-star"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="wpb-content-text">
+                                                        <div class="wpb-room-name">
+                                                            <a href="#">
+                                                                <?php the_title(); ?>
+                                                            </a>
+                                                        </div>
+                                                        <div class="wpb-room-adress">
+                                                            <p> <i class="fas fa-map-marker-alt"></i>New York City, NY, USA</p>
 
-                                <?php 
-                                foreach ($data as  $values) {
-                                  ?>
-                                  <div class="col-xs-6 col-sm6 col-md-3 col-lg-3 has-matchHeight">
-                                    <div class="row-content">
-                                        <div class="wpb-content-image">
-                                            <a href="?c=detailhotel&a=view&hotel_id=<?php echo $values['hotel_id']?>">
-                                                <img src="<?php echo $values['images']; ?>" >
-                                            </a>
-                                            <div class="review-star">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                            </div>
-                                        </div>
-                                        <div class="wpb-content-text">
-                                            <div class="wpb-room-name">
-                                                <a href="?c=detailhotel&a=view&hotel_id=<?php echo $values['hotel_id']?>">
-                                                    <?php echo $values['hotel_name']; ?>
-                                                </a>
-                                            </div>
-                                            <div class="wpb-room-adress">
-                                                <p>
-                                                 <?php 
-                                                 if(!empty($values['city_name']) || !empty($values['country']))
-                                                 {
-                                                    ?>
-                                                    <i class="fas fa-map-marker-alt"></i>
-                                                    <?php
-                                                }
+                                                        </div>
+                                                        <div class="review">
+                                                            <div class="rate">
+                                                                <p>4.5/5 excellent</p>
+                                                            </div>
+                                                            <div class="sumary">
+                                                                <li>5 reviews</li>
+                                                            </div>
 
-                                                ?>
-
-                                                <?php echo " ". $values['city_name'].", ". $values['country'] ?>
-                                                </p>
-
-                                               </div>
-                                               <div class="review">
-                                                <div class="rate">
-                                                    <p><?php echo $values['hotel_point'] ?>/5 excellent</p>
+                                                        </div>
+                                                        <div class="price-wrapper">
+                                                            <span>
+                                                                <i class="fas fa-bolt"></i>
+                                                                <span class="price-from">from</span> <span class="price-money"> €128.00 </span>
+                                                                <span class="price-from">
+                                                                    /night
+                                                                </span>
+                                                            </span>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div class="sumary">
-                                                    <li>5 reviews</li>
-                                                </div>
-
                                             </div>
-                                            <div class="price-wrapper">
-                                                <span>
-                                                    <i class="fas fa-bolt"></i>
-                                                    <span class="price-from">from</span> <span class="price-money">€ <?php echo $values['hotel_price'] ?> </span>
-                                                    <span class="price-from">
-                                                        /night
-                                                    </span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
+                                <?php endwhile; ?>
+                              <?php endif; ?>
                                 
-                            <?php } ?>
-
+                                
+                                
+                               
+                                  
+                            </div>
+                        
                         </div>
                     </div>
                     <!-- end Manh -->
