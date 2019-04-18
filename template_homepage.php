@@ -5,7 +5,7 @@
  get_header();
  
  $hotel = homepage::inst()->__ShowListHotel();
-dd($hotel);die; 
+
 
  ?>
 
@@ -404,16 +404,13 @@ dd($hotel);die;
                             <div class="row">
                               <?php if($hotel->have_posts()) : ?>
                                 <?php while($hotel->have_posts()) : $hotel->the_post(); ?>
-                                    <?php 
-                                        $post_id = get_the_ID();
-                                        
-                                     ?>
+                                    
                                 <div class="last-minute">
                                             <div class="col-xs-6 col-sm6 col-md-3 has-matchHeight">
                                                 <div class="row-content">
                                                     <div class="wpb-content-image">
                                                         <a href="#">
-                                                            <?php  get_the_post_thumbnail($post_id,'thumbnail'); ?>
+                                                            <?php the_post_thumbnail(get_the_ID()); ?>
                                                         </a>
                                                         <div class="review-star">
                                                             <i class="fas fa-star"></i>
@@ -430,7 +427,39 @@ dd($hotel);die;
                                                             </a>
                                                         </div>
                                                         <div class="wpb-room-adress">
-                                                            <p> <i class="fas fa-map-marker-alt"></i>New York City, NY, USA</p>
+                                                            <p> <i class="fas fa-map-marker-alt"></i>
+                                                                <?php  $location =get_the_terms(get_the_ID(),'location');  
+                                                                 
+                                                                if( ! empty( $location ) && ! is_wp_error( $location ) && count($location)==1 ){
+                                                                        
+                                                                        foreach ( $location as $term ) {
+                                                                           echo $term->name ;
+
+
+                                                                        }
+                                                                        
+                                                                    }
+                                                                    else{
+                                                                        foreach ( $location as $term ) {
+                                                                            
+
+                                                                           echo  $term->name   ;
+                                                                           if(!empty($term))
+                                                                           {
+                                                                            ?>,<?php  
+                                                                           }
+
+
+
+                                                                        } 
+
+                                                                    }
+                                                                   
+
+
+                                                                ?>
+
+                                                        </p>
 
                                                         </div>
                                                         <div class="review">
