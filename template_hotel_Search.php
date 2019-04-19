@@ -3,6 +3,7 @@
 * Template Name: Search-Hotel-Result
 */
 get_header();
+$sort_list=st_sidebar::inst()->sortListHotel();
  ?>
 
 
@@ -455,7 +456,7 @@ get_header();
 
 
 									<div class="col-lg-9 col-md-9 col-sm-12 content-title">
-										<h3><?php echo $count ?> hotels found</h3>
+										<h3><?php //echo $count ?> hotels found</h3>
 									</div>
 									<div class="col-lg-3 layout">
 										<ul>
@@ -475,12 +476,14 @@ get_header();
 
 																?>
 																<div class="row">
+																	
 																	<div class="col-sm-12">
 																		<span class="layout-title1">
 																			SORT BY
 																		</span>
 																	</div>
 																	<div class="col-sm-12 layout-list-item">
+
 																		<li role="presentation">
 																			<?php
 																			$current_opt = '';
@@ -552,12 +555,7 @@ get_header();
 
 																		</li>
 																	</div>
-
-
-
-
-
-
+		
 																</div>
 																<!-- <li>SORT BY</li> -->
 
@@ -583,8 +581,8 @@ get_header();
 
 									<div class=" modern-search-result">
 										<?php 
-										$args= array('post_type'=>'hotel','posts_per_page'=>'-1');
-										$query= new WP_Query($args);
+										
+										$query= new WP_Query($sort_list);
 										if($query->have_posts())
 										{
 											while ($query->have_posts())
@@ -640,14 +638,19 @@ get_header();
 																	<?php 
 																	
 																	$terms = get_the_terms(get_the_ID(),'location' );
-																	if ( ! empty( $terms ) && ! is_wp_error( $terms ) ){
-																		
-																		foreach ( $terms as $term ) {
-																			echo $term->name ;
-
-																		}
-																		
+																	if (!empty($terms[0]->name)&&!empty($terms[1]->name)) {
+																		echo $terms[0]->name.', '.$terms[1]->name;
 																	}
+																	else
+																	{
+																		if (empty($terms[1])) {
+																			echo $terms[0]->name;
+																		}
+																	}
+
+																	
+
+																	
 
 
 																	 ?>
@@ -682,6 +685,7 @@ get_header();
 																	<span class="service-from"> From </span>
 																	<span class="service-price">€<?php 
 																		echo get_post_meta( get_the_ID(),'_owner',true);
+																		get_posts( $args );
 																	 ?></span>
 																	<span class="service-from">
 																		/night

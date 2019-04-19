@@ -115,7 +115,8 @@ include "application/helpers/helpers.php";
 	//load model
 	$arr_model = array(
 		'bookcart',
-		'homepage'
+		'homepage',
+		'sorthotel'
 	);
 	foreach ($arr_model as $k=> $v) {
 		$files = get_template_directory(). '/application/model/' . $v. '.php';
@@ -131,7 +132,8 @@ include "application/helpers/helpers.php";
 		),
 		'frontend' => array(
 			'homepage',
-			'bookcart'
+			'bookcart',
+			'sorthotel'
 		)		
 	);
 
