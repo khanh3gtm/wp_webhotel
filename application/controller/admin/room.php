@@ -5,7 +5,7 @@ if(!class_exists('ST_Room_Admin')){
 		public function __construct(){
 			add_action('init', array($this,'room_custom_post_type'));	
 			add_action('init', array($this, 'room_custom_taxonomy'));
-		// add_action('add_meta_boxes',array($this, 'room_meta_box'));
+		 	add_action('add_meta_boxes',array($this, 'room_meta_box'));
 			add_filter('manage_room_posts_columns',array($this, 'sunset_set_contact_columns'));
 			add_action('manage_room_posts_custom_column', array($this,'sunset_contact_custom_column'), 10, 2);
 			add_action('add_meta_boxes', array($this, 'sunset_contact_add_meta_box'));
