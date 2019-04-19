@@ -23,14 +23,14 @@ class st_sidebar_model extends Model
 					$args['orderby'] = 'title';
 					$args['order'] = 'DESC';
 					break;
-				case 'low':
-					$args['meta_key']='_owner';
-					$args['orderby']='_owner';
+				case 'hight':
+					$args['meta_key']='st_contact_price_field';
+					$args['orderby']='st_contact_price_field';
 					$args['order']='ASC';
 					break;
-				case 'hight':
-					$args['meta_key']='_owner';
-					$args['orderby']='_owner';
+				case 'low':
+					$args['meta_key']='st_contact_price_field';
+					$args['orderby']='st_contact_price_field';
 					$args['order']='DESC';
 					break;
 				case 'new':
