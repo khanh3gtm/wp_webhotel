@@ -15,6 +15,8 @@ class bookcart extends Controller {
 		add_action('init', array($this, '__stCheckErr'),10,1);
 		add_action('init', array($this, '__stAddSesson'));
 		add_action('init', array($this, '_stDestroyCart'));
+				//add_action('init', array($this, 'sendmail'));
+
 	}
 
 	public function __stCheckoutHandler(){
@@ -188,6 +190,15 @@ public function _stDestroyCart()
 			unset($_SESSION['st_cart']);
 			}
 		}
+	}
+	public function sendmail()
+	{
+		$to = 'khanh3gtm@gmail.com';
+		$subject = 'The subject';
+		$body = 'The email body content';
+		$headers = array('Content-Type: text/html; charset=UTF-8');
+ 
+wp_mail( $to, $subject, $body, $headers );
 	}
 
 	public static function inst(){

@@ -23,7 +23,7 @@ class ST_Hotel_Admin{
 			add_action('edited_location', array ($this, 'updated_location_image' ), 10, 1 );
 			add_action('admin_enqueue_scripts', array( $this, 'load_media' ) );
 			add_action('admin_footer', array ( $this, 'add_script' ) );
-			add_action('admin_footer', array ( $this, 'upload_image_meta_box' ) );
+			//add_action('admin_footer', array ( $this, 'upload_image_meta_box' ) );
 			add_filter('manage_edit-location_columns',array($this, 'custom_location_columns'));
 
 
