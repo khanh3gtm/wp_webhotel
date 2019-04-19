@@ -583,6 +583,7 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 										<?php 
 										
 										$query= new WP_Query($sort_list);
+										// dd($query);
 										if($query->have_posts())
 										{
 											while ($query->have_posts())
@@ -590,6 +591,10 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 												$query->the_post();
 											
 											
+										?>
+										<?php $id_location= get_post(get_the_ID());
+
+
 										?>
 
 												<div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 has-matchHeight ">
@@ -664,7 +669,10 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 
 															<div class="service-review">
 																<div class="service-point">
-																	<p class="matchHeight"><?= get_the_content();?> </p>
+																	<p class="matchHeight"><?= 
+																		$id_location->hotel_point
+
+																	?>/5 Excellent </p>
 																</div>
 
 																<div class="evaluate">
@@ -684,8 +692,7 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 																	<span><i class="fas fa-bolt slide-icon"></i></span>
 																	<span class="service-from"> From </span>
 																	<span class="service-price">€<?php 
-																		echo get_post_meta( get_the_ID(),'_owner',true);
-																		get_posts( $args );
+																		echo $id_location->price;
 																	 ?></span>
 																	<span class="service-from">
 																		/night
