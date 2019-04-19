@@ -79,12 +79,7 @@ include "application/helpers/helpers.php";
 			wp_register_script('homepage-script',THEME_URL . '/js/khanh.js','all');
 		wp_enqueue_script('homepage-script');
 		}
-<<<<<<< HEAD
-		if(is_page_template('template_hotel_search.php'))
-=======
-	
 		if(is_page_template( 'template_hotel_search.php' ))
->>>>>>> 50f6529964c5babff3553d3c2f85603665ce0040
 		{
 			wp_register_style('sidebar123-style',THEME_URL . '/CSS/slide_deadline.css','all');
 			wp_enqueue_style('sidebar123-style');
