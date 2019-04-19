@@ -22,7 +22,7 @@ if(!class_exists('ST_Room_Admin')){
 			add_filter('manage_edit-amenities_columns',array($this, 'my_custom_taxonomy_columns')); 
 
 			add_filter('manage_edit-amenities_columns',array($this, 'my_custom_taxonomy_columns'));
-			
+			add_action('save_post',array($this,'__getDataToTable'));
 
 		}
 		public function load_media(){
@@ -525,6 +525,59 @@ public static function inst(){
 	}
 	return self::$_inst;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function __getDataToTable(){
+	global $wpdb;
+	if($_POST['post_type'] =='room'){
+		
+		$hotel_id = $_POST['st_contact_hotel_field'];
+		// $args = array(
+		// 	'post_type' =>'room',
+		// 	'meta_value'=> $hotel_id,
+		// );
+		// $query = new WP_Query( $args );
+		// dd($query); die;
+     	$sql = "SELECT SQL_CALC_FOUND_ROWS  wp_posts.ID FROM wp_posts  INNER JOIN wp_postmeta ON ( wp_posts.ID = wp_postmeta.post_id ) WHERE 1=1  AND ( 
+  wp_postmeta.meta_value = $hotel_id
+) AND wp_posts.post_type = 'room' AND (wp_posts.post_status = 'publish' OR wp_posts.post_status = 'future' OR wp_posts.post_status = 'draft' OR wp_posts.post_status = 'pending' OR wp_posts.post_status = 'private') GROUP BY wp_posts.ID ORDER BY wp_posts.post_date DESC LIMIT 0, 10";
+	$res = $wpdb->get_results($sql);
+	
+	
+	$medium_price = 0;
+	if(!empty($res)){
+		foreach ($res as  $value) {
+			 $key = $value->ID;
+			 $price = get_post_meta($key,'st_contact_price_field',true);
+			 $medium_price = $medium_price + $price;
+				
+			}	
+		}
+	}$medium_price=$medium_price/count($res);
+	$post = array(
+		'ID'=>$hotel_id,
+		'price'=>$medium_price,
+	);
+		wp_update_post($post);
+}  
 }
 
 ST_Room_Admin::inst();

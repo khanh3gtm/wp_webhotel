@@ -10,6 +10,7 @@
  		{
  			parent::__construct();
  			add_action('init',array($this,'__ShowListHotel'));
+ 			 add_action('init', array($this, 'addColumnForPostTable'));
 
  		}
  	public function __ShowListHotel(){
@@ -17,6 +18,10 @@
  		return $hotel;
 
  	}	
+ 	public function addColumnForPostTable()
+ 	{
+ 		homepage_model::inst()->addColumnForPostTable();
+ 	}
 
  		public static function inst(){
  			static $instane;
