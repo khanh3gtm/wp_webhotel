@@ -502,7 +502,8 @@
                               <?php if($hotel->have_posts()) : ?>
                                 <?php while($hotel->have_posts()) : $hotel->the_post(); ?>
                                     <?php $s= get_post(get_the_ID());
-
+                                    $location =get_the_terms(get_the_ID(),'location');
+                               
                                         
                                   ?>
 
@@ -512,10 +513,8 @@
                                         <?php 
 
 
-                                        $location_image = get_post_meta(get_the_ID(),'_owner',true);   
-                                        dd($location_image);die;    
-                                        $data = wp_get_attachment_image_src($location_image);
-                                        
+                                        $location_image = get_term_meta($location[0]->term_id,'location_image',true);   
+                                        $data = wp_get_attachment_image_src($location_image, 'full');   
                                         echo '<img src="'. $data[0] .'">';
                                          ?>
                                     </a>
