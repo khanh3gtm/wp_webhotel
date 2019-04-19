@@ -11,13 +11,21 @@
  			parent::__construct();
  			add_action('init',array($this,'__ShowListHotel'));
  			 add_action('init', array($this, 'addColumnForPostTable'));
+ 			  add_action('init', array($this, 'listCity'));
+
 
  		}
  	public function __ShowListHotel(){
  		$hotel = homepage_model::inst()->__ListHotel();
  		return $hotel;
 
- 	}	
+ 	}
+ 	public function listCity()
+ 		{
+ 			$city = homepage_model::inst()->listCity();
+ 		
+ 			return $city;
+ 		}	
  	public function addColumnForPostTable()
  	{
  		homepage_model::inst()->addColumnForPostTable();

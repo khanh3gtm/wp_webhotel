@@ -79,6 +79,7 @@ include "application/helpers/helpers.php";
 			wp_register_script('homepage-script',THEME_URL . '/js/khanh.js','all');
 		wp_enqueue_script('homepage-script');
 		}
+	
 		if(is_page_template( 'template_hotel_search.php' ))
 		{
 			

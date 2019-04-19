@@ -5,6 +5,7 @@
  get_header();
  
  $hotel = homepage::inst()->__ShowListHotel();
+$city = homepage::inst()->listCity();
 
 
  ?>
@@ -60,13 +61,36 @@
 
                                                     <ul class="dropdown-menu form-item" role="menu"
                                                     aria-labelledby="menu1" onclick="change()" id="dropdownmenu">
-                                                    <?php   foreach ($dataListCity as  $values){ ?>
+                                                    <?php 
 
-                                                        <li data-value="<?php echo $values['city_id'] ?>" > 
+                                            $args=array(
+
+                                                    'orderby'=>'count',
+                                                    
+                                                    'post_type'=>'hotel',
+                                                    'hide_empty' => false,
+                                                    'fields' => 'all'
+
+
+                                            );
+
+                                                $term=get_terms( 'location', $args );
+                                             ?>
+                                              <?php 
+
+                                                    foreach ($term as $terms) {
+                                                        ?>
+
+                                                        <li data-value="<?php echo $terms->term_id;  ?>">
                                                             <i class="fas fa-map-marker-alt"></i>
-                                                            <?php echo $values['city_name'] ?>
+                                                            <span><?php echo $terms->name; ?></span>
                                                         </li>
-                                                    <?php } ?>
+                                                        
+                                                        <?php
+                                                    }
+
+                                                  ?>
+                                                   
                                                     <?php 
                                                     $get_data = $_GET;
                                                     $cityid ="";
@@ -435,7 +459,9 @@
                                                         </div>
                                                         <div class="wpb-room-adress">
                                                             <p> <i class="fas fa-map-marker-alt"></i>
-                                                                <?php  $location =get_the_terms(get_the_ID(),'location'); 
+                                                                <?php  $location =get_the_terms(get_the_ID(),'location');
+                                                                
+                                                             
                                                                 
                                                                 echo $location[0]->name.", ".$location[1]->name;                                
                                                            
@@ -499,13 +525,12 @@
                         <!-- Start Manh -->
                         <div class="row list-destination">
                               
-                              <?php if($hotel->have_posts()) : ?>
-                                <?php while($hotel->have_posts()) : $hotel->the_post(); ?>
-                                    <?php $s= get_post(get_the_ID());
-                                    $location =get_the_terms(get_the_ID(),'location');
-                               
-                                        
-                                  ?>
+                             <?php 
+                             foreach ($city as  $value) {
+                                
+                           
+
+                              ?>
 
                             <div class="col-xs-6 col-sm-6 col-md-4 ">
                                 <div class="destination-item">
@@ -513,7 +538,7 @@
                                         <?php 
 
 
-                                        $location_image = get_term_meta($location[0]->term_id,'location_image',true);   
+                                        $location_image = get_term_meta($value->term_id,'location_image',true);   
                                         $data = wp_get_attachment_image_src($location_image, 'full');   
                                         echo '<img src="'. $data[0] .'">';
                                          ?>
@@ -521,18 +546,18 @@
 
                                     <div class="text-content">
                                         <div class="title-name">
-                                            <h2>Hotel_name</h2>
+                                            <h2><?php echo $value->name ?></h2>
 
                                             <div class="desc-inf">
-                                                <h3> Số hotel properties</h3>
+                                                <h3> <?php echo $value->column_hotel ?> properties</h3>
                                             </div>
                                         </div>
                                     </div>
 
                                 </div>
                             </div>
-                             <?php endwhile; ?>
-                              <?php endif; ?>
+                        <?php } ?>
+                             
                      
                     </div>
                     <!-- end Manh -->

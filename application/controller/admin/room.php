@@ -369,6 +369,7 @@ private function getHotelData(){
 	}
 	wp_reset_postdata();
 	return $arr;
+	
 }
 function sunset_contact_email_callback($post){
 	wp_nonce_field('sunset_save_contact_email_data', 'sunset_contact_email_meta_box_nonce');
