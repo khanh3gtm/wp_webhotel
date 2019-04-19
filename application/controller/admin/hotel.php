@@ -152,10 +152,9 @@ class ST_Hotel_Admin{
 				echo $add;
 					break;	
 			case 'image':
-				$image = get_post_meta($post_id,'_hotel_image',true);		
-				$data = wp_get_attachment_image_src($image, 'thumbnail');
-           		echo '<img src="'. $data[0] .'" width="120px" height="120px"';
-				break;	
+				$image = the_post_thumbnail($post_id);		
+				
+           		echo $image ;
 			default:
 				# code...
 				break;

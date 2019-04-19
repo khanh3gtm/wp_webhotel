@@ -546,38 +546,54 @@ public static function inst(){
 
 
 function __getDataToTable(){
-	global $wpdb;
+	
 	if($_POST['post_type'] =='room'){
+		global $wpdb;
 		
 		$hotel_id = $_POST['st_contact_hotel_field'];
-		// $args = array(
-		// 	'post_type' =>'room',
-		// 	'meta_value'=> $hotel_id,
-		// );
-		// $query = new WP_Query( $args );
-		// dd($query); die;
-     	$sql = "SELECT SQL_CALC_FOUND_ROWS  wp_posts.ID FROM wp_posts  INNER JOIN wp_postmeta ON ( wp_posts.ID = wp_postmeta.post_id ) WHERE 1=1  AND ( 
-  wp_postmeta.meta_value = $hotel_id
-) AND wp_posts.post_type = 'room' AND (wp_posts.post_status = 'publish' OR wp_posts.post_status = 'future' OR wp_posts.post_status = 'draft' OR wp_posts.post_status = 'pending' OR wp_posts.post_status = 'private') GROUP BY wp_posts.ID ORDER BY wp_posts.post_date DESC LIMIT 0, 10";
-	$res = $wpdb->get_results($sql);
+	
+		$args = array(
+			'post_type' =>'room',
+			'meta_query' => array(
+				array(
+					'key'     => 'st_contact_hotel_field',
+					'value'   => $hotel_id
+				),
+			)
+		);
+		$query = new WP_Query( $args );
+		$arr_room = array();
+		if($query->have_posts()){
+			while($query->have_posts()){
+				$query->the_post();
+				array_push($arr_room, get_the_ID());
+			}
+			wp_reset_postdata();
+		}
 	
 	
-	$medium_price = 0;
-	if(!empty($res)){
-		foreach ($res as  $value) {
-			 $key = $value->ID;
-			 $price = get_post_meta($key,'st_contact_price_field',true);
-			 $medium_price = $medium_price + $price;
-				
+		$medium_price = 0;
+		$hotel_point = 0;
+		if(!empty($arr_room)){
+			foreach ($arr_room as  $value) {
+				$price = get_post_meta($value,'st_contact_price_field',true);
+				$star_num = get_post_meta($value,'st_contact_star_field',true);
+				$medium_price = $medium_price + $price;
+				$hotel_point = $hotel_point + $star_num;			
 			}	
 		}
-	}$medium_price=$medium_price/count($res);
-	$post = array(
-		'ID'=>$hotel_id,
-		'price'=>$medium_price,
-	);
-		wp_update_post($post);
-}  
+		$medium_price=ROUND($medium_price/count($arr_room),1);
+		$hotel_point = ROUND($hotel_point/count($arr_room),1);
+
+		$post_args = array(
+			'price'=>$medium_price,
+			'hotel_point' => $hotel_point
+		);
+
+
+		$wpdb->update( $wpdb->prefix . 'posts', $post_args, array( 'ID' => $hotel_id ));
+	}  
+}
 }
 
 ST_Room_Admin::inst();

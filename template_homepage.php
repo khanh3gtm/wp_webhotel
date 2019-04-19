@@ -405,7 +405,10 @@
                                 
                               <?php if($hotel->have_posts()) : ?>
                                 <?php while($hotel->have_posts()) : $hotel->the_post(); ?>
+                                    <?php $s= get_post(get_the_ID());
 
+                                        
+                                  ?>
                                      <div class="last-minute">
                                             <div class="col-xs-6 col-sm6 col-md-3 has-matchHeight">
                                                 <div class="row-content">
@@ -432,24 +435,10 @@
                                                         </div>
                                                         <div class="wpb-room-adress">
                                                             <p> <i class="fas fa-map-marker-alt"></i>
-                                                                <?php  $location =get_the_terms(get_the_ID(),'location');  
-                                                                 
-                                                                if( ! empty( $location ) && ! is_wp_error( $location ) && count($location)==1 ){
-                                                                        
-                                                                        foreach ( $location as $term ) {
-                                                                           echo $term->name ;
-
-
-                                                                        }
-                                                                        
-                                                                    }
-                                                                    else{
-                                                                        foreach ( $location as $term ) {
-                                                                         echo  $term->name ;
-                                                                        
-                                                                    } 
-
-                                                                }
+                                                                <?php  $location =get_the_terms(get_the_ID(),'location'); 
+                                                                
+                                                                echo $location[0]->name.", ".$location[1]->name;                                
+                                                           
                                                            ?>
 
                                                         </p>
@@ -457,7 +446,7 @@
                                                         </div>
                                                         <div class="review">
                                                             <div class="rate">
-                                                                <p>4.5/5 excellent</p>
+                                                                <p><?php echo($s->hotel_point); ?>/5 excellent</p>
                                                             </div>
                                                             <div class="sumary">
                                                                 <li>5 reviews</li>
@@ -466,7 +455,7 @@
                                                         <div class="price-wrapper">
                                                             <span>
                                                                 <i class="fas fa-bolt"></i>
-                                                                <span class="price-from">from</span> <span class="price-money"> €128.00 </span>
+                                                                <span class="price-from">from</span> <span class="price-money"> € <?php echo($s->price); ?> </span>
                                                                 <span class="price-from">
                                                                     /night
                                                                 </span>
@@ -509,28 +498,43 @@
                         </div>
                         <!-- Start Manh -->
                         <div class="row list-destination">
-                           <?php foreach ($data_city as $val){ ?>
+                              
+                              <?php if($hotel->have_posts()) : ?>
+                                <?php while($hotel->have_posts()) : $hotel->the_post(); ?>
+                                    <?php $s= get_post(get_the_ID());
+
+                                        
+                                  ?>
 
                             <div class="col-xs-6 col-sm-6 col-md-4 ">
                                 <div class="destination-item">
                                     <a href="?c=slidebar&a=search&cityname=<?=$val['city_name']?>&cityid=<?=$val['city_id']?>&start=<?=$start ?>&end=<?=$end?>&date=<?=$date ?>">
-                                        <img src="<?php echo $val['city_images'];?>">
+                                        <?php 
+
+
+                                        $location_image = get_post_meta(get_the_ID(),'_owner',true);   
+                                        dd($location_image);die;    
+                                        $data = wp_get_attachment_image_src($location_image);
+                                        
+                                        echo '<img src="'. $data[0] .'">';
+                                         ?>
                                     </a>
 
                                     <div class="text-content">
                                         <div class="title-name">
-                                            <h2><?php echo htmlspecialchars($val['city_name']) ?></h2>
+                                            <h2>Hotel_name</h2>
 
                                             <div class="desc-inf">
-                                                <h3> <?php echo $val['column_hotel'];  ?> properties</h3>
+                                                <h3> Số hotel properties</h3>
                                             </div>
                                         </div>
                                     </div>
 
                                 </div>
                             </div>
-                            
-                        <?php } ?>
+                             <?php endwhile; ?>
+                              <?php endif; ?>
+                     
                     </div>
                     <!-- end Manh -->
                 </div>

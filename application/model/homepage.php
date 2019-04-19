@@ -27,17 +27,21 @@ class homepage_model extends Model
       }
       public function addColumnForPostTable(){
         global $wpdb;
-        $version ='1.1.1';
+        $version ='1.1.7';
         $db_version = get_option('st_post_column');
 
         if($db_version != $version)
         {
-            $sql =" ALTER TABLE {$wpdb->prefix}posts ADD price varchar(100)   ";        
+            $sql =" ALTER TABLE {$wpdb->prefix}posts ADD price float, ADD hotel_point float   ";        
             update_option('st_post_column', $version);
             $wpdb->query($sql);
         }
 
       }
+      // public function updateColumnForPostTable($key1,$key2){
+      //   global $wpdb;
+      //   $sql =" UPDATE wp_post "
+      // }
     public static function inst(){
         static $instane;
         if(is_null($instane)){
