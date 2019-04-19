@@ -175,7 +175,7 @@ function custom_location_columns($columns){
 		{
 			switch ($column) {
 				case 'image':
-				$image = get_term_meta($term_id, 'category-image-id', true);
+				$image = get_term_meta($term_id, 'location_image', true);
 				// $data = maybe_unserialize($image->description);
 				$data = wp_get_attachment_image_src($image, 'thumbnail');
 				echo '<img src="'. $data[0] .'" alt="">';
@@ -321,9 +321,9 @@ function custom_location_columns($columns){
 public function save_location_image($term_id){
 	if( isset( $_POST['category-image-id'] ) && '' !== $_POST['category-image-id'] ){
 		$image = $_POST['category-image-id'];
-		add_term_meta ( $term_id, 'category-image-id', $image );
+		add_term_meta ( $term_id, 'location_image', $image );
 	} else {
-		add_term_meta ( $term_id, 'category-image-id', '' );
+		add_term_meta ( $term_id, 'location_image', '' );
 	}
 }
 public function update_location_image ( $term, $amenities ) { ?>
@@ -332,7 +332,7 @@ public function update_location_image ( $term, $amenities ) { ?>
 			<label for="category-image-id"><?php _e( 'Image', 'shinetheme' ); ?></label>
 		</th>
 		<td>
-			<?php $image_id = get_term_meta ( $term -> term_id, 'category-image-id', true ); ?>
+			<?php $image_id = get_term_meta ( $term -> term_id, 'location_image', true ); ?>
 			<!--Lay gia tri hien tai</!-->
 			<input type="hidden" id="category-image-id" name="category-image-id" value="<?php echo $image_id; ?>">
 			<div id="category-image-wrapper">
@@ -351,9 +351,9 @@ public function update_location_image ( $term, $amenities ) { ?>
 public function updated_location_image ( $term_id) {
 	if( isset( $_POST['category-image-id'] ) && '' !== $_POST['category-image-id'] ){
 		$image = $_POST['category-image-id'];
-		update_term_meta ( $term_id, 'category-image-id', $image );
+		update_term_meta ( $term_id, 'location_image', $image );
 	} else {
-		update_term_meta ( $term_id, 'category-image-id', '' );
+		update_term_meta ( $term_id, 'location_image', '' );
 	}
 }
 
