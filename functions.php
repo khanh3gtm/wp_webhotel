@@ -81,12 +81,20 @@ include "application/helpers/helpers.php";
 		}
 		if(is_page_template( 'template_hotel_search.php' ))
 		{
-			
 			wp_register_style('sidebar123-style',THEME_URL . '/CSS/slide_deadline.css','all');
 			wp_enqueue_style('sidebar123-style');
 			
 			wp_register_script('sidebar-script',THEME_URL . '/js/cuong.js','all');
 			wp_enqueue_script('sidebar-script');
+
+		}
+		if(is_page_template( 'search.php' ))
+		{
+			wp_register_style('sidebar-deadline-style',THEME_URL . '/CSS/slide_deadline.css','all');
+			wp_enqueue_style('sidebar-deadline-style');
+			
+			wp_register_script('sidebar-deadline-script',THEME_URL . '/js/cuong.js','all');
+			wp_enqueue_script('sidebar-deadline-script');
 
 		}
 		if(is_singular('hotel')){
