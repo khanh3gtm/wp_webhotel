@@ -32,9 +32,9 @@ if(!class_exists('ST_Room_Admin')){
 			?>
 
 			<script type="text/javascript">
-				$('.st-upload').each(function (e) {
+				$('.st-upload1').each(function (e) {
 					var t = $(this);
-					var parent = t.closest('.form-field');
+					var parent = t.closest('.st-upload-gallery1');
 					var multi = t.data('multi');
 					var frame;
 					t.click(function (e) {
@@ -65,34 +65,35 @@ if(!class_exists('ST_Room_Admin')){
                     	}
                     });
 
-                    console.log(ids);
+                    
 
                     if (attachment.length > 0) {
                     	for (var i = 0; i < attachment.length; i++) {
                     		if(!ids.includes(attachment[i].id)){
                     			ids.push(attachment[i].id);
-                    			parent.find('.st-include-image').append('<div class="item"><img  src="'+ attachment[i].url +'" width="150px" height="150px" style = "margin-left: 10px;"  /><i class="fa fa-times" ></i></div>');
+                    			parent.find('.st-include-image1').append('<div class="item1"><img  src="'+ attachment[i].url +'" width="150px" height="150px" style = "margin-left: 10px;"  /><i class="fa fa-times" ></i></div>');
                     		}
                     		
                     	}
                     }
+                    console.log(ids);
                     
-                    parent.find('.custom_media_url').val(ids.toString());
+                    parent.find('.metabox-image').val(ids.toString());
                 });
 
                 frame.open();
             });
 				})
-				$(document).on('click',"i.fas.fa-times" ,function() {
+				$(document).on('click',"i.fa.fa-times" ,function() {
 	 			$(this).parent().remove();
 	 			var ids = [];
-	 			$('.form-field .st-include-image .item').each(function(){
+	 			$('.st-include-image1 .item1').each(function(){
 	 				var id = $(this).find('img').data('id');
 	 				if(!ids.includes(id)){
 	 					ids.push(id);
 	 				}
 	 			});
-	 			$('.form-field .metabox-image-id').val(ids.toString());
+	 			$('.metabox-image').val(ids.toString());
                    	
             });
 
@@ -222,13 +223,13 @@ public function room_custom_post_type(){
 	$labels = array(
 		'name' => 'Room',
 		'singular_name'=> 'Room',
-		'add_new' => 'Add Item',
-		'all_items' => 'All Items',
-		'add_new_item' => 'Add Item',
-		'edit_item' => 'Edit Item',
-		'new_item' => 'New Item',
-		'view_item' => 'View Item',
-		'search_item' => 'Search Item',
+		'add_new' => 'Add Room',
+		'all_items' => 'All Rooms',
+		'add_new_item' => 'Add Room',
+		'edit_item' => 'Edit Room',
+		'new_item' => 'New Room',
+		'view_item' => 'View Room',
+		'search_item' => 'Search Room',
 		'not_found' => 'No Items Found',
 		'not_found_in_trash' => 'No items found in trash',
 		'parent_item_colon' => 'Parent Item',
@@ -318,7 +319,8 @@ function sunset_contact_custom_column($column,$post_id)
 
 		case 'hotel':
 		$hotelData = get_post_meta($post_id, 'st_contact_hotel_field', true);
-		echo $hotelData;
+		$resHotel = get_the_title($hotelData);
+		echo $resHotel;
 		break;
 
 		case 'prices':
@@ -341,8 +343,9 @@ function sunset_contact_custom_column($column,$post_id)
 		break;
 		case 'image':
 		$image = get_post_meta($post_id, 'metabox-image-id', true);
-		$data_img = wp_get_attachment_image_url($image, 'thumbnail');
-		echo '<img src="'.$data_img .'" alt="">';
+		$data_img = wp_get_attachment_image_src($image, 'thumbnail');
+		echo '<img src="'. $data_img[0] .'" alt="">';
+
 		break;
 	}
 }
@@ -436,23 +439,25 @@ function sunset_contact_email_callback($post){
 	echo '<br>';
 
 	?>
-	<label for="metabox-image-id"><?php _e('Image', 'shinetheme'); ?></label>
-	<div class="form-field">
-		<input type="hidden" id="metabox-image-id" name="metabox-image-id" class="custom_media_url" value="">
-		<div class="st-include-image">
-			<?php if(!empty($url))
+	<label><?php _e('Image', 'shinetheme'); ?></label>
+	<div class="st-upload-gallery1">
+		<input type="hidden" id="metabox-image" name="metabox-image" class="metabox-image" value="<?php echo $image; ?>">
+		<div class="st-include-image1">
+			<?php 
+			if(!empty($url))
 			{
 				foreach ($url as $value) {
 					if(!empty($value)){
-					$url_image = wp_get_attachment_image_url($value, 'thumbnail');
-					echo '<div class="item"><img src="'.$url_image.'" alt="" data-id="'. $value .'"><i class="fas fa-times"></i></div>';
-					}
+			 			$url_image = wp_get_attachment_image_url($value, 'thumbnail');
+			 			echo '<div class="item1" style="display: inline-block;"><img class="st-thumb1" src="'. $url_image .'" width="150px" height="150px"  style = "margin-left: 10px;" data-id="'. $value .'"/><i class="fa fa-times" ></i></div>';
+			 			}
+
 				}
 			}
 			?>
 		</div>
 
-		<input type="button" class="st-upload"  value="<?php _e( 'Add Image', 'shinetheme' ); ?>" />
+		<input type="button" class="st-upload1"  value="<?php _e( 'Add Image', 'shinetheme' ); ?>" />
 		<input type="button" class="button"  value="<?php _e( 'Remove Image', 'shinetheme' ); ?>" />
 	</div>
 
@@ -501,7 +506,7 @@ $children = sanitize_text_field($_POST['st_contact_children_field']);
 update_post_meta($post_id, 'st_contact_children_field', $children);
 $adult = sanitize_text_field($_POST['st_contact_adult_field']);
 update_post_meta($post_id, 'st_contact_adult_field', $adult);
-$image = $_POST['metabox-image-id'];
+$image = $_POST['metabox-image'];
 update_post_meta($post_id, 'metabox-image-id', $image);
 $hotelData = sanitize_text_field($_POST['st_contact_hotel_field']);	
 update_post_meta($post_id, 'st_contact_hotel_field', $hotelData);
