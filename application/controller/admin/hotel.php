@@ -390,16 +390,16 @@ public function updated_location_image ( $term_id) {
 			 		foreach ($url as $key => $value) {
 			 			if(!empty($value)){
 			 			$url_image = wp_get_attachment_image_url($value, 'thumbnail');
-			 			echo '<div class="item" style="display: inline-block;"><img class="st-thumb" src="'. $url_image .'" width="150px" height="150px"  style = "margin-left: 10px;" data-id="'. $value .'"/><i class="fa fa-times time " ></i></div>';
+			 			echo '<div class="item" style="display: inline-block;"><img src="'. $url_image .'" width="150px" height="150px"  style = "margin-left: 10px;" data-id="'. $value .'"/><i class="fa fa-times time " ></i></div>';
 			 			}
 			 		}
 			 	}
 			 	?>
-			 	</div>
+			 	
 			 	<br>
 		 		<input type="button" class="st-upload"  value="Add Image">
 		 		<input type="button" name="" class="" value="Delete Image">
-
+				</div>
 	 		</div>
 	 	</p>
 	 
