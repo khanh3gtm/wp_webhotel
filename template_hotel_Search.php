@@ -4,6 +4,8 @@
 */
 get_header();
 $sort_list=st_sidebar::inst()->sortListHotel();
+
+
  ?>
 
 
@@ -76,12 +78,12 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 
 								<!-- Start quan -->
 								<div class="row">
-									<form action="?c=slidebar&a=search" method="GET">
+									<form action="localhost/Wordpress/search-list-hotel/" method="GET">
 										<div class="form-group col-sm-12 search-content">
 											<i class="fas fa-map-marker-alt search-checkiconleft"></i>
 											<label class="search-title-language1 search-title-language">Destination:</label>
 											<div class="dropdown render">
-												<input type="hidden" name="c" value="slidebar">
+												<!-- <input type="hidden" name="c" value="slidebar"> -->
 												<div class="dropdown-toggle search-language" id="menu1"
 												data-toggle="dropdown">
 												<?php
@@ -105,15 +107,17 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 											$args=array(
 
 													'orderby'=>'count',
-													'number'=>'5',
 													'post_type'=>'hotel',
-													'hide_empty' => false,
-													'fields' => 'all'
+													'hide_empty' => true,
+													'fields' => 'all',
+													'taxonomy'=>array('location')
 
 
 											);
+											
 
-												$term=get_terms( 'location', $args );
+												$term=get_terms( $args );
+
 											 ?>
 
 											 <?php 
@@ -121,7 +125,7 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 											 		foreach ($term as $terms) {
 											 			?>
 
-											 			<li>
+											 			<li data-value="<?php echo $terms->term_id ?>">
 											 				<i class="fas fa-map-marker-alt"></i>
 											 				<span><?php echo $terms->name; ?></span>
 											 			</li>
@@ -420,7 +424,8 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 									class="btn btn-primary col-lg-9 col-md-9 col-sm-9 search-check-button">
 									SEARCH
 								</button>
-								<input type="hidden" name="a" value="search">
+
+								<!-- <input type="hidden" name="a" value="search"> -->
 							</div>
 
 
@@ -581,19 +586,23 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 
 									<div class=" modern-search-result">
 										<?php 
-										
+										st_sidebar::inst()->startInjectSQLQuery();
 										$query= new WP_Query($sort_list);
+										st_sidebar::inst()->endInjectSQLQuery();
+
+										// echo $query->request;
 										// dd($query);
+										
+										
 										if($query->have_posts())
 										{
 											while ($query->have_posts())
-											{
+											{										
 												$query->the_post();
 											
 											
 										?>
 										<?php $id_location= get_post(get_the_ID());
-
 
 										?>
 
@@ -693,6 +702,7 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 																	<span class="service-from"> From </span>
 																	<span class="service-price">€<?php 
 																		echo $id_location->price;
+
 																	 ?></span>
 																	<span class="service-from">
 																		/night
@@ -710,11 +720,15 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 														</div>
 													</div>
 												</div>
-
+										
 												<?php
 										
 										}	
+										 
+								
 									}
+									
+									
 										?>
 										
 									</div>
@@ -731,25 +745,29 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 											<?php
 
 											
-											$get_data = $_GET;
-											$opt = '';
-											if(isset($get_data['optradio'])){
-												$opt = '&optradio=' . $get_data['optradio'];
-											}
+											// $get_data = $_GET;
+											// $opt = '';
+											// if(isset($get_data['optradio'])){
+											// 	$opt = '&optradio=' . $get_data['optradio'];
+											// }
 
-											for ($i = 1;$i <= $total_page;$i++) {
+											// for ($i = 1;$i <= $total_page;$i++) {
 
-												echo '<li><a href="?c=slidebar&a=view&page='. $i . $opt .'">'. $i .'</a></li>';
-											}
+											// 	echo '<li><a href="?c=slidebar&a=view&page='. $i . $opt .'">'. $i .'</a></li>';
+											// }
+											// 
+											 $paged=st_sidebar::inst()->pagePagination();
+											 dd($paged);
 
-
-
-
-
-											?>
-
+											echo paginate_links( $paged );
 
 											
+										
+										?>
+
+										
+
+
 
 
 										</ul>

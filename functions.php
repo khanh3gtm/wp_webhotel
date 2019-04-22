@@ -88,6 +88,15 @@ include "application/helpers/helpers.php";
 			wp_enqueue_script('sidebar-script');
 
 		}
+		if(is_page_template( 'search.php' ))
+		{
+			wp_register_style('sidebar-deadline-style',THEME_URL . '/CSS/slide_deadline.css','all');
+			wp_enqueue_style('sidebar-deadline-style');
+			
+			wp_register_script('sidebar-deadline-script',THEME_URL . '/js/cuong.js','all');
+			wp_enqueue_script('sidebar-deadline-script');
+
+		}
 		if(is_singular('hotel')){
 			wp_register_style('hoteldetail-style',THEME_URL . '/CSS/roomhotel.css','all');
 			wp_enqueue_style('hoteldetail-style');
