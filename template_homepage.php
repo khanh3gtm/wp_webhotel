@@ -8,6 +8,7 @@
 $city = homepage::inst()->listCity();
 
 
+
  ?>
 
    
@@ -539,7 +540,7 @@ $city = homepage::inst()->listCity();
 
 
                                         $location_image = get_term_meta($value->term_id,'location_image',true);   
-                                        $data = wp_get_attachment_image_src($location_image, 'full');   
+                                        $data = wp_get_attachment_image_src($location_image, [370,370]);   
                                         echo '<img class="img-responsive" src="'. $data[0] .'">';
                                          ?>
                                     </a>

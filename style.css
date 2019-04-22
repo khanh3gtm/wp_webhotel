@@ -11,6 +11,17 @@ Tags: black, brown, orange, tan, white, yellow, light, one-column, two-columns, 
 Text Domain: shinetheme
 Languages Folder:/languages
 */
+*{
+	padding: 0;
+	margin: 0;
+	
+	font-family: 'Poppins', sans-serif;
+}
+body{
+	font-family: 'Poppins';
+	
+
+}
 /* Khánh Viết CSS*/
 .st-checkout-page .cart-info .info-section ul li span.label {
 	color: #1A2B48;
@@ -403,17 +414,7 @@ div#cart-info {
 /****Mạnh*****/
 /*Home Page*/
 /*banner*/
-*{
-	padding: 0;
-	margin: 0;
-	
-	font-family: 'Poppins', sans-serif;
-}
-body{
-	font-family: 'Poppins';
-	
 
-}
 #banner .container-fuil
 {
 	width: 100%;

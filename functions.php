@@ -99,6 +99,16 @@ include "application/helpers/helpers.php";
 		}
 	}
 	add_action('wp_enqueue_scripts','webhotel_style');
+	$arr_helper = array(
+		
+		'otf_regen_thumbs'
+	);
+	foreach ($arr_helper as $k=> $v) {
+		$file = get_template_directory(). '/application/helpers/' . $v. '.php';
+		if(file_exists($file)){
+			include $file;
+		}
+	}
 
 	$arr_libfiles = array(
 		'View',
@@ -115,7 +125,8 @@ include "application/helpers/helpers.php";
 	$arr_model = array(
 		'bookcart',
 		'homepage',
-		'sorthotel'
+		'sorthotel',
+		'hoteldetail'
 	);
 	foreach ($arr_model as $k=> $v) {
 		$files = get_template_directory(). '/application/model/' . $v. '.php';
@@ -132,7 +143,8 @@ include "application/helpers/helpers.php";
 		'frontend' => array(
 			'homepage',
 			'bookcart',
-			'sorthotel'
+			'sorthotel',
+			'hoteldetail'
 		)		
 	);
 

@@ -533,24 +533,6 @@ public static function inst(){
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function __getDataToTable(){
 	
 	if($_POST['post_type'] =='room'){
