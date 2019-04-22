@@ -82,7 +82,8 @@
                         <i class="fas fa-map-marker-alt"></i><span> Hotel :    
                           <?php
                           $hotel = get_post_meta(get_the_ID(), 'st_contact_hotel_field', true);
-                          echo $hotel;
+                          $resHotel = get_the_title($hotel);
+                          echo $resHotel;
                            ?>
                         </span>
                       </div>
@@ -429,18 +430,11 @@
                       <div class="form-head">
                         from
                         <?php
-                        if(!empty($data_room)){
-                          ?>
+                          $price = get_post_meta(get_the_ID(), 'st_contact_price_field', true);
+                          echo $price;
+                        ?>
 
-                          <?php
-                          foreach ($data_room as $values){
-                            ?>
-                            <span class="price"><?php echo $values['price']; ?></span>
-
-                            <?php
-                          }?>
-
-                        <?php } ?>
+                       
                         <!--  <input type="hidden" name="room_id" value="<?php $values['room_id'] ?>" > -->
                         <span class="unit">/night</span>
                       </div>

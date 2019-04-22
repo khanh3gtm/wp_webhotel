@@ -79,10 +79,8 @@ include "application/helpers/helpers.php";
 			wp_register_script('homepage-script',THEME_URL . '/js/khanh.js','all');
 		wp_enqueue_script('homepage-script');
 		}
-	
 		if(is_page_template( 'template_hotel_search.php' ))
 		{
-			
 			wp_register_style('sidebar123-style',THEME_URL . '/CSS/slide_deadline.css','all');
 			wp_enqueue_style('sidebar123-style');
 			
