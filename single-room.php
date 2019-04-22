@@ -82,7 +82,8 @@
                         <i class="fas fa-map-marker-alt"></i><span> Hotel :    
                           <?php
                           $hotel = get_post_meta(get_the_ID(), 'st_contact_hotel_field', true);
-                          echo $hotel;
+                          $resHotel = get_the_title($hotel);
+                          echo $resHotel;
                            ?>
                         </span>
                       </div>
@@ -154,12 +155,25 @@
                   <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="fotorama" data-width="1100" data-ratio="3/2" data-fit="cover" data-allowfullscreen="native">
-                        <a href="libs/Images/khanh1.jpg" ></a>
+                        <?php $image = get_post_meta(get_the_ID(), 'metabox-image-id', true);
+                        $url = explode(',', $image); ?>
+                        <?php 
+                          if(!empty($url)){
+                            foreach ($url as $value) {
+                              if(!empty($value)){
+                                $url_image = wp_get_attachment_image_url($value, 'thumbnail');
+                                echo '<img src="'. $url_image .'" alt="" data-id="'. $value .'">';
+                              }
+                            }
+                          }
+                         ?>
+              
+                        <!-- <a href="libs/Images/khanh1.jpg" ></a>
                         <a href="libs/Images/khanh2.jpg" ></a>
                         <a href="libs/Images/khanh3.jpg" ></a>
                         <a href="libs/Images/khanh4.jpg" ></a>
                         <a href="libs/Images/khanh5.jpg" ></a>
-                        <a href="libs/Images/khanh6.jpg" ></a>
+                        <a href="libs/Images/khanh6.jpg" ></a> -->
                       </div>
                     </div>
                   </div>
@@ -429,18 +443,11 @@
                       <div class="form-head">
                         from
                         <?php
-                        if(!empty($data_room)){
-                          ?>
+                          $price = get_post_meta(get_the_ID(), 'st_contact_price_field', true);
+                          echo $price;
+                        ?>
 
-                          <?php
-                          foreach ($data_room as $values){
-                            ?>
-                            <span class="price"><?php echo $values['price']; ?></span>
-
-                            <?php
-                          }?>
-
-                        <?php } ?>
+                       
                         <!--  <input type="hidden" name="room_id" value="<?php $values['room_id'] ?>" > -->
                         <span class="unit">/night</span>
                       </div>

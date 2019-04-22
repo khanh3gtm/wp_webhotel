@@ -23,7 +23,7 @@ class ST_Hotel_Admin{
 			add_action('edited_location', array ($this, 'updated_location_image' ), 10, 1 );
 			add_action('admin_enqueue_scripts', array( $this, 'load_media' ) );
 			add_action('admin_footer', array ( $this, 'add_script' ) );
-			add_action('admin_footer', array ( $this, 'upload_image_meta_box' ) );
+			//add_action('admin_footer', array ( $this, 'upload_image_meta_box' ) );
 			add_filter('manage_edit-location_columns',array($this, 'custom_location_columns'));
 
 
@@ -389,16 +389,16 @@ public function updated_location_image ( $term_id) {
 			 		foreach ($url as $key => $value) {
 			 			if(!empty($value)){
 			 			$url_image = wp_get_attachment_image_url($value, 'thumbnail');
-			 			echo '<div class="item" style="display: inline-block;"><img class="st-thumb" src="'. $url_image .'" width="150px" height="150px"  style = "margin-left: 10px;" data-id="'. $value .'"/><i class="fa fa-times time " ></i></div>';
+			 			echo '<div class="item" style="display: inline-block;"><img src="'. $url_image .'" width="150px" height="150px"  style = "margin-left: 10px;" data-id="'. $value .'"/><i class="fa fa-times time " ></i></div>';
 			 			}
 			 		}
 			 	}
 			 	?>
-			 	</div>
+			 	
 			 	<br>
 		 		<input type="button" class="st-upload"  value="Add Image">
 		 		<input type="button" name="" class="" value="Delete Image">
-
+				</div>
 	 		</div>
 	 	</p>
 	 
