@@ -29,3 +29,7 @@
 .st-include-image .item{
     display: inline-block;
 }
+.wp-list-table img{
+    width: 120px;
+    height: auto;
+}

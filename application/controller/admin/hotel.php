@@ -23,7 +23,7 @@ class ST_Hotel_Admin{
 			add_action('edited_location', array ($this, 'updated_location_image' ), 10, 1 );
 			add_action('admin_enqueue_scripts', array( $this, 'load_media' ) );
 			add_action('admin_footer', array ( $this, 'add_script' ) );
-			add_action('admin_footer', array ( $this, 'upload_image_meta_box' ) );
+			//add_action('admin_footer', array ( $this, 'upload_image_meta_box' ) );
 			add_filter('manage_edit-location_columns',array($this, 'custom_location_columns'));
 
 
@@ -152,10 +152,9 @@ class ST_Hotel_Admin{
 				echo $add;
 					break;	
 			case 'image':
-				$image = get_post_meta($post_id,'_hotel_image',true);		
-				$data = wp_get_attachment_image_src($image, 'thumbnail');
-           		echo '<img src="'. $data[0] .'" width="120px" height="120px"';
-				break;	
+				$image = the_post_thumbnail($post_id);		
+				
+           		echo $image ;
 			default:
 				# code...
 				break;
@@ -175,7 +174,7 @@ function custom_location_columns($columns){
 		{
 			switch ($column) {
 				case 'image':
-				$image = get_term_meta($term_id, 'category-image-id', true);
+				$image = get_term_meta($term_id, 'location_image', true);
 				// $data = maybe_unserialize($image->description);
 				$data = wp_get_attachment_image_src($image, 'thumbnail');
 				echo '<img src="'. $data[0] .'" alt="">';
@@ -321,9 +320,9 @@ function custom_location_columns($columns){
 public function save_location_image($term_id){
 	if( isset( $_POST['category-image-id'] ) && '' !== $_POST['category-image-id'] ){
 		$image = $_POST['category-image-id'];
-		add_term_meta ( $term_id, 'category-image-id', $image );
+		add_term_meta ( $term_id, 'location_image', $image );
 	} else {
-		add_term_meta ( $term_id, 'category-image-id', '' );
+		add_term_meta ( $term_id, 'location_image', '' );
 	}
 }
 public function update_location_image ( $term, $amenities ) { ?>
@@ -332,7 +331,7 @@ public function update_location_image ( $term, $amenities ) { ?>
 			<label for="category-image-id"><?php _e( 'Image', 'shinetheme' ); ?></label>
 		</th>
 		<td>
-			<?php $image_id = get_term_meta ( $term -> term_id, 'category-image-id', true ); ?>
+			<?php $image_id = get_term_meta ( $term -> term_id, 'location_image', true ); ?>
 			<!--Lay gia tri hien tai</!-->
 			<input type="hidden" id="category-image-id" name="category-image-id" value="<?php echo $image_id; ?>">
 			<div id="category-image-wrapper">
@@ -351,9 +350,9 @@ public function update_location_image ( $term, $amenities ) { ?>
 public function updated_location_image ( $term_id) {
 	if( isset( $_POST['category-image-id'] ) && '' !== $_POST['category-image-id'] ){
 		$image = $_POST['category-image-id'];
-		update_term_meta ( $term_id, 'category-image-id', $image );
+		update_term_meta ( $term_id, 'location_image', $image );
 	} else {
-		update_term_meta ( $term_id, 'category-image-id', '' );
+		update_term_meta ( $term_id, 'location_image', '' );
 	}
 }
 

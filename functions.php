@@ -81,7 +81,6 @@ include "application/helpers/helpers.php";
 		}
 		if(is_page_template( 'template_hotel_search.php' ))
 		{
-			
 			wp_register_style('sidebar123-style',THEME_URL . '/CSS/slide_deadline.css','all');
 			wp_enqueue_style('sidebar123-style');
 			
@@ -115,7 +114,8 @@ include "application/helpers/helpers.php";
 	//load model
 	$arr_model = array(
 		'bookcart',
-		'homepage'
+		'homepage',
+		'sorthotel'
 	);
 	foreach ($arr_model as $k=> $v) {
 		$files = get_template_directory(). '/application/model/' . $v. '.php';
@@ -131,7 +131,8 @@ include "application/helpers/helpers.php";
 		),
 		'frontend' => array(
 			'homepage',
-			'bookcart'
+			'bookcart',
+			'sorthotel'
 		)		
 	);
 

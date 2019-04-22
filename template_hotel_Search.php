@@ -3,6 +3,7 @@
 * Template Name: Search-Hotel-Result
 */
 get_header();
+$sort_list=st_sidebar::inst()->sortListHotel();
  ?>
 
 
@@ -106,6 +107,7 @@ get_header();
 													'orderby'=>'count',
 													'number'=>'5',
 													'post_type'=>'hotel',
+													'hide_empty' => false,
 													'fields' => 'all'
 
 
@@ -175,7 +177,9 @@ get_header();
 									<i class="far fa-calendar-plus search-checkiconright"></i>
 									<label for="radio-choice-1" class="search-title-language"> Check
 									In-Out</label>
-								
+									<div id="reportrange">
+									<?php echo $start . ' - ' . $end ?>
+								</div>
 
 								<input type="hidden" name="start" id="start" value="<?php echo $start; ?>">
 								<input type="hidden" name="end" id="end" value="<?php echo $end; ?>">
@@ -452,7 +456,7 @@ get_header();
 
 
 									<div class="col-lg-9 col-md-9 col-sm-12 content-title">
-										<h3><?php echo $count ?> hotels found</h3>
+										<h3><?php //echo $count ?> hotels found</h3>
 									</div>
 									<div class="col-lg-3 layout">
 										<ul>
@@ -472,12 +476,14 @@ get_header();
 
 																?>
 																<div class="row">
+																	
 																	<div class="col-sm-12">
 																		<span class="layout-title1">
 																			SORT BY
 																		</span>
 																	</div>
 																	<div class="col-sm-12 layout-list-item">
+
 																		<li role="presentation">
 																			<?php
 																			$current_opt = '';
@@ -549,12 +555,7 @@ get_header();
 
 																		</li>
 																	</div>
-
-
-
-
-
-
+		
 																</div>
 																<!-- <li>SORT BY</li> -->
 
@@ -580,8 +581,9 @@ get_header();
 
 									<div class=" modern-search-result">
 										<?php 
-										$args= array('post_type'=>'hotel','posts_per_page'=>'-1');
-										$query= new WP_Query($args);
+										
+										$query= new WP_Query($sort_list);
+										// dd($query);
 										if($query->have_posts())
 										{
 											while ($query->have_posts())
@@ -590,16 +592,22 @@ get_header();
 											
 											
 										?>
+										<?php $id_location= get_post(get_the_ID());
+
+
+										?>
 
 												<div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 has-matchHeight ">
 													<div class="item">
 														<div class="thumb">
-															
+															<div class="im1">
 															<?php
-																echo get_the_post_thumbnail(get_the_ID(),'thumbnail');
+
+																echo get_the_post_thumbnail(get_the_ID());
 																
 
 															?>
+															</div>
 														<br/>
 														</div>
 														<div class="icon-position">
@@ -618,9 +626,9 @@ get_header();
 														<div class="text-position">
 															<button class=" btn btn-primary text">Featured</button>
 														</div>
-														<!-- <div class="info">
+														<div class="info">
 
-															<a href="?c=detailhotel&a=view&hotel_id=<?php echo $value['hotel_id'] ?>"><?= $value['hotel_name'] ?> </a><br/>
+															<a href="?c=detailhotel&a=view&hotel_id=<?php echo $value['hotel_id'] ?>"><?= get_the_title(); ?> </a><br/>
 
 
 															<div class="wpb-slidebar-adress">
@@ -628,27 +636,43 @@ get_header();
 															<p class="service-location">
 																
 																<?php 
-																if(!empty($value['city_name']) || !empty($value['country']))
-																{
+																// if(!empty($value['city_name']) || !empty($value['country']))
+																// {
 																	?>
 																	<i class="fas fa-map-marker-alt"></i>
+																	<?php 
+																	
+																	$terms = get_the_terms(get_the_ID(),'location' );
+																	if (!empty($terms[0]->name)&&!empty($terms[1]->name)) {
+																		echo $terms[0]->name.', '.$terms[1]->name;
+																	}
+																	else
+																	{
+																		if (empty($terms[1])) {
+																			echo $terms[0]->name;
+																		}
+																	}
+
+																	
+
+																	
+
+
+																	 ?>
+																	
 																	<?php
-																}
+																// }
 
 																?>
-																<?php 
-																if (!empty(htmlspecialchars($value['city_name'])) || !empty($value['country'])) {
-
-																}
-
-																?>
-																<?php echo " ". $value['city_name'].", ". $value['country'] ?> 
 															</p>
 														  </div>
 
 															<div class="service-review">
 																<div class="service-point">
-																	<p class="matchHeight"><?= $value['hotel_point']."  " .'/5 Excellent'?> </p>
+																	<p class="matchHeight"><?= 
+																		$id_location->hotel_point
+
+																	?>/5 Excellent </p>
 																</div>
 
 																<div class="evaluate">
@@ -667,7 +691,9 @@ get_header();
 																
 																	<span><i class="fas fa-bolt slide-icon"></i></span>
 																	<span class="service-from"> From </span>
-																	<span class="service-price">€<?php echo $value['hotel_price'] ?></span>
+																	<span class="service-price">€<?php 
+																		echo $id_location->price;
+																	 ?></span>
 																	<span class="service-from">
 																		/night
 																	</span>
@@ -681,7 +707,7 @@ get_header();
 
 															
 
-														</div> -->
+														</div>
 													</div>
 												</div>
 

@@ -7,7 +7,6 @@ $dt = bookcart::inst()->__stBkSucces();
 $st =bookcart::inst()->__stInfoSucces();
 $key = $dt[1]->room_id;
 $ss = bookcart::inst()->__stGetInfoRoom($key);
-dd($dt);
 ?>
 <div id="st-content-wrapper">
 	<div class="st-breadcrumb">
@@ -36,7 +35,7 @@ dd($dt);
 						<p class="line2">
 							Booking details has been sent to:
 							<span>
-								<?php  echo $dt->user_email; ?>
+								<?php  echo $dt[0]->user_email; ?>
 							</span>
 						</p>
 					</div>
@@ -83,7 +82,7 @@ dd($dt);
 								<li><span class="label">Check In:</span><span class="value"><?php echo $dt[1]->checkin ?></span></li>
 								<li><span class="label">Check Out:</span><span class="value"><?php echo $dt[1]->checkout ?></span></li>
 								<li><span class="label">Price:</span>
-									<span class="value">€ <?php echo $dt[1]->totalmoney ?></span>
+									<span class="value">€ <?php echo $ss[3]['st_contact_price_field'][0] ?></span>
 								</li>
 							</ul>
 						</div>
@@ -93,7 +92,8 @@ dd($dt);
 									<span class="label">Subtotal</span>
 										<span class="value"><?php
 										$price = $dt[1]->totalmoney;
-										echo $price;
+										$money = $price * 100/110;
+										echo $money;
 										?>
 									</span>
 								</li>
@@ -109,9 +109,8 @@ dd($dt);
 								<li class="payment-amount">
 									<span class="label">Pay Amount</span>
 									<span class="value">
-										€ <?php $vat= 0.1;
-										$money = $price + $price*$vat;
-										echo $money; ?>	
+										€ <?php
+										echo $price ?>	
                             		</span>
 								</li>
 							</ul>
@@ -126,7 +125,7 @@ dd($dt);
 				<ul>
 					<li><span class="label">First Name</span><span class="value" name="first_name"><?php echo $st['first_name'][0]; ?></span></li>
 					<li><span class="label">Last name</span><span class="value" name="last_name"><?php echo $st['last_name'][0]; ?></span></li>
-					<li><span class="label">Email</span><span class="value" name = "email"><?php echo $dt->user_email; ?></span></li>
+					<li><span class="label">Email</span><span class="value" name = "email"><?php echo $dt[0]->user_email; ?></span></li>
 					<li><span class="label">Address Line 1 </span><span class="value" name="add1"><?php echo $st['st_address'][0]; ?></span></li>
 					<li><span class="label">Address Line 2 </span><span class="value" name="add2"><?php echo $st['st_address2'][0]; ?></span></li>
 					<li><span class="label">City</span><span class="value" name="city"><?php echo $st['st_city'][0]; ?></span></li>
