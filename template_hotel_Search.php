@@ -78,7 +78,7 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 
 								<!-- Start quan -->
 								<div class="row">
-									<form action="localhost/Wordpress/search-list-hotel/" method="GET">
+									<form action="" method="GET">
 										<div class="form-group col-sm-12 search-content">
 											<i class="fas fa-map-marker-alt search-checkiconleft"></i>
 											<label class="search-title-language1 search-title-language">Destination:</label>
