@@ -6,7 +6,8 @@ get_header();
  $hotel = homepage::inst()->__ShowListHotel();
 $listRoom = hoteldetail::inst()->listRoom();
  while(have_posts()){ the_post();
- 	
+ 	echo  get_permalink('132');die;
+
 ?>
 <div class="clear"></div>
 	<!--content -->

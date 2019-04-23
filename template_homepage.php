@@ -32,16 +32,17 @@ $city = homepage::inst()->listCity();
                                     </div>
                                     <!-- seach form -->
                                     <!-- <start hoa> -->
+
                                     <div class="seach-form">
                                         <div class="row">
-                                         <form action="index.php?c=slidebar&a=search" method="GET">  
+                                         <form action="<?php echo get_permalink(( get_page_by_path( 'hotel_search' ) )); ?>" method="GET">  
                                             <div class="col-md-3 border-right">
                                                 <div class="form-group form-extra-field dropdown clearfix field-detination has-icon">
                                                     <i class="fas fa-map-marker-alt search-form-checkIcon"></i>
                                                 </div>
                                                 <div class="search-form-section">
                                                     <label for="name"  class="text-muted1";">Detination</label><br/>
-                                                    <input type="hidden" name="c" value="slidebar">
+                                                    
 
                                                     <div class="dropdown dropdown-list">
                                                         <div class="dropdown-toggle"
@@ -91,6 +92,7 @@ $city = homepage::inst()->listCity();
                                                     }
 
                                                   ?>
+                                                 
                                                    
                                                     <?php 
                                                     $get_data = $_GET;
@@ -122,7 +124,7 @@ $city = homepage::inst()->listCity();
                                                     $number_child =  $get_data['number_child'];
                                                    }
 
-                                                   echo '<a href="?c=slidebar&a=view'. $cityid . $cityname . $start . $end . $date . '"></a>';
+                                                   echo '<a href="'.get_permalink('132') . $cityid . $cityname . $start . $end . $date . '"></a>';
                                                    ?>
 
                                                </ul>
@@ -339,8 +341,7 @@ $city = homepage::inst()->listCity();
                             </div>
                             <div class="btn-seach-homepage">
                                 <button class="seach-homepage"> SEARCH</button>
-                                    <input type="hidden" name="a" value="search">
-                            </div>
+                                    
                         </div>
                     </form>
                 </div>
