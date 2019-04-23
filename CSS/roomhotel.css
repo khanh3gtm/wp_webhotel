@@ -887,6 +887,9 @@ font-size: 14px;
 .broom .price-room{
 	margin-bottom: 5px;
 }
+.broom .sheration span.aminities_room{
+	padding-left: 10px;
+}
 
 /*rooms*/
 /*review*/
@@ -1480,6 +1483,7 @@ font-size: 14px;
 {
 	display: none;
 }
+
 .broom
 {
 	display: block;
@@ -2305,6 +2309,9 @@ font-size: 14px;
 		border-radius: 5px;
 		margin-bottom: 10%;
 	}
+	.sroom .sheration span.aminities_room{
+	padding-left: 10px;
+}
 	.sheration .images
 	{
 		padding-left: 0;
