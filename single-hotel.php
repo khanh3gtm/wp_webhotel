@@ -5,7 +5,7 @@ get_header();
 
  $hotel = homepage::inst()->__ShowListHotel();
 $listRoom = hoteldetail::inst()->listRoom();
-
+ while(have_posts()){ the_post();
 ?>
 <div class="clear"></div>
 	<!--content -->
@@ -75,16 +75,27 @@ $listRoom = hoteldetail::inst()->listRoom();
 			<div class="clear"></div>
 			<div class="row">
 				<div class="col-xs-12 col-md-9">
+
 					<!-- slide -->
 					<div class="slidehotel">
+						<?php 
+						$hotel_image = get_post_meta(get_the_ID(),'_hotel_image',true);
+						$url = explode(',',$hotel_image);
+						
+						 ?>
 						<div class="fotorama "
 						data-nav="thumbs" data-thumbwidth="135px" data-thumbheight="135px" data-fit="none" data-width="870px" data-height="500px" data-allowfullscreen="native" data-thumbfit="cover" data-thumbmargin="8" >
-						<a href="libs/Images/khanh1.jpg"><img src="<?php echo get_template_directory_uri() ?>/application/libs/Images/khanh1.jpg"  width="135px" height="135px"></a>
-						<a href="libs/Images/khanh2.jpg"><img src="<?php echo get_template_directory_uri() ?>/application/libs/Images/khanh2.jpg"  width="135px" height="135px"></a>
-						<a href="libs/Images/khanh3.jpg"><img src="<?php echo get_template_directory_uri() ?>/application/libs/Images/khanh3.jpg"  width="135px" height="135px"></a>
-						<a href="libs/Images/khanh4.jpg"><img src="<?php echo get_template_directory_uri() ?>/application/libs/Images/khanh4.jpg"  width="135px" height="135px"></a>
-						<a href="libs/Images/khanh5.jpg"><img src="<?php echo get_template_directory_uri() ?>/application/libs/Images/khanh5.jpg"  width="135px" height="135px"></a>
-						<a href="libs/Images/khanh6.jpg"><img src="<?php echo get_template_directory_uri() ?>/application/libs/Images/khanh6.jpg"  width="135px" height="135px"></a>
+						<?php 
+
+						if(!empty($url)){
+							foreach ($url as $key => $value) {
+								$url_hotel_image = wp_get_attachment_image_url($value,[870,500]);
+								
+								echo '<img class="img-responsive" src="'. $url_hotel_image .'">';
+							}
+						}
+
+						 ?>
 					</div>
 					</div>
 					<!-- end slide -->
@@ -95,7 +106,7 @@ $listRoom = hoteldetail::inst()->listRoom();
 							<i class="fa fa-angle-down down-icon" aria-hidden="true" ></i>
 						</h2>
 						<div class="st-description" data-toggle-section="st-description" data-show-all="st-description" data-height="120"  >
-							<p class="more-content"><?php echo get_post(get_the_ID())->post_content ?></p>
+							<p class="more-content"><?php echo nl2br(get_the_content()); ?></p>
 								<div class="cut-gradient"></div>
 								<div class="showmore_des" >
 									Show All 
@@ -219,7 +230,10 @@ $listRoom = hoteldetail::inst()->listRoom();
 						</h2>
 						<div class="container-fluid roomsm">
 							<?php if($listRoom->have_posts()): ?>
-								<?php while($listRoom->have_posts()) : $listRoom->the_post(); ?>
+								<?php while($listRoom->have_posts()) : $listRoom->the_post(); 
+									?>
+									<?php $room = get_post(get_the_ID()); ?>
+									
 							<div class="row sheration">
 								<div class="col-xs-12 col-md-4 images">
 									<div class="image">
@@ -228,7 +242,7 @@ $listRoom = hoteldetail::inst()->listRoom();
 									</div>
 								</div>
 								<div class="col-xs-12 col-md-8">
-									<h2 ><a href="?c=room&a=view&room_id=<?php echo $v['room_id']  ?><?=$start ?>&<?=$end ?><?=$date ?> "><?php the_title(); ?></a></h2>
+									<h2 ><a href="<?php echo site_url('/'.$room->post_type.'/'.$room->post_name.'/'); ?> "><?php the_title(); ?></a></h2>
 									<div class="row">
 										<div class="col-xs-12 col-md-8 inf" >
 											<div class="col-xs-2">
@@ -239,17 +253,17 @@ $listRoom = hoteldetail::inst()->listRoom();
 											<div class="col-xs-2">
 												<i class="fa fa-bed" aria-hidden="true"></i>
 												<br>
-												<span>x<?php echo get_post_meta(get_the_ID(),'st_contact_bed_field',true) ?></span>
+												<span class="aminities_room">x<?php echo get_post_meta(get_the_ID(),'st_contact_bed_field',true) ?></span>
 											</div>
 											<div class="col-xs-2">
 												<i class="fa fa-venus-double" aria-hidden="true"></i>
 												<br>
-												<span>x<?php echo get_post_meta(get_the_ID(),'st_contact_adult_field',true) ?></span>
+												<span class="aminities_room">x<?php echo get_post_meta(get_the_ID(),'st_contact_adult_field',true) ?></span>
 											</div>
 											<div class="col-xs-2">
 												<i class="fa fa-child" aria-hidden="true"></i>
 												<br>
-												<span>x<?php echo get_post_meta(get_the_ID(),'st_contact_children_field',true) ?></span>
+												<span class="aminities_room">x<?php echo get_post_meta(get_the_ID(),'st_contact_children_field',true) ?></span>
 											</div>
 										</div>
 										<div class="col-xs-12 col-md-4 ">
@@ -275,6 +289,7 @@ $listRoom = hoteldetail::inst()->listRoom();
 						<div class="roomlg">
 							<?php if($listRoom->have_posts()): ?>
 								<?php while($listRoom->have_posts()) : $listRoom->the_post(); ?>
+									<?php $room = get_post(get_the_ID());?>
 							<div class="row sheration"  >
 								<div class="col-sm-4 edit" >
 									<?php echo get_the_post_thumbnail(get_the_ID(),[252,243],array('class'=>'img-responsive'));
@@ -282,28 +297,28 @@ $listRoom = hoteldetail::inst()->listRoom();
 								</div>
 								<div class="col-sm-8">
 									<div >
-										<h2 ><a href="?c=room&a=view&room_id=<?php echo $v['room_id']  ?><?=$start ?><?=$end ?><?=$date ?> "><?php the_title(); ?></a></h2>
+										<h2 ><a href="<?php echo site_url('/'.$room->post_type.'/'.$room->post_name.'/'); ?>"><?php the_title(); ?></a></h2>
 										<div class="row" class="">
 											<div class="col-sm-8">
 												<div class="col-sm-2">
 													<i class="fa fa-square" aria-hidden="true"></i>
 													<br>
-													<span><?php echo get_post_meta(get_the_ID(),'st_contact_superficies_field',true) ?>m<sup>2</sup></span>
+													<span ><?php echo get_post_meta(get_the_ID(),'st_contact_superficies_field',true) ?>m<sup>2</sup></span>
 												</div>
 												<div class="col-sm-2">
 													<i class="fa fa-bed" aria-hidden="true"></i>
 													<br>
-													<span>x<?php echo get_post_meta(get_the_ID(),'st_contact_bed_field',true)  ?></span>
+													<span class="aminities_room">x<?php echo get_post_meta(get_the_ID(),'st_contact_bed_field',true)  ?></span>
 												</div>
 												<div class="col-sm-2">
 													<i class="fa fa-venus-double" aria-hidden="true"></i>
 													<br>
-													<span>x<?php echo get_post_meta(get_the_ID(),'st_contact_adult_field',true)  ?></span>
+													<span class="aminities_room">x<?php echo get_post_meta(get_the_ID(),'st_contact_adult_field',true)  ?></span>
 												</div>
 												<div class="col-sm-2">
 													<i class="fa fa-child" aria-hidden="true"></i>
 													<br>
-													<span>x<?php echo get_post_meta(get_the_ID(),'st_contact_children_field',true)  ?></span>
+													<span class="aminities_room">x<?php echo get_post_meta(get_the_ID(),'st_contact_children_field',true)  ?></span>
 												</div>		
 											</div>
 											<div class="col-sm-4 " >
@@ -884,4 +899,4 @@ $listRoom = hoteldetail::inst()->listRoom();
 	<!-- end nearby -->
 	<div class="clear"></div>
 
-<?php get_footer() ?>
+<?php } get_footer() ?>

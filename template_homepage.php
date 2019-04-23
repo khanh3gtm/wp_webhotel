@@ -431,6 +431,7 @@ $city = homepage::inst()->listCity();
                               <?php if($hotel->have_posts()) : ?>
                                 <?php while($hotel->have_posts()) : $hotel->the_post(); ?>
                                     <?php $s= get_post(get_the_ID());
+
                                     
                                     
                                   ?>
@@ -451,9 +452,7 @@ $city = homepage::inst()->listCity();
                                                     </div>
                                                     <div class="wpb-content-text">
                                                         <div class="wpb-room-name">
-                                                            <a href="<?php  ?>">
-
-
+                                                            <a href="<?php echo site_url('/'.$s->post_type.'/'.$s->post_name.'/'); ?>">
                                                                 <?php the_title(); ?>
 
                                                             </a>
