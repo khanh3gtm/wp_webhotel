@@ -10,10 +10,12 @@ class st_sidebar_model extends Model
 
 	public function sortHotel()
 	{
-		global $wpdb;
+		$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 		$args = array(
 			'post_type'=>array('hotel'),
-			'posts_per_page'=>'-1'
+			 'posts_per_page' => 3,
+			 'paged' => $paged,
+
 		);
 
 	if(isset($_GET['optradio'])){
@@ -50,61 +52,43 @@ class st_sidebar_model extends Model
 			}
 		}
 
+			if(isset($_GET['cityname'])&&!empty($_GET['cityname']))
+			{
+				$cityname=$_GET['cityname'];
+				$args['tax_query']= array(
+							array(
+								'taxonomy' => 'location',
+								'field'    => 'slug',
+								'terms'    => $cityname,
+							)
+						
+			);
+				
+			}
+
 		return $args;
 
 
 
 		
 	}
-	public function searchHotel()
-	{
-		// $this->inst()->sortHotel();
-		
-		if(isset($_GET['cityname'])&&!empty($_GET['cityname']))
-		{
-			$cityname=$_GET['cityname'];
-
-			$args=array(
-
-
-				'hide_empty'    => true,
-				'post_type'=> 'hotel',
-				'post_per_page'=>-1,
-				'tax_query' => array(
-					array(
-						'taxonomy' => 'location',
-						'field'    => 'slug',
-						'terms'    => $cityname,
-					)
-				) ,
-
-
-			);
-
-			$query= new WP_Query($args);
-			return $query;
-		}
+	
 		
 			
 
-	}
+	
 	public function pagePagination()
 	{
 		
-		$paged = ( get_query_var( 'paged' ) ) ? absint( get_query_var( 'paged' ) ) : 1;
-		$args=array(
-			'base'=> get_pagenum_link(),
-			'total'=>10,
-			'current'=>$paged,
-			'show_all'=>true,
-			'format'=>'?paged=%#%',
-			'prev_text'          => __('« Previous'),
-			'next_text'          => __('Next »'),
-			'prev_next'=> true
-
-
-		);
+		$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+		$args = array(
+											  'post_type' => array('hotel'),
+											  'posts_per_page' => 2,
+											  'paged' => $paged,
+										
+											);
 		return $args;
+
 	}
 	
 	 public static function inst(){
