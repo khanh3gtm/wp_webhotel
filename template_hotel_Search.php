@@ -118,6 +118,7 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 
 												$term=get_terms( $args );
 
+
 											 ?>
 
 											 <?php 
@@ -611,8 +612,10 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 														<div class="thumb">
 															<div class="im1">
 															<?php
-
-																echo get_the_post_thumbnail(get_the_ID());
+															?>
+																 <a href="<?php echo site_url('/'.$id_location->post_type.'/'.$id_location->post_name.'/'); ?>">
+																 	<?php
+																echo get_the_post_thumbnail(get_the_ID(),array( 256, 256));
 																
 
 															?>
@@ -756,10 +759,22 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 											// 	echo '<li><a href="?c=slidebar&a=view&page='. $i . $opt .'">'. $i .'</a></li>';
 											// }
 											// 
-											 $paged=st_sidebar::inst()->pagePagination();
-											 dd($paged);
+											//  $paged=st_sidebar::inst()->pagePagination();
+											//  dd($paged);
 
-											echo paginate_links( $paged );
+											// echo paginate_links( $paged );
+											// $sort_list=st_sidebar::inst()->sortListHotel();
+											// $list = new WP_Query( $args );
+											// if ( $list->have_posts() ) :
+											// 	while( $list->have_post() ) : $list->the_post();
+											// 	    the_title(); // Demo output
+											// 	endwhile;
+											// 	wp_reset_postdata();
+											// 	endif;
+											// 	global $wp_query;
+											
+
+											echo the_posts_pagination();
 
 											
 										

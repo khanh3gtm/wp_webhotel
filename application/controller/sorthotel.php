@@ -42,13 +42,7 @@ class st_sidebar extends Controller
 
 
 	} 
-	public function searchListHotel()
-	{
-		$this->inst()->sortListHotel();
-		$search=st_sidebar_model::inst()->searchHotel();
-		return $search;
-
-	}
+	
 	public function pagePagination()
 	{
 		$paged=st_sidebar_model::inst()->pagePagination();
