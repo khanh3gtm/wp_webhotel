@@ -571,7 +571,7 @@ function __getDataToTable(){
 			}	
 		}
 		$medium_price=ROUND($medium_price/count($arr_room),1);
-		$hotel_point = ROUND($hotel_point/count($arr_room),1);
+		$hotel_point = ROUND($hotel_point/count($arr_room),2);
 
 		$post_args = array(
 			'price'=>$medium_price,

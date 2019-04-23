@@ -431,14 +431,14 @@ $city = homepage::inst()->listCity();
                               <?php if($hotel->have_posts()) : ?>
                                 <?php while($hotel->have_posts()) : $hotel->the_post(); ?>
                                     <?php $s= get_post(get_the_ID());
-
-                                        
+                                    
+                                    
                                   ?>
                                      <div class="last-minute">
                                             <div class="col-xs-6 col-sm6 col-md-3 has-matchHeight">
                                                 <div class="row-content">
                                                     <div class="wpb-content-image">
-                                                        <a href="#">
+                                                        <a href="<?php echo site_url('/'.$s->post_type.'/'.$s->post_name.'/'); ?>">
                                                             <?php the_post_thumbnail(get_the_ID()); ?>
                                                         </a>
                                                         <div class="review-star">
@@ -451,7 +451,7 @@ $city = homepage::inst()->listCity();
                                                     </div>
                                                     <div class="wpb-content-text">
                                                         <div class="wpb-room-name">
-                                                            <a href="#">
+                                                            <a href="<?php  ?>">
 
 
                                                                 <?php the_title(); ?>

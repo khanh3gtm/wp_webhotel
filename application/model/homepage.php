@@ -35,12 +35,12 @@ class homepage_model extends Model
       }
       public function addColumnForPostTable(){
         global $wpdb;
-        $version ='1.1.8';
+        $version ='1.1.9';
         $db_version = get_option('st_post_column');
 
         if($db_version != $version)
         {
-            $sql =" ALTER TABLE {$wpdb->prefix}posts ADD price float, ADD hotel_point float   ";        
+            $sql =" ALTER TABLE {$wpdb->prefix}posts ADD price varchar(10), ADD hotel_point varchar(10)   ";        
             update_option('st_post_column', $version);
             $wpdb->query($sql);
         }
