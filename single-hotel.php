@@ -6,6 +6,7 @@ get_header();
  $hotel = homepage::inst()->__ShowListHotel();
 $listRoom = hoteldetail::inst()->listRoom();
  while(have_posts()){ the_post();
+ 	
 ?>
 <div class="clear"></div>
 	<!--content -->
@@ -272,7 +273,7 @@ $listRoom = hoteldetail::inst()->listRoom();
 												<span class="unit"> /1 night</span>
 											</div>
 
-												<a href="?c=room&a=view&room_id=<?php echo $v['room_id']  ?><?=$start ?>&<?=$end ?><?=$date ?> " class="btn"  style="">SHOW PRICE</a>
+												<a href="<?php echo site_url('/'.$room->post_type.'/'.$room->post_name.'/'); ?>" class="btn"  style="">SHOW PRICE</a>
 										</div>
 									</div>
 								</div>
@@ -323,7 +324,7 @@ $listRoom = hoteldetail::inst()->listRoom();
 											</div>
 											<div class="col-sm-4 " >
 												<div class="price-room"  ><span class="money-price">€<?php echo get_post_meta(get_the_ID(),'st_contact_price_field',true)  ?> </span><span class="unit"> /1 night</span></div>
-												<a  href="?c=room&a=view&room_id=<?php echo $v['room_id']  ?><?=$start ?><?=$end ?><?=$date ?> " class="btn"  style="">ROOM DETAIL</a>
+												<a  href="<?php echo site_url('/'.$room->post_type.'/'.$room->post_name.'/'); ?>" class="btn"  style="">ROOM DETAIL</a>
 											</div>
 										</div>
 									</div>                 
