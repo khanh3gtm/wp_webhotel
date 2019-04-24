@@ -875,12 +875,13 @@ div#cart-info {
 	transition: 0.75s;
 	border-radius: 2px;
 	height: auto;
+	
 }
 .services-grid
 {
 	min-height: 420px;
 }
-.services-grid.wpb-content-image:hover img
+.services-grid .wpb-content-image img:hover
 {
 	transform: scale(1.1);
 	width: 100%;

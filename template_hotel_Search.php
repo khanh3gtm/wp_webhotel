@@ -15,13 +15,14 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 
 
 		<div class="banner st_bn">
-
+			
 			<div class="container">
 				<div class="banner-item">
-
+					
 					<div class="banner-content" >
 						
 						<h1>Search Hotel Popup Map</h1>
+
 						
 					</div>
 
@@ -87,7 +88,7 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 												<div class="dropdown-toggle search-language" id="menu1"
 												data-toggle="dropdown">
 												<?php
-												if (empty($_GET['cityid'])) {
+												if (empty($_GET['cityname'])) {
 													$des = 'Where are you going?';
 												} else {
 													$des = $_GET['cityname'];
@@ -106,7 +107,8 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 
 											$args=array(
 
-													'orderby'=>'count',
+													'orderby'=>'title',
+													'order'=>'ASC',
 													'post_type'=>'hotel',
 													'hide_empty' => true,
 													'fields' => 'all',
@@ -462,7 +464,17 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 
 
 									<div class="col-lg-9 col-md-9 col-sm-12 content-title">
-										<h3><?php //echo $count ?> hotels found</h3>
+										<?php 
+
+											$args= array(
+													'post_status'=>'publish',
+													'post_type'=>'hotel',
+													'posts_per_page'   => -1,
+											);
+										 ?>
+										 <h3><?php $posts = get_posts($args); 
+										 $count = count($posts); 
+										 echo $count;  ?> hotels found</h3>
 									</div>
 									<div class="col-lg-3 layout">
 										<ul>
@@ -626,6 +638,7 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 															<i class="fas fa-heart img heart"></i>
 														</div>
 														<div class="icon-position">
+															
 															<div class="icon-star">
 																<i class="fas fa-star"></i>
 																<i class="fas fa-star"></i>
@@ -633,10 +646,12 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 																<i class="fas fa-star"></i>
 																<i class="fas fa-star"></i>
 															</div>
-
+															
 														</div>
 														<div class="text-position">
+															
 															<button class=" btn btn-primary text">Featured</button>
+															
 														</div>
 														<div class="info">
 
@@ -746,43 +761,36 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 
 
 											<?php
-
+											$sort_list=st_sidebar::inst()->sortListHotel();
+											$list = new WP_Query( $sort_list );
+											if ( $list->have_posts() ) :
+												while( $list->have_post() ) : $list->the_post();
+												  
+												endwhile;
+												wp_reset_postdata();
+												endif;
+												
 											
-											// $get_data = $_GET;
-											// $opt = '';
-											// if(isset($get_data['optradio'])){
-											// 	$opt = '&optradio=' . $get_data['optradio'];
-											// }
-
-											// for ($i = 1;$i <= $total_page;$i++) {
-
-											// 	echo '<li><a href="?c=slidebar&a=view&page='. $i . $opt .'">'. $i .'</a></li>';
-											// }
-											// 
-											//  $paged=st_sidebar::inst()->pagePagination();
-											//  dd($paged);
-
-											// echo paginate_links( $paged );
-											// $sort_list=st_sidebar::inst()->sortListHotel();
-											// $list = new WP_Query( $args );
-											// if ( $list->have_posts() ) :
-											// 	while( $list->have_post() ) : $list->the_post();
-											// 	    the_title(); // Demo output
-											// 	endwhile;
-											// 	wp_reset_postdata();
-											// 	endif;
-											// 	global $wp_query;
+												global $wp_query;
+												$big = 999999999; // need an unlikely integer
+												$translated = __( '', 'shinetheme' ); // Supply translatable string
+												echo paginate_links( array(
+													'base' => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
+													'format' => '?paged=%#%',
+													'current' => max( 1, get_query_var('paged') ),
+													'total' => $list->max_num_pages,
+													'before_page_number' => '<span class="screen-reader-text">'.$translated.' </span>',
+													'prev_text'          => __('<'),
+													'next_text'          => __('>'),
+													
+												) );
 											
-
-											echo the_posts_pagination();
-
 											
-										
 										?>
 
 										
-
-
+							
+									
 
 
 										</ul>
