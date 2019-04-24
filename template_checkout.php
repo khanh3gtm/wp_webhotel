@@ -205,13 +205,6 @@ if (isset($ss)) {
                                 <span class="checkmark fcheckbox"></span>
                                 <br>
                                 <p>
-                                   <?php
-                                   if(!empty($err)){
-                                    foreach ($err as $key => $value) {
-                                        echo $value . '<br />';
-                                       }
-                                    }
-                                   ?>
                                 </p>
                             </label>
                         </div>
@@ -221,7 +214,6 @@ if (isset($ss)) {
                             <label>
                                 <input class="i-check" value="1" name="term_condition" type="checkbox">
                                 <span class="payment-title">I have read and accept the<a target="_blank" href=""> terms and conditions</a> and <a href="#" target="_blank">Privacy Policy</a></span>
-                                
                                 <span class="checkmark fcheckbox"></span>
                             </label>
                         </div>
@@ -347,13 +339,7 @@ if (isset($ss)) {
                                 <span class="checkmark fcheckbox"></span>
                                 <br>
                                 <p>
-                                   <?php
-                                   if(!empty($err)){
-                                    foreach ($err as $key => $value) {
-                                        echo $value . '<br />';
-                                       }
-                                    }
-                                   ?>
+                                  <?php echo $err; ?>
                                 </p>
                             </label>
                         </div>
@@ -367,7 +353,8 @@ if (isset($ss)) {
                 </div>
                 <input type="hidden" name="st_cart" value="">
                 <div class="alert form_alert hidden"></div>
-                <button type="submit" class="btn btn-primary btn-checkout btn-st-checkout-submit btn-st-big " name="checkout_submit">Submit <i class=""></i></button>               </form>
+                <button type="submit" class="btn btn-primary btn-checkout btn-st-checkout-submit btn-st-big " name="checkout_submit">Submit <i class=""></i></button>
+            </form>
         <?php } ?>
         </div>
     </div>

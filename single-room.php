@@ -439,7 +439,11 @@
               <div class="col-md-3 abc"  >
                 <!-- widget -->
                 <form action="" method="post">
+<<<<<<< HEAD
                   <input type="hidden" name="room_id" value="" />
+=======
+                  <input type="hidden" name="room_id" value="<?php echo get_the_ID(); ?>" />
+>>>>>>> 90df0276654b368c2b7d61f99ef8fcb2ee7fdb11
                   <div class="container-fluid widgetroom">
                     <div class="widgets"  >
                       <div class="form-head">
