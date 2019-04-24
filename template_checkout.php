@@ -40,9 +40,7 @@ if (isset($ss)) {
                         <a class="st-link" style="font-size: 12px;" href="#">Edit</a>
                     </span>
                 </li>
-
-                <li class="ad-info">
-                    <ul>
+                    
                         <li><span class="lable_section">Number of Night : </span>
                             <span class="value">
                                 <?php
@@ -59,13 +57,11 @@ if (isset($ss)) {
                                     echo $sl_night;} 
                                 ?>        
                             </span></li>
-                            <li><span class="lable_section">Number of Room : </span>
-                                <span class="value"><?php echo $ss['number_room'] ?></span></li>
+                        <li><span class="lable_section">Number of Room : </span>
+                            <span class="value"><?php echo $ss['number_room'] ?></span>
+                            </li>
                                 <li><span class="lable_section">Number of Adult : </span><span class="value"> <?php echo $ss['number_adult'] ?></span></li>
-                            </ul>
-                        </li>
-                    </ul>
-
+                            </ul>                  
                 </div>
                 <div class="total-section">
                     <ul>
