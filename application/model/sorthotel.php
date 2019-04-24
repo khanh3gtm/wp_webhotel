@@ -13,7 +13,7 @@ class st_sidebar_model extends Model
 		$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 		$args = array(
 			'post_type'=>array('hotel'),
-			 'posts_per_page' => 3,
+			 'posts_per_page' => 6,
 			 'paged' => $paged,
 
 		);
@@ -65,6 +65,10 @@ class st_sidebar_model extends Model
 			);
 				
 			}
+			else if(!isset($_GET['cityname'])&&empty($_GET['cityname']))
+			{
+				return $args;
+			}
 
 		return $args;
 
@@ -72,24 +76,18 @@ class st_sidebar_model extends Model
 
 		
 	}
+
+
+	function wpb_total_posts() { 
+		$total = wp_count_posts('hotel')->publish;
+		return $total; 
+	} 
 	
 		
 			
 
 	
-	public function pagePagination()
-	{
-		
-		$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
-		$args = array(
-											  'post_type' => array('hotel'),
-											  'posts_per_page' => 2,
-											  'paged' => $paged,
-										
-											);
-		return $args;
-
-	}
+	
 	
 	 public static function inst(){
         static $instane;
