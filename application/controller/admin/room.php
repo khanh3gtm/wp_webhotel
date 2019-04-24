@@ -138,10 +138,9 @@ if(!class_exists('ST_Room_Admin')){
 				echo '<img src="'. $data[0] .'" alt="">';
 				break;
 				case 'icon':
-				$icon  =  get_term_meta($term_id, 'social-icon', true);
+				$icon  =  get_term_meta($term_id, 'icon-amenities', true);
 				echo $icon;
 				break;
-				
 			}
 		}
 		public function add_category_image () { ?>
@@ -152,55 +151,13 @@ if(!class_exists('ST_Room_Admin')){
 			<?php
 		}
 		
-		public function add_script() { ?>
-			<script>
-				jQuery(document).ready( function($) {
-					function ct_media_upload(button_class) {
-						var _custom_media = true,
-						_orig_send_attachment = wp.media.editor.send.attachment;
-						$('body').on('click', button_class, function(e) {
-							var button_id = '#'+$(this).attr('id');
-							var send_attachment_bkp = wp.media.editor.send.attachment;
-							var button = $(button_id);
-							_custom_media = true;
-							wp.media.editor.send.attachment = function(props, attachment){
-								if ( _custom_media ) {
-									$('#category-image-id').val(attachment.id);
-									$('#category-image-wrapper').html('<img class="custom_media_image" src="" style="margin:0;padding:0;max-height:100px;float:none;" />');
-									$('#category-image-wrapper .custom_media_image').attr('src',attachment.url).css('display','block');
-								} else {
-									return _orig_send_attachment.apply( button_id, [props, attachment] );
-								}
-							}
-							wp.media.editor.open(button);
-							return false;
-						});
-					}
-					ct_media_upload('.ct_tax_media_button.button'); 
-					$('body').on('click','.ct_tax_media_remove',function(){
-						$('#category-image-id').val('');
-						$('#category-image-wrapper').html('<img class="custom_media_image" src="" style="margin:0;padding:0;max-height:100px;float:none;" />');
-					});
-     
-     $(document).ajaxComplete(function(event, xhr, settings) {
-     	var queryStringArr = settings.data.split('&');
-     	if( $.inArray('action=add-tag', queryStringArr) !== -1 ){
-     		var xml = xhr.responseXML;
-     		$response = $(xml).find('term_id').text();
-     		if($response!=""){
-    
-           $('#category-image-wrapper').html('');
-       }
-   }
-});
- });
-</script>
-<?php }
+		
 public function save_category_image($term_id){
-	if( isset($_POST['st_icon_amen']) && !empty($_POST['icon-amenities'])){
+	if( isset($_POST['st_icon_amen'])){
 		$icon = $_POST['st_icon_amen'];
 		add_term_meta($term_id, 'icon-amenities', $icon);
 	}
+	var_dump($_POST);die;
 }
 public function update_category_image ( $term, $amenities ) { ?>
 	<tr class="form-field term-group-wrap">
@@ -208,6 +165,7 @@ public function update_category_image ( $term, $amenities ) { ?>
 			<label for="category-image-id"><?php _e( 'Image', 'shinetheme' ); ?></label>
 		</th>
 		<td>
+			<?php $icon = get_term_meta($term -> term_id, 'icon-amenities', true); ?>
 			<?php $image_id = get_term_meta ( $term -> term_id, 'category-image-id', true ); ?>
 			<!--Lay gia tri hien tai</!-->
 			<input type="hidden" id="category-image-id" name="category-image-id" value="<?php echo $image_id; ?>">
@@ -223,11 +181,12 @@ public function update_category_image ( $term, $amenities ) { ?>
 				<input type="button" class="button button-secondary ct_tax_media_remove" id="ct_tax_media_remove" name="ct_tax_media_remove" value="<?php _e( 'Remove Image', 'shinetheme' ); ?>" />
 			</p>
 		</td>
+		<?php  ?>
 		<th scope="row">
 			<label for="category-image-id"><?php _e( 'Icon', 'shinetheme' ); ?></label>
 			<input type="hidden" id="icon-amenities" name="icon-amenities" value="">
 			<div class="form-control">
-				<input type="text" class="social-icon" id="social-icon" name="st_icon_amen" value="Add Icon">
+				<input type="text" class="social-icon" id="social-icon" name="st_icon_amen" value="<?php echo $icon;?>">
 			</div>
 		</th>
 	</tr>
@@ -547,11 +506,11 @@ update_post_meta($post_id, 'st_contact_star_field', $star);
 // 	}
 // }
 function webhotel(){
-	wp_register_style('fontawesome','https://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css','all');
-	wp_register_style('fontawesome1', 'https://use.fontawesome.com/releases/v5.0.8/css/all.css');
+	wp_enqueue_style('fontawesome','https://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css','all');
+	wp_enqueue_style('fontawesome1', 'https://use.fontawesome.com/releases/v5.0.8/css/all.css');
 	wp_enqueue_style('font-css', get_stylesheet_directory_uri() . '/CSS/fontawesome-iconpicker.css', 'all');
-	wp_register_script('fontawesome2', 'http://code.jquery.com/jquery-2.2.1.min.js', 'all');
-	wp_register_script('fontawesome3', 'http://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js', 'all');
+	wp_enqueue_script('fontawesome2', 'http://code.jquery.com/jquery-2.2.1.min.js', 'all');
+	wp_enqueue_script('fontawesome3', 'http://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js', 'all');
 	wp_enqueue_script('st-js', get_stylesheet_directory_uri() . '/js/fontawesome-iconpicker.js', 'all');
 }
 
