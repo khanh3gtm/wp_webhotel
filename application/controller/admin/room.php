@@ -34,6 +34,20 @@ if(!class_exists('ST_Room_Admin')){
 
 			<script type="text/javascript">
 				$('.social-icon').iconpicker();
+
+				$('.iconpicker-item').click(function(e){
+					e.preventDefault();
+				})
+				
+
+					// var idi = [];
+					// $('.icon-amenities').each(function() {
+					// 	var iconID = $(this).data('id');
+     //                	if(!idi.includes(iconID)){
+     //                		idi.push(iconID);
+     //                	}
+					// });
+				
 				$('.st-upload1').each(function (e) {
 					var t = $(this);
 					var parent = t.closest('.st-upload-gallery1');
@@ -123,21 +137,17 @@ if(!class_exists('ST_Room_Admin')){
 				$data = wp_get_attachment_image_src($image, 'thumbnail');
 				echo '<img src="'. $data[0] .'" alt="">';
 				break;
+				case 'icon':
+				$icon  =  get_term_meta($term_id, 'social-icon', true);
+				echo $icon;
+				break;
 				
 			}
 		}
 		public function add_category_image () { ?>
 			<div class="form-field term-group">
-				<label for="category-image-id"><?php _e('Image', 'shinetheme'); ?></label>
-				<input type="hidden" id="category-image-id" name="category-image-id" class="custom_media_url" value="">
-				<div class="form-control">
-					<input type="text" class="social-icon" id="social-icon" name="st_icon_amen" value="Add Icon">
-				</div>
-				<div id="category-image-wrapper"></div>
-				<p>
-					<input type="button" class="button button-secondary ct_tax_media_button" id="ct_tax_media_button" name="ct_tax_media_button" value="<?php _e( 'Add Image', 'shinetheme' ); ?>" />
-					<input type="button" class="button button-secondary ct_tax_media_remove" id="ct_tax_media_remove" name="ct_tax_media_remove" value="<?php _e( 'Remove Image', 'shinetheme' ); ?>" />
-				</p>
+				<label for="category-image-id"><?php _e('Icon', 'shinetheme'); ?></label>				
+				<input type="text" class="social-icon" id="social-icon" name="st_icon_amen" value="" autocomplete="off">
 			</div>
 			<?php
 		}
@@ -171,14 +181,14 @@ if(!class_exists('ST_Room_Admin')){
 						$('#category-image-id').val('');
 						$('#category-image-wrapper').html('<img class="custom_media_image" src="" style="margin:0;padding:0;max-height:100px;float:none;" />');
 					});
-     // Thanks: http://stackoverflow.com/questions/15281995/wordpress-create-category-ajax-response
+     
      $(document).ajaxComplete(function(event, xhr, settings) {
      	var queryStringArr = settings.data.split('&');
      	if( $.inArray('action=add-tag', queryStringArr) !== -1 ){
      		var xml = xhr.responseXML;
      		$response = $(xml).find('term_id').text();
      		if($response!=""){
-           // Clear the thumb image
+    
            $('#category-image-wrapper').html('');
        }
    }
@@ -187,11 +197,9 @@ if(!class_exists('ST_Room_Admin')){
 </script>
 <?php }
 public function save_category_image($term_id){
-	if( isset( $_POST['category-image-id'] ) && '' !== $_POST['category-image-id'] ){
-		$image = $_POST['category-image-id'];
-		add_term_meta ( $term_id, 'category-image-id', $image );
-	} else {
-		add_term_meta ( $term_id, 'category-image-id', '' );
+	if( isset($_POST['st_icon_amen']) && !empty($_POST['icon-amenities'])){
+		$icon = $_POST['st_icon_amen'];
+		add_term_meta($term_id, 'icon-amenities', $icon);
 	}
 }
 public function update_category_image ( $term, $amenities ) { ?>
@@ -203,16 +211,25 @@ public function update_category_image ( $term, $amenities ) { ?>
 			<?php $image_id = get_term_meta ( $term -> term_id, 'category-image-id', true ); ?>
 			<!--Lay gia tri hien tai</!-->
 			<input type="hidden" id="category-image-id" name="category-image-id" value="<?php echo $image_id; ?>">
+			
 			<div id="category-image-wrapper">
 				<?php if ( $image_id ) { ?>
 					<?php echo wp_get_attachment_image ( $image_id, 'thumbnail' ); ?>
 				<?php } ?>
 			</div>
+			
 			<p>
 				<input type="button" class="button button-secondary ct_tax_media_button" id="ct_tax_media_button" name="ct_tax_media_button" value="<?php _e( 'Add Image', 'shinetheme' ); ?>" />
 				<input type="button" class="button button-secondary ct_tax_media_remove" id="ct_tax_media_remove" name="ct_tax_media_remove" value="<?php _e( 'Remove Image', 'shinetheme' ); ?>" />
 			</p>
 		</td>
+		<th scope="row">
+			<label for="category-image-id"><?php _e( 'Icon', 'shinetheme' ); ?></label>
+			<input type="hidden" id="icon-amenities" name="icon-amenities" value="">
+			<div class="form-control">
+				<input type="text" class="social-icon" id="social-icon" name="st_icon_amen" value="Add Icon">
+			</div>
+		</th>
 	</tr>
 	<?php
 }

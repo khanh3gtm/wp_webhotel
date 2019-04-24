@@ -215,6 +215,7 @@
                            <?php
                            $name_amenities = get_the_terms($post->ID, 'amenities');
                            // dd($name_amenities);die;
+
                            if(!empty($name_amenities)){
                       
                             foreach ($name_amenities as $values){
@@ -438,18 +439,15 @@
               <div class="col-md-3 abc"  >
                 <!-- widget -->
                 <form action="" method="post">
-                  <input type="hidden" name="room_id" value="<?php echo '1815'; ?>" />
+                  <input type="hidden" name="room_id" value="" />
                   <div class="container-fluid widgetroom">
                     <div class="widgets"  >
                       <div class="form-head">
-                        from
+                        from <span class="price">
                         <?php
                           $price = get_post_meta(get_the_ID(), 'st_contact_price_field', true);
                           echo $price;
-                        ?>
-
-                       
-                        <!--  <input type="hidden" name="room_id" value="<?php $values['room_id'] ?>" > -->
+                        ?></span>
                         <span class="unit">/night</span>
                       </div>
                       <div class="row">
