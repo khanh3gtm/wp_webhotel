@@ -7,7 +7,8 @@ class st_sidebar extends Controller
 	{
 		parent::__construct();
 		//add_action('init',array($this,'sortListHotel'));
-		//add_action('init',array($this,'searchListHotel'));	
+		//add_action('init',array($this,'searchListHotel'));
+		add_shortcode('total_posts','wpb_total_posts');	
 	}
 
 	public function startInjectSQLQuery(){
@@ -42,39 +43,13 @@ class st_sidebar extends Controller
 
 
 	} 
-	
-	public function pagePagination()
+	public function wpb_total_posts()
 	{
-		$paged=st_sidebar_model::inst()->pagePagination();
-		return $paged;
+		$total=st_sidebar_model::inst()->wpb_total_posts();
+		return $total;
 	}
-
-	// public function getArgsSearchHotel(){
-	// 	$args = array(
-	// 		'post_type'=>'hotel',
-	// 		'posts_per_page'=>'-1'
-	// 	);
-
-	// 	if(isset($_GET['optradio'])){
-	// 		switch ($_GET['optradio']) {
-	// 			case 'name_az':
-	// 				$args['orderby'] = 'title';
-	// 				$args['order'] = 'ASC';
-	// 				break;
-	// 			case 'name_za':
-	// 				$args['orderby'] = 'title';
-	// 				$args['order'] = 'DESC';
-	// 				break;
-				
-	// 			default:
-	// 				# code...
-	// 				break;
-	// 		}
-	// 	}
-
-	// 	return $args;
-	// }
-
+	
+	
 	public static function inst(){
  			static $instane;
  			if(is_null($instane)){
