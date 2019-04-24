@@ -16,6 +16,7 @@ if(!class_exists('ST_Room_Admin')){
 			add_action('amenities_edit_form_fields', array ( $this, 'update_category_image' ), 10, 2 );
 			add_action('edited_amenities', array ($this, 'updated_category_image' ), 10, 2 );
 			add_action('admin_enqueue_scripts', array( $this, 'load_media' ) );
+			add_action('admin_enqueue_scripts', array($this, 'webhotel'));
 			add_action('admin_footer', array ( $this, 'add_script' ) );
 			add_action('admin_footer', array ( $this, 'upload_image_meta_box' ) );
 
@@ -32,6 +33,7 @@ if(!class_exists('ST_Room_Admin')){
 			?>
 
 			<script type="text/javascript">
+				$('.social-icon').iconpicker();
 				$('.st-upload1').each(function (e) {
 					var t = $(this);
 					var parent = t.closest('.st-upload-gallery1');
@@ -106,6 +108,7 @@ if(!class_exists('ST_Room_Admin')){
 			$columns = array();
 			$columns['name'] = __('Name');
 			$columns['image'] = __('Image');
+			$columns['icon'] = ('Icon');
 			$columns['description'] = __('Description');
 			$columns['slug'] = __('Slug');
 
@@ -127,6 +130,9 @@ if(!class_exists('ST_Room_Admin')){
 			<div class="form-field term-group">
 				<label for="category-image-id"><?php _e('Image', 'shinetheme'); ?></label>
 				<input type="hidden" id="category-image-id" name="category-image-id" class="custom_media_url" value="">
+				<div class="form-control">
+					<input type="text" class="social-icon" id="social-icon" name="st_icon_amen" value="Add Icon">
+				</div>
 				<div id="category-image-wrapper"></div>
 				<p>
 					<input type="button" class="button button-secondary ct_tax_media_button" id="ct_tax_media_button" name="ct_tax_media_button" value="<?php _e( 'Add Image', 'shinetheme' ); ?>" />
@@ -523,6 +529,14 @@ update_post_meta($post_id, 'st_contact_star_field', $star);
 // 		echo '<li>' . get_the_title() . '</li>';
 // 	}
 // }
+function webhotel(){
+	wp_register_style('fontawesome','https://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css','all');
+	wp_register_style('fontawesome1', 'https://use.fontawesome.com/releases/v5.0.8/css/all.css');
+	wp_enqueue_style('font-css', get_stylesheet_directory_uri() . '/CSS/fontawesome-iconpicker.css', 'all');
+	wp_register_script('fontawesome2', 'http://code.jquery.com/jquery-2.2.1.min.js', 'all');
+	wp_register_script('fontawesome3', 'http://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js', 'all');
+	wp_enqueue_script('st-js', get_stylesheet_directory_uri() . '/js/fontawesome-iconpicker.js', 'all');
+}
 
 
 public static function inst(){

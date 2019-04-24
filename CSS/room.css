@@ -10,6 +10,9 @@ body
 	font-family: 'Poppins';
 
 }
+.banner {
+	background-color: blue;
+}
 .widgetroom {
     margin-top: 33px;
 }
