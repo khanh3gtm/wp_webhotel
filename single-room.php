@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-
+<?php wp_enqueue_script('backend-style',get_stylesheet_directory_uri() . '/room.css','all'); ?>
   <div id="st-content-wrapper">
     <div class="st-breadcrumb">
       <div class="container">
@@ -7,6 +7,9 @@
           <li><a href="">Home</a></li>
           <li><a href="">United States</a></li>
           <li>
+            <?php $hotel = get_post_meta(get_the_ID(), 'st_contact_hotel_field', true);
+            $res_hotel = get_the_title($hotel);
+            echo $res_hotel; ?>
             <!-- <?php 
             if(!empty($data_hotel)){
               ?>
@@ -30,34 +33,23 @@
 
              ?> -->
           </li>
+          <li class="active">
           <?php $query = get_post(get_the_ID());
           $title = apply_filters('the_title', $query->post_title);
           echo $title; ?>
+          </li>
         </ul>
       </div>
     </div>
     <div class="clear"></div>
     <!-- slide -->
-    <?php
-    if(!empty($data_room)){
-      ?>
-            <!-- <tr>
-                <th>ID</th>
-                <th>Room</th>
-              </tr> -->
-              <?php
-              foreach ($data_room as $values){
-                ?>
-                <div class="container-fuild">
-                  <div class="banner" 
-                  style="background: url('<?php echo $values['room_images']; ?>');min-height: 355px;background-size: cover;background-position: center;background-repeat: no-repeat;">
-
-                </div>
-              </div>
-              <?php
-            }?>
-          <?php } ?>
-
+    <div class="container-fuild">
+      <div class="banner">
+        <?php $image_banner = get_post_meta(get_the_ID(), '_thumbnail_id', true);
+        $res_banner = wp_get_attachment_image_url($image_banner, 'full');
+        echo '<img src="'. $res_banner .'" alt="">'; ?>
+      </div>
+    </div>
 
           <!-- slide -->
           <div class="container">
@@ -77,7 +69,12 @@
                 <div class="row">
                   <div class="col-md-12 col-sm-10 col-xs-12">
                     <div class="double-room">
-                      <h2 class="st-heading"><?php echo $values['room_name']; ?></h2>
+                      <h2 class="st-heading">
+                        <?php $query = get_post(get_the_ID());
+                        $title = apply_filters('the_title', $query->post_title);
+                        echo $title; ?>
+                          
+                      </h2>
                       <div class="sub-heading">
                         <i class="fas fa-map-marker-alt"></i><span> Hotel :    
                           <?php
@@ -108,28 +105,29 @@
                         <div class="col-md-3 col-xs-6">
                           <div class="icon">
                             <i class="fa fa-plus-square-o" aria-hidden="true"></i>
-                            
+                            <p>Superficies: 
                             <?php 
                               $superficies = get_post_meta(get_the_ID(), 'st_contact_superficies_field', true);
                               echo $superficies; 
                             ?>
-                            
+                            </p>
                           </div>
                         </div>
                         <div class="col-md-3 col-xs-6">
                           <div class="icon">
                             <i class="fa fa-bed" aria-hidden="true"></i>
+                            <p>Beds: 
                             <?php 
                               $beds = get_post_meta(get_the_ID(), 'st_contact_bed_field', true);
                               echo $beds; 
                             ?>
-
+                            </p>
                           </div>
 
                         </div>
                         <div class="col-md-3 col-xs-6">
                           <div class="icon">
-                            <i class="fa fa-venus-double" aria-hidden="true"></i><p> 
+                            <i class="fa fa-venus-double" aria-hidden="true"></i><p>Adult: 
                             <?php $adult = get_post_meta(get_the_ID(), 'st_contact_adult_field', true);
                               echo $adult;
                              ?>
@@ -138,11 +136,13 @@
                           <div class="col-md-3 col-xs-6">
                             <div class="icon">
                               <i class="fa fa-child" aria-hidden="true"></i>
+                              <p>Children: 
                               <?php
 
                                 $children = get_post_meta(get_the_ID(), 'st_contact_children_field', true);
                                 echo $children;
                               ?>
+                              </p>
                             </div>
                           </div>
                         </div>
@@ -198,7 +198,9 @@
                      <?php $data = get_post(1852);
                     dd($data); ?>
                     <?php $data1 = get_post_meta(1852);
-                    dd($data1); ?>
+                    dd($data1); 
+                    $data2 = get_term(215);
+                    dd($data2); ?>
                   <a href="#"><span class="text">View more</span></a>
                   <!-- end description -->
                   <hr >
@@ -211,22 +213,21 @@
                         <div class="container-fuild">
                           <div class="row">
                            <?php
-                           if(!empty($data_amenities)){
-                            ?>
-                            <?php
-                            foreach ($data_amenities as $values){
+                           $name_amenities = get_the_terms($post->ID, 'amenities');
+                           // dd($name_amenities);die;
+                           if(!empty($name_amenities)){
+                      
+                            foreach ($name_amenities as $values){
                               ?>
                               <div class="col-xs-6 col-sm-6 col-md-4 fac">
-                                <i class="fa <?php echo $values['service_icon']; ?>"></i>
-                                <p><?php echo $values['service']; ?></p>
-
+                                
+                                <p><?php echo $values->name; ?></p>
                               </div> 
                               <?php
-                            //dd($data_amenities);
+
                             }?>
                           <?php } ?> 
-                          <!-- <?php $res = get_post(1852);
-                              dd($res); ?> -->
+
                         </div>
 
                       </div>
@@ -437,7 +438,7 @@
               <div class="col-md-3 abc"  >
                 <!-- widget -->
                 <form action="" method="post">
-                  <input type="hidden" name="room_id" value="<?php echo '1815'; ?>" />
+                  <input type="hidden" name="room_id" value="<?php echo get_the_ID(); ?>" />
                   <div class="container-fluid widgetroom">
                     <div class="widgets"  >
                       <div class="form-head">

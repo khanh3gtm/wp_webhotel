@@ -7,6 +7,7 @@ get_header();
 $listRoom = hoteldetail::inst()->listRoom();
  while(have_posts()){ the_post();
  	
+
 ?>
 <div class="clear"></div>
 	<!--content -->
