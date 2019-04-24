@@ -357,7 +357,22 @@ public function updated_location_image ( $term_id) {
 }
 
 
-
+	//create metabox featured
+	function featured_meta_box()
+	{
+		add_meta_box( 'featured-hotel-info','featured-hotel' , 'featured_hotel_output','hotel');
+	}
+	function featured_hotel_output()
+	{
+		wp_nonce_field( 'featured_hotel_save','feature_hotel_meta_box' );
+		$featured= get_post_meta( get_the_ID(), '_featured', true );
+		?>
+		<p>
+			<label for="featured">Featured Hotel:</label>
+			<input type="checkbox" name="featured" value="<?php  echo $featured;?>">
+		</p>
+		<?php
+	}
 	//create metabox of hotel
 	 function hotel_meta_box(){
 		add_meta_box('hotel-info','Hotel Information',[$this,'hotel_info_output'],'hotel');

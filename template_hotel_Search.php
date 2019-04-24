@@ -628,9 +628,10 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 																 <a href="<?php echo site_url('/'.$id_location->post_type.'/'.$id_location->post_name.'/'); ?>">
 																 	<?php
 																echo get_the_post_thumbnail(get_the_ID(),array( 256, 256));
-																
+																?>
+																</a>
 
-															?>
+															
 															</div>
 														<br/>
 														</div>
@@ -654,10 +655,12 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 															
 														</div>
 														<div class="info">
+															<a href="<?php echo site_url('/'.$id_location->post_type.'/'.$id_location->post_name.'/'); ?>">
+																<?= get_the_title(); ?>
+															</a>
+															<br/>
 
-															<a href="?c=detailhotel&a=view&hotel_id=<?php echo $value['hotel_id'] ?>"><?= get_the_title(); ?> </a><br/>
-
-
+																
 															<div class="wpb-slidebar-adress">
 																
 															<p class="service-location">

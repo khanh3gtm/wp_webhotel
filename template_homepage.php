@@ -35,7 +35,7 @@ $city = homepage::inst()->listCity();
 
                                     <div class="seach-form">
                                         <div class="row">
-                                         <form action="<?php echo get_permalink(( get_page_by_path( 'hotel_search' ) )); ?>" method="GET">  
+                                         <form action="<?php echo get_permalink(( get_page_by_path( 'hotel-search' ) )); ?>" method="GET">  
                                             <div class="col-md-3 border-right">
                                                 <div class="form-group form-extra-field dropdown clearfix field-detination has-icon">
                                                     <i class="fas fa-map-marker-alt search-form-checkIcon"></i>
