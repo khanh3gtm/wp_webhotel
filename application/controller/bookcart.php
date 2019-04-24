@@ -84,7 +84,7 @@ class bookcart extends Controller {
 	 		$page_id = '1801';
 	 		$page_link = get_the_permalink($page_id);// lấy đường dẫn theo page id
 	 		$page_link = add_query_arg('bill_id', $my_id, $page_link); //thêm query string vào sau đường dẫn.
-	 		dd($page_link);
+	 		dd($page_link);die;
 	 		if(isset($_POST['checkout_submit'])){
 	 			dd($page_link);
 	 			wp_redirect($page_link);//chuyển trang

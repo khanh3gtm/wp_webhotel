@@ -394,11 +394,11 @@ public function updated_location_image ( $term_id) {
 			 		}
 			 	}
 			 	?>
-			 	
+			 	</div>
 			 	<br>
 		 		<input type="button" class="st-upload"  value="Add Image">
 		 		<input type="button" name="" class="" value="Delete Image">
-				</div>
+				
 	 		</div>
 	 	</p>
 	 

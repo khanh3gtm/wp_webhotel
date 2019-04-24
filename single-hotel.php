@@ -1,6 +1,13 @@
 <?php  
 
 get_header();
+
+
+ $hotel = homepage::inst()->__ShowListHotel();
+$listRoom = hoteldetail::inst()->listRoom();
+ while(have_posts()){ the_post();
+ 	echo  get_permalink('132');die;
+
 ?>
 <div class="clear"></div>
 	<!--content -->
@@ -10,12 +17,12 @@ get_header();
 				<ul>
 					<li><a href="?c=homepage&a=view">Home</a></li>
 					<li><a href="#">United States</a></li>
-					
-					<li class="active"> city name</li> 
-				
-					
-					<li class="active">cityname</li> 
-				
+					<li class="active"> <?php 
+						$location =get_the_terms(get_the_ID(),'location');
+						echo $location[0]->name;
+						?>		 	
+					</li> 
+					<li class="active"><?php The_title(); ?></li> 
 				</ul>
 			</div>
 		</div>
@@ -24,11 +31,9 @@ get_header();
 			<!-- st-content-hotel -->
 			<div class="st-hotel-content">
 				<div class="hotel-target-book-mobile" >
-					
 					<div class="price-wrapper">
-						from <span class="price">€ hotel_price</span>                        
+						from <span class="price">€ <?php echo get_post(get_the_ID())->price; ?></span>                        
 					</div>
-				
 					<a href="" class="btn btn-green">Check Availability</a>
 				</div>
 			</div>
@@ -43,13 +48,12 @@ get_header();
 						<i class="fa fa-star"></i>
 						<i class="fa fa-star"></i>
 					</div>
-					 
-					<h2 class="st-heading"> hotel_name</h2>
-                 
+					<h2 class="st-heading"><?php The_title(); ?></h2>
 					<div class="sub-heading">
-						
-							<i class="fas fa-map-marker-alt"></i>Hà Nội,Việt Nam
-					
+							<i class="fas fa-map-marker-alt"></i><?php 
+							$location =get_the_terms(get_the_ID(),'location');
+							echo $location[0]->name.", ".$location[1]->name;
+							 ?>
 					</div>
 				</div>
 				<div class="right">
@@ -60,9 +64,7 @@ get_header();
 								<span class="text-rating">from 2 reviews</span>
 							</div>
 							<div class="score">
-								
-								4.5<span>/5</span>
-								
+								<?php echo get_post(get_the_ID())->hotel_point; ?><span>/5</span>
 							</div>
 						</div>
 						<div class="foot">
@@ -75,31 +77,38 @@ get_header();
 			<div class="clear"></div>
 			<div class="row">
 				<div class="col-xs-12 col-md-9">
+
 					<!-- slide -->
 					<div class="slidehotel">
+						<?php 
+						$hotel_image = get_post_meta(get_the_ID(),'_hotel_image',true);
+						$url = explode(',',$hotel_image);
+						
+						 ?>
 						<div class="fotorama "
 						data-nav="thumbs" data-thumbwidth="135px" data-thumbheight="135px" data-fit="none" data-width="870px" data-height="500px" data-allowfullscreen="native" data-thumbfit="cover" data-thumbmargin="8" >
-						<a href="libs/Images/khanh1.jpg"><img src="<?php echo get_template_directory_uri() ?>/application/libs/Images/khanh1.jpg"  width="135px" height="135px"></a>
-						<a href="libs/Images/khanh2.jpg"><img src="<?php echo get_template_directory_uri() ?>/application/libs/Images/khanh2.jpg"  width="135px" height="135px"></a>
-						<a href="libs/Images/khanh3.jpg"><img src="<?php echo get_template_directory_uri() ?>/application/libs/Images/khanh3.jpg"  width="135px" height="135px"></a>
-						<a href="libs/Images/khanh4.jpg"><img src="<?php echo get_template_directory_uri() ?>/application/libs/Images/khanh4.jpg"  width="135px" height="135px"></a>
-						<a href="libs/Images/khanh5.jpg"><img src="<?php echo get_template_directory_uri() ?>/application/libs/Images/khanh5.jpg"  width="135px" height="135px"></a>
-						<a href="libs/Images/khanh6.jpg"><img src="<?php echo get_template_directory_uri() ?>/application/libs/Images/khanh6.jpg"  width="135px" height="135px"></a>
+						<?php 
+
+						if(!empty($url)){
+							foreach ($url as $key => $value) {
+								$url_hotel_image = wp_get_attachment_image_url($value,[870,500]);
+								
+								echo '<img class="img-responsive" src="'. $url_hotel_image .'">';
+							}
+						}
+
+						 ?>
 					</div>
 					</div>
 					<!-- end slide -->
 					<hr style="width: 100%;">
 					<!-- description -->
 					<div>
-						<h2 class="st-heading-section">Descripton
+						<h2 class="st-heading-section">Description
 							<i class="fa fa-angle-down down-icon" aria-hidden="true" ></i>
 						</h2>
 						<div class="st-description" data-toggle-section="st-description" data-show-all="st-description" data-height="120"  >
-							
-							
-							<p class="more-content">hotel_description</p>
-							
-
+							<p class="more-content"><?php echo nl2br(get_the_content()); ?></p>
 								<div class="cut-gradient"></div>
 								<div class="showmore_des" >
 									Show All 
@@ -126,8 +135,7 @@ get_header();
 									<?php foreach ($data_fac as $val) {?>
 									<div class="col-xs-4  fac" " >
 										
-										<i class="fa <?php echo $val['service_icon']; ?> " aria-hidden="true"></i>  <?php echo $val['service']; ?>
-                                      
+										<i class="fa <?php echo $val['service_icon']; ?> " aria-hidden="true"></i>  <?php echo $val['service']; ?>     
 									</div>
 										  <?php } ?>			
 								</div>
@@ -137,8 +145,7 @@ get_header();
 								<div class="showmore" >
 									Show All
 								</div> 
-							<?php } ?>
-							
+							<?php } ?>	
 							</div>	
 						</div>
 					</div>
@@ -170,8 +177,6 @@ get_header();
 								</div>
 								<div class="col-md-8 col-xs-8" id="rules">
 									<h4>What kind of foowear is most suitable ?</h4>
-									
-									
 									<div class="more_content_rule">
 										<p>Morbi mollis vestibulum sollicitudin. Nunc in eros a justo facilisis rutrum. Aenean id ullamcorper libero. Vestibulum imperdiet nibh vel magna lacinia ultrices. Sed id interdum urna. Nam ac elit a ante commodo tristique. Duis lacus urna, </p>
 										<p>
@@ -189,28 +194,23 @@ get_header();
 									Show All 
 								</div>								
 								</div>
-
 							</div>
 						</div>
 					</div>
 					<!-- end rules -->
 					<hr style="width: 100%;">
-
 					<!-- room -->
 					<!-- Start Manh -->
 					<?php
 					$get_data = $_GET;
-
 					$start='';
 					$end='';
 					$date = '';
-
 					if(isset($get_data['start'])){
 						$start = "&start=" .  $get_data['start'];
 					}else{
 						$start ="";
 					}
-
 					if(isset($get_data['end'])){
 						$end = "&end=" .  $get_data['end'];
 					}
@@ -223,7 +223,6 @@ get_header();
 					else{
 						$date ="";
 					}
-
 					?>
 					<!-- end Manh -->
 					<!-- start Hoa -->
@@ -232,52 +231,56 @@ get_header();
 							<i  class="fa fa-angle-down down-icon2" aria-hidden="true" ></i>
 						</h2>
 						<div class="container-fluid roomsm">
-							<?php foreach ($data_room as $v) {
-								
-							 ?>
+							<?php if($listRoom->have_posts()): ?>
+								<?php while($listRoom->have_posts()) : $listRoom->the_post(); 
+									?>
+									<?php $room = get_post(get_the_ID()); ?>
+									
 							<div class="row sheration">
 								<div class="col-xs-12 col-md-4 images">
 									<div class="image">
-										<img src=" <?php echo $v['room_images'] ?> "  class="img-responsive ">
+										<?php echo get_the_post_thumbnail(get_the_ID(),[680,500],array('class'=>'img-responsive'));
+									 ?>
 									</div>
 								</div>
 								<div class="col-xs-12 col-md-8">
-									<h2 ><a href="?c=room&a=view&room_id=<?php echo $v['room_id']  ?><?=$start ?>&<?=$end ?><?=$date ?> "><?php echo $v['room_name'] ?></a></h2>
+									<h2 ><a href="<?php echo site_url('/'.$room->post_type.'/'.$room->post_name.'/'); ?> "><?php the_title(); ?></a></h2>
 									<div class="row">
 										<div class="col-xs-12 col-md-8 inf" >
 											<div class="col-xs-2">
 												<i class="fas fa-square" aria-hidden="true"></i>
 												<br>
-												<span><?php echo $v['size'];  ?>m<sup>2</sup></span>
+												<span><?php echo get_post_meta(get_the_ID(),'st_contact_superficies_field',true) ?>m<sup>2</sup></span>
 											</div>
 											<div class="col-xs-2">
 												<i class="fa fa-bed" aria-hidden="true"></i>
 												<br>
-												<span>x<?php echo $v['bed'];  ?></span>
+												<span class="aminities_room">x<?php echo get_post_meta(get_the_ID(),'st_contact_bed_field',true) ?></span>
 											</div>
 											<div class="col-xs-2">
 												<i class="fa fa-venus-double" aria-hidden="true"></i>
 												<br>
-												<span>x<?php echo $v['people'];  ?></span>
+												<span class="aminities_room">x<?php echo get_post_meta(get_the_ID(),'st_contact_adult_field',true) ?></span>
 											</div>
 											<div class="col-xs-2">
 												<i class="fa fa-child" aria-hidden="true"></i>
 												<br>
-												<span>x<?php echo $v['people'];  ?></span>
+												<span class="aminities_room">x<?php echo get_post_meta(get_the_ID(),'st_contact_children_field',true) ?></span>
 											</div>
 										</div>
 										<div class="col-xs-12 col-md-4 ">
 											<div class="price-room"  >
-												<span class="money-price">€<?php echo $v['price']; ?> </span>
+												<span class="money-price">€<?php echo get_post_meta(get_the_ID(),'st_contact_price_field',true) ?></span>
 												<span class="unit"> /1 night</span>
 											</div>
 
-												<a href="?c=room&a=view&room_id=<?php echo $v['room_id']  ?><?=$start ?>&<?=$end ?><?=$date ?> " class="btn"  style="">SHOW PRICE</a>
+												<a href="<?php echo site_url('/'.$room->post_type.'/'.$room->post_name.'/'); ?>" class="btn"  style="">SHOW PRICE</a>
 										</div>
 									</div>
 								</div>
 							</div>
-							<?php } ?>
+							<?php endwhile; ?>
+						<?php endif; ?>
 						</div>
 					</div>
 					<!--  -->
@@ -286,54 +289,51 @@ get_header();
 							<i class="fa fa-angle-down down-icon2" aria-hidden="true" ></i>
 						</h2>
 						<div class="roomlg">
-							<?php foreach ($data_room as$v) {
-								
-							 ?>
+							<?php if($listRoom->have_posts()): ?>
+								<?php while($listRoom->have_posts()) : $listRoom->the_post(); ?>
+									<?php $room = get_post(get_the_ID());?>
 							<div class="row sheration"  >
-								<div class="col-sm-4 edit" ><img src=" <?php echo $v['room_images'] ?> " class="img-responsive "   alt=""></div>
+								<div class="col-sm-4 edit" >
+									<?php echo get_the_post_thumbnail(get_the_ID(),[252,243],array('class'=>'img-responsive'));
+									 ?>
+								</div>
 								<div class="col-sm-8">
 									<div >
-										
-										
-										<h2 ><a href="?c=room&a=view&room_id=<?php echo $v['room_id']  ?><?=$start ?><?=$end ?><?=$date ?> "><?php echo $v['room_name'] ?></a></h2>
+										<h2 ><a href="<?php echo site_url('/'.$room->post_type.'/'.$room->post_name.'/'); ?>"><?php the_title(); ?></a></h2>
 										<div class="row" class="">
 											<div class="col-sm-8">
 												<div class="col-sm-2">
 													<i class="fa fa-square" aria-hidden="true"></i>
 													<br>
-													<span><?php echo $v['size'] ?>m<sup>2</sup></span>
+													<span ><?php echo get_post_meta(get_the_ID(),'st_contact_superficies_field',true) ?>m<sup>2</sup></span>
 												</div>
 												<div class="col-sm-2">
 													<i class="fa fa-bed" aria-hidden="true"></i>
 													<br>
-													<span>x<?php echo $v['bed'];  ?></span>
+													<span class="aminities_room">x<?php echo get_post_meta(get_the_ID(),'st_contact_bed_field',true)  ?></span>
 												</div>
 												<div class="col-sm-2">
 													<i class="fa fa-venus-double" aria-hidden="true"></i>
 													<br>
-													<span>x<?php echo $v['people'];  ?></span>
+													<span class="aminities_room">x<?php echo get_post_meta(get_the_ID(),'st_contact_adult_field',true)  ?></span>
 												</div>
 												<div class="col-sm-2">
 													<i class="fa fa-child" aria-hidden="true"></i>
 													<br>
-													<span>x<?php echo $v['people'];  ?></span>
-												</div>
-												
+													<span class="aminities_room">x<?php echo get_post_meta(get_the_ID(),'st_contact_children_field',true)  ?></span>
+												</div>		
 											</div>
-
 											<div class="col-sm-4 " >
-												<div class="price-room"  ><span class="money-price">€<?php echo $v['price']; ?> </span><span class="unit"> /1 night</span></div>
-
-
-												<a  href="?c=room&a=view&room_id=<?php echo $v['room_id']  ?><?=$start ?><?=$end ?><?=$date ?> " class="btn"  style="">ROOM DETAIL</a>												
+												<div class="price-room"  ><span class="money-price">€<?php echo get_post_meta(get_the_ID(),'st_contact_price_field',true)  ?> </span><span class="unit"> /1 night</span></div>
+												<a  href="<?php echo site_url('/'.$room->post_type.'/'.$room->post_name.'/'); ?>" class="btn"  style="">ROOM DETAIL</a>
 											</div>
 										</div>
 									</div>                 
 								</div>
 							</div>
-
-							<?php } ?>
-							
+						<?php endwhile; ?>
+						<?php endif; wp_reset_postdata();
+						?>
 						</div>
 					</div>
 					<!-- end Hoa -->
@@ -465,7 +465,6 @@ get_header();
 								<div class="col-md-12">
 									3 reviews on this Hotel - Showing 1 to 3
 								</div>
-
 							</div>
 						</div>
 					</div>
@@ -477,7 +476,7 @@ get_header();
 							<div class="comment-item-head">
 								<div class="media">
 									<div class="media-left">
-										<img alt="avatar" width="50" height="50" src="https://homap.travelerwp.com/wp-content/uploads/bfi_thumb/people_8-1-37jk0455r1ut9uns0zq58g.jpg" class="avatar avatar-96 photo origin round">                    
+										<img alt="avatar" width="50" height="50" src="https://homap.travelerwp.com/wp-content/uploads/bfi_thumb/people_8-1-37jk0455r1ut9uns0zq58g.jpg" class="avatar avatar-96 photo origin round"> 
 									</div>
 									<div class="media-body2">
 										<h4 class="media-heading">Travis Tan</h4>
@@ -492,7 +491,7 @@ get_header();
 								</div>
 							</div>
 							<div class="comment-item-body">
-								<span class="comment-rate">4.6</span>                                    
+								<span class="comment-rate">4.6</span>                   
 								<div class="detail">
 									<div class="st-description" data-show-all="st-description-163">
 										Great location, great host, hot water, big bed. Kitchen and washer/dryer work well. It is a tiny space but is advertised that way. I’d come back because the location is amazing and I also felt very secure here. My baby boomer mom had to climb stairs to reach the bed, but it was very cozy and she’s spry enough.                    
@@ -536,7 +535,7 @@ get_header();
 							<div class="comment-item-head">
 								<div class="media">
 									<div class="media-left">
-										<img alt="avatar" width="50" height="50" src="https://homap.travelerwp.com/wp-content/uploads/bfi_thumb/images-37jjdsv8akbybpoam2sav4.jpg" class="avatar avatar-96 photo origin round">                    
+										<img alt="avatar" width="50" height="50" src="https://homap.travelerwp.com/wp-content/uploads/bfi_thumb/images-37jjdsv8akbybpoam2sav4.jpg" class="avatar avatar-96 photo origin round">       
 									</div>
 									<div class="media-body2">
 										<h4 class="media-heading">Quillen</h4>
@@ -678,13 +677,12 @@ get_header();
 					<div class="widget">
 						<div class="widgets" >
 							<div class="" id="money">
-								<?php foreach ($data_hotel as $value) {
-									
-								?>
 								<div class="col-md-12 " >
-									from <span class="money-price" >€<?php echo $value['hotel_price'] ?></span> /night
+
+									from <span class="money-price" >€ <?php
+
+									 echo get_post(get_the_ID())->price; ?></span> /night
 								</div>
-							<?php } ?>
 							</div> 
 							<?php
                                     //Co $_GET['start'];
@@ -763,7 +761,6 @@ get_header();
 																Rooms
 																<span class="control minus">-</span>
 																<span class="text">
-
 																	<span class="value room">1</span>               <input type="hidden" value="1" name="number_room" data-min="1" data-max="20">
 																</span>
 																<span class="control add">+</span>
@@ -786,7 +783,6 @@ get_header();
 															</div>
 														</div>
 													</div>
-
 												</div>
 											</div>
 										</div>
@@ -804,14 +800,10 @@ get_header();
 						<div class="widget-box">
 							<div class="row">
 								<div class="col-sm-4"><img id="avt" src="https://homap.travelerwp.com/wp-content/uploads/bfi_thumb/people_8-1-37jk0455rmyknqn5gp7uo0.jpg" alt="" /></div>
-								<?php foreach ($data_hotel as $value) {
-									
-								 ?>
 								<div class="col-sm-8 owner_name " >
-									<?php echo $value['owner']; ?> <br>
+									<?php echo get_post_meta(get_the_ID(),'_owner',true); ?> <br>
 									<a href="">Member Since 2018</a>
 								</div>
-							<?php } ?>
 							</div>
 						</div>
 					</div>					
@@ -835,62 +827,68 @@ get_header();
 							<div class="services-grid">
 								<!-- start Manh -->
 								<div class="row">
-                                    <?php
-                                    foreach ($data as   $values) {
+                                
+                              <?php if($hotel->have_posts()) : ?>
+                                <?php while($hotel->have_posts()) : $hotel->the_post(); ?>
+                                    <?php $s= get_post(get_the_ID());   
+                                  ?>
+                                     <div class="last-minute">
+                                            <div class="col-xs-6 col-sm6 col-md-3 has-matchHeight">
+                                                <div class="row-content">
+                                                    <div class="wpb-content-image">
+                                                        <a href="#">
+                                                            <?php the_post_thumbnail(get_the_ID()); ?>
+                                                        </a>
+                                                        <div class="review-star">
+                                                            <i class="fas fa-star"></i>
+                                                            <i class="fas fa-star"></i>
+                                                            <i class="fas fa-star"></i>
+                                                            <i class="fas fa-star"></i>
+                                                            <i class="fas fa-star"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="wpb-content-text">
+                                                        <div class="wpb-room-name">
+                                                            <a href="#">
 
-                                    ?>
-									<div class="last-minute">
-										<div class="col-xs-6 col-sm-6 col-md-3 has-matchHeight">
-											<div class="row-content">
-												<div class="wpb-content-image">
-													<a href="?c=detailhotel&a=view&hotel_id=<?php echo $values['hotel_id']?> ">
-                                                        <img src="<?php echo $values['images']; ?>" >
-													</a>
-													<div class="review-star">
-														<i class="fas fa-star"></i>
-														<i class="fas fa-star"></i>
-														<i class="fas fa-star"></i>
-														<i class="fas fa-star"></i>
-														<i class="fas fa-star"></i>
-													</div>
-												</div>
-												<div class="wpb-content-text">
-													<div class="wpb-room-name">
-														<a href="#">
-                                                            <?php echo $values['hotel_name']; ?>
-														</a>
-													</div>
-													<div class="wpb-room-adress">
-														<p> <i class="fas fa-map-marker-alt"></i><?php echo $values['city_name'] ?>,<?php echo $values['country'] ?></p>
 
-													</div>
-													<div class="review">
-														<div class="rate">
-															<p>4.5/5 excellent</p>
-														</div>
-														<div class="sumary">
-															<li>5 reviews</li>
-														</div>
+                                                                <?php the_title(); ?>
 
-													</div>
-													<div class="price-wrapper">
-														<span>
-															<i class="fas fa-bolt"></i>
-															<span class="price-from">from</span> <span class="price-money"> €<?php echo $values['medium_price'] ?> </span>
-															<span class="price-from">
-																/night
-															</span>
-														</span>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
+                                                            </a>
+                                                        </div>
+                                                        <div class="wpb-room-adress">
+                                                            <p> <i class="fas fa-map-marker-alt"></i>
+                                                                <?php  $location =get_the_terms(get_the_ID(),'location');
+                                                                echo $location[0]->name.", ".$location[1]->name;                
+                                                           ?>
 
-									
-								
-                                <?php } ?>
-                                </div>
+                                                        </p>
+                                                        </div>
+                                                        <div class="review">
+                                                            <div class="rate">
+                                                                <p><?php echo($s->hotel_point); ?>/5 excellent</p>
+                                                            </div>
+                                                            <div class="sumary">
+                                                                <li>5 reviews</li>
+                                                            </div>
+                                                        </div>
+                                                        <div class="price-wrapper">
+                                                            <span>
+                                                                <i class="fas fa-bolt"></i>
+                                                                <span class="price-from">from</span> <span class="price-money"> € <?php echo($s->price); ?> </span>
+                                                                <span class="price-from">
+                                                                    /night
+                                                                </span>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </div>
+                                <?php endwhile; ?>
+                              <?php endif; ?>
+                                
+                            </div>
                                 <!-- end Manh -->
 							</div>
 						</div>
@@ -901,7 +899,6 @@ get_header();
 	</div>
 	</div>
 	<!-- end nearby -->
-
 	<div class="clear"></div>
 
-<?php get_footer() ?>
+<?php } get_footer() ?>

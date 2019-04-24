@@ -88,6 +88,15 @@ include "application/helpers/helpers.php";
 			wp_enqueue_script('sidebar-script');
 
 		}
+		if(is_page_template( 'search.php' ))
+		{
+			wp_register_style('sidebar-deadline-style',THEME_URL . '/CSS/slide_deadline.css','all');
+			wp_enqueue_style('sidebar-deadline-style');
+			
+			wp_register_script('sidebar-deadline-script',THEME_URL . '/js/cuong.js','all');
+			wp_enqueue_script('sidebar-deadline-script');
+
+		}
 		if(is_singular('hotel')){
 			wp_register_style('hoteldetail-style',THEME_URL . '/CSS/roomhotel.css','all');
 			wp_enqueue_style('hoteldetail-style');
@@ -99,6 +108,16 @@ include "application/helpers/helpers.php";
 		}
 	}
 	add_action('wp_enqueue_scripts','webhotel_style');
+	$arr_helper = array(
+		
+		'otf_regen_thumbs'
+	);
+	foreach ($arr_helper as $k=> $v) {
+		$file = get_template_directory(). '/application/helpers/' . $v. '.php';
+		if(file_exists($file)){
+			include $file;
+		}
+	}
 
 	$arr_libfiles = array(
 		'View',
@@ -115,7 +134,8 @@ include "application/helpers/helpers.php";
 	$arr_model = array(
 		'bookcart',
 		'homepage',
-		'sorthotel'
+		'sorthotel',
+		'hoteldetail'
 	);
 	foreach ($arr_model as $k=> $v) {
 		$files = get_template_directory(). '/application/model/' . $v. '.php';
@@ -132,7 +152,8 @@ include "application/helpers/helpers.php";
 		'frontend' => array(
 			'homepage',
 			'bookcart',
-			'sorthotel'
+			'sorthotel',
+			'hoteldetail'
 		)		
 	);
 
