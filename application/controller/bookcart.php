@@ -5,14 +5,14 @@ class bookcart extends Controller {
 	
 
 		add_action('init', array($this, '__stCheckoutHandler'));
-		add_action('init', array($this, '__stBookingSucces'));
+		//add_action('init', array($this, '__stBookingSucces'));
 		add_action('init', array($this, '__stBkSucces'));
 		add_action('init', array($this, '__stInfoBook'),10,1);
 		add_action('init', array($this, '__stInfoSucces'));
 		add_action('init', array($this, '__stHistory'));
 		add_action('init', array($this, '__stList'),10,1);
 		add_action('init', array($this, '__stGetInfoRoom'),10,1);
-		add_action('init', array($this, '__stCheckErr'),10,1);
+		add_action('init', array($this, '__stCheckErr'));
 		add_action('init', array($this, '__stAddSesson'));
 		add_action('init', array($this, '_stDestroyCart'));
 				//add_action('init', array($this, 'sendmail'));
@@ -84,7 +84,6 @@ class bookcart extends Controller {
 	 		$page_id = '1801';
 	 		$page_link = get_the_permalink($page_id);// lấy đường dẫn theo page id
 	 		$page_link = add_query_arg('bill_id', $my_id, $page_link); //thêm query string vào sau đường dẫn.
-	 		dd($page_link);die;
 	 		if(isset($_POST['checkout_submit'])){
 	 			dd($page_link);
 	 			wp_redirect($page_link);//chuyển trang
@@ -140,30 +139,19 @@ class bookcart extends Controller {
 		$data = array($infohotel,$infohotelmeta,$inforoom,$inforoommeta,$location);
 		return $data;
 	}
-	public function __stCheckErr($err = false)
+	public function __stCheckErr()
 	{
 		if(isset($_POST['checkout_submit'])){
-			$data = $_POST;
-			$error = array();
-			if(!isset($data['term_condition']) || $data['term_condition'] != '1'){
-				$err_checkout = array();
-				array_push($err_checkout, 'Please tick a checkbox.');		
-			}
-			$err_checkout = array();
-
-			if (empty($_POST['st_email'])) {
-			    array_push($err_checkout, '  Email is required.');
-		        $this->view($err_checkout);
-		        return;
-		    }
-			if (!preg_match('/^[_a-z0-9-]*@[a-z0-9-]+(\.[a-z0-9-]+)$/', $_POST['st_email']))
+			$data = $_POST;			
+		if(!preg_match('/^[_a-z0-9-]*@[a-z0-9-]+(\.[a-z0-9-]+)$/', $_POST['st_email']))
 		    {
-		    	array_push($err_checkout, '  This email is not valid. Please re-enter. ');
-				$this->view($err_checkout);	
-				return;
+		    	$err_checkout =  '  This email is not valid. Please re-enter. ';
 		    }   
+			else if(!isset($data['term_condition']) || $data['term_condition'] != '1'){
+				$err_checkout ='Please tick a checkbox';
+			}
 		}
-		return $error;
+		return $err_checkout;
 	}
 public function __stAddSesson()
 {
@@ -191,15 +179,15 @@ public function _stDestroyCart()
 			}
 		}
 	}
-	public function sendmail()
-	{
-		$to = 'khanh3gtm@gmail.com';
-		$subject = 'The subject';
-		$body = 'The email body content';
-		$headers = array('Content-Type: text/html; charset=UTF-8');
+// 	public function sendmail()
+// 	{
+// 		$to = 'khanh3gtm@gmail.com';
+// 		$subject = 'The subject';
+// 		$body = 'The email body content';
+// 		$headers = array('Content-Type: text/html; charset=UTF-8');
  
-wp_mail( $to, $subject, $body, $headers );
-	}
+// wp_mail( $to, $subject, $body, $headers );
+// 	}
 
 	public static function inst(){
         static $instane;
