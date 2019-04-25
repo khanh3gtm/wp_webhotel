@@ -441,14 +441,17 @@ $city = homepage::inst()->listCity();
                                                 <div class="row-content">
                                                     <div class="wpb-content-image">
                                                         <a href="<?php echo site_url('/'.$s->post_type.'/'.$s->post_name.'/'); ?>">
-                                                            <?php the_post_thumbnail(get_the_ID()); ?>
+                                                            <?php echo get_the_post_thumbnail(get_the_ID(),[270,250],array('class'=>'img-responsive'));
+                                                             ?>
                                                         </a>
                                                         <div class="review-star">
+                                                            <?php 
+                                                                $star = get_post_meta(get_the_ID(),'_star_num_hotel',true);
+                                                                for ($i=1; $i <= $star  ; $i++) { 
+                                                             ?>
                                                             <i class="fas fa-star"></i>
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fas fa-star"></i>
+                                                            
+                                                        <?php } ?>
                                                         </div>
                                                     </div>
                                                     <div class="wpb-content-text">
