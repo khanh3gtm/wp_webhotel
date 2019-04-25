@@ -96,7 +96,7 @@
                                     <ul class="sub-menu">
                                         <li><a href="#">Full Map Layout</a></li>
                                         <li><a href="#">Half Map Layout</a></li>
-                                        <li><a href="index.php?c=slidebar&a=view">Sidebar layout</a></li>
+                                        <li><a href="<?php echo get_permalink(( get_page_by_path( 'hotel-search' ) )); ?>">Sidebar layout</a></li>
 
                                     </ul>
                                 </li>

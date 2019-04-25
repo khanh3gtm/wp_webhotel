@@ -476,6 +476,7 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 													$cityname=$_GET['cityname'];
 													$args = array(
 														'post_type'=>'hotel',
+														'posts_per_page'=>-1,
 														'tax_query' => array(
 															array(
 																'taxonomy' => 'location',
@@ -491,6 +492,13 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 													
 												<?php
 										
+												}
+
+												else 
+												{
+													?>
+													 <h3><?php echo  wp_count_posts('hotel')->publish; ?> hotels found</h3>
+													 <?php
 												}
 										 ?>
 										
@@ -683,11 +691,13 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 														<div class="icon-position">
 															
 															<div class="icon-star">
-																<i class="fas fa-star"></i>
-																<i class="fas fa-star"></i>
-																<i class="fas fa-star"></i>
-																<i class="fas fa-star"></i>
-																<i class="fas fa-star"></i>
+																<?php 
+																$star = get_post_meta(get_the_ID(),'_star_num_hotel',true);
+																for ($i=1; $i <= $star  ; $i++) { 
+																	?>
+																	<i class="fas fa-star"></i>
+
+																<?php } ?>
 															</div>
 															
 														</div>
