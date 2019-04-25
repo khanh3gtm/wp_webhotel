@@ -161,7 +161,7 @@
                     if(!empty($url)){
                       foreach ($url as $value) {
                         if(!empty($value)){
-                          $url_image = wp_get_attachment_image_url($value, 'thumbnail');
+                          $url_image = wp_get_attachment_image_url($value,array(847, 565));
                           echo '<img src="'. $url_image .'" alt="" data-id="'. $value .'">';
                         }
                       }
