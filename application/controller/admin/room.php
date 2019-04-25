@@ -87,7 +87,7 @@ if(!class_exists('ST_Room_Admin')){
                     	for (var i = 0; i < attachment.length; i++) {
                     		if(!ids.includes(attachment[i].id)){
                     			ids.push(attachment[i].id);
-                    			parent.find('.st-include-image1').append('<div class="item1"><img  src="'+ attachment[i].url +'" width="150px" height="150px" style = "margin-left: 10px;"  /><i class="fa fa-times" ></i></div>');
+                    			parent.find('.st-include-image1').append('<div class="item1" style="display: inline-block;"><img  src="'+ attachment[i].url +'" width="150px" height="150px" style = "margin-left: 10px;"   /><i class="fa fa-times" ></i></div>');
                     		}
                     		
                     	}
@@ -119,13 +119,14 @@ if(!class_exists('ST_Room_Admin')){
 			<?php
 		}
 		function my_custom_taxonomy_columns($columns){
-			$columns = array();
-			$columns['name'] = __('Name');
-			$columns['image'] = __('Image');
-			$columns['icon'] = ('Icon');
-			$columns['description'] = __('Description');
-			$columns['slug'] = __('Slug');
-
+			$newcolumns = array();
+			
+			$newcolumns['name'] = __('Name');
+			
+			$newcolumns['icon'] = ('Icon');
+			$newcolumns['slug'] = __('Slug');
+			$columns=	array_merge($newcolumns,$columns );
+			unset($columns['description']);
 			return $columns;
 		}
 		function st_taxonomy_custom_column($out, $column,$term_id)
@@ -151,7 +152,7 @@ public function save_category_image($term_id){
 		$icon = $_POST['st_icon_amen'];
 		add_term_meta($term_id, 'icon-amenities', $icon);
 	}
-	var_dump($_POST);die;
+	
 }
 public function update_category_image ( $term, $amenities ) { ?>
 	<tr class="form-field term-group-wrap">
@@ -421,6 +422,8 @@ function sunset_contact_email_callback($post){
 	</div>
 
 	<?php
+var_dump($_POST);die;
+	
 }
 
 function sunset_save_contact_email_data($post_id){

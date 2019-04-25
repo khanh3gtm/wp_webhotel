@@ -106,6 +106,7 @@ include "application/helpers/helpers.php";
 		}
 		if(is_singular('room')){
 			wp_enqueue_style('room', THEME_URL . '/CSS/room.css', 'all');
+			wp_enqueue_script('room-js', THEME_URL . '/js/khanh.js', 'all');
 		}
 	}
 	add_action('wp_enqueue_scripts','webhotel_style');
