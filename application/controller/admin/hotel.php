@@ -400,7 +400,7 @@ public function updated_location_image ( $term_id) {
 	 function hotel_info_output($post){
 	 	wp_nonce_field('hotel_info_save','hotel_meta_box_nonce');
 	 	$owner = get_post_meta($post->ID,'_owner',true);
-	 
+	 	$star = get_post_meta($post->ID,'_star_num_hotel',true);
 	 	$add = get_post_meta($post->ID,'_add',true);
 	 	$image = get_post_meta($post->ID,'_hotel_image',true);
 	 	$url = explode(",", $image);
@@ -412,6 +412,16 @@ public function updated_location_image ( $term_id) {
 	 	<p>
 	 		<label for="address">Address:</label><br />
 	 		<input type="text" name="address" id="address" size="30" value="<?php echo $add; ?>" />
+	 	</p>
+	 	<p>
+	 		<label for="hotel_star">Number of Stars:</label><br />
+	 		<select style="width: 50px" name="star_number_hotel" id="star_number_hotel">
+	 			<?php 
+	 				for ($i=1; $i <=5 ; $i++) { 
+	 				echo '<option value="'. $i .'" '. selected($star, $i) .'>'.$i.'</option>';
+	 				}
+	 			 ?>
+	 		</select>
 	 	</p>
 	 	<p>
 	 		<label>Images</label><br/>
@@ -457,6 +467,8 @@ public function updated_location_image ( $term_id) {
 	 		update_post_meta($post_id,'_add',$add);
 	 		$image = sanitize_text_field($_POST['hotel_images']);
 	 		update_post_meta($post_id,'_hotel_image',$image);
+	 		$star = sanitize_text_field($_POST['star_number_hotel']);
+	 		update_post_meta($post_id,'_star_num_hotel',$star);
 
 
 	 	}
