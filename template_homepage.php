@@ -535,7 +535,7 @@ $city = homepage::inst()->listCity();
 
                             <div class="col-xs-6 col-sm-6 col-md-4 ">
                                 <div class="destination-item">
-                                    <a href="?c=slidebar&a=search&cityname=<?=$val['city_name']?>&cityid=<?=$val['city_id']?>&start=<?=$start ?>&end=<?=$end?>&date=<?=$date ?>">
+                                    <a href="#">
                                         <?php 
 
 
