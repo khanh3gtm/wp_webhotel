@@ -10,6 +10,9 @@ body
 	font-family: 'Poppins';
 
 }
+.col-xs-6.col-sm-6.col-md-4.fac i {
+    font-size: 30px;
+}
 .banner {
 	background-color: blue;
 }
@@ -59,10 +62,12 @@ a.morelink
 }
 .fixed{
 	position: fixed;
-	width: 15.3%;
+	width: 17.3%;
 	top: 0px;
 }
-
+.more1 {
+    height: auto;
+}
 .widgets label {
 	display: inline-block;
 	max-width: 100%;
@@ -498,6 +503,7 @@ a.morelink
 	color: #5E6D77;
 	font-weight: 400;
 	position: relative;
+	
 }
 [data-show-all] {
 	position: relative;
@@ -1649,7 +1655,7 @@ label.star:before {
 #guests1
 {
 	padding-top: 5px;
-	height: 65px;
+
 	width: 100%;
 	border-bottom: 1px solid #f1f1f1;	
 }
@@ -1667,6 +1673,40 @@ label.star:before {
 .facilities
 {
 	padding: 10px;
+	height: 200px;
+    overflow: hidden;
+}
+.more2 {
+	height: auto;
+}
+.form-head {
+    position: relative;
+    padding: 30px 20px;
+    color: #5E6D77;
+    font-size: 14px;
+}
+span.price {
+    font-size: 18px;
+    color: #1A2B48;
+    font-weight: 500;
+}
+p.abc2 {
+    padding-left: 30px;
+}
+.abc3 {
+	padding-left: 13px;
+}
+div#bt1 {
+    padding-left: 29px;
+}
+input#date {
+    margin-left: 30px;
+    color: #5191FA;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 450;
 }
 .facilities p
 {

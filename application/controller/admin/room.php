@@ -87,7 +87,7 @@ if(!class_exists('ST_Room_Admin')){
                     	for (var i = 0; i < attachment.length; i++) {
                     		if(!ids.includes(attachment[i].id)){
                     			ids.push(attachment[i].id);
-                    			parent.find('.st-include-image1').append('<div class="item1"><img  src="'+ attachment[i].url +'" width="150px" height="150px" style = "margin-left: 10px;"  /><i class="fa fa-times" ></i></div>');
+                    			parent.find('.st-include-image1').append('<div class="item1" style="display: inline-block;"><img  src="'+ attachment[i].url +'" width="150px" height="150px" style = "margin-left: 10px;"   /><i class="fa fa-times" ></i></div>');
                     		}
                     		
                     	}
@@ -151,7 +151,7 @@ public function save_category_image($term_id){
 		$icon = $_POST['st_icon_amen'];
 		add_term_meta($term_id, 'icon-amenities', $icon);
 	}
-	var_dump($_POST);die;
+	
 }
 public function update_category_image ( $term, $amenities ) { ?>
 	<tr class="form-field term-group-wrap">
