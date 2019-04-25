@@ -132,15 +132,20 @@ $listRoom = hoteldetail::inst()->listRoom();
 						<div class="facilities" >
 							<div class="container-fuild">
 								<div class="row room-facility">
-									
+									<?php 
+											$service = get_the_terms(get_the_ID(),'facilities');
+											foreach ($service as  $value) {
+												
+											$icon = get_term_meta($value->term_id,'_facilities_icon',true);	
+										 ?>
 									<div class="col-xs-4  fac"  >
 										
-										<i class="fa <?php echo $val['service_icon']; ?> " aria-hidden="true"></i>  <?php echo $val['service']; ?>     
+										<i class=" <?php echo $icon; ?> " aria-hidden="true"></i> <?php echo $value->name; ?>   
 									</div>
-												
+									<?php } ?>  		
 								</div>
 								<?php
-								if(count() > 6 ){  
+								if(count($service) > 6 ){  
 								?>
 								<div class="showmore" >
 									Show All
