@@ -119,13 +119,14 @@ if(!class_exists('ST_Room_Admin')){
 			<?php
 		}
 		function my_custom_taxonomy_columns($columns){
-			$columns = array();
-			$columns['name'] = __('Name');
-			$columns['image'] = __('Image');
-			$columns['icon'] = ('Icon');
-			$columns['description'] = __('Description');
-			$columns['slug'] = __('Slug');
-
+			$newcolumns = array();
+			
+			$newcolumns['name'] = __('Name');
+			
+			$newcolumns['icon'] = ('Icon');
+			$newcolumns['slug'] = __('Slug');
+			$columns=	array_merge($newcolumns,$columns );
+			unset($columns['description']);
 			return $columns;
 		}
 		function st_taxonomy_custom_column($out, $column,$term_id)
@@ -421,6 +422,8 @@ function sunset_contact_email_callback($post){
 	</div>
 
 	<?php
+var_dump($_POST);die;
+	
 }
 
 function sunset_save_contact_email_data($post_id){
