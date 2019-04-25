@@ -97,8 +97,8 @@ class bookcart extends Controller {
 				$_SESSION['st_err1'] = $err_check;
 	 		if(isset($_POST['checkout_submit'])){
 	 			if (empty($_SESSION['st_err'])&& empty($_SESSION['st_err1'])) {
-	 				$page_id = '1801';
-	 				$page_link = get_the_permalink($page_id);
+	 				$page = get_page_by_path('bookingsucces');
+ 					$page_link = get_the_permalink($page);
 	 				$page_link = add_query_arg('bill_id', $my_id, $page_link); 
 	 				wp_redirect($page_link);
 	 					exit();
@@ -128,8 +128,8 @@ class bookcart extends Controller {
 	}
 	public function __stHistory()
 	{
-		$page_id = '1813';
- 		$page_link = get_the_permalink($page_id);
+		$page = get_page_by_path('bookinghistory');
+ 		$page_link = get_the_permalink($page);
   		if(isset($_POST['check_list'])){
 		wp_redirect($page_link);
 		exit();
