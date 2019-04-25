@@ -124,7 +124,7 @@ $city = homepage::inst()->listCity();
                                                     $number_child =  $get_data['number_child'];
                                                    }
 
-                                                   echo '<a href="'.get_permalink('132') . $cityid . $cityname . $start . $end . $date . '"></a>';
+                                                   echo '<a href="'.get_permalink(( get_page_by_path( 'hotel-search' ) )) . $cityid . $cityname . $start . $end . $date . '"></a>';
                                                    ?>
 
                                                </ul>

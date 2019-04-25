@@ -33,3 +33,6 @@
     width: 120px;
     height: auto;
 }
+.wp-list-table #the-list i{
+    font-size: 25px;
+}
