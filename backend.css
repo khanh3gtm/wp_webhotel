@@ -49,3 +49,7 @@
     font-size: 25px;
 }
 
+.wp-list-table img {
+    width: 100px;
+    height: auto;
+}

@@ -73,30 +73,24 @@
                     <?php $query = get_post(get_the_ID());
                     $title = apply_filters('the_title', $query->post_title);
                     echo $title; ?>
-
-
                   </h2>
-                  <div class="sub-heading">
-                    <i class="fas fa-map-marker-alt"></i>Hotel:<a href="">
-
-
                       <?php
                       $hotel = get_post_meta(get_the_ID(), 'st_contact_hotel_field', true);
                       $st = get_post($hotel);
+                      $ss = get_post_meta(get_the_ID());
                       ?>
-                  </h2>
                   <div class="sub-heading">
-                    <i class="fas fa-map-marker-alt"></i>Hotel:<a href="<?php echo site_url().'/'.$st->post_name ?>"><?php echo $st->post_title ?>     
+                    <i class="fas fa-map-marker-alt"></i>  Hotel: <a href="<?php echo site_url().'/'.$st->post_name ?>"><?php echo  $st -> post_title ?>     
                       
                     </a>
                   </div>
                 </div>
                 <div class="st-right ">
-                  <i class="fa fa-star" ></i>
-                  <i class="fa fa-star" ></i>
-                  <i class="fa fa-star" ></i>
-                  <i class="fa fa-star" ></i>
-                  <i class="fa fa-star" ></i>
+                  <?php $star = get_post_meta(get_the_ID(), 'st_contact_star_field', 'all');
+                  for($i=1;$i<=$star;$i++){
+                    echo '<i class="fa fa-star"></i>';
+                  } ?>
+                  
                 </div>
               </div>
             </div>
