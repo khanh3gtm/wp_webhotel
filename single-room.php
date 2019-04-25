@@ -35,6 +35,7 @@
             <li class="active">
               <?php $query = get_post(get_the_ID());
               $title = apply_filters('the_title', $query->post_title);
+
               echo $title; ?>
             </li>
           </ul>
@@ -75,7 +76,8 @@
 
                   </h2>
                   <div class="sub-heading">
-                    <i class="fas fa-map-marker-alt"></i>Hotel:<a href="<?php get_stylesheet_directory() . $resHotel; ?>">     
+                    <i class="fas fa-map-marker-alt"></i>Hotel:<a href="">
+
                       <?php
                       $hotel = get_post_meta(get_the_ID(), 'st_contact_hotel_field', true);
                       $resHotel = get_the_title($hotel);
