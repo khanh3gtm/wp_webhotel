@@ -88,6 +88,7 @@ include "application/helpers/helpers.php";
 			wp_enqueue_script('sidebar-script');
 
 		}
+		
 		if(is_page_template( 'search.php' ))
 		{
 			wp_register_style('sidebar-deadline-style',THEME_URL . '/CSS/slide_deadline.css','all');

@@ -607,7 +607,9 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 											
 										?>
 										<?php $id_location= get_post(get_the_ID());
-
+											// $a=get_template_directory_uri();
+											// dd($a);
+											// die();
 										?>
 
 												<div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 has-matchHeight ">
@@ -684,7 +686,7 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 															?>
 														</div>
 														<div class="info">
-															<a href="<?php echo site_url('/'.$id_location->post_type.'/'.$id_location->post_name.'/'); ?>">
+															<a href="<?php echo site_url('/'.$id_location->post_type.'/'.$id_location->post_name.'/?'.$start.$end.$date); ?>">
 																<?= get_the_title(); ?>
 															</a>
 															<br/>
