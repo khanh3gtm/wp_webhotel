@@ -464,8 +464,36 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 
 
 									<div class="col-lg-9 col-md-9 col-sm-12 content-title">
+										<?php 
+
+											if (!isset($_GET['cityname'])&&empty($_GET['cityname'])) {
+												?>
+												 <h3><?php echo  wp_count_posts('hotel')->publish; ?> hotels found</h3>
+												 <?php
+											}
+
+												else if (isset($_GET['cityname'])&&!empty($_GET['cityname'])) {
+													$cityname=$_GET['cityname'];
+													$args = array(
+														'post_type'=>'hotel',
+														'tax_query' => array(
+															array(
+																'taxonomy' => 'location',
+																'field' => 'slug',
+																'terms' => $cityname
+															)
+														)
+													);
+													
+													?>
+													<h3><?php $count=count(get_posts( $args ));
+													echo $count;?> hotels found</h3>
+													
+												<?php
 										
-										 <h3><?php echo  wp_count_posts('hotel')->publish; ?> hotels found</h3>
+												}
+										 ?>
+										
 									</div>
 									<div class="col-lg-3 layout">
 										<ul>
@@ -607,9 +635,6 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 											
 										?>
 										<?php $id_location= get_post(get_the_ID());
-											// $a=get_template_directory_uri();
-											// dd($a);
-											// die();
 										?>
 
 												<div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 has-matchHeight ">
