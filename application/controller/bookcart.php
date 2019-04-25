@@ -19,8 +19,29 @@ class bookcart extends Controller {
 	public function __stBookingSucces()
 	{
 			if(isset($_POST['checkout_submit'])){
-	 		$data = $_POST;
-	 		$user_login = $data['st_email'];
+	 		$data = $_POST;		
+				if(!preg_match('/^[_a-z0-9-]*@[a-z0-9-]+(\.[a-z0-9-]+)$/', $_POST['st_email']))
+				    {
+				    	$err_checkout =  'This email is not valid. Please re-enter.';
+				    	$page_id   = get_queried_object_id();
+				    	$page_link = get_the_permalink($page_id);
+				    	wp_redirect($page_link);
+				    }
+				    else $err_checkout = '';
+				    unset($_SESSION['st_err']);
+					$_SESSION['st_err'] = $err_checkout;
+				if(!isset($data['term_condition'])||$data['term_condition'] != '1'){
+						$err_check ='Please tick a checkbox';
+						$page_id   = get_queried_object_id();
+				    	$page_link = get_the_permalink($page_id);
+				    	wp_redirect($page_link);
+					}
+				else $err_check = '';
+				unset($_SESSION['st_err1']);
+				$_SESSION['st_err1'] = $err_check;
+	 		if(isset($_POST['checkout_submit'])){
+	 			if (empty($_SESSION['st_err'])&& empty($_SESSION['st_err1'])) {
+	 				$user_login = $data['st_email'];
 	 		$user_email = $data['st_email'];
 	 		$check = is_user_logged_in();
 	 		if($check==1)
@@ -75,28 +96,6 @@ class bookcart extends Controller {
 			$format = array('%s','%d');
 			$wpdb->insert($table,$data,$format);
 			$my_id = $wpdb->insert_id;
-	 				$data = $_POST;			
-				if(!preg_match('/^[_a-z0-9-]*@[a-z0-9-]+(\.[a-z0-9-]+)$/', $_POST['st_email']))
-				    {
-				    	$err_checkout =  'This email is not valid. Please re-enter.';
-				    	$page_id   = get_queried_object_id();
-				    	$page_link = get_the_permalink($page_id);
-				    	wp_redirect($page_link);
-				    }
-				    else $err_checkout = '';
-				    unset($_SESSION['st_err']);
-					$_SESSION['st_err'] = $err_checkout;
-				if(!isset($data['term_condition'])||$data['term_condition'] != '1'){
-						$err_check ='Please tick a checkbox';
-						$page_id   = get_queried_object_id();
-				    	$page_link = get_the_permalink($page_id);
-				    	wp_redirect($page_link);
-					}
-				else $err_check = '';
-				unset($_SESSION['st_err1']);
-				$_SESSION['st_err1'] = $err_check;
-	 		if(isset($_POST['checkout_submit'])){
-	 			if (empty($_SESSION['st_err'])&& empty($_SESSION['st_err1'])) {
 	 				$page = get_page_by_path('bookingsucces');
  					$page_link = get_the_permalink($page);
 	 				$page_link = add_query_arg('bill_id', $my_id, $page_link); 
