@@ -74,15 +74,20 @@
                     $title = apply_filters('the_title', $query->post_title);
                     echo $title; ?>
 
+
                   </h2>
                   <div class="sub-heading">
                     <i class="fas fa-map-marker-alt"></i>Hotel:<a href="">
 
+
                       <?php
                       $hotel = get_post_meta(get_the_ID(), 'st_contact_hotel_field', true);
-                      $resHotel = get_the_title($hotel);
-                      echo $resHotel;
+                      $st = get_post($hotel);
                       ?>
+                  </h2>
+                  <div class="sub-heading">
+                    <i class="fas fa-map-marker-alt"></i>Hotel:<a href="<?php echo site_url().'/'.$st->post_name ?>"><?php echo $st->post_title ?>     
+                      
                     </a>
                   </div>
                 </div>

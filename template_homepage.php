@@ -157,10 +157,10 @@ $city = homepage::inst()->listCity();
                                     //Kho cos
                                 $start = date('d/m/Y');
                                 $end = date('d/m/Y', strtotime(' + 1 days'));
-                                $date = date('d/m/Y') . ' 12:00 am - ' . date('d/m/Y', strtotime(' + 1 days')) . ' 11:59 pm';
+                                $date = date('d/m/Y') . date('d/m/Y', strtotime(' + 1 days')) ;
                                 if (isset($_GET['start']) && isset($_GET['end']) && isset($_GET['date'])) {
                                     if (!empty($_GET['start'])) {
-                                        $start = $_GET['start'];
+                                        $start =  $_GET['start'];
                                     }
                                     if (!empty($_GET['end'])) {
                                         $end = $_GET['end'];
@@ -521,6 +521,7 @@ $city = homepage::inst()->listCity();
                         <div class="wpb_text_column wpb_content_element  fs-28 fs-normal">
                             <div class="wpb_wrapper">
                                 <h2>Top Destinations</h2>
+
                             </div>
                         </div>
                         <!-- Start Manh -->
@@ -528,23 +529,16 @@ $city = homepage::inst()->listCity();
                               
                              <?php 
                              foreach ($city as  $value) {
-                                
-                           
-
                               ?>
-
                             <div class="col-xs-6 col-sm-6 col-md-4 ">
                                 <div class="destination-item">
-                                    <a href="#">
+                                    <a href=" <?php echo site_url('/hotel-search/?');?>&cityname=<?php echo $value->name; ?>&cityid=<?php echo $value->term_id; ?>">
                                         <?php 
-
-
                                         $location_image = get_term_meta($value->term_id,'location_image',true);   
                                         $data = wp_get_attachment_image_src($location_image, [370,370]);   
                                         echo '<img class="img-responsive" src="'. $data[0] .'">';
                                          ?>
                                     </a>
-
                                     <div class="text-content">
                                         <div class="title-name">
                                             <h2><?php echo $value->name ?></h2>
