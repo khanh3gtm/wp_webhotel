@@ -159,8 +159,8 @@ public function __stAddSesson()
 		unset($post_data['room_add_to_cart']);
 		unset($_SESSION['st_cart']);	
 		$_SESSION['st_cart'] = $post_data;	
-		$page_id = '1798';
- 		$page_link = get_the_permalink($page_id);
+		$page = get_page_by_path('checkout');
+ 		$page_link = get_the_permalink($page);
 		wp_redirect($page_link);
 		exit();
 	}
