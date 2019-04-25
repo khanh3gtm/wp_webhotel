@@ -110,7 +110,7 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 													'orderby'=>'title',
 													'order'=>'ASC',
 													'post_type'=>'hotel',
-													'hide_empty' => true,
+													'hide_empty' => false,
 													'fields' => 'all',
 													'taxonomy'=>array('location')
 
@@ -464,17 +464,8 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 
 
 									<div class="col-lg-9 col-md-9 col-sm-12 content-title">
-										<?php 
-
-											$args= array(
-													'post_status'=>'publish',
-													'post_type'=>'hotel',
-													'posts_per_page'   => -1,
-											);
-										 ?>
-										 <h3><?php $posts = get_posts($args); 
-										 $count = count($posts); 
-										 echo $count;  ?> hotels found</h3>
+										
+										 <h3><?php echo  wp_count_posts('hotel')->publish; ?> hotels found</h3>
 									</div>
 									<div class="col-lg-3 layout">
 										<ul>
@@ -624,8 +615,32 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 														<div class="thumb">
 															<div class="im1">
 															<?php
+															$get_data = $_GET;
+
+															$start='';
+															$end='';
+															$date = '';
+
+															if(isset($get_data['start'])){
+																$start = '&start=' . $get_data['start'];
+															}else{
+																$start ="";
+															}
+
+															if(isset($get_data['end'])){
+																$end = '&end=' . $get_data['end'];
+															}else{
+																$end ="";
+															}
+
+															if(isset($get_data['date'])){
+																$date = '&date=' . $get_data['date'];
+															}else{
+																$date ="";
+															}
+
 															?>
-																 <a href="<?php echo site_url('/'.$id_location->post_type.'/'.$id_location->post_name.'/'); ?>">
+ 															<a href="<?php echo site_url('/'.$id_location->post_type.'/'.$id_location->post_name.'/?'.$start.$end.$date); ?>">
 																 	<?php
 																echo get_the_post_thumbnail(get_the_ID(),array( 256, 256));
 																?>
@@ -650,9 +665,23 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 															
 														</div>
 														<div class="text-position">
-															
-															<button class=" btn btn-primary text">Featured</button>
-															
+
+
+															<?php 
+																$check=get_post_meta( $post->ID, '_featured_hotel', true );
+
+																
+															 ?>
+															 <?php  
+															 if($check==true)
+																{
+																	?>
+																<button class=" btn btn-primary text">Featured</button>
+																	
+															<?php
+															 }
+													 
+															?>
 														</div>
 														<div class="info">
 															<a href="<?php echo site_url('/'.$id_location->post_type.'/'.$id_location->post_name.'/'); ?>">

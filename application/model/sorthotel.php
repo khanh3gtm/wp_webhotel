@@ -51,7 +51,7 @@ class st_sidebar_model extends Model
 					break;
 			}
 		}
-
+				
 			if(isset($_GET['cityname'])&&!empty($_GET['cityname']))
 			{
 				$cityname=$_GET['cityname'];
