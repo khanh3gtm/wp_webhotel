@@ -246,19 +246,19 @@ public function room_custom_taxonomy(){
 function sunset_set_contact_columns($columns)
 {
 	$newColumns = array();
-	$newColumns['title'] = '__Full Name';
+	$newColumns['title'] = __('Name Room');
 	$newColumns['superficies'] = 'Superficies';
+	$newColumns['image'] = 'Image';
 	$newColumns['prices'] = 'Prices';
 	$newColumns['beds'] = 'Beds';
 	$newColumns['children'] = 'Children';
 	$newColumns['adult'] = 'Adult';
-	$newColumns['image'] = 'Image';
 	$newColumns['hotel'] = 'Hotel';
 	$newColumns['star'] = 'Star room';
-	$columns=	array_merge($newColumns,$columns );
-	$newColumns['tags'] = 'Tags';
-	$newColumns['date'] = 'Date';
+	
+	$columns=	array_merge($columns,$newColumns);
 	unset($columns['tags']);
+	unset($columns['date']);
 	unset($columns['categories']);
 	return $columns;
 }
@@ -302,8 +302,8 @@ function sunset_contact_custom_column($column,$post_id)
 		break;
 		case 'image':
 		$image = get_post_meta($post_id, 'metabox-image-id', true);
-		$data_img = wp_get_attachment_image_src($image, 'thumbnail');
-		echo '<img src="'. $data_img[0] .'" alt="">';
+		$data_img = wp_get_attachment_image_src($image, array(50,50));
+		echo '<img src="'. $data_img[0] .'"  alt="">';
 
 		break;
 	}
@@ -422,8 +422,7 @@ function sunset_contact_email_callback($post){
 	</div>
 
 	<?php
-var_dump($_POST);die;
-	
+
 }
 
 function sunset_save_contact_email_data($post_id){
@@ -485,6 +484,7 @@ update_post_meta($post_id, 'st_contact_star_field', $star);
 // 	}
 // }
 function webhotel(){
+
 	wp_enqueue_style('fontawesome','https://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css','all');
 	wp_enqueue_style('fontawesome1', 'https://use.fontawesome.com/releases/v5.0.8/css/all.css');
 	wp_enqueue_style('font-css', get_stylesheet_directory_uri() . '/CSS/fontawesome-iconpicker.css', 'all');
