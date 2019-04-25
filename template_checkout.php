@@ -34,8 +34,9 @@ if (isset($ss)) {
                     <li>
                      <span class="lable_section">Date : </span>
                      <span class="value">
-                        <?php echo $ss['start']." - ".$ss['end'] ?> &nbsp;    
-                        <a class="st-link" style="font-size: 12px;" href="#">Edit</a>
+                        <?php echo $ss['start']." - ".$ss['end'] ?> &nbsp;   
+
+                        <a class="st-link" style="font-size: 12px;" href="<?php echo site_url().'/'.$st[2]->post_name ?>">Edit</a>
                     </span>
                 </li>
                         <li><span class="lable_section">Number of Night : </span>
