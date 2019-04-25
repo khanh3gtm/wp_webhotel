@@ -1,5 +1,4 @@
 <?php
-
 /**
 * Template Name: Checkout
 */
@@ -7,7 +6,6 @@ get_header();
 $ss = $_SESSION['st_cart'];
 $key = $ss['room_id'];
 $st = bookcart::inst()->__stGetInfoRoom($key);
-$err = bookcart::inst()->__stCheckErr();
 if (isset($ss)) {
 ?>
 <div class="container">
@@ -40,7 +38,6 @@ if (isset($ss)) {
                         <a class="st-link" style="font-size: 12px;" href="#">Edit</a>
                     </span>
                 </li>
-                    
                         <li><span class="lable_section">Number of Night : </span>
                             <span class="value">
                                 <?php
@@ -65,8 +62,8 @@ if (isset($ss)) {
                 </div>
                 <div class="total-section">
                     <ul>
-                        <li><span class="label_section">Subtotal : </span><span class="value">€ <?php 
-                             
+                        <li><span class="label_section">Subtotal : </span><span class="value">€ 
+                            <?php  
                             if ($sl_night>1) {
                                 $price = $sl_night * $st[3]['st_contact_price_field'][0];
                              }
@@ -74,15 +71,13 @@ if (isset($ss)) {
                                 $price = $st[3]['st_contact_price_field'][0];
                              }
                              echo $price;
-                            ?>
-                                
+                            ?>    
                             </span></li>
                         <li>
                             <span class="label_section">Extra Price : </span>
                             <span class="value">€0.00</span>
                         </li>
                         <li><span class="label_section">Tax : </span><span class="value">10 %</span></li>
-
                         <li class="payment-amount">
                             <span class="label_section">Pay Amount : </span>
                             <span class="value">€ <?php $vat= 0.1;
@@ -100,14 +95,11 @@ if (isset($ss)) {
                     $key= wp_get_current_user()->ID;
                     $data = bookcart::inst()->__stInfoBook($key);
                     ?>
-            <form class="" method="post" action="bookingsucces?bill_id=$user_id">
+            <form class="" method="post" action="">
                 <div class="check-out-form">
-
                     <div class="entry-content"></div>
-
                     <input type="hidden"  value="<?php echo wp_get_current_user()->ID ?>" name = "st_username" >
                     <div class="clearfix">
-
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group form-group-icon-left">                
@@ -127,12 +119,11 @@ if (isset($ss)) {
                                 <div class="form-group form-group-icon-left">                
                                     <label for="field-st_email">Email <span class="require">*</span> </label>
                                     <i class="fa fa-envelope input-icon"></i>&nbsp;&nbsp;
-                                    
+                                    &nbsp;&nbsp;<span style="color: red;font-weight: 600;"><?php echo $_SESSION['st_err'];unset($_SESSION['st_err']); ?></span> 
                                     <input class="form-control required" id="field-st_email" value="<?php echo wp_get_current_user()->user_email ?>" name="st_email" placeholder="email@domain.com" type="text" required>
                                 </div>
                             </div>
                             <div class="col-sm-6">
-
                                 <div class="form-group form-group-icon-left">                
                                     <label for="field-st_phone">Phone <span class="require">*</span> </label>
                                     <i class="fa fa-phone input-icon"></i>
@@ -182,7 +173,7 @@ if (isset($ss)) {
                             <div class="col-sm-12">
                                 <div class="form-group ">
                                     <label for="field-st_note">Special Requirements  </label>
-                                    <textarea rows="6" class="form-control" id="field-st_note" name="st_note" placeholder="Special Requirements"><?php echo $data['st_note'][0] ?></textarea>
+                                    <textarea rows="3" class="form-control" id="field-st_note" name="st_note" placeholder="Special Requirements"><?php echo $data['st_note'][0] ?></textarea>
                                 </div>
                             </div>
                         </div>
@@ -197,11 +188,8 @@ if (isset($ss)) {
                                 <span class="payment-title">
                                     Create Traveler account<small>(password will be sent to your e-mail)</small>
                                 </span>
-                                
                                 <span class="checkmark fcheckbox"></span>
                                 <br>
-                                <p>
-                                </p>
                             </label>
                         </div>
                     </div>
@@ -212,7 +200,10 @@ if (isset($ss)) {
                                 <span class="payment-title">I have read and accept the<a target="_blank" href=""> terms and conditions</a> and <a href="#" target="_blank">Privacy Policy</a></span>
                                 <span class="checkmark fcheckbox"></span>
                             </label>
-                        </div>
+
+                        </div><p>
+                        <span style="color: red;font-weight: 600;"><?php echo $_SESSION['st_err1'];unset($_SESSION['st_err1']); ?></span>
+                    </p>
                     </div>
                 </div>
 
@@ -241,7 +232,7 @@ if (isset($ss)) {
                                 </div>
                             </div>
                             <div class="col-sm-6">
-                                <div class="form-group form-group-icon-left">                
+                                <div class="form-group form-group-icon-left">          
                                     <label for="field-st_last_name">Last Name <span class="require">*</span> </label>
                                     <i class="fa fa-user input-icon"></i>
                                     <input class="form-control required" id="field-st_last_name" value="<?php echo isset($_POST['st_last_name'])  ? $_POST['st_last_name'] : ''; ?>" name="st_last_name" placeholder="Last Name" type="text" required>
@@ -250,14 +241,13 @@ if (isset($ss)) {
                             <div class="col-sm-6">
                                 <div class="form-group form-group-icon-left">                
                                     <label for="field-st_email">Email <span class="require">*</span> </label>
-                                    <i class="fa fa-envelope input-icon"></i>&nbsp;&nbsp;
-                                  
+                                    <i class="fa fa-envelope input-icon"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <span style="color: red;font-weight: 600;"><?php echo $_SESSION['st_err'];unset($_SESSION['st_err']); ?></span>
                                     <input class="form-control required" id="field-st_email" value="<?php echo isset($_POST['st_email'])  ? $_POST['st_email'] : ''; ?>" name="st_email" placeholder="email" required >
                                 </div>
                             </div>
                             <div class="col-sm-6">
-
-                                <div class="form-group form-group-icon-left">                
+                                <div class="form-group form-group-icon-left">
                                     <label for="field-st_phone">Phone <span class="require">*</span> </label>
                                     <i class="fa fa-phone input-icon"></i>
                                     <input class="form-control required" id="field-st_phone" value="<?php echo isset($_POST['st_phone'])  ? $_POST['st_phone'] : ''; ?>" name="st_phone" placeholder="Your Phone" type="text" required>
@@ -306,7 +296,7 @@ if (isset($ss)) {
                             <div class="col-sm-12">
                                 <div class="form-group ">
                                     <label for="field-st_note">Special Requirements  </label>
-                                    <textarea rows="6" class="form-control" id="field-st_note" name="st_note" placeholder="Special Requirements"><?php echo isset($_POST['st_note'])  ? $_POST['st_note'] : ''; ?></textarea>
+                                    <textarea rows="3" class="form-control" id="field-st_note" name="st_note" placeholder="Special Requirements"><?php echo isset($_POST['st_note'])  ? $_POST['st_note'] : ''; ?></textarea>
                                 </div>
                             </div>
                         </div>
@@ -325,6 +315,7 @@ if (isset($ss)) {
                                 <span class="checkmark fcheckbox"></span>
                             </label>
                         </div>
+
                     </div>
                     <div class="st-icheck accerpt-cond st_check_term_conditions">
                         <div class="st-icheck-item">
@@ -335,7 +326,7 @@ if (isset($ss)) {
                                 <span class="checkmark fcheckbox"></span>
                                 <br>
                                 <p>
-                                  <?php echo $err; ?>
+                                  <span style="color: red;"><?php echo $_SESSION['st_err1'];unset($_SESSION['st_err1']) ?></span>
                                 </p>
                             </label>
                         </div>

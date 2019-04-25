@@ -131,15 +131,9 @@ if(!class_exists('ST_Room_Admin')){
 		function st_taxonomy_custom_column($out, $column,$term_id)
 		{
 			switch ($column) {
-				case 'image':
-				$image = get_term_meta($term_id, 'category-image-id', true);
-				// $data = maybe_unserialize($image->description);
-				$data = wp_get_attachment_image_src($image, 'thumbnail');
-				echo '<img src="'. $data[0] .'" alt="">';
-				break;
 				case 'icon':
 				$icon  =  get_term_meta($term_id, 'icon-amenities', true);
-				echo $icon;
+				echo '<i class="'. $icon .'"></i>';
 				break;
 			}
 		}
@@ -161,29 +155,13 @@ public function save_category_image($term_id){
 }
 public function update_category_image ( $term, $amenities ) { ?>
 	<tr class="form-field term-group-wrap">
-		<th scope="row">
-			<label for="category-image-id"><?php _e( 'Image', 'shinetheme' ); ?></label>
-		</th>
 		<td>
+			<label for="category-image-id"><?php _e( 'Icon', 'shinetheme' ); ?></label>
 			<?php $icon = get_term_meta($term -> term_id, 'icon-amenities', true); ?>
-			<?php $image_id = get_term_meta ( $term -> term_id, 'category-image-id', true ); ?>
-			<!--Lay gia tri hien tai</!-->
-			<input type="hidden" id="category-image-id" name="category-image-id" value="<?php echo $image_id; ?>">
-			
-			<div id="category-image-wrapper">
-				<?php if ( $image_id ) { ?>
-					<?php echo wp_get_attachment_image ( $image_id, 'thumbnail' ); ?>
-				<?php } ?>
-			</div>
-			
-			<p>
-				<input type="button" class="button button-secondary ct_tax_media_button" id="ct_tax_media_button" name="ct_tax_media_button" value="<?php _e( 'Add Image', 'shinetheme' ); ?>" />
-				<input type="button" class="button button-secondary ct_tax_media_remove" id="ct_tax_media_remove" name="ct_tax_media_remove" value="<?php _e( 'Remove Image', 'shinetheme' ); ?>" />
-			</p>
 		</td>
 		<?php  ?>
 		<th scope="row">
-			<label for="category-image-id"><?php _e( 'Icon', 'shinetheme' ); ?></label>
+			
 			<input type="hidden" id="icon-amenities" name="icon-amenities" value="">
 			<div class="form-control">
 				<input type="text" class="social-icon" id="social-icon" name="st_icon_amen" value="<?php echo $icon;?>">
@@ -193,11 +171,9 @@ public function update_category_image ( $term, $amenities ) { ?>
 	<?php
 }
 public function updated_category_image ( $term_id) {
-	if( isset( $_POST['category-image-id'] ) && '' !== $_POST['category-image-id'] ){
-		$image = $_POST['category-image-id'];
-		update_term_meta ( $term_id, 'category-image-id', $image );
-	} else {
-		update_term_meta ( $term_id, 'category-image-id', '' );
+	if(isset($_POST['st_icon_amen'])){
+		$icon = $_POST['st_icon_amen'];
+		update_term_meta($term_id, 'icon-amenities', $icon);
 	}
 }
 
