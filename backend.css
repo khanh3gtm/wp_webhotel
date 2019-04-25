@@ -33,6 +33,7 @@
     width: 120px;
     height: auto;
 }
+  
 
 .item1 {
     position: relative;
@@ -43,3 +44,8 @@
     right: 2px;
     cursor: pointer;
 }
+
+.wp-list-table #the-list i{
+    font-size: 25px;
+}
+

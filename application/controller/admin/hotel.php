@@ -8,14 +8,16 @@ class ST_Hotel_Admin{
 		add_action('init', array($this, 'hotel_custom_taxonomies'));
 		add_action('add_meta_boxes',array($this,'hotel_meta_box'));
 		add_action('save_post',array($this,'hotel_info_save'));
+		add_action('add_meta_boxes',array($this,'featured_meta_box'));
+		add_action('save_post',array($this,'feature_hotel_save'));
 		add_action('manage_hotel_posts_columns',array($this,'hotel_set_columns'));
 		add_action('manage_hotel_posts_custom_column',array($this,'hotel_custom_columns'), 10,2);
 		add_filter('manage_edit-facilities_columns',array($this,'facilities_set_columns'));
 		add_filter('manage_facilities_custom_column', array($this, 'facilities_custom_columns'),10,3);
 		add_action('facilities_add_form_fields', array ( $this, 'facilities_info_add_output' ));
 		add_action('facilities_edit_form_fields', array ( $this, 'facilities_info_edit_output' ));
-		add_action('edited_facilities', array ( $this, 'facilities_info_save' ));
-
+			add_action('created_facilities', array($this, 'facilities_info_save'), 10, 1);
+			add_action('edited_facilities', array ( $this,'facilities_info_save' ),10,1);
 			add_action('manage_location_custom_column', array($this, 'location_custom_column'),10,3);
 			add_action('location_add_form_fields', array ( $this, 'add_location_image' ));
 			add_action('created_location', array($this, 'save_location_image'), 10, 1);
@@ -23,13 +25,9 @@ class ST_Hotel_Admin{
 			add_action('edited_location', array ($this, 'updated_location_image' ), 10, 1 );
 			add_action('admin_enqueue_scripts', array( $this, 'load_media' ) );
 			add_action('admin_footer', array ( $this, 'add_script' ) );
-			//add_action('admin_footer', array ( $this, 'upload_image_meta_box' ) );
+			add_action('admin_footer', array ( $this, 'upload_image_meta_box' ) );
 			add_filter('manage_edit-location_columns',array($this, 'custom_location_columns'));
-
-
-
-
-		add_action('admin_enqueue_scripts',array($this,'webhotel_style'));
+			add_action('admin_enqueue_scripts',array($this,'webhotel_style'));
 	}
 
 	public function customsb_post_type(){
@@ -94,7 +92,7 @@ class ST_Hotel_Admin{
 			'rewrite' => array('slug'=>'location'),
 
 		);
-		register_taxonomy('location', array('hotel','room'), $args);
+		register_taxonomy('location', array('hotel'), $args);
 	}
 	//Create metabox of hotel
 	public function hotel_custom_taxonomies(){
@@ -162,13 +160,12 @@ class ST_Hotel_Admin{
 	}
 	
 function custom_location_columns($columns){
-			$columns = array();
-			$columns['name'] = __('Name');
-			$columns['image'] = __('Image');
-			$columns['description'] = __('Description');
-			$columns['slug'] = __('Slug');
-
-			return $columns;
+			$newcolumns = array();
+			$newcolumns['name'] = __('Name');
+			$newcolumns['description'] = __('Description');
+			$newcolumns['slug'] = __('Slug');
+			$newcolumns['image'] = __('Image');
+			return $columns=array_merge($columns,$newcolumns);
 		}
 		function location_custom_column($out, $column,$term_id)
 		{
@@ -358,21 +355,44 @@ public function updated_location_image ( $term_id) {
 
 
 	//create metabox featured
-	function featured_meta_box()
-	{
-		add_meta_box( 'featured-hotel-info','featured-hotel' , 'featured_hotel_output','hotel');
-	}
-	function featured_hotel_output()
-	{
-		wp_nonce_field( 'featured_hotel_save','feature_hotel_meta_box' );
-		$featured= get_post_meta( get_the_ID(), '_featured', true );
-		?>
-		<p>
-			<label for="featured">Featured Hotel:</label>
-			<input type="checkbox" name="featured" value="<?php  echo $featured;?>">
-		</p>
-		<?php
-	}
+		function featured_meta_box()
+		{
+			add_meta_box( 'featured-hotel-info', 'Featured Hotel', [$this,'feature_hotel_output'], 'hotel' );
+		}
+		function feature_hotel_output($post)
+		{
+			wp_nonce_field('featured_hotel_save','featured_hotel_meta_box_nonce' );
+			$featured_hotel=get_post_meta( $post->ID, '_featured_hotel', true);
+			?>
+			<p>
+				
+				<label for="featured_hotel"> Featured Hotel:</label>
+				<input type="checkbox" id="featured_hotel" name="featured_hotel" <?php if( $featured_hotel == true ) { ?>checked="checked"<?php } ?> />
+
+			</p>
+
+
+
+			<?php
+		}
+		function feature_hotel_save($post_id)
+		{
+			if(!isset($_POST['featured_hotel_meta_box_nonce'])){
+	 			return;
+	 		}
+	 		if(!wp_verify_nonce($_POST['featured_hotel_meta_box_nonce'],'featured_hotel_save')){
+	 			return;
+	 		}
+	 		if(define('DOING_AUTOSAVE') && DOING_AUTOSAVE){
+	 			return;
+	 		}
+
+	 		$featured = sanitize_text_field($_POST['featured_hotel']);	
+	 		update_post_meta( $post_id, '_featured_hotel', $featured);
+
+	 		
+
+		}
 	//create metabox of hotel
 	 function hotel_meta_box(){
 		add_meta_box('hotel-info','Hotel Information',[$this,'hotel_info_output'],'hotel');
@@ -458,7 +478,8 @@ public function updated_location_image ( $term_id) {
 				$content = get_the_excerpt();
 				break;
 			case 'icon':
-				$content = get_term_meta($term_id,'_facilities_icon',true);
+				$content = '<i class="'.get_term_meta($term_id,'_facilities_icon',true).'" aria-hidden="true"></i>';
+
 				
 				break;	
 			default:
@@ -472,7 +493,7 @@ public function updated_location_image ( $term_id) {
 		?>
 		<p>
 	 		<label>Icon</label><br/>
-	 		<input type="text" name="icon" id="icon" size="30" value="<?php echo $icon; ?>" />
+	 		<input type="text" name="icon" class="icon" id="icon" size="30" value="<?php echo $icon; ?>" autocomplete="off" />
 	 	</p>
 	<?php  }
 	function facilities_info_edit_output($term_id){
@@ -484,11 +505,12 @@ public function updated_location_image ( $term_id) {
 				<label for="category-image-id">Icon</label>
 			</th>
 			<td>
-				<input type="text" name="icon" id="icon" size="30" value="<?php echo $icon; ?>" />
+				<input type="text" class="icon" name="icon" id="icon" size="30" value="<?php echo $icon; ?>" autocomplete="off" />
 			</td>
 		</tr>
 	<?php  }
 	function facilities_info_save($term_id){
+		
 		$icon = sanitize_text_field($_POST['icon']);
 	 	update_term_meta($term_id,'_facilities_icon',$icon);
 	}

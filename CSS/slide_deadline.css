@@ -170,8 +170,8 @@ body{
 	position: relative;
 	width: 100%;
 	height: 200px;
-	background-image: url("http://localhost/Wordpress/wp-content/uploads/2019/04/bg_hero_heading_1.jpg")!important;
-	/*background-image: url("/libs/Images/bg_hero_heading_1.jpg");*/
+	background-image: url("../application/libs/Images/bg_hero_heading_1.jpg")!important;
+
 }
 .search-result-page .banner .banner-content
 {

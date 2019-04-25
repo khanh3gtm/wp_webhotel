@@ -124,7 +124,7 @@ $city = homepage::inst()->listCity();
                                                     $number_child =  $get_data['number_child'];
                                                    }
 
-                                                   echo '<a href="'.get_permalink('132') . $cityid . $cityname . $start . $end . $date . '"></a>';
+                                                   echo '<a href="'.get_permalink(( get_page_by_path( 'hotel-search' ) )) . $cityid . $cityname . $start . $end . $date . '"></a>';
                                                    ?>
 
                                                </ul>
@@ -535,7 +535,7 @@ $city = homepage::inst()->listCity();
 
                             <div class="col-xs-6 col-sm-6 col-md-4 ">
                                 <div class="destination-item">
-                                    <a href="?c=slidebar&a=search&cityname=<?=$val['city_name']?>&cityid=<?=$val['city_id']?>&start=<?=$start ?>&end=<?=$end?>&date=<?=$date ?>">
+                                    <a href="#">
                                         <?php 
 
 

@@ -1,4 +1,8 @@
 $(document).ready(function(){
+    $('.icon').iconpicker();
+    $('.iconpicker-item').click(function(e){
+                    e.preventDefault();
+                })
 	$('.st-upload').each(function (e) {
         var t = $(this);
         var parent = t.closest('.st-upload-gallery');

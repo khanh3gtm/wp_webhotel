@@ -17,7 +17,7 @@ if(!class_exists('ST_Room_Admin')){
 			add_action('edited_amenities', array ($this, 'updated_category_image' ), 10, 2 );
 			add_action('admin_enqueue_scripts', array( $this, 'load_media' ) );
 			add_action('admin_enqueue_scripts', array($this, 'webhotel'));
-			add_action('admin_footer', array ( $this, 'add_script' ) );
+			//add_action('admin_footer', array ( $this, 'add_script' ) );
 			add_action('admin_footer', array ( $this, 'upload_image_meta_box' ) );
 
 			add_filter('manage_edit-amenities_columns',array($this, 'my_custom_taxonomy_columns')); 
@@ -485,7 +485,6 @@ function webhotel(){
 	wp_enqueue_style('fontawesome','https://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css','all');
 	wp_enqueue_style('fontawesome1', 'https://use.fontawesome.com/releases/v5.0.8/css/all.css');
 	wp_enqueue_style('font-css', get_stylesheet_directory_uri() . '/CSS/fontawesome-iconpicker.css', 'all');
-	wp_enqueue_script('fontawesome2', 'http://code.jquery.com/jquery-2.2.1.min.js', 'all');
 	wp_enqueue_script('fontawesome3', 'http://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js', 'all');
 	wp_enqueue_script('st-js', get_stylesheet_directory_uri() . '/js/fontawesome-iconpicker.js', 'all');
 }
