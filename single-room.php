@@ -1,5 +1,4 @@
 <?php get_header(); ?>
-<?php wp_enqueue_script('backend-style',get_stylesheet_directory_uri() . '/room.css','all'); ?>
 <div id="st-content-wrapper">
   <div class="st-breadcrumb">
     <div class="container">
@@ -46,7 +45,7 @@
       <div class="container-fuild">
         <div class="banner">
           <?php $image_banner = get_post_meta(get_the_ID(), '_thumbnail_id', true);
-          $res_banner = wp_get_attachment_image_url($image_banner, 'full');
+          $res_banner = wp_get_attachment_image_url($image_banner, array(1349,460));
           echo '<img src="'. $res_banner .'" alt="">'; ?>
         </div>
       </div>
@@ -76,13 +75,13 @@
 
                   </h2>
                   <div class="sub-heading">
-                    <i class="fas fa-map-marker-alt"></i><span> Hotel :    
+                    <i class="fas fa-map-marker-alt"></i>Hotel:<a href="<?php get_stylesheet_directory() . $resHotel; ?>">     
                       <?php
                       $hotel = get_post_meta(get_the_ID(), 'st_contact_hotel_field', true);
                       $resHotel = get_the_title($hotel);
                       echo $resHotel;
                       ?>
-                    </span>
+                    </a>
                   </div>
                 </div>
                 <div class="st-right ">
@@ -184,22 +183,15 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <h2 class="st-heading-section">Description
                       </h2> 
-                      <?php $query = get_post(get_the_ID()); 
+                      <div class="st-description" data-toggle-section="st-description" data-show-all="st-description" data-height="120" >
+                         <?php $query = get_post(get_the_ID()); 
                       $content = apply_filters('the_content', $query->post_content);
                       echo $content; ?>
-                      <!-- <?php $res =  get_post_meta(get_the_ID(), 'post_content', true);
-                      echo $res; ?> -->
-                      <div class="st-description" data-toggle-section="st-description" data-show-all="st-description" data-height="120" >
-                        <p></p>
-                        <div class="cut-gradient"></div>
+                     
                       </div>
                     </div>
                   </div>
-                  <?php $data = get_post(1852);
-                  dd($data); ?>
-                  <?php $data1 = get_post_meta(1852);
-                  dd($data1); ?>
-                  <a href="#"><span class="text">View more</span></a>
+                 
                   <!-- end description -->
                   <hr >
                   <!-- Amenities -->
@@ -213,10 +205,11 @@
                            <?php
                            GLOBAL $term;
                            $name_amenities = get_the_terms($post->ID, 'amenities');                
-                           $icon  =  get_term_meta($term->ID, 'icon-amenities', true);                         
-                           dd($name_amenities);
+                           // $icon  =  get_term_meta($term->ID, 'icon-amenities', true);                         
+                           
                            if(!empty($name_amenities)){
-                            foreach ($name_amenities as $values){                          
+                            foreach ($name_amenities as $values){   
+                              $icon  =  get_term_meta($values -> term_id, 'icon-amenities', true);               
                               ?>
                               <div class="col-xs-6 col-sm-6 col-md-4 fac">
                                 <i class="<?php echo $icon;?>"></i>
@@ -231,7 +224,7 @@
 
                       </div>
                     </div>
-                    <?php if(count($data_amenities) >6){ ?>
+                    <?php if(count($name_amenities) >6){ ?>
                       <a href="#"><span class="text1">Show all</span></a> 
                     <?php } ?> 
                   </div>
@@ -520,7 +513,7 @@
                                           </span>
                                         </span>
                                         <div class="bookphong">
-                                          <i class="fa ml5 fa-angle-up" ></i>
+                                          
                                         </div>
                                         <div class="formdebook">
                                           <div class="people-dropdown">

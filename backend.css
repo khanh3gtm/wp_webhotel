@@ -33,6 +33,19 @@
     width: 120px;
     height: auto;
 }
+  
+
+.item1 {
+    position: relative;
+}
+.st-include-image1 i.fa.fa-times{
+    color: white;
+    position: absolute;
+    right: 2px;
+    cursor: pointer;
+}
+
 .wp-list-table #the-list i{
     font-size: 25px;
 }
+
