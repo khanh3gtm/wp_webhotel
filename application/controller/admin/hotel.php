@@ -8,6 +8,8 @@ class ST_Hotel_Admin{
 		add_action('init', array($this, 'hotel_custom_taxonomies'));
 		add_action('add_meta_boxes',array($this,'hotel_meta_box'));
 		add_action('save_post',array($this,'hotel_info_save'));
+		add_action('add_meta_boxes',array($this,'featured_meta_box'));
+		add_action('save_post',array($this,'feature_hotel_save'));
 		add_action('manage_hotel_posts_columns',array($this,'hotel_set_columns'));
 		add_action('manage_hotel_posts_custom_column',array($this,'hotel_custom_columns'), 10,2);
 		add_filter('manage_edit-facilities_columns',array($this,'facilities_set_columns'));
@@ -90,7 +92,7 @@ class ST_Hotel_Admin{
 			'rewrite' => array('slug'=>'location'),
 
 		);
-		register_taxonomy('location', array('hotel','room'), $args);
+		register_taxonomy('location', array('hotel'), $args);
 	}
 	//Create metabox of hotel
 	public function hotel_custom_taxonomies(){
@@ -158,13 +160,12 @@ class ST_Hotel_Admin{
 	}
 	
 function custom_location_columns($columns){
-			$columns = array();
-			$columns['name'] = __('Name');
-			$columns['image'] = __('Image');
-			$columns['description'] = __('Description');
-			$columns['slug'] = __('Slug');
-
-			return $columns;
+			$newcolumns = array();
+			$newcolumns['name'] = __('Name');
+			$newcolumns['description'] = __('Description');
+			$newcolumns['slug'] = __('Slug');
+			$newcolumns['image'] = __('Image');
+			return $columns=array_merge($columns,$newcolumns);
 		}
 		function location_custom_column($out, $column,$term_id)
 		{
@@ -354,21 +355,44 @@ public function updated_location_image ( $term_id) {
 
 
 	//create metabox featured
-	function featured_meta_box()
-	{
-		add_meta_box( 'featured-hotel-info','featured-hotel' , 'featured_hotel_output','hotel');
-	}
-	function featured_hotel_output()
-	{
-		wp_nonce_field( 'featured_hotel_save','feature_hotel_meta_box' );
-		$featured= get_post_meta( get_the_ID(), '_featured', true );
-		?>
-		<p>
-			<label for="featured">Featured Hotel:</label>
-			<input type="checkbox" name="featured" value="<?php  echo $featured;?>">
-		</p>
-		<?php
-	}
+		function featured_meta_box()
+		{
+			add_meta_box( 'featured-hotel-info', 'Featured Hotel', [$this,'feature_hotel_output'], 'hotel' );
+		}
+		function feature_hotel_output($post)
+		{
+			wp_nonce_field('featured_hotel_save','featured_hotel_meta_box_nonce' );
+			$featured_hotel=get_post_meta( $post->ID, '_featured_hotel', true);
+			?>
+			<p>
+				
+				<label for="featured_hotel"> Featured Hotel:</label>
+				<input type="checkbox" id="featured_hotel" name="featured_hotel" <?php if( $featured_hotel == true ) { ?>checked="checked"<?php } ?> />
+
+			</p>
+
+
+
+			<?php
+		}
+		function feature_hotel_save($post_id)
+		{
+			if(!isset($_POST['featured_hotel_meta_box_nonce'])){
+	 			return;
+	 		}
+	 		if(!wp_verify_nonce($_POST['featured_hotel_meta_box_nonce'],'featured_hotel_save')){
+	 			return;
+	 		}
+	 		if(define('DOING_AUTOSAVE') && DOING_AUTOSAVE){
+	 			return;
+	 		}
+
+	 		$featured = sanitize_text_field($_POST['featured_hotel']);	
+	 		update_post_meta( $post_id, '_featured_hotel', $featured);
+
+	 		
+
+		}
 	//create metabox of hotel
 	 function hotel_meta_box(){
 		add_meta_box('hotel-info','Hotel Information',[$this,'hotel_info_output'],'hotel');
