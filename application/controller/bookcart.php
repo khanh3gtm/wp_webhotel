@@ -1,24 +1,18 @@
 <?php
 class bookcart extends Controller {
 	public function __construct(){
-		parent::__construct();
-	
-
+		parent::__construct();	
 		add_action('init', array($this, '__stCheckoutHandler'));
-		//add_action('init', array($this, '__stBookingSucces'));
+		add_action('init', array($this, '__stBookingSucces'));
 		add_action('init', array($this, '__stBkSucces'));
 		add_action('init', array($this, '__stInfoBook'),10,1);
 		add_action('init', array($this, '__stInfoSucces'));
 		add_action('init', array($this, '__stHistory'));
 		add_action('init', array($this, '__stList'),10,1);
 		add_action('init', array($this, '__stGetInfoRoom'),10,1);
-		add_action('init', array($this, '__stCheckErr'));
 		add_action('init', array($this, '__stAddSesson'));
 		add_action('init', array($this, '_stDestroyCart'));
-				//add_action('init', array($this, 'sendmail'));
-
 	}
-
 	public function __stCheckoutHandler(){
 		bookcart_model::inst()->taobang();
 	}
@@ -81,14 +75,36 @@ class bookcart extends Controller {
 			$format = array('%s','%d');
 			$wpdb->insert($table,$data,$format);
 			$my_id = $wpdb->insert_id;
-	 		$page_id = '1801';
-	 		$page_link = get_the_permalink($page_id);// lấy đường dẫn theo page id
-	 		$page_link = add_query_arg('bill_id', $my_id, $page_link); //thêm query string vào sau đường dẫn.
+	 				$data = $_POST;			
+				if(!preg_match('/^[_a-z0-9-]*@[a-z0-9-]+(\.[a-z0-9-]+)$/', $_POST['st_email']))
+				    {
+				    	$err_checkout =  'This email is not valid. Please re-enter.';
+				    	$page_id   = get_queried_object_id();
+				    	$page_link = get_the_permalink($page_id);
+				    	wp_redirect($page_link);
+				    }
+				    else $err_checkout = '';
+				    unset($_SESSION['st_err']);
+					$_SESSION['st_err'] = $err_checkout;
+				if(!isset($data['term_condition'])||$data['term_condition'] != '1'){
+						$err_check ='Please tick a checkbox';
+						$page_id   = get_queried_object_id();
+				    	$page_link = get_the_permalink($page_id);
+				    	wp_redirect($page_link);
+					}
+				else $err_check = '';
+				unset($_SESSION['st_err1']);
+				$_SESSION['st_err1'] = $err_check;
 	 		if(isset($_POST['checkout_submit'])){
-	 			dd($page_link);
-	 			wp_redirect($page_link);//chuyển trang
-	 			exit();
-	 		}
+	 			if (empty($_SESSION['st_err'])&& empty($_SESSION['st_err1'])) {
+	 				$page_id = '1801';
+	 				$page_link = get_the_permalink($page_id);
+	 				$page_link = add_query_arg('bill_id', $my_id, $page_link); 
+	 				wp_redirect($page_link);
+	 					exit();
+	 			}
+	 					
+			}
 	 	}
 	}
 	public function __stBkSucces()
@@ -112,14 +128,11 @@ class bookcart extends Controller {
 	}
 	public function __stHistory()
 	{
-		//$my_id = bookcart_model::inst()->getUserid();
 		$page_id = '1813';
  		$page_link = get_the_permalink($page_id);
- 		//$page_link = add_query_arg('user_id', $my_id, $page_link); //thêm query string vào sau đường dẫn.
- 		if(isset($_POST['check_list'])){
- 			//dd($page_link);
- 			wp_redirect($page_link);//chuyển trang
- 			exit();
+  		if(isset($_POST['check_list'])){
+		wp_redirect($page_link);
+		exit();
  		}
 	}
 	public function __stList($key)
@@ -139,36 +152,17 @@ class bookcart extends Controller {
 		$data = array($infohotel,$infohotelmeta,$inforoom,$inforoommeta,$location);
 		return $data;
 	}
-	public function __stCheckErr()
-	{
-		if(isset($_POST['checkout_submit'])){
-			$data = $_POST;			
-		if(!preg_match('/^[_a-z0-9-]*@[a-z0-9-]+(\.[a-z0-9-]+)$/', $_POST['st_email']))
-		    {
-		    	$err_checkout =  '  This email is not valid. Please re-enter. ';
-		    }   
-			else if(!isset($data['term_condition']) || $data['term_condition'] != '1'){
-				$err_checkout ='Please tick a checkbox';
-			}
-		}
-		return $err_checkout;
-	}
 public function __stAddSesson()
 {
-
 	if(isset($_POST['room_add_to_cart'])){
 		$post_data = $_POST;
 		unset($post_data['room_add_to_cart']);
 		unset($_SESSION['st_cart']);	
-
-	
 		$_SESSION['st_cart'] = $post_data;	
-
-
 		$page_id = '1798';
  		$page_link = get_the_permalink($page_id);
- 			wp_redirect($page_link);
- 			exit();
+		wp_redirect($page_link);
+		exit();
 	}
 }
 public function _stDestroyCart()
@@ -179,16 +173,6 @@ public function _stDestroyCart()
 			}
 		}
 	}
-// 	public function sendmail()
-// 	{
-// 		$to = 'khanh3gtm@gmail.com';
-// 		$subject = 'The subject';
-// 		$body = 'The email body content';
-// 		$headers = array('Content-Type: text/html; charset=UTF-8');
- 
-// wp_mail( $to, $subject, $body, $headers );
-// 	}
-
 	public static function inst(){
         static $instane;
         if(is_null($instane)){

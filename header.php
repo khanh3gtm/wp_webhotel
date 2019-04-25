@@ -93,7 +93,7 @@
                                 <li><a href="<?php echo home_url() ?>">HOME</a></li>
                                 <li><a href="#">LISTING<i class="fa fa-angle-down"></i></a>
                                     <ul class="sub-menu">
-                                        <li><a href="<?php echo site_url( '/checkout/'); ?>">Full Map Layout</a></li>
+                                        <li><a href="#">Full Map Layout</a></li>
                                         <li><a href="#">Half Map Layout</a></li>
                                         <li><a href="index.php?c=slidebar&a=view">Sidebar layout</a></li>
 
@@ -193,7 +193,7 @@
                                 ?>
                             </span>
                             </div>
-                            <a href="?c=bookcart&a=view" class="btn btn-green btn-full upper">Check Out</a>
+                            <a href="<?php echo site_url( '/checkout/'); ?>" class="btn btn-green btn-full upper">Check Out</a>
                         </li>
                     </ul>
                 </div>

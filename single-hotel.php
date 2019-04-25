@@ -132,15 +132,15 @@ $listRoom = hoteldetail::inst()->listRoom();
 						<div class="facilities" >
 							<div class="container-fuild">
 								<div class="row room-facility">
-									<?php foreach ($data_fac as $val) {?>
-									<div class="col-xs-4  fac" " >
+									
+									<div class="col-xs-4  fac"  >
 										
 										<i class="fa <?php echo $val['service_icon']; ?> " aria-hidden="true"></i>  <?php echo $val['service']; ?>     
 									</div>
-										  <?php } ?>			
+												
 								</div>
 								<?php
-								if(count($data_fac) > 6 ){  
+								if(count() > 6 ){  
 								?>
 								<div class="showmore" >
 									Show All

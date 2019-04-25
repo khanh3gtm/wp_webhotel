@@ -16,8 +16,8 @@ class ST_Hotel_Admin{
 		add_filter('manage_facilities_custom_column', array($this, 'facilities_custom_columns'),10,3);
 		add_action('facilities_add_form_fields', array ( $this, 'facilities_info_add_output' ));
 		add_action('facilities_edit_form_fields', array ( $this, 'facilities_info_edit_output' ));
-		add_action('edited_facilities', array ( $this, 'facilities_info_save' ));
-
+			add_action('created_facilities', array($this, 'facilities_info_save'), 10, 1);
+			add_action('edited_facilities', array ( $this,'facilities_info_save' ),10,1);
 			add_action('manage_location_custom_column', array($this, 'location_custom_column'),10,3);
 			add_action('location_add_form_fields', array ( $this, 'add_location_image' ));
 			add_action('created_location', array($this, 'save_location_image'), 10, 1);
@@ -25,13 +25,9 @@ class ST_Hotel_Admin{
 			add_action('edited_location', array ($this, 'updated_location_image' ), 10, 1 );
 			add_action('admin_enqueue_scripts', array( $this, 'load_media' ) );
 			add_action('admin_footer', array ( $this, 'add_script' ) );
-			//add_action('admin_footer', array ( $this, 'upload_image_meta_box' ) );
+			add_action('admin_footer', array ( $this, 'upload_image_meta_box' ) );
 			add_filter('manage_edit-location_columns',array($this, 'custom_location_columns'));
-
-
-
-
-		add_action('admin_enqueue_scripts',array($this,'webhotel_style'));
+			add_action('admin_enqueue_scripts',array($this,'webhotel_style'));
 	}
 
 	public function customsb_post_type(){
@@ -482,7 +478,8 @@ public function updated_location_image ( $term_id) {
 				$content = get_the_excerpt();
 				break;
 			case 'icon':
-				$content = get_term_meta($term_id,'_facilities_icon',true);
+				$content = '<i class="'.get_term_meta($term_id,'_facilities_icon',true).'" aria-hidden="true"></i>';
+
 				
 				break;	
 			default:
@@ -496,7 +493,7 @@ public function updated_location_image ( $term_id) {
 		?>
 		<p>
 	 		<label>Icon</label><br/>
-	 		<input type="text" name="icon" id="icon" size="30" value="<?php echo $icon; ?>" />
+	 		<input type="text" name="icon" class="icon" id="icon" size="30" value="<?php echo $icon; ?>" autocomplete="off" />
 	 	</p>
 	<?php  }
 	function facilities_info_edit_output($term_id){
@@ -508,11 +505,12 @@ public function updated_location_image ( $term_id) {
 				<label for="category-image-id">Icon</label>
 			</th>
 			<td>
-				<input type="text" name="icon" id="icon" size="30" value="<?php echo $icon; ?>" />
+				<input type="text" class="icon" name="icon" id="icon" size="30" value="<?php echo $icon; ?>" autocomplete="off" />
 			</td>
 		</tr>
 	<?php  }
 	function facilities_info_save($term_id){
+		
 		$icon = sanitize_text_field($_POST['icon']);
 	 	update_term_meta($term_id,'_facilities_icon',$icon);
 	}
