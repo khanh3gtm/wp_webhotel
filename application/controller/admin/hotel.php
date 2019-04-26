@@ -25,7 +25,7 @@ class ST_Hotel_Admin{
 			add_action('edited_location', array ($this, 'updated_location_image' ), 10, 1 );
 			add_action('admin_enqueue_scripts', array( $this, 'load_media' ) );
 			add_action('admin_footer', array ( $this, 'add_script' ) );
-			add_action('admin_footer', array ( $this, 'upload_image_meta_box' ) );
+			//add_action('admin_footer', array ( $this, 'upload_image_meta_box' ) );
 			add_filter('manage_edit-location_columns',array($this, 'custom_location_columns'));
 			add_action('admin_enqueue_scripts',array($this,'webhotel_style'));
 	}
@@ -183,78 +183,6 @@ function custom_location_columns($columns){
 	//create custom columns location
 	public function load_media(){
 			wp_enqueue_media();
-		}
-		function upload_image_meta_box(){
-			?>
-	<script type="text/javascript">
-				$('.st-upload').each(function (e) {
-					var t = $(this);
-					var parent = t.closest('.form-field');
-					var multi = t.data('multi');
-					var frame;
-					t.click(function (e) {
-						e.preventDefault();
-						var galleryBox = t.parent().find('.st-selection');
-						if (frame) {
-							frame.open();
-							return;
-						}
-                // Create a new media frame
-                frame = wp.media({
-                	title: 'Select image',
-                	button: {
-                		text: 'Use this media'
-                	},
-                    multiple: true  // Set to true to allow multiple files to be selected
-                });
-
-                frame.on('select', function () {
-
-                    // Get media attachment details from the frame state
-                    var attachment = frame.state().get('selection').toJSON();
-                    var ids = [];                    
-                    $('img', parent).each(function(){
-                    	var currentID = $(this).data('id');
-                    	if(!ids.includes(currentID)){
-                    		ids.push(currentID);
-                    	}
-                    });
-
-                    console.log(ids);
-
-                    if (attachment.length > 0) {
-                    	for (var i = 0; i < attachment.length; i++) {
-                    		if(!ids.includes(attachment[i].id)){
-                    			ids.push(attachment[i].id);
-                    			parent.find('.st-include-image').append('<div class="item"><img  src="'+ attachment[i].url +'" width="150px" height="150px" style = "margin-left: 10px;"  /><i class="fa fa-times" ></i></div>');
-                    		}
-                    		
-                    	}
-                    }
-                    
-                    parent.find('.custom_media_url').val(ids.toString());
-                });
-
-                frame.open();
-            });
-				})
-				$(document).on('click',"i.fas.fa-times" ,function() {
-	 			$(this).parent().remove();
-	 			var ids = [];
-	 			$('.form-field .st-include-image .item').each(function(){
-	 				var id = $(this).find('img').data('id');
-	 				if(!ids.includes(id)){
-	 					ids.push(id);
-	 				}
-	 			});
-	 			$('.form-field .metabox-image-id').val(ids.toString());
-                   	
-            });
-
-
-			</script>
-
-			<?php
 		}
 		
 		public function add_location_image () { ?>
