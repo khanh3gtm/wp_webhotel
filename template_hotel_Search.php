@@ -122,7 +122,9 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 											 ?>
 
 											 <?php 
-
+											 		if (!empty($term)) {
+											 			# code...
+											 		
 											 		foreach ($term as $terms) {
 											 			?>
 
@@ -133,7 +135,7 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 											 			
 											 			<?php
 											 		}
-
+											 	}
 											 	  ?>
 
 
