@@ -177,6 +177,23 @@ img.ico_card {
 {
 	padding-top: 10px;
 }
+#main-menu .menu-item-has-children{
+	position: relative;
+}
+#main-menu .menu-item-has-children:after{
+	  content: "\f107";
+    font: normal normal normal 14px/1 FontAwesome;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    margin-top: -7px;
+    color: black;
+   
+   
+}
+#main-menu .menu-item-has-children:hover:after{
+	color: #337ab7;
+}
 .menu #main-menu li a:hover{
 background-color: white!important; 
 }
