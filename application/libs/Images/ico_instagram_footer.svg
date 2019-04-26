@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="17px" viewBox="0 0 16 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49 (51002) - http://www.bohemiancoding.com/sketch -->
+    <title>ico_instagram_footer</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Hotel-layout" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="01_Home" transform="translate(-246.000000, -3013.000000)" fill="#A0A9B2" fill-rule="nonzero">
+            <g id="footer" transform="translate(0.000000, 2658.000000)">
+                <g id="block_1" transform="translate(135.000000, 61.083032)">
+                    <g id="follow" transform="translate(0.000000, 261.638989)">
+                        <g id="ico_instagram_footer" transform="translate(111.000000, 32.577617)">
+                            <path d="M11,0 L5,0 C2.239,0 0,2.27941516 0,5.09025271 L0,11.198556 C0,14.0093935 2.239,16.2888087 5,16.2888087 L11,16.2888087 C13.761,16.2888087 16,14.0093935 16,11.198556 L16,5.09025271 C16,2.27941516 13.761,0 11,0 Z M14.5,11.198556 C14.5,13.1633935 12.93,14.7617329 11,14.7617329 L5,14.7617329 C3.07,14.7617329 1.5,13.1633935 1.5,11.198556 L1.5,5.09025271 C1.5,3.12541516 3.07,1.52707581 5,1.52707581 L11,1.52707581 C12.93,1.52707581 14.5,3.12541516 14.5,5.09025271 L14.5,11.198556 Z" id="Shape"></path>
+                            <path d="M8,4.07220217 C5.791,4.07220217 4,5.89553069 4,8.14440433 C4,10.393278 5.791,12.2166065 8,12.2166065 C10.209,12.2166065 12,10.393278 12,8.14440433 C12,5.89553069 10.209,4.07220217 8,4.07220217 Z M8,10.6895307 C6.622,10.6895307 5.5,9.54727798 5.5,8.14440433 C5.5,6.74051264 6.622,5.59927798 8,5.59927798 C9.378,5.59927798 10.5,6.74051264 10.5,8.14440433 C10.5,9.54727798 9.378,10.6895307 8,10.6895307 Z" id="Shape"></path>
+                            <ellipse id="Oval" cx="12.3" cy="3.766787" rx="1" ry="1"></ellipse>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

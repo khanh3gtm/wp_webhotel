@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="8px" height="17px" viewBox="0 0 8 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49 (51002) - http://www.bohemiancoding.com/sketch -->
+    <title>ico_facebook_footer</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Hotel-layout" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="01_Home" transform="translate(-158.000000, -3013.000000)" fill="#A0A9B2" fill-rule="nonzero">
+            <g id="footer" transform="translate(0.000000, 2658.000000)">
+                <g id="block_1" transform="translate(135.000000, 61.083032)">
+                    <g id="follow" transform="translate(0.000000, 261.638989)">
+                        <g id="ico_facebook_footer" transform="translate(23.000000, 32.577617)">
+                            <path d="M5,5.59927798 L5,3.5631769 C5,3.001213 5.448,2.54512635 6,2.54512635 L7,2.54512635 L7,0 L5,0 C3.343,0 2,1.36724188 2,3.05415162 L2,5.59927798 L0,5.59927798 L0,8.14440433 L2,8.14440433 L2,16.2888087 L5,16.2888087 L5,8.14440433 L7,8.14440433 L8,5.59927798 L5,5.59927798 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
