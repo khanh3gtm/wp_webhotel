@@ -21,7 +21,6 @@
      <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-    
 	<?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
@@ -87,9 +86,9 @@
                         <img src="<?php echo get_template_directory_uri(); ?>/application/libs/Images/logo_homap-4.svg">
                     </a>
                     <div class="menu">
-
                         <nav id="st-main-menu" >
                             <a href="#" class="back-menu"><i class="fa fa-angle-left"></i></a>
+
                             <ul id="main-menu">
                                 <li><a href="<?php echo home_url() ?>">HOME</a></li>
                                 <li><a href="#">LISTING<i class="fa fa-angle-down"></i></a>
@@ -127,11 +126,22 @@
                                 </li>
                                 <li><a href="../../view/site/Contact.php">CONTACT</a></li>
                             </ul>
+
+                          
+                                <?php 
+                            wp_nav_menu( array(
+                                'theme_location' =>'primary-menu',
+                                'container'=> false,
+                                
+                                'menu_id' => 'main-menu'
+                            ));
+                         ?>
+                           
+
                         </nav>
                     </div>
                 </div>
-                <?php  
-                    
+                <?php   
                 if (isset($_SESSION['st_cart'])) {
                 ?>
                 <!-- Icon Bookcart -->
@@ -216,7 +226,6 @@
                         <li class="heading">
                             <h4 class="st-heading-section">Your Cart</h4>
                         </li>
-                        
                         <li class="cart-total">
                             <p>Your cart is empty !!!</p>
                         </li>
