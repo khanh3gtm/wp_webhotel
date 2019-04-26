@@ -8,14 +8,14 @@ include "application/helpers/helpers.php";
 	define( 'THEME_URL', get_stylesheet_directory_uri() );
 
 	define( 'THEME_DIR', get_stylesheet_directory() );
-
+	define( 'CORE', THEME_DIR . "/core" );
 	
 
 
 /**
 	@Nhung file /core/init.php
 	**/
-	require_once ( CORE . "/init.php" );
+	
 /**
 	@Thiet lap chieu rong noi dung
 	**/
@@ -110,8 +110,8 @@ include "application/helpers/helpers.php";
 		}
 	}
 	add_action('wp_enqueue_scripts','webhotel_style');
+	require_once ( CORE . "/init.php" );
 	
-	define( 'CORE', THEME_DIR . "/core" );
 	
 
 	
