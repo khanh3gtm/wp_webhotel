@@ -50,7 +50,8 @@
           echo '<img src="'. $res_banner .'" alt="">'; ?>
         </div>
       </div>
-
+      <?php $abc2 = get_post();
+      dd($abc2); ?>
       <!-- slide -->
       <div class="container">
         <!-- st-content-hotel -->
