@@ -177,6 +177,10 @@ img.ico_card {
 {
 	padding-top: 10px;
 }
+.menu #main-menu li a:hover{
+background-color: white!important; 
+}
+
 #main-menu .fa
 {
 	padding-left: 5px;
@@ -189,7 +193,7 @@ img.ico_card {
 	position: absolute;
 
 	background: rgba(255,255,255,.5);
-	margin-left: 150px;
+	margin-left: 70px;
 	z-index: 1;
 	box-sizing: border-box;
 }
@@ -404,6 +408,7 @@ i.fa.fa-bars.munu1{
 		padding: 18px 25px !important;
 		font-size: 14px !important;
 		font-weight: 500 !important;
+
 	}
 	nav ul {
 		display: block;

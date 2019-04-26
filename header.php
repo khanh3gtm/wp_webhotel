@@ -88,38 +88,16 @@
                     <div class="menu">
                         <nav id="st-main-menu" >
                             <a href="#" class="back-menu"><i class="fa fa-angle-left"></i></a>
-                            <ul id="main-menu">
-                                <li><a href="<?php echo home_url() ?>">HOME</a></li>
-                                <li><a href="#">LISTING<i class="fa fa-angle-down"></i></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="#">Full Map Layout</a></li>
-                                        <li><a href="#">Half Map Layout</a></li>
-                                        <li><a href="<?php echo get_permalink(( get_page_by_path( 'hotel-search' ) )); ?>">Sidebar layout</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="#">HOTEL<i class="fa fa-angle-down"></i></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="<?php site_url( '/hotel/' ); ?>">Hotel Detail 1</a></li>
-                                        <li><a href="#">Hotel Detail 2</a></li>
-                                        <li><a href="#">Hotel Detail 3</a></li>
-                                        <li><a href="?c=room&a=view">Room Detail 1</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="#">HOUSE<i class="fa fa-angle-down"></i></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="#">House Detail 1</a></li>
-                                        <li><a href="#">House Detail 2</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="#">PAGES<i class="fa fa-angle-down"></i></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="../../view/site/aboutus.php">About Us</a></li>
-                                        <li><a href="../../view/site/blog1.php">Blog</a></li>
-                                        <li><a href="#">404 Page</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="../../view/site/Contact.php">CONTACT</a></li>
-                            </ul>
+                          
+                                <?php 
+                            wp_nav_menu( array(
+                                'theme_location' =>'primary-menu',
+                                'container'=> false,
+                                
+                                'menu_id' => 'main-menu'
+                            ));
+                         ?>
+                           
                         </nav>
                     </div>
                 </div>
