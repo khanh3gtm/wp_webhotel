@@ -80,7 +80,6 @@
                       ?>
                   <div class="sub-heading">
                     <i class="fas fa-map-marker-alt"></i>  Hotel: <a href="<?php echo site_url().'/'.$st->post_name ?>"><?php echo  $st -> post_title ?>     
-                      
                     </a>
                   </div>
                 </div>
