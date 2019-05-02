@@ -116,13 +116,7 @@ $listRoom = hoteldetail::inst()->listRoom();
 									Show All 
 								</div> 
 						</div>
-						<!-- <script>	
-							$(".more-content").shorten({
-								"showChars" : 500,
-								"moreText"  : "View more",
-								"lessText"  : "View less",
-							});
-						</script> -->
+						
 					</div>
 					<!-- description -->
 					<hr style="width: 100%;">
