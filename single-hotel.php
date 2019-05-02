@@ -483,7 +483,7 @@ $listRoom = hoteldetail::inst()->listRoom();
 							<div class="comment-item-head">
 								<div class="media">
 									<div class="media-left">
-										<img alt="avatar" width="50" height="50" src="https://homap.travelerwp.com/wp-content/uploads/bfi_thumb/people_8-1-37jk0455r1ut9uns0zq58g.jpg" class="avatar avatar-96 photo origin round"> 
+										<img alt="avatar" width="50" height="50" src="<?php echo get_template_directory_uri(); ?>/application/libs/Images/people_6.jpg" class="avatar avatar-96 photo origin round"> 
 									</div>
 									<div class="media-body2">
 										<h4 class="media-heading">Travis Tan</h4>
@@ -511,7 +511,7 @@ $listRoom = hoteldetail::inst()->listRoom();
 							<div class="comment-item-head">
 								<div class="media">
 									<div class="media-left">
-										<img alt="avatar" width="50" height="50" src="https://homap.travelerwp.com/wp-content/uploads/bfi_thumb/people_10-1-37jiio2qgpw8izfqv5nitc.jpg" class="avatar avatar-96 photo origin round">                    
+										<img alt="avatar" width="50" height="50" src="<?php echo get_template_directory_uri(); ?>/application/libs/Images/people_5.jpg" class="avatar avatar-96 photo origin round">                    
 									</div>
 									<div class="media-body2">
 										<h4 class="media-heading">Donald Wolf</h4>
@@ -542,7 +542,7 @@ $listRoom = hoteldetail::inst()->listRoom();
 							<div class="comment-item-head">
 								<div class="media">
 									<div class="media-left">
-										<img alt="avatar" width="50" height="50" src="https://homap.travelerwp.com/wp-content/uploads/bfi_thumb/images-37jjdsv8akbybpoam2sav4.jpg" class="avatar avatar-96 photo origin round">       
+										<img alt="avatar" width="50" height="50" src="<?php echo get_template_directory_uri(); ?>/application/libs/Images/people_8.jpg" class="avatar avatar-96 photo origin round">       
 									</div>
 									<div class="media-body2">
 										<h4 class="media-heading">Quillen</h4>

@@ -728,6 +728,11 @@ font-size: 14px;
 	position: absolute;
 	right: 0;
 }
+.st-heading-section .down-icon1
+{
+	position: absolute;
+	right: 0;
+}
 .st-heading-section .toggle-section {
 	font-size: 22px;
 	color: #1A2B48;

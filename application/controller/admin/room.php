@@ -348,9 +348,10 @@ function sunset_contact_email_callback($post){
 	echo '<label for="st_contact_price_field">Prices</label>';
 	echo '</div>';
 	echo '<div class="col-75">';
-	echo '<input type="text" id="st_contact_price_field" name="st_contact_price_field" value="' . esc_attr($prices) . '">';
+	echo '<input type="text" id="st_contact_price_field" name="st_contact_price_field" value="' . number_format(esc_attr($prices),2) . '">';
 	echo '</div>';
 	echo '</div>';
+
 	echo '<br>';
 	echo '<div class="row">';
 	echo '<div class="col-25">';
@@ -543,9 +544,7 @@ function __getDataToTable(){
 	
 	if($_POST['post_type'] =='room'){
 		global $wpdb;
-		
 		$hotel_id = $_POST['st_contact_hotel_field'];
-	
 		$args = array(
 			'post_type' =>'room',
 			'meta_query' => array(
@@ -565,7 +564,7 @@ function __getDataToTable(){
 			wp_reset_postdata();
 		}
 	
-	
+		
 		$medium_price = 0;
 		$hotel_point = 0;
 		if(!empty($arr_room)){
@@ -576,6 +575,7 @@ function __getDataToTable(){
 				$hotel_point = $hotel_point + $star_num;			
 			}	
 		}
+
 		$medium_price=number_format($medium_price/count($arr_room),2);
 		$hotel_point = ROUND($hotel_point/count($arr_room),1);
 		$post_args = array(

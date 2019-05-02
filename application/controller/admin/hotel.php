@@ -19,9 +19,9 @@ class ST_Hotel_Admin{
 			add_action('created_facilities', array($this, 'facilities_info_save'), 10, 1);
 			add_action('edited_facilities', array ( $this,'facilities_info_save' ),10,1);
 			add_action('manage_location_custom_column', array($this, 'location_custom_column'),10,3);
-			add_action('location_add_form_fields', array ( $this, 'add_location_image' ));
+			//add_action('location_add_form_fields', array ( $this, 'add_location_image' ));
 			add_action('created_location', array($this, 'save_location_image'), 10, 1);
-			add_action('location_edit_form_fields', array ( $this, 'update_location_image' ), 10, 2 );
+			//add_action('location_edit_form_fields', array ( $this, 'update_location_image' ), 10, 2 );
 			add_action('edited_location', array ($this, 'updated_location_image' ), 10, 1 );
 			add_action('admin_enqueue_scripts', array( $this, 'load_media' ) );
 			add_action('admin_footer', array ( $this, 'add_script' ) );
