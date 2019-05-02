@@ -81,3 +81,11 @@ label {
     font-weight: 600;
     /* font-size: 14px; */
 }
+.inside .star_number_hotel{
+    width: 100px;
+     border-radius: 3px;
+}
+.inside .metabox_hotel{
+    width: 200px;
+   border-radius: 3px;
+}
