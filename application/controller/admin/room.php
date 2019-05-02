@@ -346,16 +346,12 @@ function sunset_contact_email_callback($post){
 	echo '<div class="row">';
 	echo '<div class="col-25">';
 	echo '<label for="st_contact_price_field">Prices</label>';
-<<<<<<< HEAD
-	echo '<br>';
-	echo '<input type="text" id="st_contact_price_field" name="st_contact_price_field" value="' . number_format(esc_attr($prices),2) . '">';
-=======
 	echo '</div>';
 	echo '<div class="col-75">';
-	echo '<input type="text" id="st_contact_price_field" name="st_contact_price_field" value="' . esc_attr($prices) . '">';
+	echo '<input type="text" id="st_contact_price_field" name="st_contact_price_field" value="' . number_format(esc_attr($prices),2) . '">';
 	echo '</div>';
 	echo '</div>';
->>>>>>> 036f630d92ae58ed9d033b0371e7eb01d061ff85
+
 	echo '<br>';
 	echo '<div class="row">';
 	echo '<div class="col-25">';
