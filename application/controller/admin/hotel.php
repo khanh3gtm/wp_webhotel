@@ -334,25 +334,25 @@ public function updated_location_image ( $term_id) {
 	 	$url = explode(",", $image);
 	 	?>
 	 	<p>
-	 		<label for="owner">Owner:</label><br />
-	 		<input type="text" name="owner" id="owner" size="30" value="<?php echo $owner; ?>" />
+	 		<label for="owner">Owner :</label><br />
+	 		<input class="metabox_hotel" type="text" name="owner" id="owner" value="<?php echo $owner; ?>" />
 	 	</p>
 	 	<p>
-	 		<label for="address">Address:</label><br />
-	 		<input type="text" name="address" id="address" size="30" value="<?php echo $add; ?>" />
+	 		<label for="address">Address :</label><br />
+	 		<input class="metabox_hotel" type="text" name="address" id="address" value="<?php echo $add; ?>" />
 	 	</p>
 	 	<p>
-	 		<label for="hotel_star">Number of Stars:</label><br />
-	 		<select style="width: 50px" name="star_number_hotel" id="star_number_hotel">
+	 		<label for="hotel_star">Number of Stars :</label><br />
+	 		<select class="star_number_hotel"  name="star_number_hotel" id="star_number_hotel">
 	 			<?php 
 	 				for ($i=1; $i <=5 ; $i++) { 
-	 				echo '<option value="'. $i .'" '. selected($star, $i) .'>'.$i.'</option>';
+	 				echo '<option  value="'. $i .'" '. selected($star, $i) .'>'.$i.'</option>';
 	 				}
 	 			 ?>
 	 		</select>
 	 	</p>
 	 	<p>
-	 		<label>Images</label><br/>
+	 		<label>Images : </label><br/>
 	 		<div class="st-upload-gallery" style="min-height: 100px;">
 		 		<input type="hidden" name="hotel_images" class="hotel_images" value="<?php echo $image; ?>">
 		 		<div class="st-include-image">
@@ -369,8 +369,8 @@ public function updated_location_image ( $term_id) {
 			 	?>
 			 	</div>
 			 	<br>
-		 		<input type="button" class="st-upload"  value="Add Image">
-		 		<input type="button" name="" class="" value="Delete Image">
+		 		<input class="btn-image" type="button" class="st-upload"  value="Add Image">
+		 		
 				
 	 		</div>
 	 	</p>
