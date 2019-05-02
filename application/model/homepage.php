@@ -35,7 +35,7 @@ class homepage_model extends Model
       }
       public function addColumnForPostTable(){
         global $wpdb;
-        $version ='1.1.9';
+        $version ='1.2.1';
         $db_version = get_option('st_post_column');
 
         if($db_version != $version)
