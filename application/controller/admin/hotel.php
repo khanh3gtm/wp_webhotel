@@ -12,6 +12,7 @@ class ST_Hotel_Admin{
 		add_action('save_post',array($this,'feature_hotel_save'));
 		add_action('manage_hotel_posts_columns',array($this,'hotel_set_columns'));
 		add_action('manage_hotel_posts_custom_column',array($this,'hotel_custom_columns'), 10,2);
+		add_action('admin_menu',array($this,'add_submenu'));
 		add_filter('manage_edit-facilities_columns',array($this,'facilities_set_columns'));
 		add_filter('manage_facilities_custom_column', array($this, 'facilities_custom_columns'),10,3);
 		add_action('facilities_add_form_fields', array ( $this, 'facilities_info_add_output' ));
@@ -334,25 +335,25 @@ public function updated_location_image ( $term_id) {
 	 	$url = explode(",", $image);
 	 	?>
 	 	<p>
-	 		<label for="owner">Owner :</label><br />
-	 		<input class="metabox_hotel" type="text" name="owner" id="owner" value="<?php echo $owner; ?>" />
+	 		<label for="owner">Owner:</label><br />
+	 		<input class="metabox_hotel" type="text" name="owner" id="owner" size="30" value="<?php echo $owner; ?>" />
 	 	</p>
 	 	<p>
-	 		<label for="address">Address :</label><br />
-	 		<input class="metabox_hotel" type="text" name="address" id="address" value="<?php echo $add; ?>" />
+	 		<label for="address">Address:</label><br />
+	 		<input class="metabox_hotel" type="text" name="address" id="address" size="30" value="<?php echo $add; ?>" />
 	 	</p>
 	 	<p>
-	 		<label for="hotel_star">Number of Stars :</label><br />
-	 		<select class="star_number_hotel"  name="star_number_hotel" id="star_number_hotel">
+	 		<label for="hotel_star">Number of Stars:</label><br />
+	 		<select class="star_number_hotel" name="star_number_hotel" id="star_number_hotel">
 	 			<?php 
 	 				for ($i=1; $i <=5 ; $i++) { 
-	 				echo '<option  value="'. $i .'" '. selected($star, $i) .'>'.$i.'</option>';
+	 				echo '<option value="'. $i .'" '. selected($star, $i) .'>'.$i.'</option>';
 	 				}
 	 			 ?>
 	 		</select>
 	 	</p>
 	 	<p>
-	 		<label>Images : </label><br/>
+	 		<label>Images</label><br/>
 	 		<div class="st-upload-gallery" style="min-height: 100px;">
 		 		<input type="hidden" name="hotel_images" class="hotel_images" value="<?php echo $image; ?>">
 		 		<div class="st-include-image">
@@ -369,7 +370,7 @@ public function updated_location_image ( $term_id) {
 			 	?>
 			 	</div>
 			 	<br>
-		 		<input class="btn-image" type="button" class="st-upload"  value="Add Image">
+		 		<input type="button" class="st-upload"  value="Add Image">
 		 		
 				
 	 		</div>
@@ -454,6 +455,27 @@ public function updated_location_image ( $term_id) {
 		$icon = sanitize_text_field($_POST['icon']);
 	 	update_term_meta($term_id,'_facilities_icon',$icon);
 	}
+	function add_submenu()
+	{
+		add_submenu_page('options-general.php','Setting Page ','Setting Page ','manage_options','setting-page',[$this,'wp_submenu_output']);
+
+	}
+	 function wp_submenu_output()
+	{
+		?>
+		<tr class="form-field term-group-wrap">
+			<th scope="row">
+				<label for="category-image-id">Select Page:</label>
+			</th>
+			<td>
+			<select style="width: 200px;">
+				<option>1</option>
+			</select>
+			</td>
+		</tr>
+	<?php
+	}
+	
 
 
 
@@ -473,6 +495,7 @@ public function updated_location_image ( $term_id) {
 
 	
 	}
+	
 
 
 }
