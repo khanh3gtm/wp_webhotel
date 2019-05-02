@@ -53,3 +53,31 @@
     width: 100px;
     height: auto;
 }
+
+.row {
+    display: inline-block;
+    width: 100%;
+    /* vertical-align: initial; */
+    padding-bottom: 11px;
+}
+.col-25 {
+    float: left;
+    width: 25%;
+    margin-top: 6px;
+    /* display: block; */
+}
+.wp-admin select {
+    padding: 2px;
+    line-height: 28px;
+    height: 28px;
+    vertical-align: middle;
+    width: 20%;
+    cursor: pointer;
+}
+.st-upload-gallery1 {
+    margin-top: 15px;
+}
+label {
+    font-weight: 600;
+    /* font-size: 14px; */
+}
