@@ -71,8 +71,11 @@
     line-height: 28px;
     height: 28px;
     vertical-align: middle;
-    width: 20%;
+ 
     cursor: pointer;
+}
+.col-75 select {
+    width: 19%;
 }
 .st-upload-gallery1 {
     margin-top: 15px;
