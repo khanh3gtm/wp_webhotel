@@ -11,10 +11,10 @@ class homepage_model extends Model
     }
 
      public function __ListHotel(){
-     	global $wpdb;
+    
      	$args = array(
      		'post_type' => 'hotel',
-     		'posts_per_pages' => -1,
+     		'posts_per_page'  => 4,
      		'oderby' => 'post_date',
      		'order' => 'DESC',
      		
@@ -28,7 +28,7 @@ class homepage_model extends Model
       public function listCity()
       {
           global $wpdb;
-          $sql ="SELECT *,COUNT(object_id) AS 'column_hotel' FROM `wp_term_taxonomy` INNER JOIN wp_terms ON wp_terms.term_id=wp_term_taxonomy.term_id INNER JOIN wp_term_relationships ON wp_term_taxonomy.term_taxonomy_id=wp_term_relationships.term_taxonomy_id WHERE wp_term_taxonomy.taxonomy='location' AND wp_term_taxonomy.parent > 0 GROUP BY  wp_term_relationships.term_taxonomy_id";
+          $sql ="SELECT *,COUNT(object_id) AS 'column_hotel' FROM `wp_term_taxonomy` INNER JOIN wp_terms ON wp_terms.term_id=wp_term_taxonomy.term_id INNER JOIN wp_term_relationships ON wp_term_taxonomy.term_taxonomy_id=wp_term_relationships.term_taxonomy_id WHERE wp_term_taxonomy.taxonomy='location' AND wp_term_taxonomy.parent > 0 GROUP BY  wp_term_relationships.term_taxonomy_id LIMIT 0,3";
           $res = $wpdb->get_results($sql);
           return $res;
 

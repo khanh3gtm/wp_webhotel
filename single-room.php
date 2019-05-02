@@ -290,7 +290,7 @@
                           <div class="comment-item-head">
                             <div class="media">
                               <div class="media-left">
-                                <img alt="avatar" width="50" height="50" src="libs/Images/8.jpg" class="avatar avatar-96 photo origin round">                    
+                                <img alt="avatar" width="50" height="50" src="<?php echo get_template_directory_uri(); ?>/application/libs/Images/people_4.jpg" class="avatar avatar-96 photo origin round">                    
                               </div>
                               <div class="media-body1">
                                 <h4 class="media-heading">Travis Tan</h4>
@@ -324,7 +324,7 @@
                               <div class="comment-item-head">
                                 <div class="media">
                                   <div class="media-left">
-                                    <img alt="avatar" width="50" height="50" src="libs/Images/8.jpg" class="avatar avatar-96 photo origin round">                    
+                                    <img alt="avatar" width="50" height="50" src="<?php echo get_template_directory_uri(); ?>/application/libs/Images/people_9.jpg" class="avatar avatar-96 photo origin round">                    
                                   </div>
                                   <div class="media-body1" >
                                     <h4 class="media-heading">Donald Wolf</h4>
