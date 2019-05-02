@@ -50,7 +50,6 @@
           echo '<img src="'. $res_banner .'" alt="">'; ?>
         </div>
       </div>
-
       <!-- slide -->
       <div class="container">
         <!-- st-content-hotel -->

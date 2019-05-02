@@ -21,10 +21,7 @@ if(!class_exists('ST_Room_Admin')){
 			add_action('admin_footer', array ( $this, 'upload_image_meta_box' ) );
 
 			add_filter('manage_edit-amenities_columns',array($this, 'my_custom_taxonomy_columns')); 
-
-			add_filter('manage_edit-amenities_columns',array($this, 'my_custom_taxonomy_columns'));
 			add_action('save_post',array($this,'__getDataToTable'));
-
 		}
 		public function load_media(){
 			wp_enqueue_media();
@@ -38,16 +35,13 @@ if(!class_exists('ST_Room_Admin')){
 				$('.iconpicker-item').click(function(e){
 					e.preventDefault();
 				})
-				
-
 					// var idi = [];
 					// $('.icon-amenities').each(function() {
 					// 	var iconID = $(this).data('id');
      //                	if(!idi.includes(iconID)){
      //                		idi.push(iconID);
      //                	}
-					// });
-				
+					// });			
 				$('.st-upload1').each(function (e) {
 					var t = $(this);
 					var parent = t.closest('.st-upload-gallery1');
@@ -120,13 +114,10 @@ if(!class_exists('ST_Room_Admin')){
 		}
 		function my_custom_taxonomy_columns($columns){
 			$newcolumns = array();
-			
 			$newcolumns['name'] = __('Name');
-			
 			$newcolumns['icon'] = ('Icon');
 			$newcolumns['slug'] = __('Slug');
-			$columns=	array_merge($newcolumns,$columns );
-			unset($columns['description']);
+			$columns=	array_merge($columns,$newcolumns );
 			return $columns;
 		}
 		function st_taxonomy_custom_column($out, $column,$term_id)
@@ -161,8 +152,7 @@ public function update_category_image ( $term, $amenities ) { ?>
 			<?php $icon = get_term_meta($term -> term_id, 'icon-amenities', true); ?>
 		</td>
 		<?php  ?>
-		<th scope="row">
-			
+		<th scope="row">	
 			<input type="hidden" id="icon-amenities" name="icon-amenities" value="">
 			<div class="form-control">
 				<input type="text" class="social-icon" id="social-icon" name="st_icon_amen" value="<?php echo $icon;?>">
@@ -255,7 +245,6 @@ function sunset_set_contact_columns($columns)
 	$newColumns['adult'] = 'Adult';
 	$newColumns['hotel'] = 'Hotel';
 	$newColumns['star'] = 'Star room';
-	
 	$columns=	array_merge($columns,$newColumns);
 	unset($columns['tags']);
 	unset($columns['date']);
@@ -331,7 +320,6 @@ private function getHotelData(){
 	}
 	wp_reset_postdata();
 	return $arr;
-	
 }
 function sunset_contact_email_callback($post){
 	wp_nonce_field('sunset_save_contact_email_data', 'sunset_contact_email_meta_box_nonce');
@@ -346,33 +334,62 @@ function sunset_contact_email_callback($post){
 	$url = explode(',', $image);
 
 	$hotelData = $this->getHotelData();
-
+	echo '<div class="row">';
+	echo '<div class="col-25">';
 	echo '<label for="st_contact_superficies_field">Superficies</label>';
-	echo '<br>';
+	echo '</div>';
+	echo '<div class="col-75">';
 	echo '<input type="text" id="st_contact_superficies_field" name="st_contact_superficies_field" value="' . esc_attr($superficies) . '">';
+	echo '</div>';
+	echo '</div>';
 	echo '<br>';
+	echo '<div class="row">';
+	echo '<div class="col-25">';
 	echo '<label for="st_contact_price_field">Prices</label>';
+<<<<<<< HEAD
 	echo '<br>';
 	echo '<input type="text" id="st_contact_price_field" name="st_contact_price_field" value="' . number_format(esc_attr($prices),2) . '">';
+=======
+	echo '</div>';
+	echo '<div class="col-75">';
+	echo '<input type="text" id="st_contact_price_field" name="st_contact_price_field" value="' . esc_attr($prices) . '">';
+	echo '</div>';
+	echo '</div>';
+>>>>>>> 036f630d92ae58ed9d033b0371e7eb01d061ff85
 	echo '<br>';
+	echo '<div class="row">';
+	echo '<div class="col-25">';
 	echo '<label for="st_contact_star_field">Star Num</label>';
+	echo '</div>';
+	echo '<div class="col-75">';
 	echo '<select name="st_contact_star_field" id="st_contact_star_field">';
+
 	for($i=1; $i<=5;$i++){
 		echo '<option value="'. $i .'" '. selected($star, $i) .'>'.$i.'</option>';
 	}
 	echo '</select>';
+	echo '</div>';
+	echo '</div>';
 	echo '<br>';
 	
-
+	echo '<div class="row">';
+	echo '<div class="col-25">';
 	echo '<label for="st_contact_bed_field">Beds</label>';
-
+	echo '</div>';
+	echo '<div class="col-75">';
 	echo '<select name="st_contact_bed_field" id="st_contact_bed_field">';
 	for($i=1; $i<=10;$i++){
 		echo '<option value="'. $i .'" '. selected($beds, $i) .'>'.$i.'</option>';
 	}
 	echo '</select>';
+	echo '</div>';
+	echo '</div>';
 	echo '<br>';
+	echo '<div class="row">';
+	echo '<div class="col-25">';
 	echo '<label for="st_contact_hotel_field">Hotel</label>';
+	echo '</div>';
+	echo '<div class="col-75">';
 	echo '<select name="st_contact_hotel_field" id="st_contact_hotel_field">';
 	if(!empty($hotelData)){
 		foreach ($hotelData as $key => $value) {
@@ -382,20 +399,36 @@ function sunset_contact_email_callback($post){
 	}
 
 	echo '</select>';
-	
+	echo '</div>';
+	echo '</div>';
+	echo '<br>';
+	echo '<div class="row">';
+	echo '<div class="col-25">';
 	echo '<label for="st_contact_children_field">Children</label>';
+	echo '</div>';
+	echo '<div class="col-75">';
 	echo '<select name="st_contact_children_field" id="st_contact_children_field">';
 	for($i=1; $i<=10;$i++){
 		echo '<option value="'. $i .'" '. selected($children, $i) .'>'.$i.'</option>';
 	}
 	echo '</select>';
+	echo '</div>';
+	echo '</div>';
+	echo '<br>';
+
 	$adult_option = isset($adult['select']) ? $adult['select'] : '';
+	echo '<div class="row">';
+	echo '<div class="col-25">';
 	echo '<label for="st_contact_adult_field">Adult</label>';
+	echo '</div>';
+	echo '<div class="col-75">';
 	echo '<select name="st_contact_adult_field" id="st_contact_adult_field">';
 	for($i=1; $i<=10;$i++){
 		echo '<option value="'. $i .'" '. selected($adult, $i) .'>'.$i.'</option>';
 	}
 	echo '</select>';
+	echo '</div>';
+	echo '</div>';
 	echo '<br>';
 
 	?>
@@ -457,6 +490,16 @@ if( ! isset($_POST['st_contact_children_field']) ){
 if( ! isset($_POST['st_contact_adult_field']) ){
 	return;
 }
+if (! isset($_POST['metabox-image'])){
+	return;
+}
+if (! isset($_POST['st_contact_hotel_field'])){
+	return;
+}
+if (! isset($_POST['st_contact_star_field'])){
+	return;
+}
+
 $superficies = sanitize_text_field($_POST['st_contact_superficies_field']);
 update_post_meta($post_id, 'st_contact_superficies_field', $superficies);
 $prices = sanitize_text_field($_POST['st_contact_price_field']);
