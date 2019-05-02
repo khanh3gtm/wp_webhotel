@@ -447,7 +447,7 @@ function sunset_contact_email_callback($post){
 		</div>
 
 		<input type="button" class="st-upload1"  value="<?php _e( 'Add Image', 'shinetheme' ); ?>" />
-		<input type="button" class="button"  value="<?php _e( 'Remove Image', 'shinetheme' ); ?>" />
+		
 	</div>
 
 	<?php

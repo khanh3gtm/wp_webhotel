@@ -184,7 +184,7 @@
                       </h2> 
                       <div class="st-description" data-toggle-section="st-description" data-show-all="st-description" data-height="120" >
                          <?php $query = get_post(get_the_ID()); 
-                      $content = apply_filters('the_content', $query->post_content);
+                      $content =  nl2br(apply_filters('the_content', $query->post_content)) ;
                       echo $content; ?>
                      
                       </div>
