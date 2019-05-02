@@ -38,9 +38,11 @@ $check = is_user_logged_in();
 						<tbody>
 							<?php 
 							foreach ($ds as $dt){ ?>
+								<?php $room = get_post($dt->room_id)->post_title; ?>
+								<?php dd($room) ?> 
 								<tr>
 									<td><?php echo $dt->bill_id; ?></td>
-									<td><?php echo $dt->room_id; ?></td>
+									<td><?php echo $room ?></td>
 									<td><?php echo $dt->date_order; ?></td>
 									<td><?php echo $dt->checkin.' => '.$dt->checkout ?></td>
 									<td><?php echo $dt->totalmoney ?></td>
