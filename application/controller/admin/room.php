@@ -348,7 +348,7 @@ function sunset_contact_email_callback($post){
 	echo '<label for="st_contact_price_field">Prices</label>';
 	echo '</div>';
 	echo '<div class="col-75">';
-	echo '<input type="text" id="st_contact_price_field" name="st_contact_price_field" value="' . number_format(esc_attr($prices),2) . '">';
+	echo '<input type="text" id="st_contact_price_field" name="st_contact_price_field" value="' . esc_attr($prices) . '">';
 	echo '</div>';
 	echo '</div>';
 
