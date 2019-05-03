@@ -223,9 +223,12 @@
 
                       </div>
                     </div>
-                    <?php if(count($name_amenities) >6){ ?>
+                    <?php  if(!empty($name_amenities))
+                    {
+                    if(count($name_amenities) >6){ ?>
                       <a href="#"><span class="text1">Show all</span></a> 
-                    <?php } ?> 
+
+                    <?php } } ?> 
                   </div>
 
                   

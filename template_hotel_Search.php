@@ -652,21 +652,16 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 
 															if(isset($get_data['start'])){
 																$start = '&start=' . $get_data['start'];
-															}else{
-																$start ="";
 															}
 
 															if(isset($get_data['end'])){
 																$end = '&end=' . $get_data['end'];
-															}else{
-																$end ="";
 															}
 
 															if(isset($get_data['date'])){
 																$date = '&date=' . $get_data['date'];
-															}else{
-																$date ="";
 															}
+															
 
 															?>
  															<a href="<?php echo site_url('/'.$id_location->post_type.'/'.$id_location->post_name.'/?'.$start.$end.$date); ?>">
