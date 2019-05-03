@@ -204,6 +204,7 @@ body{
 	border: 1px solid #dfdfdf;
 	margin-top: 30px;
 	max-width: 268px;
+	margin-bottom: 80px;
 }
 .slidebar-filter	input
 {
@@ -211,7 +212,7 @@ body{
 }
 .slidebar-filter .search-title
 {
-	width: 266px;
+	width: 265px;
 	height: 81px;
 	border-bottom: 1px solid #dfdfdf;
 	font-size: 20px;
