@@ -9,7 +9,7 @@ include "application/helpers/helpers.php";
 
 	define( 'THEME_DIR', get_stylesheet_directory() );
 	define( 'CORE', THEME_DIR . "/core" );
-	
+	require_once ( CORE . "/init.php" );
 
 
 /**
@@ -110,7 +110,7 @@ include "application/helpers/helpers.php";
 		}
 	}
 	add_action('wp_enqueue_scripts','webhotel_style');
-	require_once ( CORE . "/init.php" );
+	
 	
 	
 

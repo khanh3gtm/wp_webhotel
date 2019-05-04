@@ -152,7 +152,6 @@ class ST_Hotel_Admin{
 					break;	
 			case 'image':
 				$image = the_post_thumbnail($post_id);		
-				
            		echo $image ;
 			default:
 				# code...
@@ -336,7 +335,15 @@ public function updated_location_image ( $term_id) {
 	 	?>
 	 	<p>
 	 		<label for="owner">Owner:</label><br />
-	 		<input class="metabox_hotel" type="text" name="owner" id="owner" size="30" value="<?php echo $owner; ?>" />
+	 		<select class="owner_hotel" name="owner">
+	 			<?php $all_owner = get_users();
+	 				foreach ($all_owner as $values) {
+	 					?>
+	 					<option value="<?php echo  $values->data->display_name; ?>" <?php selected($owner, $values->data->display_name) ?>><?php echo $values->data->display_name ?></option>
+	 					<?php  
+	 				}
+	 			 ?>
+	 		</select>
 	 	</p>
 	 	<p>
 	 		<label for="address">Address:</label><br />
