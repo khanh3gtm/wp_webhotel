@@ -153,3 +153,30 @@ $(function() {
 			
 			$('.has-matchHeight', body).matchHeight(); 
 		});
+
+		// dich chuyen layout khi thuc hien sort
+		$(document).ready(function () {
+			const urlParams = new URLSearchParams(window.location.search);
+			const myParam = urlParams.get('optradio');
+			
+				if(typeof urlParams !=='undefined')
+				{
+					if (myParam) {
+						$('html, .search-result-page').animate({
+						scrollTop: $('#custom-layout').offset().top
+					}, 'slow')
+					}
+
+					
+				}
+			
+		});
+
+
+
+// $(document).ready(function(){
+// $('.layout-checkicon').click(function(){
+// 	window.scroll('.row-wapper');
+// });
+// });
+
