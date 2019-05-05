@@ -14,7 +14,7 @@ class homepage_model extends Model
     
      	$args = array(
      		'post_type' => 'hotel',
-     		'posts_per_page'  => 8,
+     		'posts_per_page'  => get_option('number_hotel'),
      		'oderby' => 'post_date',
      		'order' => 'DESC',
      		

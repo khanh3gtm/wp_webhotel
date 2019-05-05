@@ -13,6 +13,7 @@ class ST_Hotel_Admin{
 		add_action('manage_hotel_posts_columns',array($this,'hotel_set_columns'));
 		add_action('manage_hotel_posts_custom_column',array($this,'hotel_custom_columns'), 10,2);
 		add_action('admin_menu',array($this,'add_submenu'));
+		add_action('admin_menu',array($this,'add_menu_page'));
 		add_filter('manage_edit-facilities_columns',array($this,'facilities_set_columns'));
 		add_filter('manage_facilities_custom_column', array($this, 'facilities_custom_columns'),10,3);
 		add_action('facilities_add_form_fields', array ( $this, 'facilities_info_add_output' ));
@@ -482,6 +483,39 @@ public function updated_location_image ( $term_id) {
 		</tr>
 	<?php
 	}
+	public function add_menu_page(){
+		add_menu_page('Setting Show','Setting Show','manage_options','setting-show',[$this,'menu_page_output']);
+		//active custom settings
+		add_action('admin_init',[$this,'sunset_custom_setting']);
+		
+	}
+	function sunset_custom_setting(){
+		register_setting( 'sunset-settings-group', 'number_hotel' );
+		add_settings_section( 'sunset-sidebar-options', 'Sidebar Option', [$this,'sunset_sidebar_options'], 'setting-show');
+		add_settings_field( 'sidebar-name', 'Number of Hotel', [$this,'sunset_sidebar_name'], 'setting-show', 'sunset-sidebar-options');
+	}
+	function sunset_sidebar_options() {
+	
+}
+	function sunset_sidebar_name() {
+		$numberHotel = esc_attr(get_option('number_hotel'));
+	echo '<input type="text" name="number_hotel" value="'.$numberHotel.'"  placeholder="Number hotel" />';
+}
+
+	function menu_page_output(){?>
+		<h2>Sunset Theme Options</h2>
+		<?php settings_errors(); ?>
+		<form method="post" action="options.php">
+			<?php settings_fields('sunset-settings-group'); ?>
+			<?php do_settings_sections( 'setting-show') ;?>
+			<?php submit_button(); ?>
+		</form>
+
+	<?php }
+	function menu_page_save(){
+
+	}
+
 	
 
 
