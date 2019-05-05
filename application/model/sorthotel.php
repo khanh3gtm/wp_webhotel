@@ -52,20 +52,20 @@ class st_sidebar_model extends Model
 			}
 		}
 				
-			if(isset($_GET['cityname'])&&!empty($_GET['cityname']))
+			if(isset($_GET['cityid'])&&!empty($_GET['cityid']))
 			{
-				$cityname=$_GET['cityname'];
+				$cityid=$_GET['cityid'];
 				$args['tax_query']= array(
 							array(
 								'taxonomy' => 'location',
-								'field'    => 'slug',
-								'terms'    => $cityname,
+								'field'    => 'term_id',
+								'terms'    => $cityid,
 							)
 						
 			);
 				
 			}
-			else if(!isset($_GET['cityname'])&&empty($_GET['cityname']))
+			else if(!isset($_GET['cityid'])&&empty($_GET['cityid']))
 			{
 				return $args;
 			}
