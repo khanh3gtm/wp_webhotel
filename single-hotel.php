@@ -247,7 +247,7 @@ $listRoom = hoteldetail::inst()->listRoom();
 											echo $room_image;
 										}
 										else{
-											echo ' <img src="'. get_template_directory_uri().' /application/libs/Images/131385615-450x417.jpg" class="img-responsive" >';
+											echo ' <img src="'. get_template_directory_uri().' /application/libs/Images/bg-contact-1.jpg" class="img-responsive" >';
 										}
 									 ?>
 									</div>
@@ -308,7 +308,7 @@ $listRoom = hoteldetail::inst()->listRoom();
 											echo $room_image;
 										}
 										else{
-											echo ' <img src="'. get_template_directory_uri().' /application/libs/Images/131385615-450x417.jpg" class="img-responsive" >';
+											echo ' <img src="'. get_template_directory_uri().' /application/libs/Images/bg-contact-1.jpg" class="img-responsive" >';
 										}
 									 ?>
 								</div>
