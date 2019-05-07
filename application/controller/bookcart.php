@@ -140,8 +140,11 @@ class bookcart extends Controller {
 	}
 	public function __stList($key)
 	 		{
-	 			$data = bookcart_model::inst()->getListBill($key);
-	 			return $data;
+	 			if(is_page_template( 'template_history.php' ))
+	 			{
+	 				$data = bookcart_model::inst()->getListBill($key);
+	 				return $data;
+	 			}	 			
 	 		}
 	public function __stGetInfoRoom($key)
 	{
