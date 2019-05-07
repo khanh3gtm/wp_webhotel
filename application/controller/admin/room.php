@@ -22,22 +22,7 @@ if(!class_exists('ST_Room_Admin')){
 			add_action('admin_footer', array ( $this, 'upload_image_meta_box' ) );
 
 			add_filter('manage_edit-amenities_columns',array($this, 'my_custom_taxonomy_columns')); 
-<<<<<<< HEAD
 		
-=======
-			add_action('save_post',array($this,'__getDataToTable'));
-
-			add_action( 'admin_notices', array($this, 'my_error_message' ));
-		}
-		function my_error_message(){
-			if ( array_key_exists( 'my_plugin_errors', $_SESSION ) ) {?>
-				<div class="error">
-					<p><?php echo $_SESSION['my_plugin_errors']; ?></p>
-					</div><?php
-
-					unset( $_SESSION['my_plugin_errors'] );
-				}
->>>>>>> b36fcdbf1c06b4da6075523c11141975dd04fad9
 		}
 		public function load_media(){
 			wp_enqueue_media();
@@ -86,7 +71,7 @@ if(!class_exists('ST_Room_Admin')){
                     var ids = [];                    
                     $('img', parent).each(function(){
                     	var currentID = $(this).data('id');
-                    	if(!ids.includes(currentID)){
+if(!ids.includes(currentID)){
                     		ids.push(currentID);
                     	}
                     });
@@ -180,7 +165,7 @@ public function update_category_image ( $term, $amenities ) { ?>
 public function updated_category_image ( $term_id) {
 	if(isset($_POST['st_icon_amen'])){
 		$icon = $_POST['st_icon_amen'];
-		update_term_meta($term_id, 'icon-amenities', $icon);
+update_term_meta($term_id, 'icon-amenities', $icon);
 	}
 }
 
@@ -298,7 +283,7 @@ function sunset_contact_custom_column($column,$post_id)
 		break;
 
 		case 'children':
-		$children = get_post_meta($post_id, 'st_contact_children_field', true);
+$children = get_post_meta($post_id, 'st_contact_children_field', true);
 		echo $children;
 		break;
 		case 'adult':
@@ -338,7 +323,6 @@ private function getHotelData(){
 	return $arr;
 }
 function sunset_contact_email_callback($post){
-
 	wp_nonce_field('sunset_save_contact_email_data', 'sunset_contact_email_meta_box_nonce');
 	$superficies = get_post_meta($post->ID, 'st_contact_superficies_field', true);
 	$prices = get_post_meta($post->ID, 'st_contact_price_field', true);
@@ -392,7 +376,7 @@ function sunset_contact_email_callback($post){
 	echo '<div class="col-75">';
 	echo '<select name="st_contact_bed_field" id="st_contact_bed_field">';
 	for($i=1; $i<=10;$i++){
-		echo '<option value="'. $i .'" '. selected($beds, $i) .'>'.$i.'</option>';
+echo '<option value="'. $i .'" '. selected($beds, $i) .'>'.$i.'</option>';
 	}
 	echo '</select>';
 	echo '</div>';
@@ -472,81 +456,64 @@ function sunset_contact_email_callback($post){
 }
 
 function sunset_save_contact_email_data($post_id){
-	if ( !session_id() ) {
-	    session_start();
+	if( ! isset($_POST['sunset_contact_email_meta_box_nonce']) ){
+		return;
 	}
-	$error = false;
-	$error = new WP_Error();
-    if(!preg_match('/^[0-9]{3,15}+[m|km]$/', $_POST['st_contact_superficies_field'])){   	
-    	$error->add('superficies', 'Diện tích nhập sai');
-    }
-    
-    if ($error) {
-        // Handle error.
-        $_SESSION['my_plugin_errors'] = $error->get_error_message();
+	if( ! wp_verify_nonce($_POST['sunset_contact_email_meta_box_nonce'],
+		'sunset_save_contact_email_data') ){
+		return;
 
-    }
-    return true;
-    unset($_SESSION['my_plugin_errors']);
-    if($error == false){
-
-		if( ! isset($_POST['sunset_contact_email_meta_box_nonce']) ){
-			return;
-		}
-		if( ! wp_verify_nonce($_POST['sunset_contact_email_meta_box_nonce'],
-			'sunset_save_contact_email_data') ){
-			return;
-		}
-		if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE){
-			return;
-		}
+}
+if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE){
+	return;
+}
 
 
-		if( ! current_user_can('edit_post', $post_id)){
-			return;
-		}
-		if( ! isset($_POST['st_contact_superficies_field']) ){
-			return;
-		}
-		if( ! isset($_POST['st_contact_price_field']) ){
-			return;
-		}
-		if( ! isset($_POST['st_contact_bed_field']) ){
-			return;
-		}
-		if( ! isset($_POST['st_contact_children_field']) ){
-			return;
-		}
-		if( ! isset($_POST['st_contact_adult_field']) ){
-			return;
-		}
-		if (! isset($_POST['metabox-image'])){
-			return;
-		}
-		if (! isset($_POST['st_contact_hotel_field'])){
-			return;
-		}
-		if (! isset($_POST['st_contact_star_field'])){
-			return;
-		}
-		$superficies = sanitize_text_field($_POST['st_contact_superficies_field']);
-		update_post_meta($post_id, 'st_contact_superficies_field', $superficies);
-		$prices = sanitize_text_field($_POST['st_contact_price_field']);
-		update_post_meta($post_id, 'st_contact_price_field', $prices);
-		$beds = sanitize_text_field($_POST['st_contact_bed_field']);
-		update_post_meta($post_id, 'st_contact_bed_field', $beds);
-		$children = sanitize_text_field($_POST['st_contact_children_field']);
-		update_post_meta($post_id, 'st_contact_children_field', $children);
-		$adult = sanitize_text_field($_POST['st_contact_adult_field']);
-		update_post_meta($post_id, 'st_contact_adult_field', $adult);
-		$image = $_POST['metabox-image'];
-		update_post_meta($post_id, 'metabox-image-id', $image);
-		$hotelData = sanitize_text_field($_POST['st_contact_hotel_field']);	
-		update_post_meta($post_id, 'st_contact_hotel_field', $hotelData);
-		$star = sanitize_text_field($_POST['st_contact_star_field']);
-		update_post_meta($post_id, 'st_contact_star_field', $star);
-		}
-	}
+if( ! current_user_can('edit_post', $post_id)){
+	return;
+}
+if( ! isset($_POST['st_contact_superficies_field']) ){
+	return;
+}
+if( ! isset($_POST['st_contact_price_field']) ){
+	return;
+}
+if( ! isset($_POST['st_contact_bed_field']) ){
+	return;
+}
+if( ! isset($_POST['st_contact_children_field']) ){
+	return;
+}
+if( ! isset($_POST['st_contact_adult_field']) ){
+	return;
+}
+if (! isset($_POST['metabox-image'])){
+	return;
+}
+if (! isset($_POST['st_contact_hotel_field'])){
+	return;
+}
+if (! isset($_POST['st_contact_star_field'])){
+	return;
+}
+
+$superficies = sanitize_text_field($_POST['st_contact_superficies_field']);
+update_post_meta($post_id, 'st_contact_superficies_field', $superficies);
+$prices = sanitize_text_field($_POST['st_contact_price_field']);
+update_post_meta($post_id, 'st_contact_price_field', $prices);
+$beds = sanitize_text_field($_POST['st_contact_bed_field']);
+update_post_meta($post_id, 'st_contact_bed_field', $beds);
+$children = sanitize_text_field($_POST['st_contact_children_field']);
+update_post_meta($post_id, 'st_contact_children_field', $children);
+$adult = sanitize_text_field($_POST['st_contact_adult_field']);
+update_post_meta($post_id, 'st_contact_adult_field', $adult);
+$image = $_POST['metabox-image'];
+update_post_meta($post_id, 'metabox-image-id', $image);
+$hotelData = sanitize_text_field($_POST['st_contact_hotel_field']);	
+update_post_meta($post_id, 'st_contact_hotel_field', $hotelData);
+$star = sanitize_text_field($_POST['st_contact_star_field']);
+update_post_meta($post_id, 'st_contact_star_field', $star);
+}
 // public function get_hotel(){
 // 	$query = new WP_Query( array( 'post_type' => 'hotel' ) );
 // 	if ( $query->have_posts() ) {
@@ -582,61 +549,7 @@ function __getDataToTable(){
 		$hotel_id = $_POST['st_contact_hotel_field'];
 		$room_price_update = $_POST['st_contact_price_field'];
 		$old_price = get_post_meta($_POST['post_ID'], 'st_contact_price_field', true);
-		if(empty($old_price)){
-			$args = array(
-			'post_type' =>'room',
-			'meta_query' => array(
-				array(
-					'key'     => 'st_contact_hotel_field',
-					'value'   => $hotel_id
-				),
-			)
-		);
-		$query = new WP_Query( $args );
-		$arr_room = array();
-		$medium_price = 0;
-		$hotel_point = 0;
-		if($query->have_posts()){
-			while($query->have_posts()){
-				$s=$query->the_post();
-
-				array_push($arr_room, get_the_ID());
-
-			}
-			wp_reset_postdata();
-
-		}
-		$medium_price = 0;
-		$hotel_point = 0;
-		if(!empty($arr_room)){
-			foreach ($arr_room as  $value) {
-				if($value == $room_id){
-					$price = $room_price_update;
-					$star_num = get_post_meta($value,'st_contact_star_field',true);
-					$medium_price = $medium_price + $price;
-					$hotel_point = $hotel_point + $star_num;
-					
-				}else{
-					$price = get_post_meta($value,'st_contact_price_field',true);
-					$star_num = get_post_meta($value,'st_contact_star_field',true);
-					$medium_price = $medium_price + $price;
-					$hotel_point = $hotel_point + $star_num;
-					
-				}
-							
-			}	
-		}
-		$medium_price=number_format($medium_price/count($arr_room),2);
-		$hotel_point = ROUND($hotel_point/count($arr_room),1);
 		
-		$post_args = array(
-			'price'=>$medium_price,
-			'hotel_point' => $hotel_point
-		);
-
-
-		$s=$wpdb->update( $wpdb->prefix . 'posts', $post_args, array( 'ID' => $hotel_id ));
-		}
 		if( $old_price != $room_price_update ){
 			$args = array(
 			'post_type' =>'room',
@@ -665,7 +578,7 @@ function __getDataToTable(){
 		$hotel_point = 0;
 		if(!empty($arr_room)){
 			foreach ($arr_room as  $value) {
-				if($value == $room_id){
+if($value == $room_id){
 					$price = $room_price_update;
 					$star_num = get_post_meta($value,'st_contact_star_field',true);
 					$medium_price = $medium_price + $price;
@@ -700,4 +613,3 @@ function __getDataToTable(){
 
 ST_Room_Admin::inst();
 }
-
