@@ -15,10 +15,9 @@ class bookcart_model extends Model {
         global $wpdb;
         $data = "SELECT table_name
                 FROM information_schema.tables
-                WHERE table_schema = 'wp_db'
-                AND table_name = 'wp_bill'";
+                WHERE table_schema = 'wordpress'
+                AND table_name = '{$wpdb->prefix}bill'";
         $res = $wpdb->query($data);
-       //var_dump($wpdb->get_var($data));
         if($res==0)
         {
             $sql = "CREATE table {$wpdb->prefix}bill(
