@@ -110,11 +110,8 @@ include "application/helpers/helpers.php";
 		}
 	}
 	add_action('wp_enqueue_scripts','webhotel_style');
-	
-	
-	
 
-	
+
 	function dd($arr){
 	echo '<pre>';
 	print_r($arr);
