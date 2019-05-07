@@ -112,41 +112,6 @@ include "application/helpers/helpers.php";
 	add_action('wp_enqueue_scripts','webhotel_style');
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-			require get_template_directory().'/inc/customsetting.php';
-
-
-
-
 	function dd($arr){
 	echo '<pre>';
 	print_r($arr);
