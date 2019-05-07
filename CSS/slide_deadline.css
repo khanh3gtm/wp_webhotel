@@ -674,6 +674,24 @@ body{
 	-ms-transform: scale(1.1,1.1);
 }
 
+.modern-search-result .imagedefault
+{
+	width: 256px;
+    height: 256px;
+	transition: all 1s ease;
+	-webkit-transition: all 1s ease;
+	-moz-transition: all 1s ease;
+	-o-transition: all 1s ease;
+}
+.modern-search-result .thumb:hover .imagedefault
+{
+	transform: scale(1.1,1.1);
+	-moz-transform: scale(1.1,1.1);
+	-webkit-transform: scale(1.1,1.1);
+	-o-transform: scale(1.1,1.1);
+	-ms-transform: scale(1.1,1.1);
+}
+
 .modern-search-result .info
 {
 	margin-top: 10px;

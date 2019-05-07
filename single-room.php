@@ -45,9 +45,24 @@
       <!-- slide -->
       <div class="container-fuild">
         <div class="banner">
-          <?php $image_banner = get_post_meta(get_the_ID(), '_thumbnail_id', true);
-          $res_banner = wp_get_attachment_image_url($image_banner, array(1349,460));
-          echo '<img src="'. $res_banner .'" alt="">'; ?>
+
+          <?php 
+          $image = get_post_meta(get_the_ID(), 'metabox-image-id', true);
+
+          if(has_post_thumbnail()){
+            
+            $image_banner = get_post_meta(get_the_ID(), '_thumbnail_id', true);
+            $res_banner = wp_get_attachment_image_url($image_banner, array(1349,460));
+            echo '<img src="'. $res_banner .'" alt="">'; 
+          }
+          else {
+            
+            $url_image = wp_get_attachment_image_src($image,array(847, 565));                   
+            echo '<img src="'. $url_image[0] .'"  alt="">';
+          }
+          
+          
+          ?>
         </div>
       </div>
       <!-- slide -->
@@ -109,6 +124,7 @@
                           echo $superficies; 
                           ?>
                         </p>
+                        <sup>2</sup>
                       </div>
                     </div>
                     <div class="col-md-3 col-xs-6">
