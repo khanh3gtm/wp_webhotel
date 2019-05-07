@@ -1,0 +1,103 @@
+.st-upload-gallery .st-thumb{
+ margin-right: 10px;
+ position: relative;
+ z-index: 999;
+}
+.st-upload-gallery .time{
+ position: absolute;
+ margin-left:-10px ;
+ z-index: 999;
+ cursor: pointer;
+ background-color: #ce0122;
+ color: white;
+ font-size: 15px;
+}
+.st-include-image i.fas.fa-times {
+    position: absolute;
+    /* right: 70px; */
+    /* left: 450px; */
+    /* z-index: 999; */
+    margin-left: -13px;
+    font-size: 18px;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+}
+.st-include-image img {
+	position: relative;
+}
+.st-include-image .item{
+    display: inline-block;
+}
+.wp-list-table img{
+    width: 120px;
+    height: auto;
+}
+  
+
+.item1 {
+    position: relative;
+}
+.st-include-image1 i.fa.fa-times{
+    color: white;
+    position: absolute;
+    right: 2px;
+    cursor: pointer;
+}
+
+.wp-list-table #the-list i{
+    font-size: 25px;
+}
+
+.wp-list-table img {
+    width: 100px;
+    height: auto;
+}
+
+.row {
+    display: inline-block;
+    width: 100%;
+    /* vertical-align: initial; */
+    padding-bottom: 11px;
+}
+.col-25 {
+    float: left;
+    width: 25%;
+    margin-top: 6px;
+    /* display: block; */
+}
+.wp-admin select {
+    padding: 2px;
+    line-height: 28px;
+    height: 28px;
+    vertical-align: middle;
+ 
+    cursor: pointer;
+}
+.col-75 select {
+    width: 19%;
+}
+.st-upload-gallery1 {
+    margin-top: 15px;
+}
+.col-25 label {
+    font-weight: 600;
+    /* font-size: 14px; */
+}
+.inside .star_number_hotel{
+    width: 200px;
+     border-radius: 3px;
+}
+.inside .owner_hotel{
+    width: 200px;
+     border-radius: 3px;
+}
+.inside .metabox_hotel{
+    width: 200px;
+   border-radius: 3px;
+}
+/*start setting show*/
+.form-table td{
+    padding: 0px;
+}
+/*end setting show*/
