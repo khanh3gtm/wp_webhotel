@@ -88,7 +88,7 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 												<div class="dropdown-toggle search-language" id="menu1"
 												data-toggle="dropdown">
 												<?php
-												if (empty($_GET['cityname'])) {
+												if (empty($_GET['cityid'])) {
 													$des = 'Where are you going?';
 												} else {
 													$des = $_GET['cityname'];
@@ -458,7 +458,7 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 
 						<!-- Start cuong -->
 						<div class="col-lg-9  col-md-9 wapper-content">
-							<div class="row row-wapper">
+							<div class="row row-wapper" id="custom-layout">
 
 								<div class="col-sm-12 col-xs-12 toolbar-layout">
 
@@ -466,16 +466,16 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 									<div class="col-lg-9 col-md-9 col-sm-12 content-title">
 										<?php 
 
-												 if (isset($_GET['cityname'])&&!empty($_GET['cityname'])) {
-													$cityname=$_GET['cityname'];
+												 if (isset($_GET['cityid'])&&!empty($_GET['cityid'])) {
+													$cityid=$_GET['cityid'];
 													$args = array(
 														'post_type'=>'hotel',
 														'posts_per_page'=>-1,
 														'tax_query' => array(
 															array(
 																'taxonomy' => 'location',
-																'field' => 'slug',
-																'terms' => $cityname
+																'field' => 'term_id',
+																'terms' => $cityid
 															)
 														)
 													);
@@ -617,7 +617,7 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 
 
 									</div>
-
+									
 									<div class=" modern-search-result">
 										<?php 
 										st_sidebar::inst()->startInjectSQLQuery();
@@ -665,9 +665,15 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 
 															?>
  															<a href="<?php echo site_url('/'.$id_location->post_type.'/'.$id_location->post_name.'/?'.$start.$end.$date); ?>">
-																 	<?php
-																echo get_the_post_thumbnail(get_the_ID(),array( 256, 256));
-																?>
+																 	<?php $image= get_the_post_thumbnail(get_the_ID(),[256,256],array('class'=>'img-responsive'));
+                                                                if(!empty($image)){
+                                                                    echo $image;
+                                                                }
+                                                                else{
+                                                                    echo ' <img src="'. get_template_directory_uri().' /application/libs/Images/Hotel Ascot Opera.jpg" class="imagedefault" >';
+
+                                                                }
+                                                             ?>
 																</a>
 
 															

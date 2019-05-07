@@ -441,7 +441,14 @@ $city = homepage::inst()->listCity();
                                                 <div class="row-content">
                                                     <div class="wpb-content-image">
                                                         <a href="<?php echo site_url('/'.$s->post_type.'/'.$s->post_name.'/'); ?>">
-                                                            <?php echo get_the_post_thumbnail(get_the_ID(),[270,250],array('class'=>'img-responsive'));
+                                                            <?php $image= get_the_post_thumbnail(get_the_ID(),[270,250],array('class'=>'img-responsive'));
+                                                                if(!empty($image)){
+                                                                    echo $image;
+                                                                }
+                                                                else{
+                                                                    echo ' <img src="'. get_template_directory_uri().' /application/libs/Images/Hotel Ascot Opera.jpg" >';
+
+                                                                }
                                                              ?>
                                                         </a>
                                                         <div class="review-star">

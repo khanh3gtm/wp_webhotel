@@ -8,6 +8,7 @@ get_header();
 $listRoom = hoteldetail::inst()->listRoom();
  while(have_posts()){ the_post();
  	
+ 	
 
 ?>
 <div class="clear"></div>
@@ -241,7 +242,13 @@ $listRoom = hoteldetail::inst()->listRoom();
 							<div class="row sheration">
 								<div class="col-xs-12 col-md-4 images">
 									<div class="image">
-										<?php echo get_the_post_thumbnail(get_the_ID(),[680,500],array('class'=>'img-responsive'));
+										<?php $room_image= get_the_post_thumbnail(get_the_ID(),[680,500],array('class'=>'img-responsive'));
+										if(!empty($room_image)){
+											echo $room_image;
+										}
+										else{
+											echo ' <img src="'. get_template_directory_uri().' /application/libs/Images/Hotel Stanford.jpg" class="img-responsive" >';
+										}
 									 ?>
 									</div>
 								</div>
@@ -296,7 +303,13 @@ $listRoom = hoteldetail::inst()->listRoom();
 									<?php $room = get_post(get_the_ID());?>
 							<div class="row sheration"  >
 								<div class="col-sm-4 edit" >
-									<?php echo get_the_post_thumbnail(get_the_ID(),[252,243],array('class'=>'img-responsive'));
+									<?php $room_image= get_the_post_thumbnail(get_the_ID(),[252,243],array('class'=>'img-responsive'));
+										if(!empty($room_image)){
+											echo $room_image;
+										}
+										else{
+											echo ' <img src="'. get_template_directory_uri().' /application/libs/Images/Hotel Stanford.jpg" class="img-responsive" >';
+										}
 									 ?>
 								</div>
 								<div class="col-sm-8">
@@ -838,8 +851,15 @@ $listRoom = hoteldetail::inst()->listRoom();
                                             <div class="col-xs-6 col-sm6 col-md-3 has-matchHeight">
                                                 <div class="row-content">
                                                     <div class="wpb-content-image">
-                                                        <a href="#">
-                                                            <?php echo get_the_post_thumbnail(get_the_ID(),[270,250],array('class'=>'img-responsive'));
+                                                        <a href="<?php echo site_url('/'.$s->post_type.'/'.$s->post_name.'/'); ?>">
+                                                            <?php $image= get_the_post_thumbnail(get_the_ID(),[270,250],array('class'=>'img-responsive'));
+                                                                if(!empty($image)){
+                                                                    echo $image;
+                                                                }
+                                                                else{
+                                                                    echo ' <img src="'. get_template_directory_uri().' /application/libs/Images/Hotel Ascot Opera.jpg" >';
+
+                                                                }
                                                              ?>
                                                         </a>
                                                         <div class="review-star">
