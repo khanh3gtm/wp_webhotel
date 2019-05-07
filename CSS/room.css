@@ -1790,3 +1790,14 @@ span .child
 	outline: none;
 }
 }
+
+sup {
+    top: -1.3em;
+    right: 1.5em;
+}
+sub, sup {
+    position: relative;
+    font-size: 35%;
+    line-height: 0;
+    vertical-align: baseline;
+}

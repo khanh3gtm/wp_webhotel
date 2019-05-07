@@ -21,9 +21,9 @@ class ST_Hotel_Admin{
 			add_action('created_facilities', array($this, 'facilities_info_save'), 10, 1);
 			add_action('edited_facilities', array ( $this,'facilities_info_save' ),10,1);
 			add_action('manage_location_custom_column', array($this, 'location_custom_column'),10,3);
-			//add_action('location_add_form_fields', array ( $this, 'add_location_image' ));
+			add_action('location_add_form_fields', array ( $this, 'add_location_image' ));
 			add_action('created_location', array($this, 'save_location_image'), 10, 1);
-			//add_action('location_edit_form_fields', array ( $this, 'update_location_image' ), 10, 2 );
+			add_action('location_edit_form_fields', array ( $this, 'update_location_image' ), 10, 2 );
 			add_action('edited_location', array ($this, 'updated_location_image' ), 10, 1 );
 			add_action('admin_enqueue_scripts', array( $this, 'load_media' ) );
 			add_action('admin_footer', array ( $this, 'add_script' ) );
@@ -490,36 +490,37 @@ public function updated_location_image ( $term_id) {
 		
 	}
 	function sunset_custom_setting(){
-		register_setting( 'sunset-settings-group', 'number_hotel' );
-		add_settings_section( 'sunset-sidebar-options', 'Sidebar Option', [$this,'sunset_sidebar_options'], 'setting-show');
-		add_settings_field( 'sidebar-name', 'Number of Hotel', [$this,'sunset_sidebar_name'], 'setting-show', 'sunset-sidebar-options');
+		register_setting( 'sunset-settings-group', 'number_hotel' );	
 	}
-	function sunset_sidebar_options() {
 	
-}
-	function sunset_sidebar_name() {
-		$numberHotel = esc_attr(get_option('number_hotel'));
-	echo '<input type="text" name="number_hotel" value="'.$numberHotel.'"  placeholder="Number hotel" />';
-}
+	
 
 	function menu_page_output(){?>
 		<h2>Sunset Theme Options</h2>
 		<?php settings_errors(); ?>
 		<form method="post" action="options.php">
 			<?php settings_fields('sunset-settings-group'); ?>
-			<?php do_settings_sections( 'setting-show') ;?>
+			
+			<table class="form-table">
+				<tbody>
+					<tr>
+						<th scope="row"><label for="Number_Hotel">Number of Hotel:</label></th>
+						<td>
+							<?php 	$numberHotel = esc_attr(get_option('number_hotel'));
+							echo '<input  type="text" name="number_hotel" value="'.$numberHotel.'"  placeholder="Number hotel" />'; ?>
+						</td>
+					</tr>
+
+					<tr>
+						<td colspan="2" class="note_list_hotel"  >Note: It's  -1 if you want to display all hotels</td>
+						
+					</tr>
+				</tbody>
+			</table>
 			<?php submit_button(); ?>
 		</form>
 
 	<?php }
-	function menu_page_save(){
-
-	}
-
-	
-
-
-
 	public static function inst(){
 		if(empty(self::$_inst)){
 			self::$_inst = new self();

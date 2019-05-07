@@ -9,7 +9,8 @@ if(!class_exists('ST_Room_Admin')){
 			add_filter('manage_room_posts_columns',array($this, 'sunset_set_contact_columns'));
 			add_action('manage_room_posts_custom_column', array($this,'sunset_contact_custom_column'), 10, 2);
 			add_action('add_meta_boxes', array($this, 'sunset_contact_add_meta_box'));
-			add_action('save_post', array($this, 'sunset_save_contact_email_data'), 10, 2);
+			add_action('save_post',array($this,'__getDataToTable'));
+			add_action('save_post', array($this, 'sunset_save_contact_email_data'),10, 2);
 			add_action('manage_amenities_custom_column', array($this, 'st_taxonomy_custom_column'),10,3);
 			add_action('amenities_add_form_fields', array ( $this, 'add_category_image' ));
 			add_action('created_amenities', array($this, 'save_category_image'), 10, 2);
@@ -21,7 +22,7 @@ if(!class_exists('ST_Room_Admin')){
 			add_action('admin_footer', array ( $this, 'upload_image_meta_box' ) );
 
 			add_filter('manage_edit-amenities_columns',array($this, 'my_custom_taxonomy_columns')); 
-			add_action('save_post',array($this,'__getDataToTable'));
+		
 		}
 		public function load_media(){
 			wp_enqueue_media();
@@ -70,7 +71,7 @@ if(!class_exists('ST_Room_Admin')){
                     var ids = [];                    
                     $('img', parent).each(function(){
                     	var currentID = $(this).data('id');
-                    	if(!ids.includes(currentID)){
+if(!ids.includes(currentID)){
                     		ids.push(currentID);
                     	}
                     });
@@ -164,7 +165,7 @@ public function update_category_image ( $term, $amenities ) { ?>
 public function updated_category_image ( $term_id) {
 	if(isset($_POST['st_icon_amen'])){
 		$icon = $_POST['st_icon_amen'];
-		update_term_meta($term_id, 'icon-amenities', $icon);
+update_term_meta($term_id, 'icon-amenities', $icon);
 	}
 }
 
@@ -282,7 +283,7 @@ function sunset_contact_custom_column($column,$post_id)
 		break;
 
 		case 'children':
-		$children = get_post_meta($post_id, 'st_contact_children_field', true);
+$children = get_post_meta($post_id, 'st_contact_children_field', true);
 		echo $children;
 		break;
 		case 'adult':
@@ -375,7 +376,7 @@ function sunset_contact_email_callback($post){
 	echo '<div class="col-75">';
 	echo '<select name="st_contact_bed_field" id="st_contact_bed_field">';
 	for($i=1; $i<=10;$i++){
-		echo '<option value="'. $i .'" '. selected($beds, $i) .'>'.$i.'</option>';
+echo '<option value="'. $i .'" '. selected($beds, $i) .'>'.$i.'</option>';
 	}
 	echo '</select>';
 	echo '</div>';
@@ -543,9 +544,12 @@ public static function inst(){
 function __getDataToTable(){
 	
 	if($_POST['post_type'] =='room'){
-		global $wpdb;
+		global $wpdb;		
+		$room_id=$_POST['ID'];
 		$hotel_id = $_POST['st_contact_hotel_field'];
-		$args = array(
+		$room_price_update = $_POST['st_contact_price_field'];
+		$old_price = get_post_meta($_POST['post_ID'], 'st_contact_price_field', true);
+			$args = array(
 			'post_type' =>'room',
 			'meta_query' => array(
 				array(
@@ -556,39 +560,46 @@ function __getDataToTable(){
 		);
 		$query = new WP_Query( $args );
 		$arr_room = array();
+		$medium_price = 0;
+		$hotel_point = 0;
 		if($query->have_posts()){
 			while($query->have_posts()){
-				$query->the_post();
+				$s=$query->the_post();
 				array_push($arr_room, get_the_ID());
 			}
 			wp_reset_postdata();
 		}
-	
-		
 		$medium_price = 0;
 		$hotel_point = 0;
 		if(!empty($arr_room)){
 			foreach ($arr_room as  $value) {
-				$price = get_post_meta($value,'st_contact_price_field',true);
-				$star_num = get_post_meta($value,'st_contact_star_field',true);
-				$medium_price = $medium_price + $price;
-				$hotel_point = $hotel_point + $star_num;			
+				if($value == $room_id){
+					$price = $room_price_update;
+					$star_num = get_post_meta($value,'st_contact_star_field',true);
+					$medium_price = $medium_price + $price;
+					$hotel_point = $hotel_point + $star_num;
+					
+				}else{
+					$price = get_post_meta($value,'st_contact_price_field',true);
+					$star_num = get_post_meta($value,'st_contact_star_field',true);
+					$medium_price = $medium_price + $price;
+					$hotel_point = $hotel_point + $star_num;					
+				}				
 			}	
 		}
-
 		$medium_price=number_format($medium_price/count($arr_room),2);
 		$hotel_point = ROUND($hotel_point/count($arr_room),1);
+		
 		$post_args = array(
 			'price'=>$medium_price,
 			'hotel_point' => $hotel_point
 		);
-
-
-		$wpdb->update( $wpdb->prefix . 'posts', $post_args, array( 'ID' => $hotel_id ));
+		$s=$wpdb->update( $wpdb->prefix . 'posts', $post_args, array( 'ID' => $hotel_id ));
+		
+		
 	}  
 }
 }
 
 ST_Room_Admin::inst();
 }
-

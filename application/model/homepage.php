@@ -11,14 +11,24 @@ class homepage_model extends Model
     }
 
      public function __ListHotel(){
-    
-     	$args = array(
-     		'post_type' => 'hotel',
-     		'posts_per_page'  => get_option('number_hotel'),
-     		'oderby' => 'post_date',
-     		'order' => 'DESC',
-     		
-     	);
+    if(!empty(get_option('number_hotel'))){
+      $args = array(
+        'post_type' => 'hotel',
+        'posts_per_page'  => get_option('number_hotel'),
+        'oderby' => 'post_date',
+        'order' => 'DESC',
+        
+      );
+    }else{
+      $args = array(
+        'post_type' => 'hotel',
+        'posts_per_page'  => 4,
+        'oderby' => 'post_date',
+        'order' => 'DESC',
+        
+      );
+    }
+     	
      	$query = new WP_Query( $args );
 
      	return $query;
