@@ -1,13 +1,5 @@
 // dao nguoc
 $(document).ready(function(){
-	var body = $('body');
-		
-
-			$('.has-matchHeight', body).matchHeight();
-});
-
-
-$(document).ready(function(){
 	$(".more-content").click(function(){
 		$(".cut-gradient").fadeToggle();
 	});
@@ -95,18 +87,7 @@ $(function() {
 
 //hết form chạy
 // date
-$(function() {
 
-	$('input[name="datetimes"]').daterangepicker({
-		opens:'left',
-		"autoApply": true,
-		startDate: moment().startOf('hour'),
-		endDate: moment().startOf('hour').add(32, 'hour'),
-		locale: {
-			format: 'M/DD/YYYY'
-		}
-	});
-});
 
 $(window).scroll(function () {
     if ($(window).scrollTop() >= 611) {
@@ -119,17 +100,7 @@ $(window).scroll(function () {
         $('.widget').removeClass('hotel_fixed');
     }
 });
-// $(window).scroll(function () {
-//     if ($(window).scrollTop() >= 611) {
-//         $('.widgetroom').addClass('hotel_fixed');
-//     } 
-//     if ($(window).scrollTop() >= 2500) {
-//         $('.widgetroom').removeClass('hotel_fixed');
-//     }
-//      if ($(window).scrollTop() < 611) {
-//         $('.widgetroom').removeClass('hotel_fixed');
-//     }
-// });
+
 // guests
 jQuery(document).ready(function($){
 /* People minus-add */
@@ -270,56 +241,7 @@ $(document).ready(function(){
 				$(" img .slide").eq(next).show();
 			});
 		}); 
-// (function($) {
-// 	$.fn.shorten = function (settings) {
 
-// 		var config = {
-// 			showChars: 0,
-// 			ellipsesText: "...",
-// 			moreText: "more",
-// 			lessText: "less"
-// 		};
-
-// 		if (settings) {
-// 			$.extend(config, settings);
-// 		}
-
-// 		$(document).off("click", '.morelink');
-
-// 		$(document).on({click: function () {
-
-// 			var $this = $(this);
-// 			if ($this.hasClass('less')) {
-// 				$this.removeClass('less');
-// 				$this.html(config.moreText);
-// 			} else {
-// 				$this.addClass('less');
-// 				$this.html(config.lessText);
-// 			}
-// 			$this.parent().prev().toggle();
-// 			$this.prev().slideToggle();
-// 			return false;
-// 		}
-// 	}, '.morelink');
-
-// 		return this.each(function () {
-// 			var $this = $(this);
-// 			if($this.hasClass("shortened")) return;
-
-// 			$this.addClass("shortened");
-// 			var content = $this.html();
-// 			if (content.length > config.showChars) {
-// 				var c = content.substr(0, config.showChars);
-// 				var h = content.substr(config.showChars, content.length - config.showChars);
-// 				var html = c + '<span class="moreellipses"> </span><span class="morecontent"><span>' + h + '</span> <a href="#" class="morelink">' + config.ellipsesText + '' + config.moreText + '</a></span>';
-// 				$this.html(html);
-// 				$(".morecontent span").hide();
-// 			}
-// 		});
-
-// 	};
-
-//  })(jQuery);
  $(document).ready(function(){
  	$('.menu1').click(function(){
  		$('nav').toggleClass('open1'); 
@@ -372,6 +294,7 @@ $(document).ready(function(){
  });
 //Description
  $(document).ready(function(){
+
  	$(".showmore_des").click(function(){
  		var t = $(this);
  		$(".more-content").toggleClass('more');
@@ -403,5 +326,6 @@ $(document).ready(function(){
  			$(" .cut_gradient_rule").css("display","block");
  		}
  	});
+ 	
  });
 // hide forrm book 

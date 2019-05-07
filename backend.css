@@ -96,3 +96,8 @@
     width: 200px;
    border-radius: 3px;
 }
+/*start setting show*/
+.form-table td{
+    padding: 0px;
+}
+/*end setting show*/

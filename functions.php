@@ -75,6 +75,12 @@ include "application/helpers/helpers.php";
 		wp_enqueue_style('body-style');
 		wp_register_script('match-height-script',THEME_URL . '/js/jquery.matchHeight.js','all');
 		wp_enqueue_script('match-height-script');
+		if(is_singular('hotel')){
+			wp_register_style('hoteldetail-style',THEME_URL . '/CSS/roomhotel.css','all');
+			wp_enqueue_style('hoteldetail-style');
+			wp_register_script('hotel-script',THEME_URL . '/js/script.js','all');
+			wp_enqueue_script('hotel-script');
+		}
 		if(is_page_template('template_homepage.php')){
 			wp_register_script('homepage-script',THEME_URL . '/js/khanh.js','all');
 		wp_enqueue_script('homepage-script');
@@ -98,12 +104,7 @@ include "application/helpers/helpers.php";
 			wp_enqueue_script('sidebar-deadline-script');
 
 		}
-		if(is_singular('hotel')){
-			wp_register_style('hoteldetail-style',THEME_URL . '/CSS/roomhotel.css','all');
-			wp_enqueue_style('hoteldetail-style');
-			wp_register_script('hotel-script',THEME_URL . '/js/script.js','all');
-			wp_enqueue_script('hotel-script');
-		}
+		
 		if(is_singular('room')){
 			wp_enqueue_style('room', THEME_URL . '/CSS/room.css', 'all');
 			wp_enqueue_script('room-js', THEME_URL . '/js/khanh.js', 'all');
