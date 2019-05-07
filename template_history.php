@@ -4,9 +4,8 @@
 */
 get_header();
 $us = wp_get_current_user();
-$key= $us->data->ID;
+$key= $us->ID;
 $ds = bookcart::inst()->__stList($key);
-$id = $_GET['user_id'];
 $check = is_user_logged_in();
 ?>
 <div class="container">
