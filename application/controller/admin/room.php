@@ -22,6 +22,17 @@ if(!class_exists('ST_Room_Admin')){
 
 			add_filter('manage_edit-amenities_columns',array($this, 'my_custom_taxonomy_columns')); 
 			add_action('save_post',array($this,'__getDataToTable'));
+
+			add_action( 'admin_notices', array($this, 'my_error_message' ));
+		}
+		function my_error_message(){
+			if ( array_key_exists( 'my_plugin_errors', $_SESSION ) ) {?>
+				<div class="error">
+					<p><?php echo $_SESSION['my_plugin_errors']; ?></p>
+					</div><?php
+
+					unset( $_SESSION['my_plugin_errors'] );
+				}
 		}
 		public function load_media(){
 			wp_enqueue_media();
@@ -322,6 +333,7 @@ private function getHotelData(){
 	return $arr;
 }
 function sunset_contact_email_callback($post){
+
 	wp_nonce_field('sunset_save_contact_email_data', 'sunset_contact_email_meta_box_nonce');
 	$superficies = get_post_meta($post->ID, 'st_contact_superficies_field', true);
 	$prices = get_post_meta($post->ID, 'st_contact_price_field', true);
@@ -455,64 +467,81 @@ function sunset_contact_email_callback($post){
 }
 
 function sunset_save_contact_email_data($post_id){
-	if( ! isset($_POST['sunset_contact_email_meta_box_nonce']) ){
-		return;
+	if ( !session_id() ) {
+	    session_start();
 	}
-	if( ! wp_verify_nonce($_POST['sunset_contact_email_meta_box_nonce'],
-		'sunset_save_contact_email_data') ){
-		return;
+	$error = false;
+	$error = new WP_Error();
+    if(!preg_match('/^[0-9]{3,15}+[m|km]$/', $_POST['st_contact_superficies_field'])){   	
+    	$error->add('superficies', 'Diện tích nhập sai');
+    }
+    
+    if ($error) {
+        // Handle error.
+        $_SESSION['my_plugin_errors'] = $error->get_error_message();
 
-}
-if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE){
-	return;
-}
+    }
+    return true;
+    unset($_SESSION['my_plugin_errors']);
+    if($error == false){
+
+		if( ! isset($_POST['sunset_contact_email_meta_box_nonce']) ){
+			return;
+		}
+		if( ! wp_verify_nonce($_POST['sunset_contact_email_meta_box_nonce'],
+			'sunset_save_contact_email_data') ){
+			return;
+		}
+		if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE){
+			return;
+		}
 
 
-if( ! current_user_can('edit_post', $post_id)){
-	return;
-}
-if( ! isset($_POST['st_contact_superficies_field']) ){
-	return;
-}
-if( ! isset($_POST['st_contact_price_field']) ){
-	return;
-}
-if( ! isset($_POST['st_contact_bed_field']) ){
-	return;
-}
-if( ! isset($_POST['st_contact_children_field']) ){
-	return;
-}
-if( ! isset($_POST['st_contact_adult_field']) ){
-	return;
-}
-if (! isset($_POST['metabox-image'])){
-	return;
-}
-if (! isset($_POST['st_contact_hotel_field'])){
-	return;
-}
-if (! isset($_POST['st_contact_star_field'])){
-	return;
-}
-
-$superficies = sanitize_text_field($_POST['st_contact_superficies_field']);
-update_post_meta($post_id, 'st_contact_superficies_field', $superficies);
-$prices = sanitize_text_field($_POST['st_contact_price_field']);
-update_post_meta($post_id, 'st_contact_price_field', $prices);
-$beds = sanitize_text_field($_POST['st_contact_bed_field']);
-update_post_meta($post_id, 'st_contact_bed_field', $beds);
-$children = sanitize_text_field($_POST['st_contact_children_field']);
-update_post_meta($post_id, 'st_contact_children_field', $children);
-$adult = sanitize_text_field($_POST['st_contact_adult_field']);
-update_post_meta($post_id, 'st_contact_adult_field', $adult);
-$image = $_POST['metabox-image'];
-update_post_meta($post_id, 'metabox-image-id', $image);
-$hotelData = sanitize_text_field($_POST['st_contact_hotel_field']);	
-update_post_meta($post_id, 'st_contact_hotel_field', $hotelData);
-$star = sanitize_text_field($_POST['st_contact_star_field']);
-update_post_meta($post_id, 'st_contact_star_field', $star);
-}
+		if( ! current_user_can('edit_post', $post_id)){
+			return;
+		}
+		if( ! isset($_POST['st_contact_superficies_field']) ){
+			return;
+		}
+		if( ! isset($_POST['st_contact_price_field']) ){
+			return;
+		}
+		if( ! isset($_POST['st_contact_bed_field']) ){
+			return;
+		}
+		if( ! isset($_POST['st_contact_children_field']) ){
+			return;
+		}
+		if( ! isset($_POST['st_contact_adult_field']) ){
+			return;
+		}
+		if (! isset($_POST['metabox-image'])){
+			return;
+		}
+		if (! isset($_POST['st_contact_hotel_field'])){
+			return;
+		}
+		if (! isset($_POST['st_contact_star_field'])){
+			return;
+		}
+		$superficies = sanitize_text_field($_POST['st_contact_superficies_field']);
+		update_post_meta($post_id, 'st_contact_superficies_field', $superficies);
+		$prices = sanitize_text_field($_POST['st_contact_price_field']);
+		update_post_meta($post_id, 'st_contact_price_field', $prices);
+		$beds = sanitize_text_field($_POST['st_contact_bed_field']);
+		update_post_meta($post_id, 'st_contact_bed_field', $beds);
+		$children = sanitize_text_field($_POST['st_contact_children_field']);
+		update_post_meta($post_id, 'st_contact_children_field', $children);
+		$adult = sanitize_text_field($_POST['st_contact_adult_field']);
+		update_post_meta($post_id, 'st_contact_adult_field', $adult);
+		$image = $_POST['metabox-image'];
+		update_post_meta($post_id, 'metabox-image-id', $image);
+		$hotelData = sanitize_text_field($_POST['st_contact_hotel_field']);	
+		update_post_meta($post_id, 'st_contact_hotel_field', $hotelData);
+		$star = sanitize_text_field($_POST['st_contact_star_field']);
+		update_post_meta($post_id, 'st_contact_star_field', $star);
+		}
+	}
 // public function get_hotel(){
 // 	$query = new WP_Query( array( 'post_type' => 'hotel' ) );
 // 	if ( $query->have_posts() ) {
