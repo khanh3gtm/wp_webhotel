@@ -665,9 +665,15 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 
 															?>
  															<a href="<?php echo site_url('/'.$id_location->post_type.'/'.$id_location->post_name.'/?'.$start.$end.$date); ?>">
-																 	<?php
-																echo get_the_post_thumbnail(get_the_ID(),array( 256, 256));
-																?>
+																 	<?php $image= get_the_post_thumbnail(get_the_ID(),[256,256],array('class'=>'img-responsive'));
+                                                                if(!empty($image)){
+                                                                    echo $image;
+                                                                }
+                                                                else{
+                                                                    echo ' <img src="'. get_template_directory_uri().' /application/libs/Images/Hotel Ascot Opera.jpg" class="imagedefault" >';
+
+                                                                }
+                                                             ?>
 																</a>
 
 															
