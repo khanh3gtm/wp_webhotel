@@ -107,18 +107,22 @@ class bookcart extends Controller {
 	 	}
 	}
 	public function __stBkSucces()
-	 		{
-	 			$key = bookcart_model::inst()->getUserId();
-	 			$key2 = bookcart_model::inst()->getFullBill();
-	 			$data = bookcart_model::inst()->getDataUser($key);
-	 			$stdt = array($data,$key2);
-	 			return $stdt;
-	 		}
+	{
+		if (isset($_GET['bill_id'])) {
+			$key = bookcart_model::inst()->getUserId();
+		 			$key2 = bookcart_model::inst()->getFullBill();
+		 			$data = bookcart_model::inst()->getDataUser($key);
+		 			$stdt = array($data,$key2);
+		 			return $stdt;
+		}
+	}
 	public function __stInfoSucces()
 	{
-		$key = bookcart_model::inst()->getUserId();
+		if (isset($_GET['bill_id'])) {
+			$key = bookcart_model::inst()->getUserId();
 		$data = get_user_meta($key);
 	 	return $data;
+		}	
 	}
 	public function __stInfoBook($key)
 	{

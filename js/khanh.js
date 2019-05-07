@@ -299,6 +299,7 @@ $(document).ready(function () {
 	$('input[name="date"]').daterangepicker(
 	{
 		"autoApply": true,
+		
 		"locale": {
 			"format": "DD/MM/YYYY",
 		},
