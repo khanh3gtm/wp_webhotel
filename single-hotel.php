@@ -1,15 +1,11 @@
 <?php  
 
-get_header();
 
-
- $hotel = homepage::inst()->__ShowListHotel();
- 
+ $hotel = homepage::inst()->__ShowListHotel(); 
 $listRoom = hoteldetail::inst()->listRoom();
+get_header();
  while(have_posts()){ the_post();
  	
- 	
-
 ?>
 <div class="clear"></div>
 	<!--content -->

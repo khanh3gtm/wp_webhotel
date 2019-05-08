@@ -7,15 +7,8 @@
  $hotel = homepage::inst()->__ShowListHotel();
 $city = homepage::inst()->listCity();
 
-
-
  ?>
-
-   
-    <script type="text/javascript" src="public/js/khanh.js"></script>
-  
-    
-    <div class="clear"></div>
+  <div class="clear"></div>
     <!-- Banner -->
     <div id="banner">
         <div class="container-fuil">

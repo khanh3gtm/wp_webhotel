@@ -570,8 +570,7 @@ function __getDataToTable(){
 				array_push($arr_room, get_the_ID());
 			}
 			wp_reset_postdata();
-		}
-		
+		}		
 		if(!in_array($room_id, $arr_room)){
 			array_push($arr_room, $room_id);
 		}

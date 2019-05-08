@@ -329,4 +329,8 @@ $(document).ready(function(){
  	
  });
 // hide forrm book 
- 
+jQuery(document).ready(function($){
+ 	var body = $('body');
+			$('.has-matchHeight', body).matchHeight();
+ 	
+ });

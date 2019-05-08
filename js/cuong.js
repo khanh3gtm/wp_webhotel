@@ -148,7 +148,11 @@ $(function() {
 
 		
 		// end book lich
-		
+		jQuery(document).ready(function($){
+ 	var body = $('body');
+			$('.has-matchHeight', body).matchHeight();
+ 	
+ });
 
 		// dich chuyen layout khi thuc hien sort
 		$(document).ready(function () {
