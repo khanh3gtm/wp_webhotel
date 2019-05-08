@@ -95,24 +95,12 @@ include "application/helpers/helpers.php";
 
 		}
 		
-		if(is_page_template( 'search.php' ))
-		{
-			wp_register_style('sidebar-deadline-style',THEME_URL . '/CSS/slide_deadline.css','all');
-			wp_enqueue_style('sidebar-deadline-style');
-			
-			wp_register_script('sidebar-deadline-script',THEME_URL . '/js/cuong.js','all');
-			wp_enqueue_script('sidebar-deadline-script');
-
-		}
-		
 		if(is_singular('room')){
 			wp_enqueue_style('room', THEME_URL . '/CSS/room.css', 'all');
 			wp_enqueue_script('room-js', THEME_URL . '/js/khanh.js', 'all');
 		}
 	}
 	add_action('wp_enqueue_scripts','webhotel_style');
-
-
 	function dd($arr){
 	echo '<pre>';
 	print_r($arr);
