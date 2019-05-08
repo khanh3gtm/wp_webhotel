@@ -42,6 +42,9 @@ include "application/helpers/helpers.php";
 				'default-color' => '#e8e8e8e'
 			);
 			add_theme_support('custom-background',$default_background);
+			add_theme_support( 'post-formats', array( 'aside', 'gallery' ) );
+			add_post_type_support('hotel', 'post-formats' );
+			add_post_type_support('room', 'post-formats' );
 		// Them menu
 			register_nav_menu('primary-menu',__('Primary Menu','shinetheme'));
 			register_nav_menus( array(
@@ -95,24 +98,12 @@ include "application/helpers/helpers.php";
 
 		}
 		
-		if(is_page_template( 'search.php' ))
-		{
-			wp_register_style('sidebar-deadline-style',THEME_URL . '/CSS/slide_deadline.css','all');
-			wp_enqueue_style('sidebar-deadline-style');
-			
-			wp_register_script('sidebar-deadline-script',THEME_URL . '/js/cuong.js','all');
-			wp_enqueue_script('sidebar-deadline-script');
-
-		}
-		
 		if(is_singular('room')){
 			wp_enqueue_style('room', THEME_URL . '/CSS/room.css', 'all');
 			wp_enqueue_script('room-js', THEME_URL . '/js/khanh.js', 'all');
 		}
 	}
 	add_action('wp_enqueue_scripts','webhotel_style');
-
-
 	function dd($arr){
 	echo '<pre>';
 	print_r($arr);
