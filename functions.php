@@ -42,6 +42,9 @@ include "application/helpers/helpers.php";
 				'default-color' => '#e8e8e8e'
 			);
 			add_theme_support('custom-background',$default_background);
+			add_theme_support( 'post-formats', array( 'aside', 'gallery' ) );
+			add_post_type_support('hotel', 'post-formats' );
+			add_post_type_support('room', 'post-formats' );
 		// Them menu
 			register_nav_menu('primary-menu',__('Primary Menu','shinetheme'));
 			register_nav_menus( array(
