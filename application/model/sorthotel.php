@@ -11,12 +11,22 @@ class st_sidebar_model extends Model
 	public function sortHotel()
 	{
 		$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
-		$args = array(
+		if(!empty(get_option('pagination_hotel'))){
+			$args = array(
+			'post_type'=>array('hotel'),
+			 'posts_per_page' => get_option('pagination_hotel'),
+			 'paged' => $paged,
+
+		);
+		}else{
+			$args = array(
 			'post_type'=>array('hotel'),
 			 'posts_per_page' => 6,
 			 'paged' => $paged,
 
 		);
+		}
+		
 
 	if(isset($_GET['optradio'])){
 			switch ($_GET['optradio']) {

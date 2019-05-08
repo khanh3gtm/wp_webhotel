@@ -549,6 +549,8 @@ function __getDataToTable(){
 		$hotel_id = $_POST['st_contact_hotel_field'];
 		$room_price_update = $_POST['st_contact_price_field'];
 		$old_price = get_post_meta($_POST['post_ID'], 'st_contact_price_field', true);
+		if($old_price != $room_price_update){
+
 			$args = array(
 			'post_type' =>'room',
 			'meta_query' => array(
@@ -569,25 +571,36 @@ function __getDataToTable(){
 			}
 			wp_reset_postdata();
 		}
+		
+		if(!in_array($room_id, $arr_room)){
+			array_push($arr_room, $room_id);
+		}
+
 		$medium_price = 0;
 		$hotel_point = 0;
+		
 		if(!empty($arr_room)){
+
 			foreach ($arr_room as  $value) {
+			
 				if($value == $room_id){
 					$price = $room_price_update;
 					$star_num = get_post_meta($value,'st_contact_star_field',true);
 					$medium_price = $medium_price + $price;
 					$hotel_point = $hotel_point + $star_num;
 					
+					
 				}else{
 					$price = get_post_meta($value,'st_contact_price_field',true);
 					$star_num = get_post_meta($value,'st_contact_star_field',true);
 					$medium_price = $medium_price + $price;
-					$hotel_point = $hotel_point + $star_num;					
+					$hotel_point = $hotel_point + $star_num;
+										
 				}				
 			}	
 		}
 		$medium_price=number_format($medium_price/count($arr_room),2);
+		
 		$hotel_point = ROUND($hotel_point/count($arr_room),1);
 		
 		$post_args = array(
@@ -595,8 +608,9 @@ function __getDataToTable(){
 			'hotel_point' => $hotel_point
 		);
 		$s=$wpdb->update( $wpdb->prefix . 'posts', $post_args, array( 'ID' => $hotel_id ));
-		
-		
+
+		}
+				
 	}  
 }
 }

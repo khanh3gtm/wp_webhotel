@@ -73,8 +73,8 @@ include "application/helpers/helpers.php";
 		wp_enqueue_style('footer-style');
 		wp_register_style('body-style',THEME_URL . '/style.css','all');
 		wp_enqueue_style('body-style');
-		wp_register_script('match-height-script',THEME_URL . '/js/jquery.matchHeight.js','all');
-		wp_enqueue_script('match-height-script');
+		wp_enqueue_script('match-height-script',THEME_URL . '/js/jquery.matchHeight.js','all');
+	
 		if(is_singular('hotel')){
 			wp_register_style('hoteldetail-style',THEME_URL . '/CSS/roomhotel.css','all');
 			wp_enqueue_style('hoteldetail-style');

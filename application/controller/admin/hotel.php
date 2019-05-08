@@ -490,7 +490,9 @@ public function updated_location_image ( $term_id) {
 		
 	}
 	function sunset_custom_setting(){
-		register_setting( 'sunset-settings-group', 'number_hotel' );	
+		register_setting( 'sunset-settings-group', 'number_hotel' );
+		register_setting( 'sunset-settings-group', 'pagination_hotel' );
+
 	}
 	
 	
@@ -508,6 +510,13 @@ public function updated_location_image ( $term_id) {
 						<td>
 							<?php 	$numberHotel = esc_attr(get_option('number_hotel'));
 							echo '<input  type="text" name="number_hotel" value="'.$numberHotel.'"  placeholder="Number hotel" />'; ?>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row"><label for="pagination_hotel">Pagination of Hotel:</label></th>
+						<td>
+							<?php 	$pagination_hotel = esc_attr(get_option('pagination_hotel'));
+							echo '<input  type="text" name="pagination_hotel" value="'.$pagination_hotel.'"  placeholder="Pagination of Hotel" />'; ?>
 						</td>
 					</tr>
 
