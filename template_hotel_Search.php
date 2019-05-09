@@ -3,188 +3,187 @@
 * Template Name: Search-Hotel-Result
 */
 get_header();
-$sort_list=st_sidebar::inst()->sortListHotel();
+$sort_list=StSidebar::inst()->sortListHotel();
 
 
- ?>
+?>
 
 
 
-	
-	<div class="search-result-page">
+
+<div class="search-result-page">
 
 
-		<div class="banner st_bn">
-			
-			<div class="container">
-				<div class="banner-item">
-					
-					<div class="banner-content" >
-						
-						<h1>Search Hotel Popup Map</h1>
+	<div class="banner st_bn">
 
-						
-					</div>
+		<div class="container">
+			<div class="banner-item">
 
-					<div class="container searchform-mobile ">
+				<div class="banner-content" >
 
-						<div class="col-xs-12  form-group">		
-							<div class="banner-search-form">					
-								<i class="fas fa-map-marker-alt mobile-checkicon"></i>
-								<input type="text" class="form-control col-sm-6 col-xs-12 mobile-input" id="email" placeholder="Where are you going?" name="email">
-								<button type="button" class=" btn-primary mobile-button"><i class="fas fa-search mobile-checkicon-button"></i></button>
-								
-							</div>
+					<h1>Search Hotel Popup Map</h1>
+
+
+				</div>
+
+				<div class="container searchform-mobile ">
+
+					<div class="col-xs-12  form-group">		
+						<div class="banner-search-form">					
+							<i class="fas fa-map-marker-alt mobile-checkicon"></i>
+							<input type="text" class="form-control col-sm-6 col-xs-12 mobile-input" id="email" placeholder="Where are you going?" name="email">
+							<button type="button" class=" btn-primary mobile-button"><i class="fas fa-search mobile-checkicon-button"></i></button>
+
 						</div>
-
 					</div>
+
 				</div>
 			</div>
-			
 		</div>
 
-		<!-- mobile list -->
-		<div class="mobile-list">
-			<div class="container" >
-				<ul class="" role="menu" aria-labelledby="menu1" >
-					<li role="presentation"><button class=" btn-primary mobile-list-item">Date</button></li>
-					<li role="presentation"><button class=" btn-primary mobile-list-item" >Guest</button></li>
-					<li role="presentation"><button class=" btn-primary mobile-list-item">Map</button></li>
-					<li role="presentation"><button class=" btn-primary mobile-list-item">Sort</button></li>
-					<li role="presentation"><button class=" btn-primary mobile-list-item">Filter</button></li>    
-				</ul>
-			</div>
+	</div>
 
+	<!-- mobile list -->
+	<div class="mobile-list">
+		<div class="container" >
+			<ul class="" role="menu" aria-labelledby="menu1" >
+				<li role="presentation"><button class=" btn-primary mobile-list-item">Date</button></li>
+				<li role="presentation"><button class=" btn-primary mobile-list-item" >Guest</button></li>
+				<li role="presentation"><button class=" btn-primary mobile-list-item">Map</button></li>
+				<li role="presentation"><button class=" btn-primary mobile-list-item">Sort</button></li>
+				<li role="presentation"><button class=" btn-primary mobile-list-item">Filter</button></li>    
+			</ul>
 		</div>
-		<!-- end mobile list -->
 
-		<div>
-			<div class="container">
-				
-				<div class="st-hotel-result">
+	</div>
+	<!-- end mobile list -->
 
-					<div>
+	<div>
+		<div class="container">
 
-						<div class="col-lg-3 col-md-3 slidebar-filter">
+			<div class="st-hotel-result">
 
-							<div class="slidebar-item sidebar-search-form hidden-xs hidden-sm">
-								
-								<div class="search-from">
-									<div class="search-title">
-										<span>Search Hotels</span>
+				<div>
 
-									</div>
+					<div class="col-lg-3 col-md-3 slidebar-filter">
+
+						<div class="slidebar-item sidebar-search-form hidden-xs hidden-sm">
+
+							<div class="search-from">
+								<div class="search-title">
+									<span>Search Hotels</span>
 
 								</div>
 
-								<!-- Start quan -->
-								<div class="row">
-									<form action="" method="GET">
-										<div class="form-group col-sm-12 search-content">
-											<i class="fas fa-map-marker-alt search-checkiconleft"></i>
-											<label class="search-title-language1 search-title-language">Destination:</label>
-											<div class="dropdown render">
-												<!-- <input type="hidden" name="c" value="slidebar"> -->
-												<div class="dropdown-toggle search-language" id="menu1"
-												data-toggle="dropdown">
-												<?php
-												if (empty($_GET['cityid'])) {
-													$des = 'Where are you going?';
-												} else {
-													$des = $_GET['cityname'];
-												} ?>
-												<span class="destination" 
-												id="spankey"><?php echo $des ?></span>
-											</div>
-											<input type="hidden" name="cityname" id="namekey"
-											value="<?php echo isset($_GET['cityname']) ? $_GET['cityname'] : ''; ?>">
-											<input type="hidden" name="cityid" id="idkey"
-											value="<?php echo isset($_GET['cityid']) ? $_GET['cityid'] : ''; ?>">
+							</div>
 
-											<ul class="dropdown-menu search-list" role="menu"
-											aria-labelledby="menu1" onclick="change()" id="dropdownmenu">
-											<?php 
+							<!-- Start quan -->
+							<div class="row">
+								<form action="" method="GET">
+									<div class="form-group col-sm-12 search-content">
+										<i class="fas fa-map-marker-alt search-checkiconleft"></i>
+										<label class="search-title-language1 search-title-language">Destination:</label>
+										<div class="dropdown render">
+											<!-- <input type="hidden" name="c" value="slidebar"> -->
+											<div class="dropdown-toggle search-language" id="menu1"
+											data-toggle="dropdown">
+											<?php
+											if (empty($_GET['cityid'])) {
+												$des = 'Where are you going?';
+											} else {
+												$des = $_GET['cityname'];
+											} ?>
+											<span class="destination" 
+											id="spankey"><?php echo $des ?></span>
+										</div>
+										<input type="hidden" name="cityname" id="namekey"
+										value="<?php echo isset($_GET['cityname']) ? $_GET['cityname'] : ''; ?>">
+										<input type="hidden" name="cityid" id="idkey"
+										value="<?php echo isset($_GET['cityid']) ? $_GET['cityid'] : ''; ?>">
 
-											$args=array(
+										<ul class="dropdown-menu search-list" role="menu"
+										aria-labelledby="menu1" onclick="change()" id="dropdownmenu">
+										<?php 
 
-													'orderby'=>'title',
-													'order'=>'ASC',
-													'post_type'=>'hotel',
-													'hide_empty' => false,
-													'fields' => 'all',
-													'taxonomy'=>array('location')
+										$args=array(
+
+											'orderby'=>'title',
+											'order'=>'ASC',
+											'post_type'=>'hotel',
+											'hide_empty' => false,
+											'fields' => 'all',
+											'taxonomy'=>array('location')
 
 
-											);
-											
+										);
 
-												$term=get_terms( $args );
-											 ?>
+										$term=get_terms( $args );
+										?>
 
-											 <?php 
-											 		if (!empty($term)) {
+										<?php 
+										if (!empty($term)) {
 											 			# code...
-											 		
-											 		foreach ($term as $terms) {
-											 			?>
 
-											 			<li data-value="<?php echo $terms->term_id ?>">
-											 				<i class="fas fa-map-marker-alt"></i>
-											 				<span><?php echo $terms->name; ?></span>
-											 			</li>
-											 			
-											 			<?php
-											 		}
-											 	}
-											 	  ?>
+											foreach ($term as $terms) {
+												?>
 
+												<li data-value="<?php echo $terms->term_id ?>">
+													<i class="fas fa-map-marker-alt"></i>
+													<span><?php echo $terms->name; ?></span>
+												</li>
 
-										</ul>
-										<script>
-											$(function () {
-
-												$("#dropdownmenu li").click(function (e) {
-
-													$(".destination:first-child").text($(this).text());
-													$(".destination:first-child").val($(this).text());
-													var value = $(this).data("value");
-													$('#idkey').val(value);
-												});
-											});
-										</script>
-										<script>
-											function change() {
-												var input = document.getElementById('namekey');
-												var span = document.getElementById('spankey');
-												input.value = span.innerText;
+												<?php
 											}
-										</script>
-									</div>
+										}
+										?>
+
+
+									</ul>
+									<script>
+										$(function () {
+
+											$("#dropdownmenu li").click(function (e) {
+
+												$(".destination:first-child").text($(this).text());
+												$(".destination:first-child").val($(this).text());
+												var value = $(this).data("value");
+												$('#idkey').val(value);
+											});
+										});
+									</script>
+									<script>
+										function change() {
+											var input = document.getElementById('namekey');
+											var span = document.getElementById('spankey');
+											input.value = span.innerText;
+										}
+									</script>
 								</div>
-								<!-- end cot 1 -->
-								<?php
+							</div>
+							<!-- end cot 1 -->
+							<?php
                                     //Co $_GET['start'];
                                     //Kho cos
-								$start = date('d/m/Y');
-								$end = date('d/m/Y', strtotime(' + 1 days'));
-								$date = date('d/m/Y') . ' 12:00 am - ' . date('d/m/Y', strtotime(' + 1 days')) . ' 11:59 pm';
-								if (isset($_GET['start']) && isset($_GET['end']) && isset($_GET['date'])) {
-									if (!empty($_GET['start'])) {
-										$start = $_GET['start'];
-									}
-									if (!empty($_GET['end'])) {
-										$end = $_GET['end'];
-									}
-									if (!empty($_GET['date'])) {
-										$date = $_GET['date'];
-									}
+							$start = date('d/m/Y');
+							$end = date('d/m/Y', strtotime(' + 1 days'));
+							$date = date('d/m/Y') . ' 12:00 am - ' . date('d/m/Y', strtotime(' + 1 days')) . ' 11:59 pm';
+							if (isset($_GET['start']) && isset($_GET['end']) && isset($_GET['date'])) {
+								if (!empty($_GET['start'])) {
+									$start = $_GET['start'];
 								}
-								?>
-								<div class="form-group col-sm-12 search-content1">
-									<i class="far fa-calendar-plus search-checkiconright"></i>
-									<label for="radio-choice-1" class="search-title-language"> Check
-									In-Out</label>
-									<div id="reportrange">
+								if (!empty($_GET['end'])) {
+									$end = $_GET['end'];
+								}
+								if (!empty($_GET['date'])) {
+									$date = $_GET['date'];
+								}
+							}
+							?>
+							<div class="form-group col-sm-12 search-content1">
+								<i class="far fa-calendar-plus search-checkiconright"></i>
+								<label for="radio-choice-1" class="search-title-language"> Check
+								In-Out</label>
+								<div id="reportrange">
 									<?php echo $start . ' - ' . $end ?>
 								</div>
 
@@ -466,35 +465,35 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 									<div class="col-lg-9 col-md-9 col-sm-12 content-title">
 										<?php 
 
-												 if (isset($_GET['cityid'])&&!empty($_GET['cityid'])) {
-													$cityid=$_GET['cityid'];
-													$args = array(
-														'post_type'=>'hotel',
-														'posts_per_page'=>-1,
-														'tax_query' => array(
-															array(
-																'taxonomy' => 'location',
-																'field' => 'term_id',
-																'terms' => $cityid
-															)
-														)
-													);
-													
-													?>
-													<h3><?php $count=count(get_posts( $args ));
-													echo $count;?> hotels found</h3>
-													
-												<?php
-										
-												}
+										if (isset($_GET['cityid'])&&!empty($_GET['cityid'])) {
+											$cityid=$_GET['cityid'];
+											$args = array(
+												'post_type'=>'hotel',
+												'posts_per_page'=>-1,
+												'tax_query' => array(
+													array(
+														'taxonomy' => 'location',
+														'field' => 'term_id',
+														'terms' => $cityid
+													)
+												)
+											);
 
-												else 
-												{
-													?>
-													 <h3><?php echo  wp_count_posts('hotel')->publish; ?> hotels found</h3>
-													 <?php
-												}
-										 ?>
+											?>
+											<h3><?php $count=count(get_posts( $args ));
+											echo $count;?> hotels found</h3>
+
+											<?php
+
+										}
+
+										else 
+										{
+											?>
+											<h3><?php echo  wp_count_posts('hotel')->publish; ?> hotels found</h3>
+											<?php
+										}
+										?>
 										
 									</div>
 									<div class="col-lg-3 layout">
@@ -594,7 +593,7 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 
 																		</li>
 																	</div>
-		
+
 																</div>
 																<!-- <li>SORT BY</li> -->
 
@@ -620,9 +619,9 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 									
 									<div class=" modern-search-result">
 										<?php 
-										st_sidebar::inst()->startInjectSQLQuery();
+										StSidebar::inst()->startInjectSQLQuery();
 										$query= new WP_Query($sort_list);
-										st_sidebar::inst()->endInjectSQLQuery();
+										StSidebar::inst()->endInjectSQLQuery();
 
 										// echo $query->request;
 										// dd($query);
@@ -633,52 +632,52 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 											while ($query->have_posts())
 											{										
 												$query->the_post();
-											
-											
-										?>
-										<?php $id_location= get_post(get_the_ID());
-										?>
+
+
+												?>
+												<?php $id_location= get_post(get_the_ID());
+												?>
 
 												<div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 has-matchHeight ">
 													<div class="item">
 														<div class="thumb">
 															<div class="im1">
-															<?php
-															$get_data = $_GET;
+																<?php
+																$get_data = $_GET;
 
-															$start='';
-															$end='';
-															$date = '';
+																$start='';
+																$end='';
+																$date = '';
 
-															if(isset($get_data['start'])){
-																$start = '&start=' . $get_data['start'];
-															}
+																if(isset($get_data['start'])){
+																	$start = '&start=' . $get_data['start'];
+																}
 
-															if(isset($get_data['end'])){
-																$end = '&end=' . $get_data['end'];
-															}
+																if(isset($get_data['end'])){
+																	$end = '&end=' . $get_data['end'];
+																}
 
-															if(isset($get_data['date'])){
-																$date = '&date=' . $get_data['date'];
-															}
-															
+																if(isset($get_data['date'])){
+																	$date = '&date=' . $get_data['date'];
+																}
 
-															?>
- 															<a href="<?php echo site_url('/'.$id_location->post_type.'/'.$id_location->post_name.'/?'.$start.$end.$date); ?>">
-																 	<?php $image= get_the_post_thumbnail(get_the_ID(),[256,256],array('class'=>'img-responsive'));
-                                                                if(!empty($image)){
-                                                                    echo $image;
-                                                                }
-                                                                else{
-                                                                    echo ' <img src="'. get_template_directory_uri().' /application/libs/Images/Hotel Ascot Opera.jpg" class="imagedefault" >';
 
-                                                                }
-                                                             ?>
+																?>
+																<a href="<?php echo site_url('/'.$id_location->post_type.'/'.$id_location->post_name.'/?'.$start.$end.$date); ?>">
+																	<?php $image= get_the_post_thumbnail(get_the_ID(),[256,256],array('class'=>'img-responsive'));
+																	if(!empty($image)){
+																		echo $image;
+																	}
+																	else{
+																		echo ' <img src="'. get_template_directory_uri().' /application/libs/Images/Hotel Ascot Opera.jpg" class="imagedefault" >';
+
+																	}
+																	?>
 																</a>
 
-															
+
 															</div>
-														<br/>
+															<br/>
 														</div>
 														<div class="icon-position">
 															<i class="fas fa-heart img heart"></i>
@@ -700,19 +699,19 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 
 
 															<?php 
-																$check=get_post_meta( $post->ID, '_featured_hotel', true );
+															$check=get_post_meta( $post->ID, '_featured_hotel', true );
 
-																
-															 ?>
-															 <?php  
-															 if($check==true)
-																{
-																	?>
+
+															?>
+															<?php  
+															if($check)
+															{
+																?>
 																<button class=" btn btn-primary text">Featured</button>
-																	
-															<?php
-															 }
-													 
+
+																<?php
+															}
+
 															?>
 														</div>
 														<div class="info">
@@ -721,14 +720,12 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 															</a>
 															<br/>
 
-																
+
 															<div class="wpb-slidebar-adress">
 																
-															<p class="service-location">
-																
-																<?php 
-																// if(!empty($value['city_name']) || !empty($value['country']))
-																// {
+																<p class="service-location">
+
+																	<?php 
 																	?>
 																	<i class="fas fa-map-marker-alt"></i>
 																	<?php 
@@ -749,19 +746,19 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 																	
 
 
-																	 ?>
+																	?>
 																	
 																	<?php
 																// }
 
-																?>
-															</p>
-														  </div>
+																	?>
+																</p>
+															</div>
 
 															<div class="service-review">
 																<div class="service-point">
 																	<p class="matchHeight"><?= 
-																		$id_location->hotel_point
+																	$id_location->hotel_point
 
 																	?>/5 Excellent </p>
 																</div>
@@ -780,16 +777,16 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 
 															<div class="service-all">
 																
-																	<span><i class="fas fa-bolt slide-icon"></i></span>
-																	<span class="service-from"> From </span>
-																	<span class="service-price">€<?php 
-																		echo $id_location->price;
+																<span><i class="fas fa-bolt slide-icon"></i></span>
+																<span class="service-from"> From </span>
+																<span class="service-price">€<?php 
+																echo $id_location->price;
 
-																	 ?></span>
-																	<span class="service-from">
-																		/night
-																	</span>
-																	
+																?></span>
+																<span class="service-from">
+																	/night
+																</span>
+
 
 																
 															</div>
@@ -802,15 +799,15 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 														</div>
 													</div>
 												</div>
-										
+
 												<?php
-										
-										}	
-										 
-								
-									}
-									
-									
+
+											}	
+
+
+										}
+
+
 										?>
 										
 									</div>
@@ -825,40 +822,38 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 
 
 											<?php
-											$sort_list=st_sidebar::inst()->sortListHotel();
+											$sort_list=StSidebar::inst()->sortListHotel();
 											$list = new WP_Query( $sort_list );
 											if ( $list->have_posts() ) :
 												while( $list->have_post() ) : $list->the_post();
-												  
+
 												endwhile;
 												wp_reset_postdata();
-												endif;
-											
-												global $wp_query;
-												
-												$translated = __( '', 'shinetheme' ); 
-												echo paginate_links( array(
-													'format' => '?paged=%#%',
-													'current' => max( 1, get_query_var('paged') ),
-													'total' => $list->max_num_pages,
-													'before_page_number' => '<span class="screen-reader-text">'.$translated.' </span>',
-													'prev_text'          => __('<'),
-													'next_text'          => __('>'),
-													
-												) );
-											
-											
-										?>
+											endif;
 
-										
-							
-									
+											$translated = __( '', 'shinetheme' ); 
+											echo paginate_links( array(
+												'format' => '?paged=%#%',
+												'current' => max( 1, get_query_var('paged') ),
+												'total' => $list->max_num_pages,
+												'before_page_number' => '<span class="screen-reader-text">'.$translated.' </span>',
+												'prev_text'          => __('<'),
+												'next_text'          => __('>'),
+
+											) );
+											
+											
+											?>
+
+
+
+
 
 
 										</ul>
 
 
-									<!-- END CUONG -->
+										<!-- END CUONG -->
 
 									</div>  
 									<!-- END PHAN TRANG -->
@@ -883,9 +878,9 @@ $sort_list=st_sidebar::inst()->sortListHotel();
 		</div>
 
 
-<div class="clear" style="clear: both;"></div>
+		<div class="clear" style="clear: both;"></div>
 
 		<!-- footer -->
 		<!-- end footer -->
 
-	<?php get_footer(  ); ?>
+		<?php get_footer(  ); ?>
