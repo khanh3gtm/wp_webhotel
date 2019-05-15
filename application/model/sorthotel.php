@@ -1,5 +1,5 @@
 <?php 
-class st_sidebar_model extends Model 
+class StSidebarModel extends Model 
 {
 	
 	public function __construct()
@@ -86,19 +86,6 @@ class st_sidebar_model extends Model
 
 		
 	}
-
-
-	function wpb_total_posts() { 
-		$total = wp_count_posts('hotel')->publish;
-		return $total; 
-	} 
-	
-		
-			
-
-	
-	
-	
 	 public static function inst(){
         static $instane;
         if(is_null($instane)){

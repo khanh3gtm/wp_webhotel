@@ -1,14 +1,11 @@
 <?php 
 
-class st_sidebar extends Controller
+class StSidebar extends Controller
 {
 	
 	function __construct()
 	{
 		parent::__construct();
-		//add_action('init',array($this,'sortListHotel'));
-		//add_action('init',array($this,'searchListHotel'));
-		add_shortcode('total_posts','wpb_total_posts');	
 	}
 
 	public function startInjectSQLQuery(){
@@ -38,18 +35,11 @@ class st_sidebar extends Controller
 
 	public function sortListHotel()
 	{
-		$sort=st_sidebar_model::inst()->sortHotel();
+		$sort=StSidebarModel::inst()->sortHotel();
 		return $sort;
 
 
 	} 
-	public function wpb_total_posts()
-	{
-		$total=st_sidebar_model::inst()->wpb_total_posts();
-		return $total;
-	}
-	
-	
 	public static function inst(){
  			static $instane;
  			if(is_null($instane)){
@@ -60,6 +50,6 @@ class st_sidebar extends Controller
 
 
 }
-new st_sidebar();
+new StSidebar();
 
  ?>
