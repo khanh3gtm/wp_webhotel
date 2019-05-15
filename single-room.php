@@ -9,33 +9,10 @@
           <?php $hotel = get_post_meta(get_the_ID(), 'st_contact_hotel_field', true);
           $res_hotel = get_the_title($hotel);
           echo $res_hotel; ?>
-            <!-- <?php 
-            if(!empty($data_hotel)){
-              ?>
-              <?php 
-              foreach ($data_hotel as $values) {
-                ?>
-                <a href=""><?php echo $values['hotel_name'] ?></a>
-                <?php     
-              }?>
-              <?php } ?> -->
-
-            <!-- <?php 
-            global $wpdb;
-              // $results = $wpdb->get_results("SELECT post_title, ID FROM wp_posts INNER JOIN wp_postmeta ON wp_posts.ID = wp_postmeta.post_id;");
-              $results = $wpdb->get_results("SELECT meta_value, post_id FROM wp_postmeta INNER JOIN wp_posts ON wp_postmeta.post_id = wp_posts.ID;");
-              if(!empty($results)){
-                foreach ($results as $value) {
-                  echo $results->meta_value;
-                }
-              }
-
-              ?> -->
             </li>
             <li class="active">
               <?php $query = get_post(get_the_ID());
               $title = apply_filters('the_title', $query->post_title);
-
               echo $title; ?>
             </li>
           </ul>

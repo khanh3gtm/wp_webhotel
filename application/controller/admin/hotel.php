@@ -498,7 +498,7 @@ public function updated_location_image ( $term_id) {
 	
 
 	function menu_page_output(){?>
-		<h2>Sunset Theme Options</h2>
+		<h2>Setting Theme Options</h2>
 		<?php settings_errors(); ?>
 		<form method="post" action="options.php">
 			<?php settings_fields('sunset-settings-group'); ?>

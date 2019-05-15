@@ -16,7 +16,7 @@ if(!class_exists('ST_Room_Admin')){
 			add_action('created_amenities', array($this, 'save_category_image'), 10, 2);
 			add_action('amenities_edit_form_fields', array ( $this, 'update_category_image' ), 10, 2 );
 			add_action('edited_amenities', array ($this, 'updated_category_image' ), 10, 2 );
-			add_action('admin_enqueue_scripts', array( $this, 'load_media' ) );
+			// add_action('admin_enqueue_scripts', array( $this, 'load_media' ) );
 			add_action('admin_enqueue_scripts', array($this, 'webhotel'));
 			//add_action('admin_footer', array ( $this, 'add_script' ) );
 			add_action('admin_footer', array ( $this, 'upload_image_meta_box' ) );
@@ -24,9 +24,9 @@ if(!class_exists('ST_Room_Admin')){
 			add_filter('manage_edit-amenities_columns',array($this, 'my_custom_taxonomy_columns')); 
 		
 		}
-		public function load_media(){
-			wp_enqueue_media();
-		}
+		// public function load_media(){
+		// 	wp_enqueue_media();
+		// }
 		function upload_image_meta_box(){
 			?>
 
@@ -542,7 +542,6 @@ public static function inst(){
 
 
 function __getDataToTable(){
-	
 	if($_POST['post_type'] =='room'){
 		global $wpdb;		
 		$room_id=$_POST['ID'];
