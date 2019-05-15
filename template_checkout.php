@@ -8,14 +8,27 @@ $key = $ss['room_id'];
 $st = bookcart::inst()->__stGetInfoRoom($key);
 if (isset($ss)) {
     ?>
-    <div class="container">
+    <div class="col-lg-12 col-md-12 st-breadcrumb1">
+                    <div class="container">
+                       <ul>
+                         <li><a href="?c=homepage&a=view">Home</a></li>
+                         <li><span><?php the_title(); ?></span></li>
+
+                     </ul>
+                    </div>
+                   
+                </div>
+    <div class="container checkout-warper">
         <div class="row">
+            
+                
+            </div>
             <div class="col-lg-4 col-md-4 col-lg-push-8 col-md-push-8 info-booking">
                 <h3 class="title">Your Booking</h3>
                 <div class="cart-info" id="cart-info">
                    <div class="service-section">
                     <div class="service-left">
-                        <h4 class="title"><a href="#"><?php echo $st[0]->post_title ?></a></h4>
+                        <h4 class="title"><a href="<?  ?>"><?php echo $st[0]->post_title ?></a></h4>
                         <p class="address"><i class="input-icon field-icon fa"><svg height="15px" width="15px">
                             <title>Ico_maps</title>
                             <desc>Created with Sketch.</desc>
@@ -24,8 +37,8 @@ if (isset($ss)) {
                         </svg></i>&ensp;<?php echo $st[4][1]->name ?>, <?php echo $st[4][0]->name ?> </p>
                     </div>
                     <div class="service-right">
-                        <img class="img-responsive" src=""style =" width: 150px; height: auto "><?php 
-                        echo get_the_post_thumbnail($st[2]->ID,'thumbnail'); ?>
+                      <?php 
+                        echo get_the_post_thumbnail($st[2]->ID,[110,110],'thumbnail'); ?>
                     </div>
                 </div>
                 <div class="info-section">
@@ -39,26 +52,28 @@ if (isset($ss)) {
                             <a class="st-link" style="font-size: 12px;" href="<?php echo site_url().'/'.$st[2]->post_name ?>">Edit</a>
                         </span>
                     </li>
-                    <li><span class="lable_section">Number of Night : </span>
-                        <span class="value">
-                            <?php
-                            $start = convert_date_format($ss['start']);
-                            $startday= strtotime($start);
-                            $end = convert_date_format($ss['end']);
-                            $endday= strtotime($end);
-                            if($endday < $startday){
-                                echo 'Error';
-                            }else
-                            {
-                                $night = abs($endday-$startday);
-                                $sl_night = floor($night/(60*60*24));
-                                echo $sl_night;} 
-                                ?>        
-                            </span></li>
-                            <li><span class="lable_section">Number of Room : </span>
-                                <span class="value"><?php echo $ss['number_room'] ?></span>
-                            </li>
-                            <li><span class="lable_section">Number of Adult : </span><span class="value"> <?php echo $ss['number_adult'] ?></span></li>
+                    <div class="label-info">
+                        <li><span class="lable_section1">Number of Night : </span>
+                            <span class="value">
+                                <?php
+                                $start = convert_date_format($ss['start']);
+                                $startday= strtotime($start);
+                                $end = convert_date_format($ss['end']);
+                                $endday= strtotime($end);
+                                if($endday < $startday){
+                                    echo 'Error';
+                                }else
+                                {
+                                    $night = abs($endday-$startday);
+                                    $sl_night = floor($night/(60*60*24));
+                                    echo $sl_night.' '.' Nights';} 
+                                    ?>      
+                                </span></li>
+                                <li><span class="lable_section1">Number of Room : </span>
+                                    <span class="value"><?php echo $ss['number_room'].' '.' Room(s)' ?></span>
+                                </li>
+                                <li><span class="lable_section1">Number of Adult : </span><span class="value"> <?php echo $ss['number_adult'] ?></span></li>
+                        </div>
                         </ul>                  
                     </div>
                     <div class="total-section">
@@ -105,69 +120,61 @@ if (isset($ss)) {
                                     <div class="col-sm-6">
                                         <div class="form-group form-group-icon-left">                
                                             <label for="field-st_first_name">First Name <span class="require">*</span> </label>
-                                            <i class="fa fa-user input-icon"></i>
                                             <input class="form-control required" id="field-st_first_name" value="<?php echo $data['first_name'][0] ?>" name="st_first_name" placeholder="First Name" type="text" required>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group form-group-icon-left">                
                                             <label for="field-st_last_name">Last Name <span class="require">*</span> </label>
-                                            <i class="fa fa-user input-icon"></i>
                                             <input class="form-control required" id="field-st_last_name" value="<?php echo $data['last_name'][0] ?>" name="st_last_name" placeholder="Last Name" type="text" required>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group form-group-icon-left">                
                                             <label for="field-st_email">Email <span class="require">*</span> </label>
-                                            <i class="fa fa-envelope input-icon"></i>&nbsp;&nbsp;
-                                            &nbsp;&nbsp;<span style="color: red;font-weight: 600;"><?php echo $_SESSION['st_err'];unset($_SESSION['st_err']); ?></span> 
+                                          <span style="color: red;font-weight: 600;"><?php echo $_SESSION['st_err'];unset($_SESSION['st_err']); ?></span> 
                                             <input class="form-control required" id="field-st_email" value="<?php echo wp_get_current_user()->user_email ?>" name="st_email" placeholder="email@domain.com" type="text" required>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group form-group-icon-left">                
                                             <label for="field-st_phone">Phone <span class="require">*</span> </label>
-                                            <i class="fa fa-phone input-icon"></i>
                                             <input class="form-control required" id="field-st_phone" value="<?php echo $data['st_phone'][0] ?>" name="st_phone" placeholder="Your Phone" type="text" required>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group form-group-icon-left">                
                                             <label for="field-st_address">Address Line 1  </label>
-                                            <i class="fa fa-map-marker input-icon"></i>
                                             <input class="form-control" id="field-st_address" value="<?php echo $data['st_address'][0] ?>" name="st_address" placeholder="Your Address Line 1" type="text">
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group form-group-icon-left">                
                                             <label for="field-st_address2">Address Line 2  </label>
-                                            <i class="fa fa-map-marker input-icon"></i>
                                             <input class="form-control" id="field-st_address2" value="<?php echo $data['st_address2'][0] ?>" name="st_address2" placeholder="Your Address Line 2" type="text">
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group form-group-icon-left">                
                                             <label for="field-st_city">City  </label>
-                                            <i class="fa fa-map-marker input-icon"></i>
                                             <input class="form-control" id="field-st_city" value="<?php echo $data['st_city'][0] ?>" name="st_city" placeholder="Your City" type="text">
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group form-group-icon-left">                
                                             <label for="field-st_province">State/Province/Region  </label>
-                                            <i class="fa fa-map-marker input-icon"></i>                <input class="form-control" id="field-st_province" value="<?php echo $data['st_province'][0] ?>" name="st_province" placeholder="State/Province/Region" type="text">
+                                             <input class="form-control" id="field-st_province" value="<?php echo $data['st_province'][0] ?>" name="st_province" placeholder="State/Province/Region" type="text">
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group form-group-icon-left">                
                                             <label for="field-st_zip_code">ZIP code/Postal code  </label>
-                                            <i class="fa fa-map-marker input-icon"></i>                <input class="form-control" id="field-st_zip_code" value="<?php echo $data['st_zip_code'][0] ?>" name="st_zip_code" placeholder="ZIP code/Postal code" type="text">
+                                            <input class="form-control" id="field-st_zip_code" value="<?php echo $data['st_zip_code'][0] ?>" name="st_zip_code" placeholder="ZIP code/Postal code" type="text">
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group form-group-icon-left">                
-                                            <label for="field-st_country">Country  </label>
-                                            <i class="fa fa-globe input-icon"></i>                
+                                            <label for="field-st_country">Country  </label>            
                                             <input class="form-control" id="field-st_country" value="<?php echo $data['st_country'][0] ?>" name="st_country" placeholder="Country" type="text">
                                         </div>
                                     </div>
@@ -216,7 +223,7 @@ if (isset($ss)) {
                         </div>
                         <input type="hidden" name="st_cart" value="">
                         <div class="alert form_alert hidden"></div>
-                        <button type="submit" class="btn btn-primary btn-checkout btn-st-checkout-submit btn-st-big " name="checkout_submit">Submit <i class=""></i></button>
+                        <button type="submit" class=" btn-checkout btn-st-checkout-submit btn-st-big " name="checkout_submit">Submit <i class=""></i></button>
                     </form>
                 <?php } 
                 else {?>
@@ -341,9 +348,10 @@ if (isset($ss)) {
                     </div>
                     <input type="hidden" name="st_cart" value="">
                     <div class="alert form_alert hidden"></div>
-                    <button type="submit" class="btn btn-primary btn-checkout btn-st-checkout-submit btn-st-big " name="checkout_submit">Submit <i class=""></i></button>
+                    <button type="submit" class="btn-checkout btn-st-checkout-submit btn-st-big " name="checkout_submit">Submit <i class=""></i></button>
                 </form>
             <?php } ?>
+
         </div>
     </div>
 </div>

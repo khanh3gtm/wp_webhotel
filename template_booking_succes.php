@@ -15,7 +15,7 @@ $ss = bookcart::inst()->__stGetInfoRoom($key);
 				<li>
 					<a href="#">Home</a>
 				</li>
-				<li><span>Booking Success</span></li>
+				<li><span><?php the_title(); ?></span></li>
 			</ul>
 		</div>
 	</div>

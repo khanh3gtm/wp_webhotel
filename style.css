@@ -23,7 +23,7 @@ body{
 
 }
 /* Khánh Viết CSS*/
-.st-checkout-page .cart-info .info-section ul li span.label {
+/*.st-checkout-page .cart-info .info-section ul li span.label {
 	color: #1A2B48;
 	font-size: 100%;
 	width: 35%;
@@ -49,6 +49,12 @@ body{
 	padding: 0;
 	width: 60%;
 	font-weight: 400;
+}*/
+.info-section ul li
+{
+	list-style-type: none;
+ 	border-bottom: 1px solid white;
+	line-height: 30px;
 }
 span.lable_section
 {
@@ -56,13 +62,38 @@ span.lable_section
 	display: inline;
 	padding: .2em .6em .3em;
 	font-size: 100%;
-	font-weight: 700;
+	font-weight: 400;
 	line-height: 1;
 	text-align: center;
 	white-space: nowrap;
 	vertical-align: baseline;
 	border-radius: .25em;
 
+}
+.info-section .label-info
+{
+	margin-top: 15px;
+	background: #ECE5E5;
+
+}
+span.lable_section1
+{
+	color: #1A2B48;
+	padding-left: 20px;
+	font-size: 100%;
+	font-weight: 400;
+	line-height: 50px;
+	text-align: center;
+}
+.label-info span.value
+{
+	float: right;
+    font-size: 100%;
+    color: #5E6D77;
+    font-weight: 500;
+    width: 40%;
+    line-height: 50px;
+    font-weight: 400;
 }
 .service-section {
 	padding: 30px;
@@ -72,6 +103,7 @@ span.lable_section
 	justify-content: space-between;
 }
 div#cart-info {
+	width: 370px;
 	border: 1px solid #D7DCE3;
 	-webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
 	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
@@ -87,23 +119,49 @@ div#cart-info {
 	line-height: 25px;
 	padding: 30px;
 }
+.total-section ul li
+{
+	list-style-type: none;
+}
+.total-section ul li span .value
+{
+	float: right;
+}
 .label_section {
 	display: inline;
 	padding: .2em .6em .3em;
 	font-size: 100%;
-	font-weight: 700;
-	line-height: 1;
+	font-weight: 400;
+	line-height: 35px;
 	color: #1A2B48;
 	text-align: center;
 	white-space: nowrap;
 	vertical-align: baseline;
 	border-radius: .25em;
 }
-.btn.btn-primary {
-	background: #FA5636;
-	font-size: 14px;
-	color: #FFF;
-	font-weight: 500;
+.total-section .payment-amount .label_section
+{
+	display: inline;
+	padding: .2em .6em .3em;
+	font-size: 18px;
+	font-weight: 400;
+	color: #1A2B48;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: baseline;
+	border-radius: .25em;
+}
+.btn-checkout
+{
+	margin-top: 3%;
+    border-radius: 4px;
+    padding-left: 60px;
+    padding-right: 60px;
+    padding-top: 15px;
+    padding-bottom: 10px;
+    color: white;
+    background: #FA5636;
+    border: 0px;
 }
 .st-checkout-page .btn-checkout {
 	padding-left: 50px;
@@ -147,7 +205,10 @@ div#cart-info {
 	color: #1A2B48;
 	text-decoration: none;
 	line-height: 21px;}
-
+	.checkout-warper
+	{
+		margin-bottom: 150px;
+	}
 	.st-checkout-page {
 		margin-top: 60px;
 		margin-bottom: 60px;
@@ -201,12 +262,84 @@ div#cart-info {
 		font-weight: 500;
 		color: #000000;
 	}
-	.st-checkout-page h3.title {
+	.st-icheck-item label
+	{
+		font-size: 14px;
+		color: #5E6D77;
+		font-weight: normal;
+		margin-bottom: 20px;
+		cursor: pointer;
+	}
+	
+	.st-icheck-item label .payment-title
+	{
+		margin-left: 20px;
+		color: #5E6D77;
+	}
+	 h3.title {
 		margin: 0;
 		color: #1A2B48;
 		font-size: 24px;
+		margin-top: 50px;
 		font-weight: 500;
 	}
+	 .st-breadcrumb1
+	{
+		padding: 20px 0;
+		border-bottom: 1px solid #EAEEF3;
+		border-top: 1px solid #EAEEF3;
+	}
+	 .st-breadcrumb1 ul li
+	{
+		display: inline-block;
+
+	}
+	 .st-breadcrumb1 ul li a
+	{
+		display: inline-block;
+		font-weight: 500;
+		color: #1A2B48;
+		font-size: 13px;
+		padding-left: 10px;
+		text-decoration: none;
+		line-height: 21px;
+	}
+	.st-breadcrumb1 ul li span 
+	{
+		padding-left: 40px;
+		font-size: 13px;
+	}
+	.check-out-form
+	{
+		border-top: 2px solid #DAE1E7;
+		padding-top: 40px;
+		margin-top: 20px;
+	}
+	.check-out-form .form-control
+	{
+		border: 1px solid #DAE1E7;
+		border-radius: 3px;
+		-webkit-box-shadow: none;
+		box-shadow: none;
+		margin-bottom: 30px;
+	}
+	.check-out-form .form-group label
+	{
+		font-size: 14px;
+		font-weight: 400;
+		margin-bottom: 10px;
+	}
+	.check-out-form .form-group .require
+	{
+		color: red;
+	}
+	.service-section .service-left .title
+	{
+		font-size: 16px;
+		line-height: 25px;
+		font-weight: 500;
+	}
+	/*End custom css*/
 	.st-checkout-page .cart-info {
 		border: 1px solid #D7DCE3;
 		-webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
@@ -320,11 +453,26 @@ div#cart-info {
 		text-align: left;
 		font-weight: 400;
 	}
+	.total-section .payment-amount .label
+	{
+		font-weight: 400;
+		font-size: 18px;
+	}
+	.total-section .payment-amount .value
+	{
+		font-weight: 400;
+		font-size: 18px;
+	}
 	.total-section ul li span.value {
 		font-size: 14px;
 		color: #5E6D77;
-		width: 60%;
+		float: right;
 		display: inline-block;
+	}
+	.total-section .payment-amount span.value
+	{
+		color: #1A2B48;
+		font-weight: 400;
 	}
 	.cond-form .st-icheck-item p{
 		color: red;

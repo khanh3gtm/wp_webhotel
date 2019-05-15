@@ -664,6 +664,7 @@ $sort_list=StSidebar::inst()->sortListHotel();
 
 																?>
 																<a href="<?php echo site_url('/'.$id_location->post_type.'/'.$id_location->post_name.'/?'.$start.$end.$date); ?>">
+
 																	<?php $image= get_the_post_thumbnail(get_the_ID(),[256,256],array('class'=>'img-responsive'));
 																	if(!empty($image)){
 																		echo $image;
