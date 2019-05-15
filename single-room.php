@@ -13,7 +13,6 @@
             <li class="active">
               <?php $query = get_post(get_the_ID());
               $title = apply_filters('the_title', $query->post_title);
-
               echo $title; ?>
             </li>
           </ul>
